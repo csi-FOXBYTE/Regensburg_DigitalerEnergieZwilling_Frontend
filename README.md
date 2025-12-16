@@ -46,30 +46,23 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 
 ```
 /src
-  ├── /shared                  # Shared Kernel
-  │   ├── /ui                  # STRICTLY "dumb" UI components (Buttons, Inputs). No business logic.
-  │   ├── /lib                 # Generic utilities (formatting, date helpers)
-  │   ├── /api                 # The configured Axios/Fetch wrapper (Section 3.4)
-  │   ├── /auth                # Passive Auth Client (checkSession)
-  │   └── /events              # Type definitions for the Window Event Bus (Section 3.5)
+  ├── /shared
+  │   └── /locales             # GLOBAL NAMESPACES
+  │       ├── common.json      # "Save", "Cancel", "Back"
+  │       └── validation.json  # "Field required", "Invalid email"
   │
-  ├── /modules                 # The Core Business Logic
-  │   ├── /cart                # Example Module "Island"
-  │   │   ├── /components      # React components specific ONLY to Cart
-  │   │   ├── /context         # React Context for Cart State (Section 3.3)
-  │   │   ├── /hooks           # Business logic hooks (e.g., useCartCalculations)
-  │   │   ├── /types           # TypeScript interfaces for this module
-  │   │   ├── CartIsland.tsx   # The Entry Point (The component Astro loads)
-  │   │   └── index.ts         # Public API (What parts of this module can be imported?)
+  ├── /modules
+  │   ├── /cart
+  │   │   ├── /components
+  │   │   ├── /context
+  │   │   └── /locales         # MODULE NAMESPACE
+  │   │       ├── de.json      # Keys: "subtotal", "checkout_btn", "empty_cart"
+  │   │       └── en.json
   │   │
-  │   └── /user-profile        # Another Module...
-  │
-  ├── /pages                   # Astro Routing
-  │   ├── index.astro
-  │   └── ...
-  │
-  ├── /layouts                 # Global Astro Layouts (HTML Shell)
-  └── /locales                 # i18n Namespaces
+  │   └── /user-profile
+  │       └── /locales
+  │           ├── de.json      # Keys: "change_password", "bio"
+  │           └── en.json
 ```
 
 ## Create a new module
