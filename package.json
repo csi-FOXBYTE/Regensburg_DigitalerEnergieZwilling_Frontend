@@ -6,9 +6,33 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "create:module": "tsx ./scripts/createModule"
   },
   "dependencies": {
-    "astro": "^5.16.5"
+    "@astrojs/react": "^4.4.2",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.6",
+    "@mui/material": "^7.3.6",
+    "@mui/x-charts": "^8.22.0",
+    "@tanstack/react-query": "^5.90.12",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^5.16.5",
+    "astro-i18next": "1.0.0-beta.21",
+    "better-auth": "^1.4.7",
+    "cesium": "^1.136.0",
+    "i18next": "^25.7.3",
+    "i18next-resources-to-backend": "^1.2.1",
+    "modern-normalize": "^3.0.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-i18next": "^16.5.0",
+    "resium": "^1.19.2",
+    "vite-plugin-cesium": "^1.2.23"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0"
   }
 }

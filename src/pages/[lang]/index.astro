@@ -1,0 +1,14 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import Viewer from "../../modules/viewer/index.astro";
+
+export function getStaticPaths() {
+    return [{ params: { lang: "de" }}, { params: { lang: "en" }}]
+}
+
+const lang = Astro.params.lang;
+---
+
+<MainLayout title="Test">
+    <Viewer />
+</MainLayout>
