@@ -26,8 +26,13 @@ async function createModule(name: unknown) {
     `---
 
 ---
-`
-  );
+`);
+
+  await writeFile(
+    path.resolve(root, "index.ts"), `
+export type Events {
+
+};`);
   for (const locale of config.locales) {
     await writeFile(path.resolve(root, "locales", `${locale}.json`), "");
   }

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+message BuildingData {
+  string id = 1;
+  string address = 2;
+  Construction construction = 3;
+  Geometry geometry = 4;
+}
+
+message Geometry {
+  float area = 1;
+  int32 floors = 2;
+  float height = 3;
+  int32 roof_type = 4;
+}
+
+message Construction {
+  int32 year_built = 1;
+  int32 roof = 2;
+  int32 facade = 3;
+  int32 windows = 4;
+  int32 basement = 5;
+}

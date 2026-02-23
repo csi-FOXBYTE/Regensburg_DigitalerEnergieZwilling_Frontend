@@ -6,6 +6,8 @@ import react from "@astrojs/react";
 import i18nTypeGen from "./plugins/i18nTypeGen";
 import i18nConfig from "./src/shared/locales";
 
+import tailwindcss from "@tailwindcss/vite";
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [react()],
@@ -17,7 +19,7 @@ export default defineConfig({
     },
   },
   vite: {
-    plugins: [cesium({}), i18nTypeGen()],
+    plugins: [cesium({}), i18nTypeGen(), tailwindcss()],
     optimizeDeps: {
       include: ["cesium", "resium"],
     },
