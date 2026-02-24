@@ -6,7 +6,11 @@
     "service": "dev",
     "workspaceFolder": "/workspace",
     "features": {
-        "ghcr.io/devcontainers/features/desktop-lite:1": {}
+        "ghcr.io/devcontainers/features/desktop-lite:1": {},
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+            "version": "latest",
+            "moby": false
+        }
     },
     "customizations": {
         "codespaces": {
