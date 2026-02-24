@@ -83,9 +83,15 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT || 22 }}
           script: |
-            echo "DEV deploy for tag ${{ steps.channel.outputs.tag }}"
-            echo "Image: ${{ steps.image.outputs.name }}:${{ steps.channel.outputs.tag }}"
-            # TODO: add your dev deploy commands
+            set -euo pipefail
+            IMAGE="${{ steps.image.outputs.name }}:${{ steps.channel.outputs.tag }}"
+            NAMESPACE="cc-loc-access-stack"
+            DEPLOYMENT="digital-energy-twin-public"
+            CONTAINER="public"
+
+            kubectl -n "${NAMESPACE}" set image deployment/"${DEPLOYMENT}" \
+              "${CONTAINER}"="${IMAGE}"
+            kubectl -n "${NAMESPACE}" rollout status deployment/"${DEPLOYMENT}"
 
       - name: SSH deploy (prod)
         if: steps.channel.outputs.name == 'prod'
@@ -96,6 +102,12 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT || 22 }}
           script: |
-            echo "PROD deploy for tag ${{ steps.channel.outputs.tag }}"
-            echo "Image: ${{ steps.image.outputs.name }}:${{ steps.channel.outputs.tag }}"
-            # TODO: add your prod deploy commands
+            set -euo pipefail
+            IMAGE="${{ steps.image.outputs.name }}:${{ steps.channel.outputs.tag }}"
+            NAMESPACE="cc-loc-access-stack"
+            DEPLOYMENT="digital-energy-twin-public"
+            CONTAINER="public"
+
+            kubectl -n "${NAMESPACE}" set image deployment/"${DEPLOYMENT}" \
+              "${CONTAINER}"="${IMAGE}"
+            kubectl -n "${NAMESPACE}" rollout status deployment/"${DEPLOYMENT}"
