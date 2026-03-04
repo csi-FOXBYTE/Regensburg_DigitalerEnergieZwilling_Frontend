@@ -1,22 +1,24 @@
-import {
-  Viewer,
-  Cesium3DTileset,
-  ImageryLayer,
-} from "resium";
+import { Viewer, Cesium3DTileset, ImageryLayer } from "resium";
 import "cesium/Build/Cesium/Widgets/widgets.css";
 import * as Cesium from "cesium";
-import { lazy, useState } from "react";
+import { lazy, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { Search, Navigation, ZoomIn, ZoomOut, Maximize2 } from "lucide-react";
 import { useDebouncedValue } from "../utils/debouncedValue";
 import { AnimatePresence, motion } from "motion/react";
+import {
+  setSelectedBuildingId,
+  useSelectedBuildingId,
+  useViewerStep,
+} from "../state/selectionStore";
+import { STEP } from "../types";
 
 const MiniMap = lazy(() => import("./Minimap"));
 
 const terrainProvider = Cesium.CesiumTerrainProvider.fromUrl(
   "https://fhhvrshare.blob.core.windows.net/regensburg/terrain",
-  {},
+  {}
 );
 
 const openStreetMapImagerProvider = new Cesium.UrlTemplateImageryProvider({
@@ -24,16 +26,23 @@ const openStreetMapImagerProvider = new Cesium.UrlTemplateImageryProvider({
   credit:
     "Map tiles by CartoDB, under CC BY 3.0. Data by OpenStreetMap, under ODbL.",
 });
-const style = new Cesium.Cesium3DTileStyle({
-  color: {
-    conditions: [["true", "color('white')"]],
-  },
-});
 
-function AdressSearch({
-  onAdressFound,
+function createTilesetStyle(selectedBuildingId: string | null) {
+  return new Cesium.Cesium3DTileStyle({
+    color: {
+      conditions: selectedBuildingId
+        ? [[`\${id} === '${selectedBuildingId}'`, "color('yellow')"], ["true", "color('white')"]]
+        : [["true", "color('white')"]],
+    },
+    edgeColor: "color('black')",
+    edgeWidth: selectedBuildingId ? 1.0 : 0.0,
+  });
+}
+
+function AddressSearch({
+  onAddressFound,
 }: {
-  onAdressFound: (lat: string, lon: string) => void;
+  onAddressFound: (lat: string, lon: string) => void;
 }) {
   const [search, setSearch] = useState("");
 
@@ -45,7 +54,7 @@ function AdressSearch({
       if (debouncedSearch === "") return [];
 
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?q=${debouncedSearch},Regensburg&format=json`,
+        `https://nominatim.openstreetmap.org/search?q=${debouncedSearch},Regensburg&format=json`
       );
 
       const json = await response.json();
@@ -62,9 +71,7 @@ function AdressSearch({
   });
 
   return (
-    <div
-      className={`absolute top-2 md:top-4 left-2 md:left-4 right-2 md:right-4 z-10 max-w-full md:max-w-md transition-all duration-300`}
-    >
+    <div className="absolute top-2 md:top-4 left-2 md:left-4 right-2 md:right-4 z-10 max-w-full md:max-w-md transition-all duration-300">
       <form
         className="relative"
         role="search"
@@ -89,7 +96,7 @@ function AdressSearch({
             <div
               className="w-full pl-9 md:pl-10 pr-10 md:pr-4 py-2.5 md:py-3 text-sm md:text-base border border-gray-300 bg-white shadow-lg focus:ring-2 focus:ring-[#D9291C] focus:border-[#D9291C] focus:outline-none outline-offset-2"
               key={d.place_id}
-              onClick={() => onAdressFound(d.lat, d.lon)}
+              onClick={() => onAddressFound(d.lat, d.lon)}
             >
               {d.display_name}
             </div>
@@ -100,173 +107,168 @@ function AdressSearch({
 }
 
 export function Map3D() {
+  const currentStep = useViewerStep();
+  const [selectedBuildingId] = useSelectedBuildingId();
   const [viewerRef, setViewerRef] = useState<Cesium.Viewer | null>(null);
-
+  const [tilesetRef, setTilesetRef] = useState<Cesium.Cesium3DTileset | null>(null);
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    if (!tilesetRef) return;
+    tilesetRef.style = createTilesetStyle(selectedBuildingId);
+    viewerRef?.scene.requestRender();
+  }, [selectedBuildingId, tilesetRef, viewerRef]);
+  const isInteractiveStep = currentStep === STEP.building;
+
   return (
-    <Viewer
-      ref={(ref) => {
-        if (!ref?.cesiumElement) return;
-
-        ref.cesiumElement.scene.globe.depthTestAgainstTerrain = true;
-
-        setViewerRef(ref.cesiumElement);
-
-        ref.cesiumElement.scene.camera.setView({
-          destination: new Cesium.Cartesian3(
-            4097950.7166549894,
-            878003.5980000327,
-            4792511.434740864,
-          ),
-          orientation: new Cesium.HeadingPitchRoll(
-            2.1531010795079872,
-            -0.32218730172914567,
-            6.283182266155325,
-          ),
-        });
-
-        const ambientOcclusion =
-          ref.cesiumElement.scene.postProcessStages.ambientOcclusion;
-        ambientOcclusion.enabled = true;
-
-        ref.cesiumElement.camera.frustum.near = 1.0; // very important for ao to work correctly
-
-        ambientOcclusion.uniforms.intensity = 3.0;
-        ambientOcclusion.uniforms.bias = 0.1;
-        ambientOcclusion.uniforms.lengthCap = 0.26;
-        ambientOcclusion.uniforms.stepCount = 8;
-        ambientOcclusion.uniforms.directionCount = 16;
-
-        ref.cesiumElement.scene.globe.baseColor = Cesium.Color.WHITE;
-
-        ref.cesiumElement.scene.globe.showGroundAtmosphere = false;
-      }}
-      geocoder={false}
-      baseLayer={false}
-      animation={false}
-      requestRenderMode={true}
-      baseLayerPicker={false}
-      projectionPicker={false}
-      homeButton={false}
-      infoBox={false}
-      vrButton={false}
-      timeline={false}
-      navigationHelpButton={false}
-      fullscreenButton={false}
-      scene3DOnly={true}
-      full={true}
-      terrainProvider={terrainProvider}
+    <div
+      className={`fixed inset-0 z-0 ${isInteractiveStep ? "pointer-events-auto" : "pointer-events-none"}`}
     >
-      <div
-        style={{
-          position: "absolute",
-          bottom: "10px",
-          right: "10px",
-          width: "200px",
-          height: "200px",
-          zIndex: "100",
-          border: "2px solid white",
-          overflow: "hidden",
-        }}
-      >
-        <MiniMap viewerRef={viewerRef} />
-      </div>
-      <AdressSearch
-        onAdressFound={(lat, lon) => {
-          if (!viewerRef) return;
+      <Viewer
+        ref={(ref) => {
+          if (!ref?.cesiumElement) return;
 
-          viewerRef.camera.flyTo({
-            easingFunction: Cesium.EasingFunction.LINEAR_NONE,
-            duration: 0.2,
-            destination: Cesium.Cartesian3.fromDegrees(
-              parseFloat(lon),
-              parseFloat(lat),
-              viewerRef.camera.positionCartographic
-                .height,
+          ref.cesiumElement.scene.globe.depthTestAgainstTerrain = true;
+          setViewerRef(ref.cesiumElement);
+
+          ref.cesiumElement.scene.camera.setView({
+            destination: new Cesium.Cartesian3(
+              4097950.7166549894,
+              878003.5980000327,
+              4792511.434740864
+            ),
+            orientation: new Cesium.HeadingPitchRoll(
+              2.1531010795079872,
+              -0.32218730172914567,
+              6.283182266155325
             ),
           });
+
+          const ambientOcclusion =
+            ref.cesiumElement.scene.postProcessStages.ambientOcclusion;
+          ambientOcclusion.enabled = true;
+          ref.cesiumElement.camera.frustum.near = 1.0;
+          ambientOcclusion.uniforms.intensity = 3.0;
+          ambientOcclusion.uniforms.bias = 0.1;
+          ambientOcclusion.uniforms.lengthCap = 0.26;
+          ambientOcclusion.uniforms.stepCount = 8;
+          ambientOcclusion.uniforms.directionCount = 16;
+
+          ref.cesiumElement.scene.globe.baseColor = Cesium.Color.WHITE;
+          ref.cesiumElement.scene.globe.showGroundAtmosphere = false;
         }}
-      />
-      <nav
-        className="absolute top-20 right-4 z-10 flex flex-col space-y-2"
-        aria-label="Kartensteuerung"
+        geocoder={false}
+        baseLayer={false}
+        animation={false}
+        requestRenderMode={true}
+        baseLayerPicker={false}
+        projectionPicker={false}
+        homeButton={false}
+        infoBox={false}
+        vrButton={false}
+        timeline={false}
+        navigationHelpButton={false}
+        fullscreenButton={false}
+        scene3DOnly={true}
+        full={true}
+        terrainProvider={terrainProvider}
       >
-        <button
-          className="bg-white p-2 rounded-lg shadow-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#D9291C] focus:ring-offset-2 border border-gray-300 transition-all"
-          title="Zoom In"
-          aria-label="Hineinzoomen"
-          onClick={() =>
-            console.log(viewerRef?.scene.camera)
-          }
+        <div
+          style={{
+            position: "absolute",
+            bottom: "10px",
+            right: "10px",
+            width: "200px",
+            height: "200px",
+            zIndex: "100",
+            border: "2px solid white",
+            overflow: "hidden",
+          }}
         >
-          <ZoomIn className="w-5 h-5 text-gray-700" aria-hidden="true" />
-        </button>
-        <button
-          className="bg-white p-2 rounded-lg shadow-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#D9291C] focus:ring-offset-2 border border-gray-300 transition-all"
-          title="Zoom Out"
-          aria-label="Herauszoomen"
-        >
-          <ZoomOut className="w-5 h-5 text-gray-700" aria-hidden="true" />
-        </button>
-        <button
-          className="bg-white p-2 rounded-lg shadow-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#D9291C] focus:ring-offset-2 border border-gray-300 transition-all"
-          title="Rotate"
-          aria-label="Karte um 45 Grad drehen"
-        >
-          <Navigation className="w-5 h-5 text-gray-700" aria-hidden="true" />
-        </button>
-        <button
-          className="bg-white p-2 rounded-lg shadow-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#D9291C] focus:ring-offset-2 border border-gray-300 transition-all"
-          title="Toggle 3D View"
-        >
-          <Maximize2 className="w-5 h-5 text-gray-700" aria-hidden="true" />
-        </button>
-      </nav>
-      <ImageryLayer imageryProvider={openStreetMapImagerProvider} />
-      <Cesium3DTileset
-        onAllTilesLoad={() => setLoading(false)}
-        onReady={(tileset) => {
-          tileset.style = style;
+          <MiniMap viewerRef={viewerRef} />
+        </div>
+        {isInteractiveStep && (
+          <>
+            <AddressSearch
+              onAddressFound={(lat, lon) => {
+                if (!viewerRef) return;
 
-          tileset.imageBasedLighting.imageBasedLightingFactor.x = 2;
-          tileset.imageBasedLighting.imageBasedLightingFactor.y = 2;
-        }}
-        onClick={(m, t) => {
-          const attribs: Record<string, unknown> = {};
-
-          for (const key of t.getPropertyIds()) {
-            attribs[key] = t.getProperty(key);
-          }
-
-          t.tileset.style = new Cesium.Cesium3DTileStyle({
-            edgeColor: "color('black')",
-            edgeWidth: 2.0,
-            color: {
-              conditions: [
-                ["${id} === '" + attribs["id"] + "'", "color('yellow')"],
-                ["true", "color('green')"],
-              ],
-            },
-          });
-
-          viewerRef?.scene.requestRender();
-        }}
-        url="https://fhhvrshare.blob.core.windows.net/regensburg/tiles/tileset.json"
-      />
-      <AnimatePresence>
-        {loading && (
-          <motion.div
-            key="loader"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
-            className="absolute inset-0 z-50 flex items-center justify-center bg-white/95 backdrop-blur-md"
-          >
-            <div>Lade Anwendung...</div>
-          </motion.div>
+                viewerRef.camera.flyTo({
+                  easingFunction: Cesium.EasingFunction.LINEAR_NONE,
+                  duration: 0.2,
+                  destination: Cesium.Cartesian3.fromDegrees(
+                    parseFloat(lon),
+                    parseFloat(lat),
+                    viewerRef.camera.positionCartographic.height
+                  ),
+                });
+              }}
+            />
+            <nav
+              className="absolute top-20 right-4 z-10 flex flex-col space-y-2"
+              aria-label="Kartensteuerung"
+            >
+              <button
+                className="bg-white p-2 rounded-lg shadow-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#D9291C] focus:ring-offset-2 border border-gray-300 transition-all"
+                title="Zoom In"
+                aria-label="Hineinzoomen"
+              >
+                <ZoomIn className="w-5 h-5 text-gray-700" aria-hidden="true" />
+              </button>
+              <button
+                className="bg-white p-2 rounded-lg shadow-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#D9291C] focus:ring-offset-2 border border-gray-300 transition-all"
+                title="Zoom Out"
+                aria-label="Herauszoomen"
+              >
+                <ZoomOut className="w-5 h-5 text-gray-700" aria-hidden="true" />
+              </button>
+              <button
+                className="bg-white p-2 rounded-lg shadow-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#D9291C] focus:ring-offset-2 border border-gray-300 transition-all"
+                title="Rotate"
+                aria-label="Karte um 45 Grad drehen"
+              >
+                <Navigation className="w-5 h-5 text-gray-700" aria-hidden="true" />
+              </button>
+              <button
+                className="bg-white p-2 rounded-lg shadow-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#D9291C] focus:ring-offset-2 border border-gray-300 transition-all"
+                title="Toggle 3D View"
+              >
+                <Maximize2 className="w-5 h-5 text-gray-700" aria-hidden="true" />
+              </button>
+            </nav>
+          </>
         )}
-      </AnimatePresence>
-    </Viewer>
+        <ImageryLayer imageryProvider={openStreetMapImagerProvider} />
+        <Cesium3DTileset
+          onAllTilesLoad={() => setLoading(false)}
+          onReady={(tileset) => {
+            setTilesetRef(tileset);
+            tileset.style = createTilesetStyle(selectedBuildingId);
+            tileset.imageBasedLighting.imageBasedLightingFactor.x = 2;
+            tileset.imageBasedLighting.imageBasedLightingFactor.y = 2;
+          }}
+          onClick={(_, feature) => {
+            if (!feature) return;
+            const rawId = feature.getProperty("id");
+            if (rawId === undefined || rawId === null) return;
+            setSelectedBuildingId(String(rawId));
+          }}
+          url="https://fhhvrshare.blob.core.windows.net/regensburg/tiles/tileset.json"
+        />
+        <AnimatePresence>
+          {loading && (
+            <motion.div
+              key="loader"
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+              className="absolute inset-0 z-50 flex items-center justify-center bg-white/95 backdrop-blur-md"
+            >
+              <div>Lade Anwendung...</div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </Viewer>
+    </div>
   );
 }

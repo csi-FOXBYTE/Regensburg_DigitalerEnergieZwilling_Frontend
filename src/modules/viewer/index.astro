@@ -1,9 +1,11 @@
 ---
 import * as Cesium from "cesium";
-import IndexComp from "./components/index";
+import MapIsland from "./components/MapIsland";
+import WorkflowIsland from "./components/WorkflowIsland";
 
 // @ts-ignore
 if (typeof window !== "undefined") window.Cesium = Cesium;
 ---
 
-<IndexComp client:only="react" />
+<MapIsland client:only="react" />
+<WorkflowIsland client:load />
