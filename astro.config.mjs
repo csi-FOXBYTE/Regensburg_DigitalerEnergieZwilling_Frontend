@@ -3,7 +3,7 @@ import { defineConfig } from "astro/config";
 import cesium from "vite-plugin-cesium";
 
 import react from "@astrojs/react";
-import i18nConfig from "@/lib/locales";
+import i18nConfig from "./src/lib/locales";
 
 import tailwindcss from "@tailwindcss/vite";
 
