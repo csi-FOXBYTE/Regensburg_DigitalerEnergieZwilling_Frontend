@@ -1,9 +1,9 @@
 import { useState, useMemo } from 'react';
 import { MapPin, Home, Calendar, Zap, Users, ArrowRight, HelpCircle, Database, TrendingUp, TrendingDown, Euro, Leaf, X } from 'lucide-react';
-import { type BuildingData } from '../types';
-import { calculateInitialEnergy } from '../utils/calculations';
+import { type BuildingData } from '../../../srcold/modules/viewer/types';
+import { calculateInitialEnergy } from '../../../srcold/modules/viewer/utils/calculations';
 import { Map3D } from './Map3D';
-import { ProgressBar } from './ProgressBar';
+import { ProgressBar } from '../../../srcold/modules/viewer/components/ProgressBar';
 
 interface BuildingSelectionProps {
   onBuildingSelect: (data: BuildingData) => void;

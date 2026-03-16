@@ -3,16 +3,13 @@ import "cesium/Build/Cesium/Widgets/widgets.css";
 import * as Cesium from "cesium";
 import { lazy, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-
+import { useStore } from '@nanostores/react'
 import { Search, Navigation, ZoomIn, ZoomOut, Maximize2 } from "lucide-react";
-import { useDebouncedValue } from "../utils/debouncedValue";
 import { AnimatePresence, motion } from "motion/react";
-import {
-  setSelectedBuildingId,
-  useSelectedBuildingId,
-  useViewerStep,
-} from "../state/selectionStore";
-import { STEP } from "../types";
+import { useDebounce } from "@uidotdev/usehooks";
+import { $step, Step } from "../progressBar/state";
+import { STEP } from "../../../srcold/modules/viewer/types";
+import { $building, setBuilding } from "./state";
 
 const MiniMap = lazy(() => import("./Minimap"));
 
@@ -46,7 +43,7 @@ function AddressSearch({
 }) {
   const [search, setSearch] = useState("");
 
-  const debouncedSearch = useDebouncedValue(search) ?? "";
+  const debouncedSearch = useDebounce(search, 500) ?? "";
 
   const { data = [] } = useQuery({
     queryKey: ["search", debouncedSearch],
@@ -107,18 +104,20 @@ function AddressSearch({
 }
 
 export function Map3D() {
-  const currentStep = useViewerStep();
-  const [selectedBuildingId] = useSelectedBuildingId();
+  const currentStep = useStore($step);
+  const building = useStore($building);
   const [viewerRef, setViewerRef] = useState<Cesium.Viewer | null>(null);
   const [tilesetRef, setTilesetRef] = useState<Cesium.Cesium3DTileset | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const selectedBuildingId = building ? building.id : null;
 
   useEffect(() => {
     if (!tilesetRef) return;
     tilesetRef.style = createTilesetStyle(selectedBuildingId);
     viewerRef?.scene.requestRender();
   }, [selectedBuildingId, tilesetRef, viewerRef]);
-  const isInteractiveStep = currentStep === STEP.building;
+  const isInteractiveStep = currentStep === Step.Building;
 
   return (
     <div
@@ -251,7 +250,7 @@ export function Map3D() {
             if (!feature) return;
             const rawId = feature.getProperty("id");
             if (rawId === undefined || rawId === null) return;
-            setSelectedBuildingId(String(rawId));
+            setBuilding({id: String(rawId)});
           }}
           url="https://fhhvrshare.blob.core.windows.net/regensburg/tiles/tileset.json"
         />

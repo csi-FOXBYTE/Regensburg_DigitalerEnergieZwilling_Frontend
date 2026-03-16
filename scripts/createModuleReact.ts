@@ -1,7 +1,7 @@
 import { existsSync } from "fs";
 import { mkdir, writeFile } from "fs/promises";
 import path from "path";
-import config from "../src/shared/locales";
+import config from "../src/lib/locales";
 
 async function createModule(name: unknown) {
   if (typeof name !== "string")

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BuildingSelection } from "./BuildingSelection";
+import { BuildingSelection } from "../../../../src/feature/map/BuildingSelection";
 import { SimulationScenarios } from "./SimulationScenarios";
 import { ResultsReview } from "./ResultsReview";
 import { DecisionSupport } from "./DecisionSupport";
