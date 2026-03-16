@@ -8,7 +8,6 @@ import { Search, Navigation, ZoomIn, ZoomOut, Maximize2 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useDebounce } from "@uidotdev/usehooks";
 import { $step, Step } from "../progressBar/state";
-import { STEP } from "../../../srcold/modules/viewer/types";
 import { $building, setBuilding } from "./state";
 
 const MiniMap = lazy(() => import("./Minimap"));
