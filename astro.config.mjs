@@ -6,9 +6,15 @@ import react from "@astrojs/react";
 
 import tailwindcss from "@tailwindcss/vite";
 
+import reactI18next from "astro-react-i18next";
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react()],
+  integrations: [react(), reactI18next({
+    defaultLocale: "en",
+    locales: ["de", "en"],
+    prefixDefaultLocale: true,
+  })],
   vite: {
     plugins: [cesium({}), tailwindcss()],
     optimizeDeps: {

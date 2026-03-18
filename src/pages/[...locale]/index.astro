@@ -2,17 +2,16 @@
 import MapIsland from "@/feature/map/MapIsland";
 import type { GetStaticPaths } from "astro";
 import DETLayout from "@/components/layouts/DETLayout.astro";
-import FullPageContainer from "@/components/layouts/FullPageContainer.astro";
+import { buildStaticPaths } from "astro-react-i18next/utils";
+import i18n from "i18next";
 
 export const getStaticPaths = (() => {
-  
-  return [
-    {params: {locale: "de"}},
-    {params: {locale: "en"}}
-  ];
+  return buildStaticPaths();
 }) satisfies GetStaticPaths;
+
+
 ---
 
 <DETLayout>
-    <MapIsland client:load/>
+  <MapIsland client:load/>
 </DETLayout>

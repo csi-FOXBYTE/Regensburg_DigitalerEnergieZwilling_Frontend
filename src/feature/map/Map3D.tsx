@@ -211,32 +211,32 @@ export function Map3D() {
               aria-label="Kartensteuerung"
             >
               <Button
-                size="icon-lg"
-                variant="secondary"
+                variant="map"
+                size="map"
                 title="Zoom In"
                 aria-label="Hineinzoomen"
               >
                 <ZoomIn aria-hidden="true" />
               </Button>
               <Button
-                size="icon-lg"
-                variant="secondary"
+                variant="map"
+                size="map"
                 title="Zoom Out"
                 aria-label="Herauszoomen"
               >
                 <ZoomOut aria-hidden="true" />
               </Button>
               <Button
-                size="icon-lg"
-                variant="secondary"
+                variant="map"
+                size="map"
                 title="Rotate"
                 aria-label="Karte um 45 Grad drehen"
               >
                 <Navigation aria-hidden="true" />
               </Button>
               <Button
-                size="icon-lg"
-                variant="secondary"
+                variant="map"
+                size="map"
                 title="Toggle 3D View"
               >
                 <Maximize2 aria-hidden="true" />

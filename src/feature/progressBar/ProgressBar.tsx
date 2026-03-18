@@ -10,9 +10,9 @@ function ProgressBarTick() {
 
 export default function ProgressBar() {
   const step = useStore($step);
-  const {t} = useTranslation("steps");
+  const {t} = useTranslation();
 
-  const label = t("0");
+  const label = t("hw");
 
   return <nav>
     {label}

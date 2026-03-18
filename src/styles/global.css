@@ -4,8 +4,6 @@
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
 
-@custom-variant dark (&:is(.dark *));
-
 :root {
   /* Regensburg Brand Colors */
   --regensburg-red: #e30613;
@@ -20,26 +18,26 @@
   --white: #ffffff;
 
   /* Semantic Tokens - Light Mode */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --background: var(--white);
+  --foreground: var(--neutral-850);
+  --card: var(--white);
+  --card-foreground: var(--foreground);
+  --popover: var(--white);
+  --popover-foreground: var(--foreground);
+  --primary: var(--regensburg-red);
   --primary-hover: var(--regensburg-red-dark);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
+  --primary-foreground: var(--white);
+  --secondary: var(--neutral-150);
+  --secondary-foreground: var(--neutral-850);
+  --muted: var(--neutral-150);
+  --muted-foreground: var(--neutral-550);
+  --accent: var(--neutral-150);
+  --accent-foreground: var(--foreground);
+  --destructive: var(--regensburg-red);
   --destructive-foreground: var(--white);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: var(--neutral-450);
+  --input: var(--white);
+  --ring: var(--regensburg-red);
   --footer: var(--neutral-850);
   --footer-foreground: var(--white);
 
@@ -51,8 +49,15 @@
   --chart-5: oklch(0.424 0.199 265.638);
 
   /* Radius - Regensburg uses sharp corners */
-  --radius: 0.625rem;
+  --radius: 0px;
 
+  /* Layout Sizes */
+  --title-height: 123px;
+  --title-height-mobile: 86px;
+  --nav-height: 68px;
+  --nav-height-mobile: 88px;
+  --header-height: calc(var(--title-height) + var(--nav-height));
+  --header-height-mobile: calc(var(--title-height-mobile) + var(--nav-height-mobile));
   --content-width: 1170px;
 
   /* Sidebar */
@@ -64,11 +69,35 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+    /* Typography */
+  --text-h1: 48px;
+  --leading-h1: 58px;
+  --text-h2: 36px;
+  --leading-h2: 46px;
+  --text-h3: 24px;
+  --leading-h3: 32px;
+  --text-h4: 18px;
+  --leading-h4: 28px;
+  --text-lead: 20px;
+  --leading-lead: 30px;
+  --text-body: 16px;
+  --leading-body: 26px;
+  --text-body-sm: 14px;
+  --leading-body-sm: 22px;
+
+  /* Mobile */
+  --text-h1-mobile: 34px;
+  --leading-h1-mobile: 45px;
+  --text-h2-mobile: 24px;
+  --leading-h2-mobile: 32px;
+  --text-h3-mobile: 20px;
+  --leading-h3-mobile: 32px;
 }
 
 @theme inline {
   /* Font */
-  --font-sans: 'Geist Variable', sans-serif;
+  --font-sans: "Open Sans", sans-serif;
 
   /* Colors */
   /* Neutral Scale */
@@ -138,38 +167,4 @@
   html {
     @apply font-sans;
   }
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
 }
