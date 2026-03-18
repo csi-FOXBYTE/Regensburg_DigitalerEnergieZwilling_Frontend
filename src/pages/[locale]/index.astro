@@ -1,0 +1,18 @@
+---
+import MapIsland from "@/feature/map/MapIsland";
+import type { GetStaticPaths } from "astro";
+import DETLayout from "@/components/layouts/DETLayout.astro";
+import FullPageContainer from "@/components/layouts/FullPageContainer.astro";
+
+export const getStaticPaths = (() => {
+  
+  return [
+    {params: {locale: "de"}},
+    {params: {locale: "en"}}
+  ];
+}) satisfies GetStaticPaths;
+---
+
+<DETLayout>
+    <MapIsland client:load/>
+</DETLayout>

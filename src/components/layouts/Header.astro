@@ -1,0 +1,40 @@
+<header class="bg-background shrink-0 absolute top-0 left-0 right-0">
+  <!-- Mobile -->
+  <div class="block md:hidden">
+    <div class="h-[86px] flex items-center px-[20px] py-[16px] border-b">
+      <!-- OnClick Action? -->
+      <div
+        class="text-[20px] leading-[28px] font-semibold text-primary cursor-pointer"
+        role="button"
+        tabindex={0}
+        aria-label="Seite neu laden"
+      >
+        Digitaler Energie Zwilling
+      </div>
+    </div>
+    <nav class="sticky top-0 z-30 bg-white px-5 py-4 h-[88px]">
+      <slot/>
+    </nav>
+  </div>
+  <!-- Desktop -->
+  <div class="hidden md:block">
+    <div class="h-[123px] flex items-center justify-between max-w-content mx-auto border-b">
+      <div
+        class="text-[24px] leading-[32px] font-semibold text-primary cursor-pointer"
+        role="button"
+        tab-index={0}
+        aria-label="Seite neu laden"
+      >
+        Digitaler Energie Zwilling
+      </div>  
+
+      <img
+        src="/logo.png"
+        alt="Stadt Regensburg Logo"
+        class="h-[60px] w-auto">
+    </div>
+    <nav class="h-[68px] flex flex-col justify-center max-w-[1170px] mx-auto">
+      <slot/>
+    </nav>
+  </div>
+</header>

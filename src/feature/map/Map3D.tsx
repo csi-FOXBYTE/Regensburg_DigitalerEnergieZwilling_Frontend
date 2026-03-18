@@ -1,7 +1,7 @@
 import { Viewer, Cesium3DTileset, ImageryLayer } from "resium";
 import "cesium/Build/Cesium/Widgets/widgets.css";
 import * as Cesium from "cesium";
-import { lazy, useEffect, useState } from "react";
+import { lazy, useEffect, useLayoutEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useStore } from '@nanostores/react'
 import { Search, Navigation, ZoomIn, ZoomOut, Maximize2 } from "lucide-react";
@@ -9,6 +9,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useDebounce } from "@uidotdev/usehooks";
 import { $step, Step } from "../progressBar/state";
 import { $building, setBuilding } from "./state";
+import { Button } from "@/components/ui/button";
 
 const MiniMap = lazy(() => import("./Minimap"));
 
@@ -116,45 +117,49 @@ export function Map3D() {
     tilesetRef.style = createTilesetStyle(selectedBuildingId);
     viewerRef?.scene.requestRender();
   }, [selectedBuildingId, tilesetRef, viewerRef]);
+
+  useLayoutEffect(() => {
+    if (!viewerRef) return;
+
+    viewerRef.scene.globe.depthTestAgainstTerrain = true;
+    viewerRef.scene.camera.setView({
+      destination: new Cesium.Cartesian3(
+        4097950.7166549894,
+        878003.5980000327,
+        4792511.434740864
+      ),
+      orientation: new Cesium.HeadingPitchRoll(
+        2.1531010795079872,
+        -0.32218730172914567,
+        6.283182266155325
+      ),
+    });
+
+    const ambientOcclusion = viewerRef.scene.postProcessStages.ambientOcclusion;
+    ambientOcclusion.enabled = true;
+    viewerRef.camera.frustum.near = 1.0;
+    ambientOcclusion.uniforms.intensity = 3.0;
+    ambientOcclusion.uniforms.bias = 0.1;
+    ambientOcclusion.uniforms.lengthCap = 0.26;
+    ambientOcclusion.uniforms.stepCount = 8;
+    ambientOcclusion.uniforms.directionCount = 16;
+
+    viewerRef.scene.globe.baseColor = Cesium.Color.WHITE;
+    viewerRef.scene.globe.showGroundAtmosphere = false;
+  }, [viewerRef]);
+
   const isInteractiveStep = currentStep === Step.Building;
 
   return (
     <div
-      className={`fixed inset-0 z-0 ${isInteractiveStep ? "pointer-events-auto" : "pointer-events-none"}`}
+      className={`relative w-full h-full ${isInteractiveStep ? "pointer-events-auto" : "pointer-events-none"}`}
     >
       <Viewer
         ref={(ref) => {
           if (!ref?.cesiumElement) return;
-
-          ref.cesiumElement.scene.globe.depthTestAgainstTerrain = true;
           setViewerRef(ref.cesiumElement);
-
-          ref.cesiumElement.scene.camera.setView({
-            destination: new Cesium.Cartesian3(
-              4097950.7166549894,
-              878003.5980000327,
-              4792511.434740864
-            ),
-            orientation: new Cesium.HeadingPitchRoll(
-              2.1531010795079872,
-              -0.32218730172914567,
-              6.283182266155325
-            ),
-          });
-
-          const ambientOcclusion =
-            ref.cesiumElement.scene.postProcessStages.ambientOcclusion;
-          ambientOcclusion.enabled = true;
-          ref.cesiumElement.camera.frustum.near = 1.0;
-          ambientOcclusion.uniforms.intensity = 3.0;
-          ambientOcclusion.uniforms.bias = 0.1;
-          ambientOcclusion.uniforms.lengthCap = 0.26;
-          ambientOcclusion.uniforms.stepCount = 8;
-          ambientOcclusion.uniforms.directionCount = 16;
-
-          ref.cesiumElement.scene.globe.baseColor = Cesium.Color.WHITE;
-          ref.cesiumElement.scene.globe.showGroundAtmosphere = false;
         }}
+        className="h-full"
         geocoder={false}
         baseLayer={false}
         animation={false}
@@ -168,7 +173,6 @@ export function Map3D() {
         navigationHelpButton={false}
         fullscreenButton={false}
         scene3DOnly={true}
-        full={true}
         terrainProvider={terrainProvider}
       >
         <div
@@ -206,33 +210,37 @@ export function Map3D() {
               className="absolute top-20 right-4 z-10 flex flex-col space-y-2"
               aria-label="Kartensteuerung"
             >
-              <button
-                className="bg-white p-2 rounded-lg shadow-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#D9291C] focus:ring-offset-2 border border-gray-300 transition-all"
+              <Button
+                size="icon-lg"
+                variant="secondary"
                 title="Zoom In"
                 aria-label="Hineinzoomen"
               >
-                <ZoomIn className="w-5 h-5 text-gray-700" aria-hidden="true" />
-              </button>
-              <button
-                className="bg-white p-2 rounded-lg shadow-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#D9291C] focus:ring-offset-2 border border-gray-300 transition-all"
+                <ZoomIn aria-hidden="true" />
+              </Button>
+              <Button
+                size="icon-lg"
+                variant="secondary"
                 title="Zoom Out"
                 aria-label="Herauszoomen"
               >
-                <ZoomOut className="w-5 h-5 text-gray-700" aria-hidden="true" />
-              </button>
-              <button
-                className="bg-white p-2 rounded-lg shadow-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#D9291C] focus:ring-offset-2 border border-gray-300 transition-all"
+                <ZoomOut aria-hidden="true" />
+              </Button>
+              <Button
+                size="icon-lg"
+                variant="secondary"
                 title="Rotate"
                 aria-label="Karte um 45 Grad drehen"
               >
-                <Navigation className="w-5 h-5 text-gray-700" aria-hidden="true" />
-              </button>
-              <button
-                className="bg-white p-2 rounded-lg shadow-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#D9291C] focus:ring-offset-2 border border-gray-300 transition-all"
+                <Navigation aria-hidden="true" />
+              </Button>
+              <Button
+                size="icon-lg"
+                variant="secondary"
                 title="Toggle 3D View"
               >
-                <Maximize2 className="w-5 h-5 text-gray-700" aria-hidden="true" />
-              </button>
+                <Maximize2 aria-hidden="true" />
+              </Button>
             </nav>
           </>
         )}

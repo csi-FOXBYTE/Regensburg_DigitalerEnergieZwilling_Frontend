@@ -1,5 +1,12 @@
 {
-    "viewer": {
-        "hello-world": "Heo World!"
-    }
+  "steps": {
+    "0": "Your renovation proposal in 7 steps",
+    "1": "Select Building",
+    "2": "General Data",
+    "3": "Exterior Building Components",
+    "4": "Heat Supply",
+    "5": "Electricity & Renewable Energies",
+    "6": "Renovation Measure",
+    "7": "Results"
+  }
 }

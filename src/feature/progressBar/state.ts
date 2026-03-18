@@ -1,4 +1,4 @@
-import {atom} from "nanostores"
+import { persistentAtom } from '@nanostores/persistent'
 
 export enum Step {
   Welcome = 0,
@@ -11,7 +11,10 @@ export enum Step {
   Result = 7
 }
 
-export const $step = atom(Step.Welcome);
+export const $step = persistentAtom("editorStep", Step.Building, {
+  encode: JSON.stringify,
+  decode: JSON.parse
+});
 
 export function setStep(step: Step) {
   $step.set(step);

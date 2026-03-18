@@ -1,0 +1,7 @@
+---
+// components/PageFlow.astro
+const { class: className = "" } = Astro.props;
+---
+<section class={`flex flex-col ${className}`}>
+  <slot />
+</section>
