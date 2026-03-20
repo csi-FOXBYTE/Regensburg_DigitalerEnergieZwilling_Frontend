@@ -1,15 +1,14 @@
-import { Viewer, Cesium3DTileset, ImageryLayer } from "resium";
-import "cesium/Build/Cesium/Widgets/widgets.css";
-import * as Cesium from "cesium";
-import { lazy, useEffect, useLayoutEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { useStore } from '@nanostores/react'
-import { Search, Navigation, ZoomIn, ZoomOut, Maximize2 } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
-import { useDebounce } from "@uidotdev/usehooks";
-import { $step, Step } from "../progressBar/state";
-import { $building, setBuilding } from "./state";
 import { Button } from "@/components/ui/button";
+import { useStore } from '@nanostores/react';
+import * as Cesium from "cesium";
+import "cesium/Build/Cesium/Widgets/widgets.css";
+import { Maximize2, Navigation, ZoomIn, ZoomOut } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import { lazy, useEffect, useLayoutEffect, useState } from "react";
+import { Cesium3DTileset, ImageryLayer, Viewer } from "resium";
+import { $step, Step } from "../progressBar/state";
+import AddressSearch from './AddressSearch';
+import { $building, setBuilding } from "./state";
 
 const MiniMap = lazy(() => import("./Minimap"));
 
@@ -36,72 +35,7 @@ function createTilesetStyle(selectedBuildingId: string | null) {
   });
 }
 
-function AddressSearch({
-  onAddressFound,
-}: {
-  onAddressFound: (lat: string, lon: string) => void;
-}) {
-  const [search, setSearch] = useState("");
 
-  const debouncedSearch = useDebounce(search, 500) ?? "";
-
-  const { data = [] } = useQuery({
-    queryKey: ["search", debouncedSearch],
-    queryFn: async () => {
-      if (debouncedSearch === "") return [];
-
-      const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?q=${debouncedSearch},Regensburg&format=json`
-      );
-
-      const json = await response.json();
-
-      return json as {
-        place_id: string;
-        licence: string;
-        name: string;
-        display_name: string;
-        lat: string;
-        lon: string;
-      }[];
-    },
-  });
-
-  return (
-    <div className="absolute top-2 md:top-4 left-2 md:left-4 right-2 md:right-4 z-10 max-w-full md:max-w-md transition-all duration-300">
-      <form
-        className="relative"
-        role="search"
-        aria-label="Gebäudeadresse suchen"
-        onSubmit={(e) => e.preventDefault()}
-      >
-        <Search
-          className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 md:w-5 md:h-5 text-gray-400"
-          aria-hidden="true"
-        />
-        <input
-          type="text"
-          onChange={(event) => setSearch(event.target.value)}
-          value={search}
-          placeholder="Adresse suchen in Regensburg..."
-          className="w-full pl-9 md:pl-10 pr-10 md:pr-4 py-2.5 md:py-3 text-sm md:text-base rounded-lg border border-gray-300 bg-white shadow-lg focus:ring-2 focus:ring-[#D9291C] focus:border-[#D9291C] focus:outline-none outline-offset-2"
-          aria-label="Adresse eingeben"
-        />
-      </form>
-      {data.length > 0
-        ? data.map((d) => (
-            <div
-              className="w-full pl-9 md:pl-10 pr-10 md:pr-4 py-2.5 md:py-3 text-sm md:text-base border border-gray-300 bg-white shadow-lg focus:ring-2 focus:ring-[#D9291C] focus:border-[#D9291C] focus:outline-none outline-offset-2"
-              key={d.place_id}
-              onClick={() => onAddressFound(d.lat, d.lon)}
-            >
-              {d.display_name}
-            </div>
-          ))
-        : null}
-    </div>
-  );
-}
 
 export function Map3D() {
   const currentStep = useStore($step);
@@ -212,7 +146,7 @@ export function Map3D() {
             >
               <Button
                 variant="map"
-                size="map"
+                size="icon"
                 title="Zoom In"
                 aria-label="Hineinzoomen"
               >
@@ -220,7 +154,7 @@ export function Map3D() {
               </Button>
               <Button
                 variant="map"
-                size="map"
+                size="icon"
                 title="Zoom Out"
                 aria-label="Herauszoomen"
               >
@@ -228,7 +162,7 @@ export function Map3D() {
               </Button>
               <Button
                 variant="map"
-                size="map"
+                size="icon"
                 title="Rotate"
                 aria-label="Karte um 45 Grad drehen"
               >
@@ -236,7 +170,7 @@ export function Map3D() {
               </Button>
               <Button
                 variant="map"
-                size="map"
+                size="icon"
                 title="Toggle 3D View"
               >
                 <Maximize2 aria-hidden="true" />

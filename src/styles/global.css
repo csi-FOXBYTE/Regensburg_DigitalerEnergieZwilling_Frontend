@@ -37,6 +37,7 @@
   --destructive-foreground: var(--white);
   --border: var(--neutral-450);
   --input: var(--white);
+  --input-border: var(--color-neutral-200);
   --ring: var(--regensburg-red);
   --footer: var(--neutral-850);
   --footer-foreground: var(--white);
@@ -59,6 +60,10 @@
   --header-height: calc(var(--title-height) + var(--nav-height));
   --header-height-mobile: calc(var(--title-height-mobile) + var(--nav-height-mobile));
   --content-width: 1170px;
+
+  /* Paddings */
+  --desktop-gutter: 30px;
+  --gutter: 20px;
 
   /* Sidebar */
   --sidebar: oklch(0.985 0 0);
@@ -85,6 +90,9 @@
   --leading-body: 26px;
   --text-body-sm: 14px;
   --leading-body-sm: 22px;
+  --text-body-xs: 12px;
+  --leading-body-xs: 18px;
+  
 
   /* Mobile */
   --text-h1-mobile: 34px;
@@ -126,6 +134,7 @@
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
+  --color-input-border: var(--input-border);
   --color-ring: var(--ring);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -151,6 +160,9 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+
+  --spacing-gutter: var(--gutter);
+  --spacing-gutter-desktop: var(--desktop-gutter);
 
   --container-content: var(--content-width);
 }

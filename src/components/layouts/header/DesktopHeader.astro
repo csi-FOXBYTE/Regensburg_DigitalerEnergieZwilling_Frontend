@@ -1,0 +1,19 @@
+<header
+  class="bg-background shrink-0 absolute top-0 left-0 right-0 px-gutter-desktop"
+>
+  <div
+    class="h-(--title-height) flex items-center justify-between max-w-content mx-auto border-b"
+  >
+    <div
+      class="text-[24px] leading-[32px] font-semibold text-primary cursor-pointer"
+      role="button"
+      tab-index={0}
+      aria-label="Seite neu laden"
+    >
+      Digitaler Energie Zwilling
+    </div>
+
+    <img src="/logo.png" alt="Stadt Regensburg Logo" class="h-[60px] w-auto" />
+  </div>
+  <slot />
+</header>
