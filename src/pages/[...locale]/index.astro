@@ -2,16 +2,29 @@
 import MapIsland from "@/feature/map/MapIsland";
 import type { GetStaticPaths } from "astro";
 import DETLayout from "@/components/layouts/DETLayout.astro";
+import StepGate from "@/components/StepGate.astro";
 import { buildStaticPaths } from "astro-react-i18next/utils";
 import i18n from "i18next";
 
 export const getStaticPaths = (() => {
   return buildStaticPaths();
 }) satisfies GetStaticPaths;
-
-
 ---
 
+<script>
+  import { $step, setStep } from "@/feature/progressBar/state";
+  document.querySelector("[data-next-step]")?.addEventListener("click", () => {
+    setStep($step.get() + 1);
+  });
+</script>
+
 <DETLayout>
-  <MapIsland client:load/>
+  <div class="relative h-full">
+    <MapIsland client:load/>
+    <StepGate step={0}>
+      <div class="absolute inset-0 bg-red-500 z-50 flex items-center justify-center">
+        <button data-next-step class="px-4 py-2 bg-white rounded font-semibold">Next</button>
+      </div>
+    </StepGate>
+  </div>
 </DETLayout>

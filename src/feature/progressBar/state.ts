@@ -16,7 +16,7 @@ export enum Step {
 //   decode: JSON.parse
 // });
 
-export const $step = atom<Step>(Step.Electricity);
+export const $step = atom<Step>(Step.Welcome);
 
 export function setStep(step: Step) {
   $step.set(step);

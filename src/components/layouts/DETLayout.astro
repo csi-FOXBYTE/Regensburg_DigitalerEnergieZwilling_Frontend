@@ -14,3 +14,16 @@ import ProgressBar from "@/feature/progressBar/ProgressBar";
   </Main>
   <Footer/>
 </BaseLayout>
+
+<script>
+  import { $step } from "@/feature/progressBar/state";
+
+  function update(step: number) {
+    document.querySelectorAll<HTMLElement>("[data-step-gate]").forEach((el) => {
+      const steps = el.dataset.stepGate!.split(",").map(Number);
+      el.style.display = steps.includes(step) ? "" : "none";
+    });
+  }
+
+  $step.subscribe(update);
+</script>

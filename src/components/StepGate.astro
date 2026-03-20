@@ -1,0 +1,13 @@
+---
+interface Props {
+  step?: number;
+  steps?: number[];
+}
+
+const { step, steps } = Astro.props;
+const stepsAttr = steps ? steps.join(',') : String(step);
+---
+
+<div data-step-gate={stepsAttr} style="display:none">
+  <slot />
+</div>
