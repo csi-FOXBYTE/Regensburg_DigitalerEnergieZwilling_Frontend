@@ -31,11 +31,15 @@ const MiniMap = ({ viewerRef }: { viewerRef: Cesium.Viewer | null }) => {
       if (center) {
         const lat = Cesium.Math.toDegrees(center.latitude);
         const lon = Cesium.Math.toDegrees(center.longitude);
-        const alt = Cesium.Math.toDegrees(center.height);
 
-        const zoom = Math.round(20 - Math.log2(alt / 2000));
+        const zoom = Math.max(8, Math.min(17, Math.round(20 - Math.log2(center.height / 35))));
 
         minimapRef.setView([lat, lon], zoom, { animate: false });
+
+        const headingDeg = Cesium.Math.toDegrees(camera.heading);
+        const container = minimapRef.getContainer();
+        container.style.transform = `rotate(${-headingDeg}deg) scale(1.5)`;
+        container.style.transformOrigin = "center center";
       }
     };
 

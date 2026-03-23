@@ -53,16 +53,14 @@
   --radius: 0px;
 
   /* Layout Sizes */
-  --title-height: 123px;
-  --title-height-mobile: 86px;
-  --nav-height: 68px;
-  --nav-height-mobile: 88px;
+  --title-height: 86px;
+  --nav-height: 88px;
   --header-height: calc(var(--title-height) + var(--nav-height));
-  --header-height-mobile: calc(var(--title-height-mobile) + var(--nav-height-mobile));
+  --content-height: calc(100dvh - var(--header-height));
   --content-width: 1170px;
+  --content-start-left: max(calc((100vw - var(--content-width)) / 2), var(--gutter));
 
   /* Paddings */
-  --desktop-gutter: 30px;
   --gutter: 20px;
 
   /* Sidebar */
@@ -75,12 +73,12 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 
-    /* Typography */
-  --text-h1: 48px;
-  --leading-h1: 58px;
-  --text-h2: 36px;
-  --leading-h2: 46px;
-  --text-h3: 24px;
+  /* Typography */
+  --text-h1: 34px;
+  --leading-h1: 45px;
+  --text-h2: 24px;
+  --leading-h2: 32px;
+  --text-h3: 20px;
   --leading-h3: 32px;
   --text-h4: 18px;
   --leading-h4: 28px;
@@ -92,15 +90,20 @@
   --leading-body-sm: 22px;
   --text-body-xs: 12px;
   --leading-body-xs: 18px;
-  
+}
 
-  /* Mobile */
-  --text-h1-mobile: 34px;
-  --leading-h1-mobile: 45px;
-  --text-h2-mobile: 24px;
-  --leading-h2-mobile: 32px;
-  --text-h3-mobile: 20px;
-  --leading-h3-mobile: 32px;
+@media (min-width: 768px) {
+  :root {
+    --title-height: 123px;
+    --nav-height: 68px;
+    --text-h1: 48px;
+    --leading-h1: 58px;
+    --text-h2: 36px;
+    --leading-h2: 46px;
+    --text-h3: 24px;
+    --leading-h3: 32px;
+    --gutter: 30px;
+  }
 }
 
 @theme inline {

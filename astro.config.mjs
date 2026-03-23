@@ -14,6 +14,8 @@ export default defineConfig({
     defaultLocale: "en",
     locales: ["de", "en"],
     prefixDefaultLocale: true,
+    defaultNamespace: "common",
+    namespaces: ["common", "landingPage", "progressBar"],
   })],
   vite: {
     plugins: [cesium({}), tailwindcss()],

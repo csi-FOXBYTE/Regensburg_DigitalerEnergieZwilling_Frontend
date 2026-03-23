@@ -86,7 +86,7 @@ export function Map3D() {
 
   return (
     <div
-      className={`relative w-full h-full ${isInteractiveStep ? "pointer-events-auto" : "pointer-events-none"}`}
+      className={`absolute top-(--header-height) left-0 w-full h-(--content-height) ${isInteractiveStep ? "pointer-events-auto" : "pointer-events-none"}`}
     >
       <Viewer
         ref={(ref) => {
@@ -109,22 +109,23 @@ export function Map3D() {
         scene3DOnly={true}
         terrainProvider={terrainProvider}
       >
-        <div
-          style={{
-            position: "absolute",
-            bottom: "10px",
-            right: "10px",
-            width: "200px",
-            height: "200px",
-            zIndex: "100",
-            border: "2px solid white",
-            overflow: "hidden",
-          }}
-        >
-          <MiniMap viewerRef={viewerRef} />
-        </div>
+        
         {isInteractiveStep && (
           <>
+            <div
+              style={{
+                position: "absolute",
+                bottom: "10px",
+                right: "10px",
+                width: "200px",
+                height: "200px",
+                zIndex: "100",
+                border: "2px solid white",
+                overflow: "hidden",
+              }}
+            >
+              <MiniMap viewerRef={viewerRef} />
+            </div>
             <AddressSearch
               onAddressFound={(lat, lon) => {
                 if (!viewerRef) return;
@@ -202,7 +203,7 @@ export function Map3D() {
               initial={{ opacity: 1 }}
               exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
               transition={{ duration: 0.8, ease: "easeInOut" }}
-              className="absolute inset-0 z-50 flex items-center justify-center bg-white/95 backdrop-blur-md"
+              className="absolute inset-0 z-10 flex items-center justify-center bg-white/95 backdrop-blur-md"
             >
               <div>Lade Anwendung...</div>
             </motion.div>

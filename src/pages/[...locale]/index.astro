@@ -2,9 +2,9 @@
 import MapIsland from "@/feature/map/MapIsland";
 import type { GetStaticPaths } from "astro";
 import DETLayout from "@/components/layouts/DETLayout.astro";
-import StepGate from "@/components/StepGate.astro";
 import { buildStaticPaths } from "astro-react-i18next/utils";
 import i18n from "i18next";
+import LandingPage from "../../feature/landingPage/LandingPage.astro";
 
 export const getStaticPaths = (() => {
   return buildStaticPaths();
@@ -19,12 +19,6 @@ export const getStaticPaths = (() => {
 </script>
 
 <DETLayout>
-  <div class="relative h-full">
-    <MapIsland client:load/>
-    <StepGate step={0}>
-      <div class="absolute inset-0 bg-red-500 z-50 flex items-center justify-center">
-        <button data-next-step class="px-4 py-2 bg-white rounded font-semibold">Next</button>
-      </div>
-    </StepGate>
-  </div>
+  <LandingPage />
+  <MapIsland client:load />
 </DETLayout>

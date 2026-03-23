@@ -22,7 +22,7 @@ function MobileProgressBar({step}: VisualProgressBarProps) {
   }, [step]);
 
   return (
-    <nav className="sticky top-0 z-30 px-gutter py-4 h-(--nav-height-mobile) flex flex-col justify-between">
+    <nav className="sticky top-0 z-30 px-gutter py-4 h-(--nav-height) flex flex-col justify-between">
       <div className='flex gap-3'>
         {step > 1 ? <Button size='icon' variant='map' className='shadow-none' onClick={stepBack}>
           <ArrowLeft/>
