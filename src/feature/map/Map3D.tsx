@@ -1,16 +1,11 @@
-import { Button } from "@/components/ui/button";
 import { useStore } from '@nanostores/react';
 import * as Cesium from "cesium";
 import "cesium/Build/Cesium/Widgets/widgets.css";
-import { Maximize2, Navigation, ZoomIn, ZoomOut } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { lazy, useEffect, useLayoutEffect, useState } from "react";
+import { type ReactNode, useEffect, useLayoutEffect, useState } from "react";
 import { Cesium3DTileset, ImageryLayer, Viewer } from "resium";
 import { $step, Step } from "../progressBar/state";
-import AddressSearch from './AddressSearch';
 import { $building, setBuilding } from "./state";
-
-const MiniMap = lazy(() => import("./Minimap"));
 
 const terrainProvider = Cesium.CesiumTerrainProvider.fromUrl(
   "https://fhhvrshare.blob.core.windows.net/regensburg/terrain",
@@ -35,9 +30,12 @@ function createTilesetStyle(selectedBuildingId: string | null) {
   });
 }
 
+type Map3DProps = {
+  children?: ReactNode;
+  onViewerReady?: (viewer: Cesium.Viewer) => void;
+};
 
-
-export function Map3D() {
+export function Map3D({ children, onViewerReady }: Map3DProps) {
   const currentStep = useStore($step);
   const building = useStore($building);
   const [viewerRef, setViewerRef] = useState<Cesium.Viewer | null>(null);
@@ -51,6 +49,12 @@ export function Map3D() {
     tilesetRef.style = createTilesetStyle(selectedBuildingId);
     viewerRef?.scene.requestRender();
   }, [selectedBuildingId, tilesetRef, viewerRef]);
+
+  useEffect(() => {
+    if (!viewerRef || building) return;
+    viewerRef.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+    viewerRef.scene.requestRender();
+  }, [building, viewerRef]);
 
   useLayoutEffect(() => {
     if (!viewerRef) return;
@@ -92,6 +96,7 @@ export function Map3D() {
         ref={(ref) => {
           if (!ref?.cesiumElement) return;
           setViewerRef(ref.cesiumElement);
+          onViewerReady?.(ref.cesiumElement);
         }}
         className="h-full"
         geocoder={false}
@@ -109,76 +114,7 @@ export function Map3D() {
         scene3DOnly={true}
         terrainProvider={terrainProvider}
       >
-        
-        {isInteractiveStep && (
-          <>
-            <div
-              style={{
-                position: "absolute",
-                bottom: "10px",
-                right: "10px",
-                width: "200px",
-                height: "200px",
-                zIndex: "100",
-                border: "2px solid white",
-                overflow: "hidden",
-              }}
-            >
-              <MiniMap viewerRef={viewerRef} />
-            </div>
-            <AddressSearch
-              onAddressFound={(lat, lon) => {
-                if (!viewerRef) return;
-
-                viewerRef.camera.flyTo({
-                  easingFunction: Cesium.EasingFunction.LINEAR_NONE,
-                  duration: 0.2,
-                  destination: Cesium.Cartesian3.fromDegrees(
-                    parseFloat(lon),
-                    parseFloat(lat),
-                    viewerRef.camera.positionCartographic.height
-                  ),
-                });
-              }}
-            />
-            <nav
-              className="absolute top-20 right-4 z-10 flex flex-col space-y-2"
-              aria-label="Kartensteuerung"
-            >
-              <Button
-                variant="map"
-                size="icon"
-                title="Zoom In"
-                aria-label="Hineinzoomen"
-              >
-                <ZoomIn aria-hidden="true" />
-              </Button>
-              <Button
-                variant="map"
-                size="icon"
-                title="Zoom Out"
-                aria-label="Herauszoomen"
-              >
-                <ZoomOut aria-hidden="true" />
-              </Button>
-              <Button
-                variant="map"
-                size="icon"
-                title="Rotate"
-                aria-label="Karte um 45 Grad drehen"
-              >
-                <Navigation aria-hidden="true" />
-              </Button>
-              <Button
-                variant="map"
-                size="icon"
-                title="Toggle 3D View"
-              >
-                <Maximize2 aria-hidden="true" />
-              </Button>
-            </nav>
-          </>
-        )}
+        {isInteractiveStep && children}
         <ImageryLayer imageryProvider={openStreetMapImagerProvider} />
         <Cesium3DTileset
           onAllTilesLoad={() => setLoading(false)}
@@ -188,11 +124,47 @@ export function Map3D() {
             tileset.imageBasedLighting.imageBasedLightingFactor.x = 2;
             tileset.imageBasedLighting.imageBasedLightingFactor.y = 2;
           }}
-          onClick={(_, feature) => {
-            if (!feature) return;
-            const rawId = feature.getProperty("id");
+          onClick={(movement, feature) => {
+            if (!feature || !viewerRef || !movement.position) return;
+            const tileFeature = feature as Cesium.Cesium3DTileFeature;
+            const rawId = tileFeature.getProperty("id");
             if (rawId === undefined || rawId === null) return;
-            setBuilding({id: String(rawId)});
+            setBuilding({ id: String(rawId) });
+
+            const picked = viewerRef.scene.pickPosition(movement.position);
+            if (!Cesium.defined(picked)) return;
+
+            const cartographic = Cesium.Cartographic.fromCartesian(picked);
+            const groundHeight = viewerRef.scene.globe.getHeight(cartographic) ?? 0;
+            const position = Cesium.Cartesian3.fromRadians(
+              cartographic.longitude,
+              cartographic.latitude,
+              groundHeight
+            );
+
+            viewerRef.camera.flyToBoundingSphere(
+              new Cesium.BoundingSphere(position, 50),
+              {
+                duration: 1.5,
+                offset: new Cesium.HeadingPitchRange(
+                  viewerRef.camera.heading,
+                  Cesium.Math.toRadians(-40),
+                  300
+                ),
+                complete: () => {
+                  viewerRef.camera.lookAt(
+                    position,
+                    new Cesium.HeadingPitchRange(
+                      viewerRef.camera.heading,
+                      viewerRef.camera.pitch,
+                      Cesium.Cartesian3.distance(viewerRef.camera.position, position)
+                    )
+                  );
+                  viewerRef.scene.requestRender();
+                },
+              }
+            );
+            feature.primitive.boundingSphere
           }}
           url="https://fhhvrshare.blob.core.windows.net/regensburg/tiles/tileset.json"
         />
