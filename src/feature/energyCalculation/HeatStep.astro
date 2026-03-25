@@ -1,0 +1,13 @@
+---
+import i18next from "i18next";
+import EnergyCalculationPage from "../../components/layouts/EnergyCalculationPage.astro";
+import { Typography } from "../../components/ui/typography";
+import ButtonBar from "./ButtonBar";
+---
+
+<EnergyCalculationPage step={4}>
+  <Typography variant="h2">
+    {i18next.t("energyCalculation:heat.title")}
+  </Typography>
+  <ButtonBar client:load />
+</EnergyCalculationPage>

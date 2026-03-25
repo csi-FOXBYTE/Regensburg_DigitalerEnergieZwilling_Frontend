@@ -1,0 +1,30 @@
+{
+  "stats": {
+    "energyDemand": "Energiebedarf",
+    "energyEfficiency": "Energieeffizienz",
+    "annualCosts": "Jährliche Kosten",
+    "co2Emissions": "CO₂-Emissionen"
+  },
+  "generalData": {
+    "title": "Allgemeine Daten zu Ihrem Gebäude"
+  },
+  "outerParts": {
+    "title": "Außenbauteile des Gebäudes"
+  },
+  "heat": {
+    "title": "Wärmeversorgung"
+  },
+  "electricity": {
+    "title": "Strom & erneuerbare Energien"
+  },
+  "rennovation": {
+    "title": "Sanierungsmaßnamen"
+  },
+  "result": {
+    "title": "Ihre Ergebnisse im Überblick"
+  },
+  "continueButton": "Weiter",
+  "backButton": "Zurück",
+  "resultsButton": "Ergebnis anzeigen",
+  "backFromResults": "Zurück zur Maßnahmenauswahl"
+}

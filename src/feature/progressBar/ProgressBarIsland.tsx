@@ -3,7 +3,7 @@ import ProgressBar from "./ProgressBar";
 
 export default function ProgressBarIsland() {
   return (
-    <ClientHydration lang="en">
+    <ClientHydration>
       <ProgressBar/>
     </ClientHydration>
   )

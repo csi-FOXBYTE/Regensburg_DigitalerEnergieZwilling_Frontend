@@ -5,6 +5,13 @@ import DETLayout from "@/components/layouts/DETLayout.astro";
 import { buildStaticPaths } from "astro-react-i18next/utils";
 import i18n from "i18next";
 import LandingPage from "../../feature/landingPage/LandingPage.astro";
+import EnergyCalculationPage from "../../components/layouts/EnergyCalculationPage.astro";
+import GeneralDataStep from "../../feature/energyCalculation/GeneralDataStep.astro";
+import OuterPartsStep from "../../feature/energyCalculation/OuterPartsStep.astro";
+import HeatStep from "../../feature/energyCalculation/HeatStep.astro";
+import ElectricityStep from "../../feature/energyCalculation/ElectricityStep.astro";
+import RenovationStep from "../../feature/energyCalculation/RenovationStep.astro";
+import Result from "../../feature/energyCalculation/Result.astro";
 
 export const getStaticPaths = (() => {
   return buildStaticPaths();
@@ -21,4 +28,10 @@ export const getStaticPaths = (() => {
 <DETLayout>
   <LandingPage />
   <MapIsland client:load />
+  <GeneralDataStep />
+  <OuterPartsStep />
+  <HeatStep />
+  <ElectricityStep />
+  <RenovationStep />
+  <Result />
 </DETLayout>

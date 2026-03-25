@@ -10,7 +10,7 @@ import { Button } from '../../components/ui/button';
 import { $step, setStep, Step } from "./state";
 
 type VisualProgressBarProps = {
-  step: number;
+  step: Step;
 }
 
 function MobileProgressBar({step}: VisualProgressBarProps) {
@@ -24,7 +24,7 @@ function MobileProgressBar({step}: VisualProgressBarProps) {
   return (
     <nav className="sticky top-0 z-30 px-gutter py-4 h-(--nav-height) flex flex-col justify-between">
       <div className='flex gap-3'>
-        {step > 1 ? <Button size='icon' variant='map' className='shadow-none' onClick={stepBack}>
+        {step > 1 ? <Button size='icon' variant='elevated' className='shadow-none' onClick={stepBack}>
           <ArrowLeft/>
         </Button> : null}
         <div className='flex flex-col'>

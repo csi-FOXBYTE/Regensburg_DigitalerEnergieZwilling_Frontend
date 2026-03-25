@@ -2,6 +2,7 @@ import ClientHydration from "@/components/ClientHydration";
 import * as Cesium from "cesium";
 import { useState } from "react";
 import AddressSearch from "./AddressSearch";
+import BuildingWindow from './BuildingWindow';
 import { Map3D } from "./Map3D";
 import { MapNav } from "./MapNav";
 
@@ -25,6 +26,7 @@ function MapWithControls() {
         }}
       />
       <MapNav viewer={viewer} />
+      <BuildingWindow/>
     </Map3D>
   );
 }
