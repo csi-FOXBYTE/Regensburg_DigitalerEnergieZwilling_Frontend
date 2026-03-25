@@ -27,7 +27,7 @@ export const getStaticPaths = (() => {
 
 <DETLayout>
   <LandingPage />
-  <MapIsland client:load />
+  <MapIsland client:only="react" />
   <GeneralDataStep />
   <OuterPartsStep />
   <HeatStep />
