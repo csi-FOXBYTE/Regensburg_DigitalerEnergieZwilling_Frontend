@@ -1,6 +1,5 @@
 ---
-import MapIsland from "@/feature/map/MapIsland";
-import * as Cesium from "cesium";
+import MapSection from "@/feature/map/MapSection.astro";
 import type { GetStaticPaths } from "astro";
 import DETLayout from "@/components/layouts/DETLayout.astro";
 import { buildStaticPaths } from "astro-react-i18next/utils";
@@ -17,9 +16,6 @@ import Result from "../../feature/energyCalculation/Result.astro";
 export const getStaticPaths = (() => {
   return buildStaticPaths();
 }) satisfies GetStaticPaths;
-
-// @ts-expect-error
-if (typeof window !== "undefined") window.Cesium = Cesium;
 ---
 
 <script>
@@ -31,7 +27,7 @@ if (typeof window !== "undefined") window.Cesium = Cesium;
 
 <DETLayout>
   <LandingPage />
-  <MapIsland client:only="react" />
+  <MapSection />
   <GeneralDataStep />
   <OuterPartsStep />
   <HeatStep />
