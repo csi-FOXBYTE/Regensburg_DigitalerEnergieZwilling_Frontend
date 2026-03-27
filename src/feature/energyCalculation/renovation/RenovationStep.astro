@@ -1,13 +1,13 @@
 ---
-import EnergyCalculationPage from "@/components/layouts/EnergyCalculationPage.astro";
-import { Typography } from "@/components/ui/typography";
-import i18next from "i18next";
-import ButtonBar from "../ButtonBar";
+import EnergyCalculationPage from '@/components/layouts/EnergyCalculationPage.astro';
+import { Typography } from '@/components/ui/typography';
+import i18next from 'i18next';
+import ButtonBar from '../ButtonBar';
 ---
 
 <EnergyCalculationPage step={6}>
   <Typography variant="h2">
-    {i18next.t("energyCalculation:rennovation.title")}
+    {i18next.t('energyCalculation:rennovation.title')}
   </Typography>
   <ButtonBar continueTextKey="resultsButton" client:load />
 </EnergyCalculationPage>

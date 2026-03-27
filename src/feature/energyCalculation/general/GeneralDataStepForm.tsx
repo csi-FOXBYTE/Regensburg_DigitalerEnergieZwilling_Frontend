@@ -8,15 +8,18 @@ import { InfoTooltipButton } from '../InfoButton';
 export default function GeneralDataStepForm() {
   return (
     <TooltipProvider>
-      <Paper variant="outlined" className='p-3'>
+      <Paper variant="outlined" className="p-3">
         <FieldGroup>
           <FieldSet>
-            <EnergyCalculationField labelKey='backButton' info={<InfoTooltipButton content={"Hi"}/>}>
-              <NumberInput/>
+            <EnergyCalculationField
+              labelKey="backButton"
+              info={<InfoTooltipButton content={'Hi'} />}
+            >
+              <NumberInput />
             </EnergyCalculationField>
           </FieldSet>
         </FieldGroup>
       </Paper>
     </TooltipProvider>
-  )
+  );
 }

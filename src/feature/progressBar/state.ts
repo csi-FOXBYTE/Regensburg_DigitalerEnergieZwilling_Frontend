@@ -8,7 +8,7 @@ export enum Step {
   Heat = 4,
   Electricity = 5,
   Renovation = 6,
-  Result = 7
+  Result = 7,
 }
 
 export const $step = atom<Step>(Step.GeneralData);

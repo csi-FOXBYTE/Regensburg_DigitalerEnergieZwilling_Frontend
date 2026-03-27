@@ -3,8 +3,8 @@ interface Props {
   step: number | number[];
   class?: string;
 }
-const { step, class: className = "" } = Astro.props;
-const stepGate = Array.isArray(step) ? step.join(",") : String(step);
+const { step, class: className = '' } = Astro.props;
+const stepGate = Array.isArray(step) ? step.join(',') : String(step);
 ---
 
 <section
@@ -12,7 +12,7 @@ const stepGate = Array.isArray(step) ? step.join(",") : String(step);
   style="display:none"
   class={`bg-background flex min-h-full flex-col items-center z-20 overflow-x-hidden ${className} px-gutter`}
 >
-  <div class="w-content max-w-full py-6 flex flex-col gap-3">
+  <div class="w-content flex max-w-full flex-col gap-3 py-6">
     <slot />
   </div>
 </section>

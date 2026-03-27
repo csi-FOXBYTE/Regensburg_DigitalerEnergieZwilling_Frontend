@@ -1,10 +1,10 @@
-import ClientHydration from "@/components/ClientHydration";
-import * as Cesium from "cesium";
-import { useState } from "react";
-import AddressSearch from "./AddressSearch";
+import ClientHydration from '@/components/ClientHydration';
+import * as Cesium from 'cesium';
+import { useState } from 'react';
+import AddressSearch from './AddressSearch';
 import BuildingWindow from './BuildingWindow';
-import { Map3D } from "./Map3D";
-import { MapNav } from "./MapNav";
+import { Map3D } from './Map3D';
+import { MapNav } from './MapNav';
 
 function MapWithControls() {
   const [viewer, setViewer] = useState<Cesium.Viewer | null>(null);
@@ -20,13 +20,13 @@ function MapWithControls() {
             destination: Cesium.Cartesian3.fromDegrees(
               parseFloat(lon),
               parseFloat(lat),
-              viewer.camera.positionCartographic.height
+              viewer.camera.positionCartographic.height,
             ),
           });
         }}
       />
       <MapNav viewer={viewer} />
-      <BuildingWindow/>
+      <BuildingWindow />
     </Map3D>
   );
 }

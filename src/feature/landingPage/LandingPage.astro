@@ -1,32 +1,32 @@
 ---
-import ArrowIcon from "@/components/ArrowIcon";
-import i18n from "i18next";
-import { AlertCircle } from "lucide-react";
-import { Typography } from "../../components/ui/typography";
+import ArrowIcon from '@/components/ArrowIcon';
+import i18n from 'i18next';
+import { AlertCircle } from 'lucide-react';
+import { Typography } from '../../components/ui/typography';
 ---
 
 <div
   data-step-gate="0"
   style="display:none"
-  class="col-start-1 row-start-1 h-full md:max-w-[max(768px,calc(100vw-400px))] px-gutter bg-white/80 backdrop-blur-md z-20 pl-(--content-start-left) flex flex-col gap-8 py-10 md:py-20"
+  class="px-gutter z-20 col-start-1 row-start-1 flex h-full flex-col gap-8 bg-white/80 py-10 pl-(--content-start-left) backdrop-blur-md md:max-w-[max(768px,calc(100vw-400px))] md:py-20"
 >
-  <Typography as="h1" variant="h1">{i18n.t("landingPage:title")}</Typography>
-  <Typography variant="lead">{i18n.t("landingPage:aboutText")}</Typography>
+  <Typography as="h1" variant="h1">{i18n.t('landingPage:title')}</Typography>
+  <Typography variant="lead">{i18n.t('landingPage:aboutText')}</Typography>
   <button
     data-next-step
-    class="group/button py-3 px-7 w-fit bg-primary text-primary-foreground flex items-center gap-2"
+    class="group/button bg-primary text-primary-foreground flex w-fit items-center gap-2 px-7 py-3"
   >
-    {i18n.t("landingPage:startButton")}
+    {i18n.t('landingPage:startButton')}
     <ArrowIcon />
   </button>
-  <div class="border-primary border flex gap-4 p-4">
-    <AlertCircle className="text-primary" size={"32"} />
+  <div class="border-primary flex gap-4 border p-4">
+    <AlertCircle className="text-primary" size={'32'} />
     <div>
-      <Typography variant={"h4"}>
-        {i18n.t("landingPage:remarkTitle")}
+      <Typography variant={'h4'}>
+        {i18n.t('landingPage:remarkTitle')}
       </Typography>
-      <Typography variant={"body"}>
-        {i18n.t("landingPage:remarkContent")}
+      <Typography variant={'body'}>
+        {i18n.t('landingPage:remarkContent')}
       </Typography>
     </div>
   </div>

@@ -1,8 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&display=swap");
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&display=swap');
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+@import '@fontsource-variable/geist';
 
 :root {
   /* Regensburg Brand Colors */
@@ -58,7 +58,10 @@
   --header-height: calc(var(--title-height) + var(--nav-height));
   --content-height: calc(100dvh - var(--header-height));
   --content-width: 1170px;
-  --content-start-left: max(calc((100vw - var(--content-width)) / 2), var(--gutter));
+  --content-start-left: max(
+    calc((100vw - var(--content-width)) / 2),
+    var(--gutter)
+  );
 
   /* Paddings */
   --gutter: 20px;
@@ -109,13 +112,13 @@
 @theme inline {
   /* Symmetric (all-direction) shadows for Paper */
   --shadow-paper-1: 0 0 4px 0 rgb(0 0 0 / 0.08);
-  --shadow-paper-2: 0 0 8px 0 rgb(0 0 0 / 0.10);
+  --shadow-paper-2: 0 0 8px 0 rgb(0 0 0 / 0.1);
   --shadow-paper-3: 0 0 16px 2px rgb(0 0 0 / 0.12);
   --shadow-paper-4: 0 0 24px 4px rgb(0 0 0 / 0.14);
   --shadow-paper-5: 0 0 32px 6px rgb(0 0 0 / 0.16);
 
   /* Font */
-  --font-sans: "Open Sans", sans-serif;
+  --font-sans: 'Open Sans', sans-serif;
 
   /* Colors */
   /* Neutral Scale */

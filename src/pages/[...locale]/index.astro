@@ -1,15 +1,15 @@
 ---
-import MapSection from "@/feature/map/MapSection.astro";
-import type { GetStaticPaths } from "astro";
-import DETLayout from "@/components/layouts/DETLayout.astro";
-import { buildStaticPaths } from "astro-react-i18next/utils";
-import LandingPage from "@/feature/landingPage/LandingPage.astro";
-import GeneralDataStep from "@/feature/energyCalculation/general/GeneralDataStep.astro";
-import OuterPartsStep from "@/feature/energyCalculation/outer/OuterPartsStep.astro";
-import HeatStep from "@/feature/energyCalculation/heat/HeatStep.astro";
-import ElectricityStep from "@/feature/energyCalculation/electricity/ElectricityStep.astro";
-import RenovationStep from "@/feature/energyCalculation/renovation/RenovationStep.astro";
-import Result from "@/feature/energyCalculation/result/Result.astro";
+import MapSection from '@/feature/map/MapSection.astro';
+import type { GetStaticPaths } from 'astro';
+import DETLayout from '@/components/layouts/DETLayout.astro';
+import { buildStaticPaths } from 'astro-react-i18next/utils';
+import LandingPage from '@/feature/landingPage/LandingPage.astro';
+import GeneralDataStep from '@/feature/energyCalculation/general/GeneralDataStep.astro';
+import OuterPartsStep from '@/feature/energyCalculation/outer/OuterPartsStep.astro';
+import HeatStep from '@/feature/energyCalculation/heat/HeatStep.astro';
+import ElectricityStep from '@/feature/energyCalculation/electricity/ElectricityStep.astro';
+import RenovationStep from '@/feature/energyCalculation/renovation/RenovationStep.astro';
+import Result from '@/feature/energyCalculation/result/Result.astro';
 
 export const getStaticPaths = (() => {
   return buildStaticPaths();
@@ -17,8 +17,8 @@ export const getStaticPaths = (() => {
 ---
 
 <script>
-  import { $step, setStep } from "@/feature/progressBar/state";
-  document.querySelector("[data-next-step]")?.addEventListener("click", () => {
+  import { $step, setStep } from '@/feature/progressBar/state';
+  document.querySelector('[data-next-step]')?.addEventListener('click', () => {
     setStep($step.get() + 1);
   });
 </script>

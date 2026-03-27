@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 function useIsDesktop() {
   const [mounted, setMounted] = useState(false);
@@ -7,12 +7,12 @@ function useIsDesktop() {
   useEffect(() => {
     setMounted(true);
 
-    const media = window.matchMedia("(min-width: 768px)");
+    const media = window.matchMedia('(min-width: 768px)');
     const update = () => setIsDesktop(media.matches);
 
     update();
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
   }, []);
 
   return { mounted, isDesktop };

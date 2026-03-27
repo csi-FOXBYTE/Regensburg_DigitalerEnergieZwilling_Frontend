@@ -1,16 +1,16 @@
 export type ArrowIconProps = {
   className?: string;
   strokeClass?: string;
-}
+};
 
 export default function ArrowIcon({
-  className = "",
-  strokeClass = "stroke-white",
+  className = '',
+  strokeClass = 'stroke-white',
 }: ArrowIconProps) {
   return (
     <div className={`shrink-0 overflow-hidden ${className}`.trim()}>
       <svg
-        className="w-6 -ml-1.5 mr-1.5 group-hover/button:ml-0 group-hover/button:mr-0 transition-[margin] duration-300 ease-in-out"
+        className="mr-1.5 -ml-1.5 w-6 transition-[margin] duration-300 ease-in-out group-hover/button:mr-0 group-hover/button:ml-0"
         viewBox="0 0 32 16"
         fill="none"
         aria-hidden="true"

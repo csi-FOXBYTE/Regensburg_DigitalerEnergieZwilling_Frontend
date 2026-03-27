@@ -1,29 +1,32 @@
 import { useStore } from '@nanostores/react';
-import * as Cesium from "cesium";
-import "cesium/Build/Cesium/Widgets/widgets.css";
-import { AnimatePresence, motion } from "motion/react";
-import { type ReactNode, useEffect, useLayoutEffect, useState } from "react";
-import { Cesium3DTileset, ImageryLayer, Viewer } from "resium";
-import { $step, Step } from "../progressBar/state";
-import { $building, setBuilding } from "./state";
+import * as Cesium from 'cesium';
+import 'cesium/Build/Cesium/Widgets/widgets.css';
+import { AnimatePresence, motion } from 'motion/react';
+import { type ReactNode, useEffect, useLayoutEffect, useState } from 'react';
+import { Cesium3DTileset, ImageryLayer, Viewer } from 'resium';
+import { $step, Step } from '../progressBar/state';
+import { $building, setBuilding } from './state';
 
 const terrainProvider = Cesium.CesiumTerrainProvider.fromUrl(
-  "https://fhhvrshare.blob.core.windows.net/regensburg/terrain",
-  {}
+  'https://fhhvrshare.blob.core.windows.net/regensburg/terrain',
+  {},
 );
 
 const openStreetMapImagerProvider = new Cesium.UrlTemplateImageryProvider({
-  url: "https://intergeo38.bayernwolke.de/betty/g_topopluslight/{z}/{x}/{y}",
+  url: 'https://intergeo38.bayernwolke.de/betty/g_topopluslight/{z}/{x}/{y}',
   credit:
-    "Map tiles by CartoDB, under CC BY 3.0. Data by OpenStreetMap, under ODbL.",
+    'Map tiles by CartoDB, under CC BY 3.0. Data by OpenStreetMap, under ODbL.',
 });
 
 function createTilesetStyle(selectedBuildingId: string | null) {
   return new Cesium.Cesium3DTileStyle({
     color: {
       conditions: selectedBuildingId
-        ? [[`\${id} === '${selectedBuildingId}'`, "color('yellow')"], ["true", "color('white')"]]
-        : [["true", "color('white')"]],
+        ? [
+            [`\${id} === '${selectedBuildingId}'`, "color('yellow')"],
+            ['true', "color('white')"],
+          ]
+        : [['true', "color('white')"]],
     },
     edgeColor: "color('black')",
     edgeWidth: selectedBuildingId ? 1.0 : 0.0,
@@ -39,7 +42,9 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
   const currentStep = useStore($step);
   const building = useStore($building);
   const [viewerRef, setViewerRef] = useState<Cesium.Viewer | null>(null);
-  const [tilesetRef, setTilesetRef] = useState<Cesium.Cesium3DTileset | null>(null);
+  const [tilesetRef, setTilesetRef] = useState<Cesium.Cesium3DTileset | null>(
+    null,
+  );
   const [loading, setLoading] = useState(true);
 
   const selectedBuildingId = building ? building.id : null;
@@ -64,12 +69,12 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
       destination: new Cesium.Cartesian3(
         4097950.7166549894,
         878003.5980000327,
-        4792511.434740864
+        4792511.434740864,
       ),
       orientation: new Cesium.HeadingPitchRoll(
         2.1531010795079872,
         -0.32218730172914567,
-        6.283182266155325
+        6.283182266155325,
       ),
     });
 
@@ -90,7 +95,7 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
 
   return (
     <div
-      className={`absolute top-(--header-height) left-0 w-full h-(--content-height) ${isInteractiveStep ? "pointer-events-auto" : "pointer-events-none"}`}
+      className={`absolute top-(--header-height) left-0 h-(--content-height) w-full ${isInteractiveStep ? 'pointer-events-auto' : 'pointer-events-none'}`}
     >
       <Viewer
         ref={(ref) => {
@@ -127,7 +132,7 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
           onClick={(movement, feature) => {
             if (!feature || !viewerRef || !movement.position) return;
             const tileFeature = feature as Cesium.Cesium3DTileFeature;
-            const rawId = tileFeature.getProperty("id");
+            const rawId = tileFeature.getProperty('id');
             if (rawId === undefined || rawId === null) return;
             setBuilding({ id: String(rawId) });
 
@@ -135,11 +140,12 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
             if (!Cesium.defined(picked)) return;
 
             const cartographic = Cesium.Cartographic.fromCartesian(picked);
-            const groundHeight = viewerRef.scene.globe.getHeight(cartographic) ?? 0;
+            const groundHeight =
+              viewerRef.scene.globe.getHeight(cartographic) ?? 0;
             const position = Cesium.Cartesian3.fromRadians(
               cartographic.longitude,
               cartographic.latitude,
-              groundHeight
+              groundHeight,
             );
 
             viewerRef.camera.flyToBoundingSphere(
@@ -149,7 +155,7 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
                 offset: new Cesium.HeadingPitchRange(
                   viewerRef.camera.heading,
                   Cesium.Math.toRadians(-40),
-                  300
+                  300,
                 ),
                 complete: () => {
                   viewerRef.camera.lookAt(
@@ -157,14 +163,17 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
                     new Cesium.HeadingPitchRange(
                       viewerRef.camera.heading,
                       viewerRef.camera.pitch,
-                      Cesium.Cartesian3.distance(viewerRef.camera.position, position)
-                    )
+                      Cesium.Cartesian3.distance(
+                        viewerRef.camera.position,
+                        position,
+                      ),
+                    ),
                   );
                   viewerRef.scene.requestRender();
                 },
-              }
+              },
             );
-            feature.primitive.boundingSphere
+            feature.primitive.boundingSphere;
           }}
           url="https://fhhvrshare.blob.core.windows.net/regensburg/tiles/tileset.json"
         />
@@ -173,8 +182,8 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
             <motion.div
               key="loader"
               initial={{ opacity: 1 }}
-              exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
+              exit={{ opacity: 0, scale: 1.05, filter: 'blur(10px)' }}
+              transition={{ duration: 0.8, ease: 'easeInOut' }}
               className="absolute inset-0 z-10 flex items-center justify-center bg-white/95 backdrop-blur-md"
             >
               <div>Lade Anwendung...</div>

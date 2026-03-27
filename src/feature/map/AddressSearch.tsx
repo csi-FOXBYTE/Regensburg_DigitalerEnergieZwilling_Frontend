@@ -9,17 +9,17 @@ export default function AddressSearch({
 }: {
   onAddressFound: (lat: string, lon: string) => void;
 }) {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
-  const debouncedSearch = useDebounce(search, 500) ?? "";
+  const debouncedSearch = useDebounce(search, 500) ?? '';
 
   const { data = [] } = useQuery({
-    queryKey: ["search", debouncedSearch],
+    queryKey: ['search', debouncedSearch],
     queryFn: async () => {
-      if (debouncedSearch === "") return [];
+      if (debouncedSearch === '') return [];
 
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?q=${debouncedSearch},Regensburg&format=json`
+        `https://nominatim.openstreetmap.org/search?q=${debouncedSearch},Regensburg&format=json`,
       );
 
       const json = await response.json();
@@ -36,7 +36,7 @@ export default function AddressSearch({
   });
 
   return (
-    <div className="absolute top-2 md:top-4 left-2 md:left-4 right-2 md:right-4 z-10 max-w-full md:max-w-md transition-all duration-300">
+    <div className="absolute top-2 right-2 left-2 z-10 max-w-full transition-all duration-300 md:top-4 md:right-4 md:left-4 md:max-w-md">
       <form
         className="relative"
         role="search"
@@ -48,7 +48,7 @@ export default function AddressSearch({
           leftIcon={<Search />}
           onChange={(event) => setSearch(event.target.value)}
           value={search}
-          className='py-3'
+          className="py-3"
           placeholder="Adresse suchen in Regensburg..."
           aria-label="Adresse eingeben"
         />
@@ -56,7 +56,7 @@ export default function AddressSearch({
       {data.length > 0
         ? data.map((d) => (
             <div
-              className="w-full pl-9 md:pl-10 pr-10 md:pr-4 py-2.5 md:py-3 text-sm md:text-base border border-gray-300 bg-white shadow-lg focus:ring-2 focus:ring-[#D9291C] focus:border-[#D9291C] focus:outline-none outline-offset-2"
+              className="w-full border border-gray-300 bg-white py-2.5 pr-10 pl-9 text-sm shadow-lg outline-offset-2 focus:border-[#D9291C] focus:ring-2 focus:ring-[#D9291C] focus:outline-none md:py-3 md:pr-4 md:pl-10 md:text-base"
               key={d.place_id}
               onClick={() => onAddressFound(d.lat, d.lon)}
             >

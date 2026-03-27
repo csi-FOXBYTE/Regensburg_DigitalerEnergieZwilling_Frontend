@@ -1,8 +1,8 @@
-import { atom } from "nanostores";
+import { atom } from 'nanostores';
 
 export type BuildingState = {
   id: string;
-}
+};
 
 export const $building = atom<BuildingState | null>(null);
 

@@ -7,13 +7,16 @@ import { Button } from '../../components/ui/button';
 import { $step, setStep } from '../progressBar/state';
 
 export type ButtonBarProps = {
-  backTextKey?: ParseKeys<"energyCalculation">,
-  continueTextKey?: ParseKeys<"energyCalculation">,
-}
+  backTextKey?: ParseKeys<'energyCalculation'>;
+  continueTextKey?: ParseKeys<'energyCalculation'>;
+};
 
-export default function ButtonBar({continueTextKey, backTextKey}: ButtonBarProps) {
-  const {t} = useTranslation("energyCalculation");
-  
+export default function ButtonBar({
+  continueTextKey,
+  backTextKey,
+}: ButtonBarProps) {
+  const { t } = useTranslation('energyCalculation');
+
   const step = useStore($step);
 
   const hasNextStep = step < 7;
@@ -26,13 +29,23 @@ export default function ButtonBar({continueTextKey, backTextKey}: ButtonBarProps
   }, [step]);
 
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 gap-2 w-full'>
-      <Button onClick={previousStep} className={`w-full ${!hasNextStep ? "col-span-full" : "col-span-1"}`} variant="secondary">
-        {t(backTextKey ?? "backButton")}
+    <div className="grid w-full grid-cols-1 gap-2 md:grid-cols-2">
+      <Button
+        onClick={previousStep}
+        className={`w-full ${!hasNextStep ? 'col-span-full' : 'col-span-1'}`}
+        variant="secondary"
+      >
+        {t(backTextKey ?? 'backButton')}
       </Button>
-      {hasNextStep && <Button onClick={nextStep} className="col-span-1 w-full flex gap-2" variant="primary">
-        {t(continueTextKey ?? "continueButton")} <ArrowIcon/>
-      </Button>}
+      {hasNextStep && (
+        <Button
+          onClick={nextStep}
+          className="col-span-1 flex w-full gap-2"
+          variant="primary"
+        >
+          {t(continueTextKey ?? 'continueButton')} <ArrowIcon />
+        </Button>
+      )}
     </div>
-  )
+  );
 }
