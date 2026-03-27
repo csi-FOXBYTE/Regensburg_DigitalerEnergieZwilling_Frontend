@@ -11,12 +11,7 @@ export enum Step {
   Result = 7
 }
 
-// export const $step = persistentAtom<Step>("editorStep", Step.Building, {
-//   encode: JSON.stringify,
-//   decode: JSON.parse
-// });
-
-export const $step = atom<Step>(Step.Welcome);
+export const $step = atom<Step>(Step.GeneralData);
 
 export function setStep(step: Step) {
   $step.set(step);

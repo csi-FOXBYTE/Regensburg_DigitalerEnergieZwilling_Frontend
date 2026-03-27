@@ -12,11 +12,11 @@ const paperVariants = cva("bg-background text-foreground transition-shadow", {
     },
     elevation: {
       0: "shadow-none",
-      1: "shadow-sm",
-      2: "shadow",
-      3: "shadow-md",
-      4: "shadow-lg",
-      5: "shadow-xl",
+      1: "shadow-paper-1",
+      2: "shadow-paper-2",
+      3: "shadow-paper-3",
+      4: "shadow-paper-4",
+      5: "shadow-paper-5",
     },
     square: {
       true: "rounded-none",

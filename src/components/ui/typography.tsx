@@ -10,6 +10,7 @@ const typographyVariants = cva("text-foreground", {
       h2: "text-(length:--text-h2) leading-(--leading-h2) font-bold",
       h3: "text-(length:--text-h3) leading-(--leading-h3) font-normal",
       h4: "text-(length:--text-h4) leading-(--leading-h4) font-bold",
+      h5: "text-(length:--text-h4) leading-(--leading-h4) font-normal",
       lead: "text-(length:--text-lead) leading-(--leading-lead) font-normal",
       body: "text-(length:--text-body) leading-(--leading-body) font-normal",
       small: "text-(length:--text-body-sm) leading-(--leading-body-sm) font-normal",

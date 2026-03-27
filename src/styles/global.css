@@ -107,6 +107,13 @@
 }
 
 @theme inline {
+  /* Symmetric (all-direction) shadows for Paper */
+  --shadow-paper-1: 0 0 4px 0 rgb(0 0 0 / 0.08);
+  --shadow-paper-2: 0 0 8px 0 rgb(0 0 0 / 0.10);
+  --shadow-paper-3: 0 0 16px 2px rgb(0 0 0 / 0.12);
+  --shadow-paper-4: 0 0 24px 4px rgb(0 0 0 / 0.14);
+  --shadow-paper-5: 0 0 32px 6px rgb(0 0 0 / 0.16);
+
   /* Font */
   --font-sans: "Open Sans", sans-serif;
 

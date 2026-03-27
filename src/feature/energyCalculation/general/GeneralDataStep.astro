@@ -1,0 +1,25 @@
+---
+import EnergyCalculationPage from "@/components/layouts/EnergyCalculationPage.astro";
+import { Typography } from "@/components/ui/typography";
+import i18next from "i18next";
+import { AlertCircle } from "lucide-react";
+import ButtonBar from "../ButtonBar";
+import CurrentStats from "../CurrentStats";
+import GeneralDataStepForm from "./GeneralDataStepForm";
+---
+
+<EnergyCalculationPage step={2}>
+  <Typography variant="h2">
+    {i18next.t("energyCalculation:generalData.title")}
+  </Typography>
+  <div class="border-2 border-primary p-3 flex gap-2">
+    <AlertCircle className="text-primary" />
+    {i18next.t("energyCalculation:generalData.dataSourceRemark")}
+  </div>
+  <CurrentStats client:load />
+  <Typography variant="small">
+    {i18next.t("energyCalculation:generalData.statsRemark")}
+  </Typography>
+  <GeneralDataStepForm />
+  <ButtonBar client:load />
+</EnergyCalculationPage>

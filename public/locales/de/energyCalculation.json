@@ -3,10 +3,16 @@
     "energyDemand": "Energiebedarf",
     "energyEfficiency": "Energieeffizienz",
     "annualCosts": "Jährliche Kosten",
-    "co2Emissions": "CO₂-Emissionen"
+    "co2Emissions": "CO₂-Emissionen",
+    "energyDemandValue": "{{value}} kWh/m²a",
+    "energyEfficiencyValue": "Klasse {{value}}",
+    "annualCostsValue": "{{value}} €/a",
+    "co2EmissionsValue": "{{value}} t CO₂/a"
   },
   "generalData": {
-    "title": "Allgemeine Daten zu Ihrem Gebäude"
+    "title": "Allgemeine Daten zu Ihrem Gebäude",
+    "dataSourceRemark": "Alle Angaben zum Gebäude wurden automatisch aus amtlichen 3D-Gebäudedaten und Topologien abgeleitet. Sie können jede Angabe prüfen und bei Bedarf anpassen.",
+    "statsRemark": "Diese Werte aktualisieren sich automatisch bei Änderung der Gebäudedaten"
   },
   "outerParts": {
     "title": "Außenbauteile des Gebäudes"
