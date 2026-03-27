@@ -61,6 +61,7 @@
     "i18next-fs-backend": "^2.6.1",
     "i18next-http-backend": "^3.0.2",
     "i18next-resources-to-backend": "^1.2.1",
+    "immer": "^11.1.4",
     "input-otp": "^1.4.2",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.562.0",
@@ -91,6 +92,9 @@
     "vite-plugin-cesium": "^1.2.23"
   },
   "devDependencies": {
+    "prettier": "^3.8.1",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.7.2",
     "tsx": "^4.21.0"
   }
 }
