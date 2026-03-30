@@ -19,7 +19,7 @@ export default function AddressSearch({
       if (debouncedSearch === '') return [];
 
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?q=${debouncedSearch},Regensburg&format=json`,
+        `https://nominatim.openstreetmap.org/search?q=${debouncedSearch},Regensburg,Deutschland&format=json`,
       );
 
       const json = await response.json();
