@@ -1,5 +1,10 @@
 import { produce, type Draft } from 'immer';
-import { computed, type WritableAtom } from 'nanostores';
+import { computed, type ReadableAtom, type WritableAtom } from 'nanostores';
+
+export type FieldStore<TValue> = {
+  $store: ReadableAtom;
+  setValue: (value: TValue) => void;
+};
 
 export default function makeFieldStore<TObject, TValue>(
   store: WritableAtom<TObject>,
@@ -15,5 +20,5 @@ export default function makeFieldStore<TObject, TValue>(
   return {
     $store: computedStore,
     setValue: mutateField,
-  };
+  } satisfies FieldStore<TValue>;
 }

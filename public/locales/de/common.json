@@ -1,3 +1,9 @@
 {
-  "hw": "Hallo Welt!"
+  "hw": "Hallo Welt!",
+  "footer": {
+    "imprint": "Impressum",
+    "privacy": "Datenschutz",
+    "cookieSettings": "Cookie-Einstellungen",
+    "feedback": "Feedback"
+  }
 }

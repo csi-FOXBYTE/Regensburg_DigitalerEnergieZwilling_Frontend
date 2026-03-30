@@ -198,6 +198,11 @@ function SelectScrollDownButton({
   );
 }
 
+export type SelectOption = {
+  value: string;
+  label: string;
+};
+
 export {
   Select,
   SelectContent,

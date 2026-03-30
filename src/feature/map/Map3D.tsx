@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { type ReactNode, useEffect, useLayoutEffect, useState } from 'react';
 import { Cesium3DTileset, ImageryLayer, Viewer } from 'resium';
 import { $step, Step } from '../progressBar/state';
-import { $building, setBuilding } from './state';
+import { $building, setBuilding, unselectBuilding } from './state';
 
 const terrainProvider = Cesium.CesiumTerrainProvider.fromUrl(
   'https://fhhvrshare.blob.core.windows.net/regensburg/terrain',
@@ -61,6 +61,19 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
     viewerRef.scene.requestRender();
   }, [building, viewerRef]);
 
+  useEffect(() => {
+    if (!viewerRef) return;
+    const handler = new Cesium.ScreenSpaceEventHandler(viewerRef.scene.canvas);
+    handler.setInputAction(
+      (click: Cesium.ScreenSpaceEventHandler.PositionedEvent) => {
+        const picked = viewerRef.scene.pick(click.position);
+        if (!picked) unselectBuilding();
+      },
+      Cesium.ScreenSpaceEventType.LEFT_CLICK,
+    );
+    return () => handler.destroy();
+  }, [viewerRef]);
+
   useLayoutEffect(() => {
     if (!viewerRef) return;
 
@@ -89,6 +102,11 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
 
     viewerRef.scene.globe.baseColor = Cesium.Color.WHITE;
     viewerRef.scene.globe.showGroundAtmosphere = false;
+    viewerRef.scene.screenSpaceCameraController.zoomEventTypes = [
+      Cesium.CameraEventType.WHEEL,
+      Cesium.CameraEventType.PINCH,
+    ];
+    viewerRef.scene.screenSpaceCameraController.zoomFactor = 3;
   }, [viewerRef]);
 
   const isInteractiveStep = currentStep === Step.Building;
@@ -158,17 +176,6 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
                   300,
                 ),
                 complete: () => {
-                  viewerRef.camera.lookAt(
-                    position,
-                    new Cesium.HeadingPitchRange(
-                      viewerRef.camera.heading,
-                      viewerRef.camera.pitch,
-                      Cesium.Cartesian3.distance(
-                        viewerRef.camera.position,
-                        position,
-                      ),
-                    ),
-                  );
                   viewerRef.scene.requestRender();
                 },
               },

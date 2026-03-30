@@ -1,3 +1,32 @@
+---
+import i18n from 'i18next';
+import FeedbackButton from './FeedbackButton';
+---
+
 <footer class="bg-footer text-footer-foreground shrink-0 px-5 md:px-7">
-  <div class="max-w-content mx-auto py-15 md:py-5">Lorem Ipsum</div>
+  <div
+    class="max-w-content mx-auto flex flex-col-reverse items-center gap-4 py-15 md:flex-row md:py-5"
+  >
+    <ul class="flex flex-col items-center gap-2 md:flex-row md:gap-6">
+      <li>
+        <a href="#" class="hover:text-primary transition-colors"
+          >{i18n.t('common:footer.imprint')}</a
+        >
+      </li>
+      <li>
+        <a href="#" class="hover:text-primary transition-colors"
+          >{i18n.t('common:footer.privacy')}</a
+        >
+      </li>
+      <li>
+        <a href="#" class="hover:text-primary transition-colors"
+          >{i18n.t('common:footer.cookieSettings')}</a
+        >
+      </li>
+    </ul>
+    <hr class="border-footer-foreground/20 my-4 w-full md:hidden" />
+    <div class="w-full">
+      <FeedbackButton client:load />
+    </div>
+  </div>
 </footer>
