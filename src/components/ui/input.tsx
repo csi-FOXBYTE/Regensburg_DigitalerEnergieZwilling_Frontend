@@ -1,12 +1,16 @@
+import { X } from 'lucide-react';
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 
 interface InputProps extends React.ComponentProps<'input'> {
   leftIcon?: React.ReactNode;
+  onClear?: () => void;
 }
 
-function Input({ className, type, leftIcon, ...props }: InputProps) {
+function Input({ className, type, leftIcon, onClear, ...props }: InputProps) {
+  const showClear = onClear && props.value;
+
   return (
     <div className="relative w-full">
       {leftIcon && (
@@ -22,6 +26,8 @@ function Input({ className, type, leftIcon, ...props }: InputProps) {
           'w-full min-w-0 rounded-lg px-3 py-2',
           // left icon padding
           leftIcon && 'pl-11',
+          // clear button padding
+          showClear && 'pr-10',
           // colors & border
           'border-input-border bg-input border',
           // typography
@@ -40,6 +46,16 @@ function Input({ className, type, leftIcon, ...props }: InputProps) {
         )}
         {...props}
       />
+      {showClear && (
+        <button
+          type="button"
+          onClick={onClear}
+          className="text-muted-foreground hover:text-foreground absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer transition-colors"
+          aria-label="Eingabe löschen"
+        >
+          <X className="size-6" />
+        </button>
+      )}
     </div>
   );
 }

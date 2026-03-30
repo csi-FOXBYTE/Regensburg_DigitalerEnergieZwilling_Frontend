@@ -47,6 +47,7 @@ export default function AddressSearch({
           type="text"
           leftIcon={<Search />}
           onChange={(event) => setSearch(event.target.value)}
+          onClear={() => setSearch('')}
           value={search}
           className="py-3"
           placeholder="Adresse suchen in Regensburg..."
