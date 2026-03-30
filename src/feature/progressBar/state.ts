@@ -11,7 +11,7 @@ export enum Step {
   Result = 7,
 }
 
-export const $step = atom<Step>(Step.GeneralData);
+export const $step = atom<Step>(Step.Welcome);
 
 export function setStep(step: Step) {
   $step.set(step);
