@@ -11,6 +11,9 @@ importers:
       '@astrojs/react':
         specifier: ^4.4.2
         version: 4.4.2(@types/node@25.0.2)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(jiti@2.6.1)(lightningcss@1.30.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tsx@4.21.0)
+      '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore':
+        specifier: 0.1.0
+        version: 0.1.0
       '@fontsource-variable/geist':
         specifier: ^5.2.8
         version: 5.2.8
@@ -512,6 +515,9 @@ packages:
   '@cesium/widgets@14.1.0':
     resolution: {integrity: sha512-/8xJTi95XZrdkmJGABEHuQLu2ZarJ59J4V21dmgU/GJAFoqnjPlqFaFajx5XBZzRufGFYW1vGsq9BMqbdOJn5Q==}
     engines: {node: '>=20.19.0'}
+
+  '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore@0.1.0':
+    resolution: {integrity: sha512-r78sC+wIxPuVmQzyCqsB/YwMGi5NoDv7ZNQFklxWokN9cgbS3H1Bjhmgc0UPpUefbTYmRo74Ig0gWxZS9xUtGA==, tarball: https://npm.pkg.github.com/download/@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore/0.1.0/a73b4159986073905e6a78610471207b98558cc7}
 
   '@date-fns/tz@1.4.1':
     resolution: {integrity: sha512-P5LUNhtbj6YfI3iJjw5EL9eUAG6OitD0W3fWQcpQjDRc/QIsL0tRNuO1PcDvPccWL1fSTXXdE1ds+l95DV/OFA==}
@@ -5793,6 +5799,8 @@ snapshots:
     dependencies:
       '@cesium/engine': 22.1.0
       nosleep.js: 0.12.0
+
+  '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore@0.1.0': {}
 
   '@date-fns/tz@1.4.1': {}
 

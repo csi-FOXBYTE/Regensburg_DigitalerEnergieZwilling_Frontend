@@ -59,7 +59,10 @@ export default function AddressSearch({
             <div
               className="w-full border border-gray-300 bg-white py-2.5 pr-10 pl-9 text-sm shadow-lg outline-offset-2 focus:border-[#D9291C] focus:ring-2 focus:ring-[#D9291C] focus:outline-none md:py-3 md:pr-4 md:pl-10 md:text-base"
               key={d.place_id}
-              onClick={() => onAddressFound(d.lat, d.lon)}
+              onClick={() => {
+                console.log(d);
+                onAddressFound(d.lat, d.lon);
+              }}
             >
               {d.display_name}
             </div>

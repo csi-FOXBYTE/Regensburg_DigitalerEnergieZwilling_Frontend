@@ -12,7 +12,16 @@
   "generalData": {
     "title": "Allgemeine Daten zu Ihrem Gebäude",
     "dataSourceRemark": "Alle Angaben zum Gebäude wurden automatisch aus amtlichen 3D-Gebäudedaten und Topologien abgeleitet. Sie können jede Angabe prüfen und bei Bedarf anpassen.",
-    "statsRemark": "Diese Werte aktualisieren sich automatisch bei Änderung der Gebäudedaten"
+    "statsRemark": "Diese Werte aktualisieren sich automatisch bei Änderung der Gebäudedaten",
+    "fields": {
+      "buildingType": "Ist das Gebäude ein Ein- oder Mehrfamilienhaus?",
+      "numberOfFloors": "Wie viele Stockwerke (ohne Keller und Dachgeschoss) hat Ihr Gebäude?",
+      "livingArea": "Wie groß ist Ihre Wohnfläche?"
+    },
+    "buildingType": {
+      "singleFamily": "Einfamilienhaus",
+      "multiFamily": "Mehrfamilienhaus"
+    }
   },
   "outerParts": {
     "title": "Außenbauteile des Gebäudes"

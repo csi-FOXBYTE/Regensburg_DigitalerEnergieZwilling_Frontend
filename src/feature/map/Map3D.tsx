@@ -18,6 +18,9 @@ const openStreetMapImagerProvider = new Cesium.UrlTemplateImageryProvider({
     'Map tiles by CartoDB, under CC BY 3.0. Data by OpenStreetMap, under ODbL.',
 });
 
+const CESIUM_3D_TILES_URL =
+  'https://fhhvrshare.blob.core.windows.net/regensburg/tiles/tileset.json';
+
 function createTilesetStyle(selectedBuildingId: string | null) {
   return new Cesium.Cesium3DTileStyle({
     color: {
@@ -110,7 +113,6 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
   }, [viewerRef]);
 
   const isInteractiveStep = currentStep === Step.Building;
-
   return (
     <div
       className={`absolute top-(--header-height) left-0 h-(--content-height) w-full ${isInteractiveStep ? 'pointer-events-auto' : 'pointer-events-none'}`}
@@ -150,9 +152,7 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
           onClick={(movement, feature) => {
             if (!feature || !viewerRef || !movement.position) return;
             const tileFeature = feature as Cesium.Cesium3DTileFeature;
-            const rawId = tileFeature.getProperty('id');
-            if (rawId === undefined || rawId === null) return;
-            setBuilding({ id: String(rawId) });
+            setBuilding(tileFeature);
 
             const picked = viewerRef.scene.pickPosition(movement.position);
             if (!Cesium.defined(picked)) return;
@@ -182,7 +182,7 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
             );
             feature.primitive.boundingSphere;
           }}
-          url="https://fhhvrshare.blob.core.windows.net/regensburg/tiles/tileset.json"
+          url={CESIUM_3D_TILES_URL}
         />
         <AnimatePresence>
           {loading && (

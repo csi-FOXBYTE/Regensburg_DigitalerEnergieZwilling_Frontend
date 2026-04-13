@@ -19,6 +19,7 @@
       "onAutoForward": "openPreview"
     }
   },
+  "runArgs": ["--env-file", "${localWorkspaceFolder}/.devcontainer/.env"],
   "customizations": {
     "vscode": {
       "extensions": [

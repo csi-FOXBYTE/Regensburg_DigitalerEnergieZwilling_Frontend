@@ -12,7 +12,16 @@
   "generalData": {
     "title": "General Data About Your Building",
     "dataSourceRemark": "Alle Angaben zum Gebäude wurden automatisch aus amtlichen 3D-Gebäudedaten und Topologien abgeleitet. Sie können jede Angabe prüfen und bei Bedarf anpassen.",
-    "statsRemark": "These values update automatically when the building data changes"
+    "statsRemark": "These values update automatically when the building data changes",
+    "fields": {
+      "buildingType": "Is the building a single-family or multi-family house?",
+      "numberOfFloors": "How many floors (excluding basement and attic) does your building have?",
+      "livingArea": "What is your living area?"
+    },
+    "buildingType": {
+      "singleFamily": "Single-family house",
+      "multiFamily": "Multi-family house"
+    }
   },
   "outerParts": {
     "title": "Building Envelope"

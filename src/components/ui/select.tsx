@@ -25,9 +25,16 @@ function SelectGroup({
 }
 
 function SelectValue({
+  placeholder = '\u00A0',
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Value>) {
-  return <SelectPrimitive.Value data-slot="select-value" {...props} />;
+  return (
+    <SelectPrimitive.Value
+      data-slot="select-value"
+      placeholder={placeholder}
+      {...props}
+    />
+  );
 }
 
 function SelectTrigger({
