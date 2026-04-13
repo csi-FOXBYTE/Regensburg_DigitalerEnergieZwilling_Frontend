@@ -50,15 +50,20 @@ export function setBuilding(feature: Cesium3DTileFeature) {
         volume: numProp(feature, 'digitalEnergyTwin.volume'),
         groundArea: numProp(feature, 'digitalEnergyTwin.groundArea'),
         upperFloorArea: numProp(feature, 'digitalEnergyTwin.upperFloorArea'),
-        grossExternalWallArea: numProp(feature, 'digitalEnergyTwin.grossExternalWallArea'),
+        grossExternalWallArea: numProp(
+          feature,
+          'digitalEnergyTwin.grossExternalWallArea',
+        ),
         roofArea: numProp(feature, 'digitalEnergyTwin.roofArea'),
-        roofPitchDegrees: numProp(feature, 'digitalEnergyTwin.roofPitchDegrees'),
+        roofPitchDegrees: numProp(
+          feature,
+          'digitalEnergyTwin.roofPitchDegrees',
+        ),
         height: numProp(feature, 'digitalEnergyTwin.height'),
         envelopeArea: numProp(feature, 'digitalEnergyTwin.envelopeArea'),
       },
     },
   });
-  console.log($building.get());
 }
 
 export function unselectBuilding() {
