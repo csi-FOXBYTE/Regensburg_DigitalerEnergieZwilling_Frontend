@@ -3,7 +3,7 @@ name: Tag Build and Deploy
 on:
   push:
     tags:
-      - "*"
+      - '*'
 
 permissions:
   contents: read
@@ -63,6 +63,8 @@ jobs:
           tags: |
             ${{ steps.image.outputs.name }}:${{ steps.channel.outputs.tag }}
             ${{ steps.image.outputs.name }}:dev
+          secrets: |
+            github_token=${{ secrets.PACKAGE_TOKEN }}
 
       - name: Build and push image (prod)
         if: steps.channel.outputs.name == 'prod'
@@ -73,3 +75,5 @@ jobs:
           tags: |
             ${{ steps.image.outputs.name }}:${{ steps.channel.outputs.tag }}
             ${{ steps.image.outputs.name }}:latest
+          secrets: |
+            github_token=${{ secrets.PACKAGE_TOKEN }}

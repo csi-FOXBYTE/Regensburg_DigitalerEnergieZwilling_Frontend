@@ -12,9 +12,9 @@ WORKDIR /app
 RUN chown -R 1000:1000 /app
 USER 1000:1000
 
-# Lockfiles zuerst fuer bessere Layer-Caching
-COPY --chown=1000:1000 package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
+# Lockfiles + .npmrc zuerst fuer bessere Layer-Caching
+COPY --chown=1000:1000 package.json pnpm-lock.yaml .npmrc ./
+RUN --mount=type=secret,id=github_token,env=PACKAGE_TOKEN pnpm install --frozen-lockfile
 
 # Restlicher Quellcode + Build
 COPY --chown=1000:1000 . .
