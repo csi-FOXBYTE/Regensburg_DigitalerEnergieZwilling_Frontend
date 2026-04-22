@@ -12,8 +12,8 @@ importers:
         specifier: ^4.4.2
         version: 4.4.2(@types/node@25.0.2)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(jiti@2.6.1)(lightningcss@1.30.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tsx@4.21.0)
       '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore':
-        specifier: 0.1.0
-        version: 0.1.0
+        specifier: 0.5.1
+        version: 0.5.1
       '@fontsource-variable/geist':
         specifier: ^5.2.8
         version: 5.2.8
@@ -251,6 +251,9 @@ importers:
       vite-plugin-cesium:
         specifier: ^1.2.23
         version: 1.2.23(cesium@1.136.0)(rollup@4.53.3)(vite@6.4.1(@types/node@25.0.2)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0))
+      zod:
+        specifier: ^4.0.0
+        version: 4.2.0
     devDependencies:
       prettier:
         specifier: ^3.8.1
@@ -516,8 +519,8 @@ packages:
     resolution: {integrity: sha512-/8xJTi95XZrdkmJGABEHuQLu2ZarJ59J4V21dmgU/GJAFoqnjPlqFaFajx5XBZzRufGFYW1vGsq9BMqbdOJn5Q==}
     engines: {node: '>=20.19.0'}
 
-  '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore@0.1.0':
-    resolution: {integrity: sha512-r78sC+wIxPuVmQzyCqsB/YwMGi5NoDv7ZNQFklxWokN9cgbS3H1Bjhmgc0UPpUefbTYmRo74Ig0gWxZS9xUtGA==, tarball: https://npm.pkg.github.com/download/@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore/0.1.0/a73b4159986073905e6a78610471207b98558cc7}
+  '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore@0.5.1':
+    resolution: {integrity: sha512-DohvQ1DSYeO8KEw03cv8andrnXul62VMKFPq5GiuInu4qPyo7u6lNdVeRjGo090ilq+IjKUUN/5pcvpUGJOgPA==, tarball: https://npm.pkg.github.com/download/@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore/0.5.1/259b8a565f798a328ef6237ffd2148fe3662efda}
 
   '@date-fns/tz@1.4.1':
     resolution: {integrity: sha512-P5LUNhtbj6YfI3iJjw5EL9eUAG6OitD0W3fWQcpQjDRc/QIsL0tRNuO1PcDvPccWL1fSTXXdE1ds+l95DV/OFA==}
@@ -5742,7 +5745,7 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
 
-  '@better-auth/core@1.4.7(@better-auth/utils@0.3.0)(@better-fetch/fetch@1.1.21)(better-call@1.1.5(zod@3.25.76))(jose@6.1.3)(kysely@0.28.9)(nanostores@1.1.1)':
+  '@better-auth/core@1.4.7(@better-auth/utils@0.3.0)(@better-fetch/fetch@1.1.21)(better-call@1.1.5(zod@4.2.0))(jose@6.1.3)(kysely@0.28.9)(nanostores@1.1.1)':
     dependencies:
       '@better-auth/utils': 0.3.0
       '@better-fetch/fetch': 1.1.21
@@ -5753,9 +5756,9 @@ snapshots:
       nanostores: 1.1.1
       zod: 4.2.0
 
-  '@better-auth/telemetry@1.4.7(@better-auth/core@1.4.7(@better-auth/utils@0.3.0)(@better-fetch/fetch@1.1.21)(better-call@1.1.5(zod@3.25.76))(jose@6.1.3)(kysely@0.28.9)(nanostores@1.1.1))':
+  '@better-auth/telemetry@1.4.7(@better-auth/core@1.4.7(@better-auth/utils@0.3.0)(@better-fetch/fetch@1.1.21)(better-call@1.1.5(zod@4.2.0))(jose@6.1.3)(kysely@0.28.9)(nanostores@1.1.1))':
     dependencies:
-      '@better-auth/core': 1.4.7(@better-auth/utils@0.3.0)(@better-fetch/fetch@1.1.21)(better-call@1.1.5(zod@3.25.76))(jose@6.1.3)(kysely@0.28.9)(nanostores@1.1.1)
+      '@better-auth/core': 1.4.7(@better-auth/utils@0.3.0)(@better-fetch/fetch@1.1.21)(better-call@1.1.5(zod@4.2.0))(jose@6.1.3)(kysely@0.28.9)(nanostores@1.1.1)
       '@better-auth/utils': 0.3.0
       '@better-fetch/fetch': 1.1.21
 
@@ -5800,7 +5803,7 @@ snapshots:
       '@cesium/engine': 22.1.0
       nosleep.js: 0.12.0
 
-  '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore@0.1.0': {}
+  '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore@0.5.1': {}
 
   '@date-fns/tz@1.4.1': {}
 
@@ -7694,8 +7697,8 @@ snapshots:
 
   better-auth@1.4.7(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
     dependencies:
-      '@better-auth/core': 1.4.7(@better-auth/utils@0.3.0)(@better-fetch/fetch@1.1.21)(better-call@1.1.5(zod@3.25.76))(jose@6.1.3)(kysely@0.28.9)(nanostores@1.1.1)
-      '@better-auth/telemetry': 1.4.7(@better-auth/core@1.4.7(@better-auth/utils@0.3.0)(@better-fetch/fetch@1.1.21)(better-call@1.1.5(zod@3.25.76))(jose@6.1.3)(kysely@0.28.9)(nanostores@1.1.1))
+      '@better-auth/core': 1.4.7(@better-auth/utils@0.3.0)(@better-fetch/fetch@1.1.21)(better-call@1.1.5(zod@4.2.0))(jose@6.1.3)(kysely@0.28.9)(nanostores@1.1.1)
+      '@better-auth/telemetry': 1.4.7(@better-auth/core@1.4.7(@better-auth/utils@0.3.0)(@better-fetch/fetch@1.1.21)(better-call@1.1.5(zod@4.2.0))(jose@6.1.3)(kysely@0.28.9)(nanostores@1.1.1))
       '@better-auth/utils': 0.3.0
       '@better-fetch/fetch': 1.1.21
       '@noble/ciphers': 2.1.1

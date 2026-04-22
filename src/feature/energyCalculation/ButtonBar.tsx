@@ -4,7 +4,7 @@ import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import ArrowIcon from '../../components/ArrowIcon';
 import { Button } from '../../components/ui/button';
-import { $step, setStep } from '../progressBar/state';
+import { $step, setStep } from '../../lib/state/ui/progress';
 
 export type ButtonBarProps = {
   backTextKey?: ParseKeys<'energyCalculation'>;
@@ -19,7 +19,7 @@ export default function ButtonBar({
 
   const step = useStore($step);
 
-  const hasNextStep = step < 7;
+  const hasNextStep = step < 7 && step !== 5;
 
   const nextStep = useCallback(() => {
     setStep(step + 1);

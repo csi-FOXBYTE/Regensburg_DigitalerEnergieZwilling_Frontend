@@ -17,7 +17,7 @@ import ProgressBar from '@/feature/progressBar/ProgressBar';
 </BaseLayout>
 
 <script>
-  import { $step } from '@/feature/progressBar/state';
+  import { $step } from '@/lib/state/ui';
 
   function update(step: number) {
     document.querySelectorAll<HTMLElement>('[data-step-gate]').forEach((el) => {

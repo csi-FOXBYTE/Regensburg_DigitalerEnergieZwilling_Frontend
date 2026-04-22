@@ -10,17 +10,19 @@ export default function EnergyCalculationField({
   info,
   onReset,
   resetDisabled,
+  className,
 }: {
   children?: ReactNode;
   labelKey?: ParseKeys<'energyCalculation'>;
   info?: ReactNode;
   onReset?: () => void;
   resetDisabled?: boolean;
+  className?: string;
 }) {
   const { t } = useTranslation('energyCalculation');
 
   return (
-    <Field>
+    <Field className={className}>
       {labelKey && (
         <FieldLabel>
           {t(labelKey)}

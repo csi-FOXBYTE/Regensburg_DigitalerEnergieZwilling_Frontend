@@ -1,9 +1,9 @@
-import * as React from 'react';
 import { Select as SelectPrimitive } from 'radix-ui';
+import * as React from 'react';
 
-import { cn } from '@/lib/utils';
 import { Typography, typographyVariants } from '@/components/ui/typography';
-import { ChevronDownIcon, CheckIcon, ChevronUpIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 
 function Select({
   ...props
@@ -29,11 +29,13 @@ function SelectValue({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Value>) {
   return (
-    <SelectPrimitive.Value
-      data-slot="select-value"
-      placeholder={placeholder}
-      {...props}
-    />
+    <span className="truncate">
+      <SelectPrimitive.Value
+        data-slot="select-value"
+        placeholder={placeholder}
+        {...props}
+      />
+    </span>
   );
 }
 
@@ -52,7 +54,7 @@ function SelectTrigger({
         // colors & border
         'border-input-border bg-input border',
         // misc
-        'whitespace-nowrap transition-colors outline-none select-none',
+        'overflow-hidden transition-colors outline-none select-none',
         // placeholder
         'data-placeholder:text-muted-foreground',
         // focus
@@ -148,7 +150,7 @@ function SelectItem({
         </SelectPrimitive.ItemIndicator>
       </span>
       <SelectPrimitive.ItemText>
-        <Typography as="span" variant="small">
+        <Typography as="span" variant="body">
           {children}
         </Typography>
       </SelectPrimitive.ItemText>
@@ -205,8 +207,8 @@ function SelectScrollDownButton({
   );
 }
 
-export type SelectOption = {
-  value: string;
+export type SelectOption<T> = {
+  value: T;
   label: string;
 };
 

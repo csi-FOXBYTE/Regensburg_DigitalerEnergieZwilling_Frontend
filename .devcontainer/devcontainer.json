@@ -47,10 +47,11 @@
           "astro": "html"
         },
 
-        "typescript.tsdk": "node_modules/typescript/lib",
-        "typescript.preferences.quoteStyle": "single",
-        "typescript.preferences.importModuleSpecifier": "relative",
-        "typescript.updateImportsOnFileMove.enabled": "always",
+        "js/ts.tsdk.path": "node_modules/typescript/lib",
+        "js/ts.tsserver.experimental.enableProjectDiagnostics instead.": true,
+        "js/ts.preferences.quoteStyle": "single",
+        "js/ts.preferences.importModuleSpecifier": "relative",
+        "js/ts.updateImportsOnFileMove.enabled": "always",
 
         "[astro]": {
           "editor.defaultFormatter": "astro-build.astro-vscode"

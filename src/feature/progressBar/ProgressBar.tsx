@@ -1,13 +1,13 @@
 import DesktopOnly from '@/components/DesktopOnly';
 import MobileOnly from '@/components/MobileOnly';
 import { Typography } from '@/components/ui/typography';
+import { $step, setStep, Step } from '@/lib/state/ui/progress';
 import { cn } from '@/lib/utils';
 import { useStore } from '@nanostores/react';
 import { ArrowLeft } from 'lucide-react';
 import { useCallback, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../../components/ui/button';
-import { $step, setStep, Step } from './state';
 
 type VisualProgressBarProps = {
   step: Step;

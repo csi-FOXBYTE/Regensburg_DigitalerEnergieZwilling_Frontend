@@ -1,5 +1,12 @@
 {
   "hw": "Hallo Welt!",
+  "yes": "Ja",
+  "no": "Nein",
+  "yearRange": {
+    "between": "{{from}} bis {{to}}",
+    "upTo": "bis {{year}}",
+    "from": "ab {{year}}"
+  },
   "footer": {
     "imprint": "Impressum",
     "privacy": "Datenschutz",

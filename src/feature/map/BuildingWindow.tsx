@@ -14,8 +14,8 @@ import { Paper } from '../../components/ui/paper';
 import { Typography } from '../../components/ui/typography';
 import useIsMobile from '../../lib/useIsMobile';
 import { cn } from '../../lib/utils';
-import { setStep, Step } from '../progressBar/state';
-import { $building, unselectBuilding } from './state';
+import { setStep, Step } from '../../lib/state/ui/progress';
+import { $building, unselectBuilding } from '../../lib/state/building';
 
 function BuildingWindowContent({ onContinue }: { onContinue: () => void }) {
   return (

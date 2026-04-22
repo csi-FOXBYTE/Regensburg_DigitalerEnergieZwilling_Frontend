@@ -3,11 +3,15 @@ import EnergyCalculationPage from '@/components/layouts/EnergyCalculationPage.as
 import { Typography } from '@/components/ui/typography';
 import i18next from 'i18next';
 import ButtonBar from '../ButtonBar';
+import CurrentStats from '../CurrentStats';
+import OuterPartsStepForm from './OuterPartsStepForm';
 ---
 
 <EnergyCalculationPage step={3}>
   <Typography variant="h2">
     {i18next.t('energyCalculation:outerParts.title')}
   </Typography>
+  <CurrentStats client:load />
+  <OuterPartsStepForm client:visible />
   <ButtonBar client:load />
 </EnergyCalculationPage>

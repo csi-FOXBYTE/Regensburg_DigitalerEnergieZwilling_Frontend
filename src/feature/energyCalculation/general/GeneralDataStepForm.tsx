@@ -7,16 +7,19 @@ import { useTranslation } from 'react-i18next';
 import { TooltipProvider } from '../../../components/ui/tooltip';
 import {
   buildingTypeField,
+  buildingYearField,
+  buildingYearOptions,
   livingAreaField,
   numberOfStoriesField,
-} from '../../../lib/state/general-user-input';
+} from '../../../lib/state/inputs/general';
+
 import EnergyNumberInput from '../EnergyNumberInput';
 import EnergySelectInput from '../EnergySelectInput';
 
 export default function GeneralDataStepForm() {
   const { t } = useTranslation('energyCalculation');
 
-  const buildingTypeOptions = useMemo<SelectOption[]>(
+  const buildingTypeOptions = useMemo<SelectOption<BuildingType>[]>(
     () => [
       {
         value: BuildingType.SINGLE_FAMILY,
@@ -34,7 +37,12 @@ export default function GeneralDataStepForm() {
     <TooltipProvider>
       <FieldGroup>
         <Paper variant="outlined" className="p-3">
-          <FieldSet className="grid grid-cols-1 items-end lg:grid-cols-2">
+          <FieldSet className="grid grid-cols-1 lg:grid-cols-2">
+            <EnergySelectInput
+              field={buildingYearField}
+              labelKey="generalData.fields.constructionYear"
+              rangeBandStore={buildingYearOptions}
+            />
             <EnergySelectInput
               field={buildingTypeField}
               labelKey="generalData.fields.buildingType"
@@ -55,6 +63,7 @@ export default function GeneralDataStepForm() {
               decimalScale={1}
               allowNegative={false}
             />
+
           </FieldSet>
         </Paper>
       </FieldGroup>

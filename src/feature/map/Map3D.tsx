@@ -4,8 +4,12 @@ import 'cesium/Build/Cesium/Widgets/widgets.css';
 import { AnimatePresence, motion } from 'motion/react';
 import { type ReactNode, useEffect, useLayoutEffect, useState } from 'react';
 import { Cesium3DTileset, ImageryLayer, Viewer } from 'resium';
-import { $step, Step } from '../progressBar/state';
-import { $building, setBuilding, unselectBuilding } from './state';
+import {
+  $building,
+  setBuilding,
+  unselectBuilding,
+} from '../../lib/state/building';
+import { $step, Step } from '../../lib/state/ui/progress';
 
 const terrainProvider = Cesium.CesiumTerrainProvider.fromUrl(
   'https://fhhvrshare.blob.core.windows.net/regensburg/terrain',
@@ -18,8 +22,7 @@ const openStreetMapImagerProvider = new Cesium.UrlTemplateImageryProvider({
     'Map tiles by CartoDB, under CC BY 3.0. Data by OpenStreetMap, under ODbL.',
 });
 
-const CESIUM_3D_TILES_URL =
-  'https://fhhvrshare.blob.core.windows.net/regensburg/tiles/tileset.json';
+const CESIUM_3D_TILES_URL = 'https://det.rg.foxbyte.de:4455/tileset.json';
 
 function createTilesetStyle(selectedBuildingId: string | null) {
   return new Cesium.Cesium3DTileStyle({

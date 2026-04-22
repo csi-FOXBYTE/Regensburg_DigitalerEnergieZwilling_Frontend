@@ -29,7 +29,7 @@ function FieldLegend({
       as="legend"
       data-slot="field-legend"
       data-variant={variant}
-      variant={variant === 'label' ? 'small' : 'body'}
+      variant={variant === 'label' ? 'body' : 'lead'}
       className={cn('mb-1.5 font-medium', className)}
       {...props}
     />

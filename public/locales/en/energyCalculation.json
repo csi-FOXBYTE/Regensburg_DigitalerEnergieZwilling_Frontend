@@ -16,7 +16,9 @@
     "fields": {
       "buildingType": "Is the building a single-family or multi-family house?",
       "numberOfFloors": "How many floors (excluding basement and attic) does your building have?",
-      "livingArea": "What is your living area?"
+      "livingArea": "What is your living area?",
+      "hasBasement": "Does your building have a basement?",
+      "constructionYear": "When was your Building built?"
     },
     "buildingType": {
       "singleFamily": "Single-family house",
@@ -24,10 +26,72 @@
     }
   },
   "outerParts": {
-    "title": "Building Envelope"
+    "title": "Building Envelope",
+    "roof": {
+      "area": "How large is your roof area?",
+      "constructionType": "What type of roof does your building have?",
+      "hasAttic": "Does your building have an attic?",
+      "hasInsulation": "Is your roof insulated?",
+      "insulationThickness": "How thick is the insulation?",
+      "insulationType": "How is your roof insulated?",
+      "insulationTypes": {
+        "betweenRafter": "Between rafter",
+        "aboveRafter": "Above rafter"
+      },
+      "isAtticHeated": "Is the attic heated?",
+      "year": "When was your roof built or last renovated?"
+    },
+    "roofWindows": {
+      "area": "What is the total area of your roof windows?",
+      "windowType": "What type of roof windows are installed?",
+      "uValue": "Do you know the U-value of your roof windows?",
+      "year": "When were your roof windows installed or last replaced?"
+    },
+    "topFloor": {
+      "year": "When was your top floor ceiling built or last renovated?",
+      "area": "What is the area of your top floor ceiling?",
+      "type": "What is the construction type of your top floor ceiling?",
+      "hasInsulation": "Is your top floor ceiling insulated?",
+      "insulationThickness": "How thick is the insulation?"
+    },
+    "outerWall": {
+      "year": "When was your outer wall built or last renovated?",
+      "area": "What is the total area of your outer walls?",
+      "constructionType": "What is the construction type of your outer wall?",
+      "hasInsulation": "Is your outer wall insulated?",
+      "insulationThickness": "How thick is the insulation?"
+    },
+    "windows": {
+      "area": "What is the total area of your windows?",
+      "windowType": "What type of windows are installed?",
+      "uValue": "Do you know the U-value of your windows?",
+      "year": "When were your windows installed or last replaced?"
+    },
+    "bottomFloor": {
+      "year": "When was your basement ceiling built or last renovated?",
+      "hasBasement": "Does your building have a basement?",
+      "isBasementHeated": "Is your basement heated?",
+      "constructionType": {
+        "default": "What is the construction type of your basement ceiling?",
+        "heated": "What is the construction type of your basement floor?",
+        "noBasement": "What is the construction type of your floor?"
+      },
+      "hasInsulation": {
+        "default": "Is your basement ceiling insulated?",
+        "heated": "Is your basement floor insulated?",
+        "noBasement": "Is your floor insulated?"
+      },
+      "insulationThickness": "How thick is the insulation?"
+    }
   },
   "heat": {
-    "title": "Heat Supply"
+    "title": "Heat Supply",
+    "heating": {
+      "constructionYear": "When was your heating system installed or last renovated?",
+      "primaryEnergyCarrier": "What energy carrier do you use for heating?",
+      "heatingSystemType": "What type of heating system do you use?",
+      "heatingSurfaceType": "How is heat distributed in the room?"
+    }
   },
   "electricity": {
     "title": "Electricity & Renewable Energy"

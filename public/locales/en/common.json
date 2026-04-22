@@ -1,5 +1,12 @@
 {
   "hw": "Hello World!",
+  "yes": "Yes",
+  "no": "No",
+  "yearRange": {
+    "between": "{{from}} to {{to}}",
+    "upTo": "up to {{year}}",
+    "from": "from {{year}}"
+  },
   "footer": {
     "imprint": "Imprint",
     "privacy": "Privacy Policy",

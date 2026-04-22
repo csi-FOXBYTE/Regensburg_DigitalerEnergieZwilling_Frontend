@@ -37,6 +37,7 @@ function numProp(
 
 export function setBuilding(feature: Cesium3DTileFeature) {
   const id = feature.getProperty('id');
+  console.log(feature.getPropertyIds());
   if (id == null) return;
 
   $building.set({

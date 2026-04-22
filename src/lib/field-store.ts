@@ -13,28 +13,16 @@ export type FieldStore<TValue> = {
   resettable: boolean;
 };
 
-type PlaceholderWithStore<TPlaceholder, TValue> = {
-  placeholderStore: ReadableAtom<TPlaceholder>;
-  getPlaceholder: (value: TPlaceholder) => TValue;
-};
-
-type PlaceholderWithoutStore<TValue> = {
-  getPlaceholder: () => TValue;
-};
-
-type FieldStoreOptions<TObject, TValue, TPlaceholder> = {
+type FieldStoreOptions<TObject, TValue> = {
   store: WritableAtom<TObject>;
   getValue: (obj: TObject) => TValue;
   setValue: (draft: Draft<TObject>, value: TValue) => void;
   resettable?: boolean;
-} & (
-  | PlaceholderWithStore<TPlaceholder, TValue>
-  | PlaceholderWithoutStore<TValue>
-  | object
-);
+  placeholderStore?: ReadableAtom<TObject>;
+};
 
-export default function makeFieldStore<TObject, TValue, TPlaceholder>(
-  options: FieldStoreOptions<TObject, TValue, TPlaceholder>,
+export default function makeFieldStore<TObject, TValue>(
+  options: FieldStoreOptions<TObject, TValue>,
 ) {
   const computedStore = computed(options.store, options.getValue);
 
@@ -44,14 +32,9 @@ export default function makeFieldStore<TObject, TValue, TPlaceholder>(
     );
   };
 
-  let $placeholder: ReadableAtom<TValue>;
-  if ('placeholderStore' in options) {
-    $placeholder = computed(options.placeholderStore, options.getPlaceholder);
-  } else if ('getPlaceholder' in options) {
-    $placeholder = computed(options.store, () => options.getPlaceholder());
-  } else {
-    $placeholder = atom(undefined);
-  }
+  const $placeholder: ReadableAtom<TValue> = options.placeholderStore
+    ? computed(options.placeholderStore, options.getValue)
+    : atom(undefined);
 
   return {
     $store: computedStore,

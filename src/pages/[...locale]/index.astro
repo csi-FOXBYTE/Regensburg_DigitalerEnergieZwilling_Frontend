@@ -17,7 +17,7 @@ export const getStaticPaths = (() => {
 ---
 
 <script>
-  import { $step, setStep } from '@/feature/progressBar/state';
+  import { $step, setStep } from '@/lib/state/ui/progress';
   document.querySelector('[data-next-step]')?.addEventListener('click', () => {
     setStep($step.get() + 1);
   });
