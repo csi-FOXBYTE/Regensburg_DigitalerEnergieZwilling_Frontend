@@ -15,6 +15,8 @@ const typographyVariants = cva('text-foreground', {
       body: 'text-(length:--text-body) leading-(--leading-body) font-normal',
       small:
         'text-(length:--text-body-sm) leading-(--leading-body-sm) font-normal',
+      muted:
+        'text-(length:--text-body-sm) leading-(--leading-body-sm) font-normal text-neutral-450',
       verySmall:
         'text-(length:--text-body-xs) leading-(--leading-body-xs) font-normal text-neutral-450',
     },

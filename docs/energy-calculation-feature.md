@@ -34,9 +34,14 @@ src/feature/energyCalculation/
 │   ├── WindowsPaper.tsx
 │   └── BottomFloorPaper.tsx
 ├── renovation/
-│   └── RenovationStep.astro    # Placeholder — no form yet
+│   ├── RenovationStep.astro
+│   ├── RenovationStepForm.tsx        # Three category tables with chaining
+│   ├── RenovationMultiSelectTable.tsx # Checkbox selection with savings
+│   ├── RenovationSingleSelectTable.tsx # Radio selection with savings
+│   ├── RenovationRow.tsx             # Shared table row (label + savings cell)
+│   └── RenovationStats.tsx           # Before/after KPI comparison cards
 └── result/
-    └── Result.astro            # Placeholder — no form yet
+    └── Result.astro            # Placeholder — no result content yet
 
 src/lib/
 ├── field-store.ts               # FieldStore<T> pattern
@@ -45,9 +50,11 @@ src/lib/
     ├── building/index.ts        # Selected 3D building atom
     ├── calculation-config/index.ts  # $config atom (dropdown options)
     ├── inputs/
-    │   ├── atoms.ts             # 8 raw Partial<DET*Input> atoms
+    │   ├── atoms.ts             # Raw Partial<DET*Input> atoms (one per section)
     │   ├── general.ts           # Field stores for general step
     │   ├── heat.ts              # Field stores for heat step
+    │   ├── electricity.ts       # Field stores for electricity step
+    │   ├── renovation.ts        # Selection atoms for renovation step
     │   ├── roof.ts
     │   ├── roof-windows.ts
     │   ├── outer-wall.ts
@@ -59,6 +66,8 @@ src/lib/
     │   ├── lod2-input.ts        # Geometry → input shape
     │   ├── calculation-input.ts # Merges all inputs → DETInput
     │   ├── current-energy-state.ts  # Calls calculate(), emits KPIs
+    │   ├── renovated-energy-state.ts # Applies $renovations, calls calculate()
+    │   ├── renovation-options.ts    # Computed Renovation[] lists from $config
     │   ├── resolved-input.ts    # Extracts per-section resolved values
     │   └── index.ts
     └── ui/
@@ -85,7 +94,7 @@ enum Step {
 }
 ```
 
-`$step` is a nanostore atom. `ButtonBar` reads it to increment/decrement. The Astro layout (`EnergyCalculationPage.astro`) uses a `data-step-gate` attribute to show/hide content based on the current step.
+`$step` is a nanostore atom. `ButtonBar` reads it to increment/decrement. The Astro layout (`EnergyCalculationPage.astro`) uses a `data-step-gate` attribute to show/hide content based on the current step. `hasNextStep = step < 7` (all steps have a Continue button).
 
 ---
 
@@ -108,24 +117,26 @@ enum Step {
   │    LOD2 geometry  <  user input atoms  <  hard defaults│
   └──────────────────────────────┬─────────────────────────┘
                                  │
-                                 ▼
-                    calculate($config, $calculationInput, { debug: true })
-                    (external core library)
-                                 │
-                                 ▼
-                       $currentEnergyState
-                       ┌─────────────────────────────────┐
-                       │ energyConsumptionPerSquareMeter  │
-                       │ energyEfficiencyClass            │
-                       │ yearlyCost                       │
-                       │ co2Emissions                     │
-                       │ resolvedInput  ◄── full resolved │
-                       └────────┬────────────────────────┘
-                                │
-                                ▼
-                  $resolvedGeneralInput, $resolvedHeatInput,
-                  $resolvedRoofInput, ... (8 total)
-                  (become $placeholder in each FieldStore)
+                     ┌───────────┴───────────┐
+                     ▼                       ▼
+        calculate($config, input)    $renovations (computed)
+                     │               (flat array of selected
+                     ▼                Renovation[] from all 3 categories)
+          $currentEnergyState              │
+          ┌────────────────────┐           ▼
+          │ energyConsumption  │   applyRenovation(input, renovations)
+          │ energyEfficiency   │           │
+          │ yearlyCost         │           ▼
+          │ co2Emissions       │   calculate($config, renovatedInput)
+          │ resolvedInput ◄────┤           │
+          └────────┬───────────┘           ▼
+                   │               $renovatedEnergyState
+                   ▼               (same KPI shape as $currentEnergyState)
+     $resolvedGeneralInput,
+     $resolvedHeatInput,
+     $resolvedElectricityInput,
+     ... (per-section)
+     (become $placeholder in each FieldStore)
 ```
 
 User edits in forms flow **up** into the raw atoms (`$generalInputState`, `$heatInputState`, etc.) via `FieldStore.setValue()`. The computed chain re-runs automatically because nanostores tracks dependencies.
@@ -278,7 +289,17 @@ Two additional field stores exist in `general.ts` but are **not rendered** in `G
 
 ### HeatStepForm
 
-4 fields in a 2-column grid:
+Two sections:
+
+**Versorgung** (supply booleans, top Paper):
+
+| Field | Type | Notes |
+|---|---|---|
+| `hasGasSupplyField` | Boolean | resettable: false |
+| `hasBioGasField` | Boolean | only rendered when `hasGasSupply` is true; resettable: false |
+| `hasStorageField` | Boolean | always starts on col 1 (`lg:col-start-1`); resettable: false |
+
+**Heizung** (main fields, second Paper):
 
 | Field | Type | Notes |
 |---|---|---|
@@ -289,15 +310,43 @@ Two additional field stores exist in `general.ts` but are **not rendered** in `G
 
 ### ElectricityStepForm
 
-Currently a placeholder — structure exists, no fields implemented yet.
+One boolean field:
 
-### RenovationStep
+| Field | Type | Notes |
+|---|---|---|
+| `hasRenewableEnergyField` | Boolean | from `src/lib/state/inputs/electricity.ts`; resettable: false |
 
-Currently a placeholder — `RenovationStep.astro` renders the step title and a `ButtonBar` with `continueTextKey="resultsButton"`. No form component exists yet.
+### RenovationStepForm
 
-### Result
+Three category sections rendered with `RenovationMultiSelectTable` (Dämmung) and `RenovationSingleSelectTable` (Heizungsfläche, Heizung). Categories influence each other in a chain:
 
-Currently a placeholder — `Result.astro` renders the step title and a `ButtonBar` with `backTextKey="backFromResults"`. No result content exists yet.
+- **Dämmung** receives `$calculationInput` as `baseInput`
+- **Heizungsfläche** receives `applyRenovation(baseInput, selectedInsulation)` — so its savings are calculated on top of insulation changes
+- **Heizung** receives insulation + heating-surface renovations applied — savings are calculated on the fully patched base
+
+Selection atoms (`$selectedInsulationRenovations`, `$selectedHeatingSurfaceRenovations`, `$selectedHeatingRenovations`) live in `src/lib/state/inputs/renovation.ts`. The computed `$renovations` atom concatenates all three.
+
+`RenovationStats` (rendered with `client:load` in `RenovationStep.astro`) reads `$currentEnergyState` and `$renovatedEnergyState` to show before/after cards.
+
+### RenovationMultiSelectTable / RenovationSingleSelectTable
+
+Both share the same prop shape:
+
+```ts
+{
+  renovations: Renovation[];
+  value: Renovation[];                           // controlled selection
+  onSelectionChange: (selected: Renovation[]) => void;
+  baseInput: DETInput;
+  config: DETConfig;
+}
+```
+
+- **Multi** uses TanStack Table + `Checkbox`; `RowSelectionState` is derived from `value` via id matching. Footer shows combined savings for the currently selected set (only when `renovations.length > 1`).
+- **Single** uses TanStack Table + `RadioGroup`; `value[0].id` drives the controlled radio. Has a hardcoded "Keine Maßnahme" row at the bottom (`id = '__none__'`). No footer.
+- Both compute per-row savings via `calculate()` inside `useMemo`, keyed by renovation `id`. Row savings are always relative to `baseInput`.
+
+`RenovationRow` is the shared `<tr>` — renders the selection cell, label, and a colour-coded savings cell (`green-600` / `red-600` / `text-muted-foreground`).
 
 ### OuterPartsStepForm
 
@@ -311,6 +360,46 @@ Composed of 6 "Paper" sub-sections stacked vertically:
 6. **BottomFloorPaper** — context-aware labels based on `hasBasement` + `isBasementHeated`
 
 Conditional visibility inside papers follows the pattern: render the field only if the controlling boolean field store value (or its placeholder) is truthy.
+
+### Result
+
+Currently a placeholder — `Result.astro` renders the step title and a `ButtonBar` with `backTextKey="backFromResults"`. No result content exists yet.
+
+---
+
+## Renovation State (`src/lib/state/inputs/renovation.ts`)
+
+```ts
+export const $selectedInsulationRenovations = atom<Renovation[]>([]);
+export const $selectedHeatingSurfaceRenovations = atom<Renovation[]>([]);
+export const $selectedHeatingRenovations = atom<Renovation[]>([]);
+
+export const $renovations = computed(
+  [$selectedInsulationRenovations, $selectedHeatingSurfaceRenovations, $selectedHeatingRenovations],
+  (insulation, heatingSurface, heating) => [...insulation, ...heatingSurface, ...heating],
+);
+```
+
+`$renovations` is consumed by `$renovatedEnergyState` in `computed/renovated-energy-state.ts`.
+
+## Renovation Options (`src/lib/state/computed/renovation-options.ts`)
+
+Three computed atoms generate `Renovation[]` from `$config` (and `$resolvedInput` for heating):
+
+```ts
+export const $insulationRenovations = computed([$config], (config) =>
+  generateInsulationRenovations(config, translateInsulationKey));
+
+export const $heatingSurfaceRenovations = computed([$config], (config) =>
+  generateHeatingSurfaceRenovations(config, i18next.language));
+
+export const $heatingRenovations = computed([$config, $resolvedInput], (config, resolvedInput) =>
+  generateHeatingRenovations(config, resolvedInput, i18next.language));
+```
+
+Labels are resolved via i18next at computation time. Language changes do not trigger recomputation (known limitation of using i18next inside nanostores computed).
+
+Each `Renovation` has a stable `id` generated by the core library from its functional parameters (i.e., functionally identical renovations produce the same id). This makes id-based selection stable across recomputations.
 
 ---
 
@@ -329,9 +418,15 @@ Conditional visibility inside papers follows the pattern: render the field only 
 ## Key External Dependency
 
 The calculation engine is `@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore`. It exports:
-- `calculate(config: DETConfig, input: DETInput, options?: { debug?: boolean }): DETResult`
-- Type definitions: `DETInput`, `DETConfig`, `DETResult`, and sub-types per section
 
-`$config` is loaded once and stored in `src/lib/state/calculation-config/index.ts`. It drives all dropdown option lists.
+- `calculate(config: DETConfig, input: DETInput, options?: { debug?: boolean }): DETResult`
+- `applyRenovation(input: DETInput, renovations: Renovation | Renovation[]): DETInput`
+- `generateInsulationRenovations(config, translateKey): Renovation[]`
+- `generateHeatingSurfaceRenovations(config, language): Renovation[]`
+- `generateHeatingRenovations(config, resolvedInput, language): Renovation[]`
+- Type definitions: `DETInput`, `DETConfig`, `DETResult`, `Renovation`, `EnergyEfficiencyClass`, and sub-types per section
+
+`$config` is loaded once and stored in `src/lib/state/calculation-config/index.ts`. It drives all dropdown option lists and renovation generation.
 
 The current call site passes `{ debug: true }`, which causes the core to emit debug logs during development.
+

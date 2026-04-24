@@ -4,6 +4,8 @@
     "energyEfficiency": "Energy Efficiency",
     "annualCosts": "Annual Costs",
     "co2Emissions": "CO₂ Emissions",
+    "beforeRenovation": "Before Renovation",
+    "afterRenovation": "After Renovation",
     "energyDemandValue": "{{value}} kWh/m²a",
     "energyEfficiencyValue": "Class {{value}}",
     "annualCostsValue": "{{value}} €/a",
@@ -102,8 +104,16 @@
     "title": "Electricity & Renewable Energy",
     "hasRenewableEnergy": "Do you use electricity from renewable sources?"
   },
-  "rennovation": {
-    "title": "Renovation Measures"
+  "renovation": {
+    "title": "Renovation Measures",
+    "insulation": {
+      "roof": "Roof insulation",
+      "topFloor": "Top floor ceiling",
+      "bottomFloor": "Basement ceiling",
+      "outerWalls": "Outer wall insulation",
+      "outerWindows": "Window replacement (outer wall)",
+      "roofWindows": "Roof window replacement"
+    }
   },
   "result": {
     "title": "Your Results at a Glance"

@@ -3,11 +3,15 @@ import EnergyCalculationPage from '@/components/layouts/EnergyCalculationPage.as
 import { Typography } from '@/components/ui/typography';
 import i18next from 'i18next';
 import ButtonBar from '../ButtonBar';
+import RenovationStats from './RenovationStats';
+import RenovationStepForm from './RenovationStepForm';
 ---
 
 <EnergyCalculationPage step={6}>
   <Typography variant="h2">
-    {i18next.t('energyCalculation:rennovation.title')}
+    {i18next.t('energyCalculation:renovation.title')}
   </Typography>
+  <RenovationStats client:load />
+  <RenovationStepForm client:load />
   <ButtonBar continueTextKey="resultsButton" client:load />
 </EnergyCalculationPage>

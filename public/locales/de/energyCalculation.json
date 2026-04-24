@@ -4,6 +4,8 @@
     "energyEfficiency": "Energieeffizienz",
     "annualCosts": "Jährliche Kosten",
     "co2Emissions": "CO₂-Emissionen",
+    "beforeRenovation": "Vor Sanierung",
+    "afterRenovation": "Nach Sanierung",
     "energyDemandValue": "{{value}} kWh/m²a",
     "energyEfficiencyValue": "Klasse {{value}}",
     "annualCostsValue": "{{value}} €/a",
@@ -102,8 +104,16 @@
     "title": "Strom & erneuerbare Energien",
     "hasRenewableEnergy": "Nutzen Sie Strom aus erneuerbaren Quellen?"
   },
-  "rennovation": {
-    "title": "Sanierungsmaßnamen"
+  "renovation": {
+    "title": "Sanierungsmaßnamen",
+    "insulation": {
+      "roof": "Dachdämmung",
+      "topFloor": "Oberste Geschossdecke",
+      "bottomFloor": "Kellerdecke",
+      "outerWalls": "Außenwanddämmung",
+      "outerWindows": "Fensteraustausch (Außenwand)",
+      "roofWindows": "Dachfensteraustausch"
+    }
   },
   "result": {
     "title": "Ihre Ergebnisse im Überblick"
