@@ -1,5 +1,6 @@
 import {
   type DETBottomFloorInput,
+  type DETElectricityInput,
   type DETExteriorWallWindowsInput,
   type DETGeneralInput,
   type DETHeatInput,
@@ -18,3 +19,4 @@ export const $exteriorWallWindowsInputState = atom<Partial<DETExteriorWallWindow
 export const $topFloorInputState = atom<Partial<DETTopFloorInput>>({});
 export const $outerWallInputState = atom<Partial<DETOuterWallInput>>({});
 export const $bottomFloorInputState = atom<Partial<DETBottomFloorInput>>({});
+export const $electricityInputState = atom<Partial<DETElectricityInput>>({});

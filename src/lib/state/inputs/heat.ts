@@ -63,3 +63,33 @@ export const heatingSurfaceTypeField = makeFieldStore({
   resettable: true,
 });
 
+export const hasGasSupplyField = makeFieldStore({
+  store: $heatInputState,
+  getValue: (obj) => obj.hasGasSupply ?? undefined,
+  setValue: (draft, value) => {
+    draft.hasGasSupply = value;
+  },
+  placeholderStore: $resolvedHeatInput,
+  resettable: false,
+});
+
+export const hasBioGasField = makeFieldStore({
+  store: $heatInputState,
+  getValue: (obj) => obj.hasBioGas ?? undefined,
+  setValue: (draft, value) => {
+    draft.hasBioGas = value;
+  },
+  placeholderStore: $resolvedHeatInput,
+  resettable: false,
+});
+
+export const hasStorageField = makeFieldStore({
+  store: $heatInputState,
+  getValue: (obj) => obj.hasStorage ?? undefined,
+  setValue: (draft, value) => {
+    draft.hasStorage = value;
+  },
+  placeholderStore: $resolvedHeatInput,
+  resettable: false,
+});
+

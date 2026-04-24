@@ -1,5 +1,6 @@
 import {
   type DETBottomFloorInput,
+  type DETElectricityInput,
   type DETExteriorWallWindowsInput,
   type DETGeneralInput,
   type DETHeatInput,
@@ -15,6 +16,7 @@ export const $resolvedInput = computed($currentEnergyState, (state) => state.res
 
 export const $resolvedGeneralInput: ReadableAtom<Partial<DETGeneralInput>> = computed($resolvedInput, (r) => r.general);
 export const $resolvedHeatInput: ReadableAtom<Partial<DETHeatInput>> = computed($resolvedInput, (r) => r.heat);
+export const $resolvedElectricityInput: ReadableAtom<Partial<DETElectricityInput>> = computed($resolvedInput, (r) => r.electricity);
 export const $resolvedRoofInput: ReadableAtom<Partial<DETRoofInput>> = computed($resolvedInput, (r) => r.roof);
 export const $resolvedRoofWindowsInput: ReadableAtom<Partial<DETRoofWindowsInput>> = computed($resolvedInput, (r) => r.roofWindows);
 export const $resolvedExteriorWallWindowsInput: ReadableAtom<Partial<DETExteriorWallWindowsInput>> = computed($resolvedInput, (r) => r.exteriorWallWindows);

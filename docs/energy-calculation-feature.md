@@ -12,6 +12,7 @@ src/feature/energyCalculation/
 ├── EnergyNumberInput.tsx        # Number input field
 ├── EnergySelectInput.tsx        # Select/dropdown input (3 variants)
 ├── EnergyBooleanInput.tsx       # Yes/No radio input
+├── InfoButton.tsx               # InfoTooltipButton and InfoDialogButton
 ├── ButtonBar.tsx                # Back/Continue navigation
 ├── CurrentStats.tsx             # Live stats cards (4 KPIs)
 ├── general/
@@ -23,15 +24,19 @@ src/feature/energyCalculation/
 ├── heat/
 │   ├── HeatStep.astro
 │   └── HeatStepForm.tsx
-└── outer/
-    ├── OuterPartsStep.astro
-    ├── OuterPartsStepForm.tsx
-    ├── RoofPaper.tsx
-    ├── RoofWindowsPaper.tsx
-    ├── TopFloorPaper.tsx
-    ├── OuterWallPaper.tsx
-    ├── WindowsPaper.tsx
-    └── BottomFloorPaper.tsx
+├── outer/
+│   ├── OuterPartsStep.astro
+│   ├── OuterPartsStepForm.tsx
+│   ├── RoofPaper.tsx
+│   ├── RoofWindowsPaper.tsx
+│   ├── TopFloorPaper.tsx
+│   ├── OuterWallPaper.tsx
+│   ├── WindowsPaper.tsx
+│   └── BottomFloorPaper.tsx
+├── renovation/
+│   └── RenovationStep.astro    # Placeholder — no form yet
+└── result/
+    └── Result.astro            # Placeholder — no form yet
 
 src/lib/
 ├── field-store.ts               # FieldStore<T> pattern
@@ -57,7 +62,8 @@ src/lib/
     │   ├── resolved-input.ts    # Extracts per-section resolved values
     │   └── index.ts
     └── ui/
-        └── progress.ts          # $step atom (Step enum 0-7)
+        ├── progress.ts          # $step atom (Step enum 0-7)
+        └── index.ts
 ```
 
 ---
@@ -103,7 +109,7 @@ enum Step {
   └──────────────────────────────┬─────────────────────────┘
                                  │
                                  ▼
-                    calculate($config, $calculationInput)
+                    calculate($config, $calculationInput, { debug: true })
                     (external core library)
                                  │
                                  ▼
@@ -149,10 +155,9 @@ const myField = makeFieldStore({
 | `$store` | `ReadableAtom<T \| undefined>` | Current user value |
 | `$placeholder` | `ReadableAtom<T \| undefined>` | Resolved/calculated default |
 | `setValue(v)` | function | Write new value via immer |
-| `reset()` | function | Set value back to `undefined` |
 | `resettable` | boolean | Whether a reset button is shown |
 
-The `reset()` call sets the field to `undefined`, which causes the computed chain to fall back to the LOD2 geometry or the calculation result placeholder.
+There is no `reset()` method. Callers reset by calling `field.setValue(undefined)`, which the input components do automatically when the reset button is clicked.
 
 ---
 
@@ -169,7 +174,35 @@ Used for dropdown options.
 
 ### `EnergyCalculationField.tsx`
 
-Wrapper used by all three input types. Renders label (i18n key), optional info tooltip, and a reset button (shown only if `field.resettable && field.$store !== undefined`).
+Wrapper used by all three input types. Accepts these props:
+
+```tsx
+<EnergyCalculationField
+  labelKey="translation.key"   // i18n key (optional)
+  info={<InfoTooltipButton />} // info icon element (optional)
+  onReset={() => field.setValue(undefined)}  // enables reset button (optional)
+  resetDisabled={value == null}              // greys out reset when nothing to reset
+  className="..."
+>
+  {/* input element */}
+</EnergyCalculationField>
+```
+
+The reset button is rendered when `onReset` is provided; it is greyed out when `resetDisabled` is true. Input components (`EnergyNumberInput`, `EnergySelectInput`) handle the `field.resettable` check and pass `onReset` accordingly.
+
+### `InfoButton.tsx`
+
+Two exports for adding info icons to field labels:
+
+```tsx
+// Tooltip — shows content inline on hover
+<InfoTooltipButton content={<p>Explanation text</p>} />
+
+// Dialog trigger — calls onClick to open a dialog
+<InfoDialogButton onClick={() => setDialogOpen(true)} />
+```
+
+Pass either as the `info` prop of `EnergyNumberInput`, `EnergySelectInput`, or `EnergyCalculationField` directly.
 
 ### `EnergyNumberInput.tsx`
 
@@ -177,12 +210,13 @@ Wrapper used by all three input types. Renders label (i18n key), optional info t
 <EnergyNumberInput
   field={someFieldStore}         // FieldStore<number | undefined>
   labelKey="translation.key"
+  info={<InfoTooltipButton content="..." />}
   suffix=" m²"
   decimalScale={1}
 />
 ```
 
-Placeholder text is the resolved value formatted with suffix. Calls `field.setValue()` on change.
+Placeholder text is the resolved value formatted with suffix. Calls `field.setValue()` on change. Passes `onReset` to `EnergyCalculationField` when `field.resettable` is true.
 
 ### `EnergySelectInput.tsx`
 
@@ -199,7 +233,7 @@ Three usage variants depending on the options source:
 <EnergySelectInput field={f} rangeBandStore={buildingYearOptions} />
 ```
 
-Auto-selects when only one option is available. Clears the value if the current selection disappears from the option list (e.g., after a dependent filter changes).
+All variants also accept optional `info`, `disabled`, and `className` props. Auto-selects and disables the select when only one option is available. Clears the value if the current selection disappears from the option list (e.g., after a dependent filter changes).
 
 ### `EnergyBooleanInput.tsx`
 
@@ -237,8 +271,10 @@ Each step is an Astro page (`*Step.astro`) that imports a React form (`*StepForm
 |---|---|---|
 | `buildingYearField` | RangeBand | yes |
 | `buildingTypeField` | Selection (SINGLE_FAMILY / MULTI_FAMILY) | yes |
-| `numberOfStoriesField` | Number (integer) | no |
-| `livingAreaField` | Number (1 decimal, m²) | no |
+| `numberOfStoriesField` | Number (integer) | yes |
+| `livingAreaField` | Number (1 decimal, m²) | yes |
+
+Two additional field stores exist in `general.ts` but are **not rendered** in `GeneralDataStepForm`: `buildingHeightField` and `buildingBaseAreaField`. These are populated from LOD2 geometry and are used internally by the calculation pipeline.
 
 ### HeatStepForm
 
@@ -246,14 +282,22 @@ Each step is an Astro page (`*Step.astro`) that imports a React form (`*StepForm
 
 | Field | Type | Notes |
 |---|---|---|
-| `heatingSystemConstructionYearField` | RangeBand | resettable |
+| `heatingSystemConstructionYearField` | RangeBand | resettable; uses `buildingYearOptions` from `general.ts` |
 | `primaryEnergyCarrierField` | Selection | resettable |
-| `heatingSystemTypeField` | Selection | filtered by carrier |
+| `heatingSystemTypeField` | Selection | filtered by carrier; resettable |
 | `heatingSurfaceTypeField` | Selection | resettable |
 
 ### ElectricityStepForm
 
 Currently a placeholder — structure exists, no fields implemented yet.
+
+### RenovationStep
+
+Currently a placeholder — `RenovationStep.astro` renders the step title and a `ButtonBar` with `continueTextKey="resultsButton"`. No form component exists yet.
+
+### Result
+
+Currently a placeholder — `Result.astro` renders the step title and a `ButtonBar` with `backTextKey="backFromResults"`. No result content exists yet.
 
 ### OuterPartsStepForm
 
@@ -285,7 +329,9 @@ Conditional visibility inside papers follows the pattern: render the field only 
 ## Key External Dependency
 
 The calculation engine is `@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore`. It exports:
-- `calculate(config: DETConfig, input: DETInput): DETResult`
+- `calculate(config: DETConfig, input: DETInput, options?: { debug?: boolean }): DETResult`
 - Type definitions: `DETInput`, `DETConfig`, `DETResult`, and sub-types per section
 
 `$config` is loaded once and stored in `src/lib/state/calculation-config/index.ts`. It drives all dropdown option lists.
+
+The current call site passes `{ debug: true }`, which causes the core to emit debug logs during development.

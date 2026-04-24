@@ -1,10 +1,20 @@
+import { FieldGroup, FieldLegend, FieldSet } from '@/components/ui/field';
 import { Paper } from '@/components/ui/paper';
-import { Typography } from '@/components/ui/typography';
+import { hasRenewableEnergyField } from '@/lib/state/inputs/electricity';
+import EnergyBooleanInput from '../EnergyBooleanInput';
 
 export default function ElectricityStepForm() {
   return (
-    <Paper variant="outlined" className="flex items-center justify-center p-8">
-      <Typography variant="muted">Work in progress</Typography>
-    </Paper>
+    <FieldGroup>
+      <Paper variant="outlined" className="p-3">
+        <FieldSet className="grid grid-cols-1 lg:grid-cols-2">
+          <FieldLegend>Strom</FieldLegend>
+          <EnergyBooleanInput
+            field={hasRenewableEnergyField}
+            labelKey="electricity.hasRenewableEnergy"
+          />
+        </FieldSet>
+      </Paper>
+    </FieldGroup>
   );
 }

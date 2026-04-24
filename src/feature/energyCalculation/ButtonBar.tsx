@@ -19,7 +19,7 @@ export default function ButtonBar({
 
   const step = useStore($step);
 
-  const hasNextStep = step < 7 && step !== 5;
+  const hasNextStep = step < 7;
 
   const nextStep = useCallback(() => {
     setStep(step + 1);

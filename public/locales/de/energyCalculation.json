@@ -86,6 +86,11 @@
   },
   "heat": {
     "title": "Wärmeversorgung",
+    "supply": {
+      "hasGasSupply": "Gibt es einen Gasanschluss in Ihrem Gebäude?",
+      "hasBioGas": "Können Sie Biogas beziehen?",
+      "hasStorage": "Können bei Ihnen Brennstoffe wie Öl oder Pellets gelagert werden?"
+    },
     "heating": {
       "constructionYear": "Wann wurde Ihre Heizung gebaut oder das letzte Mal saniert?",
       "primaryEnergyCarrier": "Welchen Energieträger nutzen Sie für Ihre Heizung?",
@@ -94,7 +99,8 @@
     }
   },
   "electricity": {
-    "title": "Strom & erneuerbare Energien"
+    "title": "Strom & erneuerbare Energien",
+    "hasRenewableEnergy": "Nutzen Sie Strom aus erneuerbaren Quellen?"
   },
   "rennovation": {
     "title": "Sanierungsmaßnamen"

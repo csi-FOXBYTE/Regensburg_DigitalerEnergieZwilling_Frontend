@@ -2,6 +2,7 @@ import {
   BuildingType,
   DEFAULT_CONFIG,
   type DETBottomFloorInput,
+  type DETElectricityInput,
   type DETExteriorWallWindowsInput,
   type DETGeneralInput,
   type DETHeatInput,
@@ -20,6 +21,7 @@ function defined<T extends object>(obj: T): Partial<T> {
 }
 import {
   $bottomFloorInputState,
+  $electricityInputState,
   $exteriorWallWindowsInputState,
   $generalInputState,
   $heatInputState,
@@ -38,6 +40,8 @@ const placeholderGeneral: DETGeneralInput = {
 };
 
 const placeholderHeat: DETHeatInput = {};
+
+const placeholderElectricity: DETElectricityInput = {};
 
 const placeholderBottomFloor: DETBottomFloorInput = {
   area: 0,
@@ -67,6 +71,7 @@ const inputStores: [
   typeof $lod2Input,
   typeof $generalInputState,
   typeof $heatInputState,
+  typeof $electricityInputState,
   typeof $bottomFloorInputState,
   typeof $exteriorWallWindowsInputState,
   typeof $outerWallInputState,
@@ -77,6 +82,7 @@ const inputStores: [
   $lod2Input,
   $generalInputState,
   $heatInputState,
+  $electricityInputState,
   $bottomFloorInputState,
   $exteriorWallWindowsInputState,
   $outerWallInputState,
@@ -91,6 +97,7 @@ export const $calculationInput = computed<DETInput, typeof inputStores>(
     lod2,
     general,
     heat,
+    electricity,
     bottomFloor,
     exteriorWallWindows,
     outerWall,
@@ -107,6 +114,10 @@ export const $calculationInput = computed<DETInput, typeof inputStores>(
       heat: {
         ...placeholderHeat,
         ...defined(heat),
+      },
+      electricity: {
+        ...placeholderElectricity,
+        ...defined(electricity),
       },
       bottomFloor: {
         ...placeholderBottomFloor,

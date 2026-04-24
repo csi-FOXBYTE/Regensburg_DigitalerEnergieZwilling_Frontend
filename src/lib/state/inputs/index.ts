@@ -1,4 +1,6 @@
 export * from './bottom-floor';
+export * from './renovation';
+export * from './electricity';
 export * from './exterior-wall-windows';
 export * from './general';
 export * from './heat';

@@ -86,6 +86,11 @@
   },
   "heat": {
     "title": "Heat Supply",
+    "supply": {
+      "hasGasSupply": "Does your building have a gas connection?",
+      "hasBioGas": "Can you obtain biogas?",
+      "hasStorage": "Can fuels such as oil or pellets be stored at your property?"
+    },
     "heating": {
       "constructionYear": "When was your heating system installed or last renovated?",
       "primaryEnergyCarrier": "What energy carrier do you use for heating?",
@@ -94,7 +99,8 @@
     }
   },
   "electricity": {
-    "title": "Electricity & Renewable Energy"
+    "title": "Electricity & Renewable Energy",
+    "hasRenewableEnergy": "Do you use electricity from renewable sources?"
   },
   "rennovation": {
     "title": "Renovation Measures"
