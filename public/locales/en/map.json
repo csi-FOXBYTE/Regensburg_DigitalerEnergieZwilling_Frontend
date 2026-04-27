@@ -1,0 +1,8 @@
+{
+  "buildingWindow": {
+    "title": "Initial Energy Assessment",
+    "subtitle": "These results were automatically calculated from public data and model assumptions. In the next step, you can review, supplement, or modify the building data.",
+    "continueButton": "Determine renovation proposal now",
+    "processingTime": "Processing takes approximately 5 minutes to complete"
+  }
+}

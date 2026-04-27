@@ -47,7 +47,7 @@ export function RenovationSingleSelectTable({
       Object.fromEntries(
         renovations.map((r) => [
           r.id,
-          baseCost - calculate(config, applyRenovation(baseInput, r)).yearlyCost,
+          calculate(config, applyRenovation(baseInput, r)).yearlyCost - baseCost,
         ]),
       ),
     [config, baseInput, renovations, baseCost],

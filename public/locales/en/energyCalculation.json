@@ -70,7 +70,11 @@
       "year": "When were your windows installed or last replaced?"
     },
     "bottomFloor": {
-      "year": "When was your basement ceiling built or last renovated?",
+      "year": {
+        "default": "When was your basement ceiling built or last renovated?",
+        "heated": "When was your basement floor built or last renovated?",
+        "noBasement": "When was your floor built or last renovated?"
+      },
       "hasBasement": "Does your building have a basement?",
       "isBasementHeated": "Is your basement heated?",
       "constructionType": {

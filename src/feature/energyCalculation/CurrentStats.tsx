@@ -33,6 +33,33 @@ function CurrentStatsCard({
   );
 }
 
+export function CurrentStatsReduced() {
+  const currentStats = useStore($currentEnergyState);
+
+  return (
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+      <CurrentStatsCard
+        value={currentStats.energyConsumptionPerSquareMeter}
+        titleKey="stats.energyDemand"
+        valueKey="stats.energyDemandValue"
+        icon={<Zap className="size-5 text-amber-600" />}
+      />
+      <CurrentStatsCard
+        value={currentStats.energyEfficiencyClass}
+        titleKey="stats.energyEfficiency"
+        valueKey="stats.energyEfficiencyValue"
+        icon={<TrendingUp className="size-5 text-green-600" />}
+      />
+      <CurrentStatsCard
+        value={currentStats.co2Emissions}
+        titleKey="stats.co2Emissions"
+        valueKey="stats.co2EmissionsValue"
+        icon={<Leaf className="size-5 text-green-700" />}
+      />
+    </div>
+  );
+}
+
 export default function CurrentStats() {
   const currentStats = useStore($currentEnergyState);
 

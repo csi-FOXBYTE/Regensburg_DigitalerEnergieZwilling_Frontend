@@ -33,12 +33,7 @@ export default function BottomFloorPaper() {
   return (
     <Paper variant="outlined" className="flex flex-col gap-4 p-3">
       <FieldSet className="grid grid-cols-1 lg:grid-cols-2">
-        <FieldLegend>Kellerdecke</FieldLegend>
-        <EnergySelectInput
-          field={bottomFloorYearField}
-          labelKey="outerParts.bottomFloor.year"
-          rangeBandStore={buildingYearOptions}
-        />
+        <FieldLegend>Unterste Geschossdecke</FieldLegend>
         <EnergyBooleanInput
           field={hasBasementField}
           labelKey="outerParts.bottomFloor.hasBasement"
@@ -50,10 +45,15 @@ export default function BottomFloorPaper() {
           />
         )}
         <EnergySelectInput
+          field={bottomFloorYearField}
+          labelKey={`outerParts.bottomFloor.year.${context}`}
+          rangeBandStore={buildingYearOptions}
+          className="col-start-1"
+        />
+        <EnergySelectInput
           field={bottomFloorConstructionTypeField}
           labelKey={`outerParts.bottomFloor.constructionType.${context}`}
           selectionStore={bottomFloorConstructionTypeOptions}
-          className="col-start-1"
         />
       </FieldSet>
       <FieldSeparator />

@@ -70,7 +70,11 @@
       "year": "Wann wurden Ihre Fenster eingebaut oder zuletzt erneuert?"
     },
     "bottomFloor": {
-      "year": "Wann wurde Ihre Kellerdecke gebaut oder zuletzt saniert?",
+      "year": {
+        "default": "Wann wurde Ihre Kellerdecke gebaut oder zuletzt saniert?",
+        "heated": "Wann wurde Ihr Kellerboden gebaut oder zuletzt saniert?",
+        "noBasement": "Wann wurde Ihr Boden gebaut oder zuletzt saniert?"
+      },
       "hasBasement": "Hat Ihr Gebäude einen Keller?",
       "isBasementHeated": "Wird Ihr Keller beheizt?",
       "constructionType": {

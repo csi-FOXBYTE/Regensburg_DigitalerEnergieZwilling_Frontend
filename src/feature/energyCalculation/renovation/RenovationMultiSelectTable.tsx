@@ -49,7 +49,7 @@ export function RenovationMultiSelectTable({
       Object.fromEntries(
         renovations.map((r) => [
           r.id,
-          baseCost - calculate(config, applyRenovation(baseInput, r)).yearlyCost,
+          calculate(config, applyRenovation(baseInput, r)).yearlyCost - baseCost,
         ]),
       ),
     [config, baseInput, renovations, baseCost],
@@ -57,13 +57,13 @@ export function RenovationMultiSelectTable({
 
   const selectedSavings = useMemo(() => {
     if (value.length === 0) return 0;
-    return baseCost - calculate(config, applyRenovation(baseInput, value)).yearlyCost;
+    return calculate(config, applyRenovation(baseInput, value)).yearlyCost - baseCost;
   }, [config, baseInput, value, baseCost]);
 
   const savingsColorClass =
-    selectedSavings > 0
+    selectedSavings < 0
       ? 'text-green-600'
-      : selectedSavings < 0
+      : selectedSavings > 0
         ? 'text-red-600'
         : 'text-muted-foreground';
 

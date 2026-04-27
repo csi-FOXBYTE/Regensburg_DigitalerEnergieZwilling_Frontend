@@ -15,7 +15,7 @@ export default defineConfig({
     locales: ["de", "en"],
     prefixDefaultLocale: true,
     defaultNamespace: "common",
-    namespaces: ["common", "landingPage", "progressBar", "energyCalculation"],
+    namespaces: ["common", "landingPage", "progressBar", "energyCalculation", "map"],
   })],
   vite: {
     plugins: [cesium({}), tailwindcss()],

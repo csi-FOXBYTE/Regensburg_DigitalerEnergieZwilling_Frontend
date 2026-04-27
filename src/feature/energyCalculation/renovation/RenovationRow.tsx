@@ -16,7 +16,7 @@ function formatSavings(savings: number) {
 
 export function RenovationRow({ selectionCell, label, savings }: RenovationRowProps) {
   const colorClass =
-    savings > 0 ? 'text-green-600' : savings < 0 ? 'text-red-600' : 'text-muted-foreground';
+    savings < 0 ? 'text-green-600' : savings > 0 ? 'text-red-600' : 'text-muted-foreground';
 
   return (
     <tr className="border-t border-neutral-200 text-base">

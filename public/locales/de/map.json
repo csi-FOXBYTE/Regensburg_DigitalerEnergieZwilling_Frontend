@@ -1,0 +1,8 @@
+{
+  "buildingWindow": {
+    "title": "Energetische Ersteinschätzung",
+    "subtitle": "Diese Ergebnisse wurden automatisch aus öffentlichen Daten und Modellannahmen berechnet. Im nächsten Schritt können Sie die Gebäudedaten prüfen, ergänzen oder ändern.",
+    "continueButton": "Jetzt Sanierungsvorschlag ermitteln",
+    "processingTime": "Die Bearbeitung dauert ungefähr 5 Minuten bis zum Ergebnis"
+  }
+}
