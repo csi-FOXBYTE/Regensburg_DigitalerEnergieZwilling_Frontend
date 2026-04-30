@@ -10,6 +10,8 @@ import HeatStep from '@/feature/energyCalculation/heat/HeatStep.astro';
 import ElectricityStep from '@/feature/energyCalculation/electricity/ElectricityStep.astro';
 import RenovationStep from '@/feature/energyCalculation/renovation/RenovationStep.astro';
 import Result from '@/feature/energyCalculation/result/Result.astro';
+import DevPanel from '@/dev/DevPanel';
+import SessionResumeDialog from '@/feature/map/SessionResumeDialog';
 
 export const getStaticPaths = (() => {
   return buildStaticPaths();
@@ -17,6 +19,7 @@ export const getStaticPaths = (() => {
 ---
 
 <script>
+  import '@/lib/state/session/auto-save';
   import { $step, setStep } from '@/lib/state/ui/progress';
   document.querySelector('[data-next-step]')?.addEventListener('click', () => {
     setStep($step.get() + 1);
@@ -32,4 +35,6 @@ export const getStaticPaths = (() => {
   <ElectricityStep />
   <RenovationStep />
   <Result />
+  <SessionResumeDialog client:only="react" />
+  {import.meta.env.DEV && <DevPanel client:load />}
 </DETLayout>

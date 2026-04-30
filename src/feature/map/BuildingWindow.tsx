@@ -16,13 +16,37 @@ import { Typography } from '../../components/ui/typography';
 import useIsMobile from '../../lib/useIsMobile';
 import { cn } from '../../lib/utils';
 import { setStep, Step } from '../../lib/state/ui/progress';
-import { $building, unselectBuilding } from '../../lib/state/building';
+import { $building, type BuildingState, unselectBuilding } from '../../lib/state/building';
+import {
+  $inputState,
+  $selectedHeatingRenovations,
+  $selectedHeatingSurfaceRenovations,
+  $selectedInsulationRenovations,
+  emptyInputState,
+} from '../../lib/state/inputs/atoms';
+import { clearSession, getSession } from '../../lib/state/session/storage';
 import { CurrentStatsReduced } from '../energyCalculation/CurrentStats';
 import StartOverConfirmDialog from './StartOverConfirmDialog';
 
-function BuildingWindowContent({ onContinue }: { onContinue: () => void }) {
+function BuildingWindowContent({
+  building,
+  onContinue,
+}: {
+  building: BuildingState;
+  onContinue: () => void;
+}) {
   const { t } = useTranslation('map');
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const session = getSession(building.id);
+
+  const handleStartOver = () => {
+    clearSession(building.id);
+    $inputState.set(emptyInputState());
+    $selectedInsulationRenovations.set([]);
+    $selectedHeatingSurfaceRenovations.set([]);
+    $selectedHeatingRenovations.set([]);
+    setStep(Step.GeneralData);
+  };
 
   return (
     <>
@@ -30,19 +54,40 @@ function BuildingWindowContent({ onContinue }: { onContinue: () => void }) {
         <CurrentStatsReduced />
       </div>
       <div className="shrink-0 px-6 py-3">
-        <Button onClick={onContinue} className="flex w-full items-center gap-2">
-          {t('buildingWindow.continueButton')}
-          <ArrowIcon />
-        </Button>
-        <div className="mt-2 flex items-center gap-1">
-          <Info className="size-3 shrink-0 text-muted-foreground" />
-          <Typography variant="verySmall">{t('buildingWindow.processingTime')}</Typography>
-        </div>
+        {session ? (
+          <>
+            <Button
+              onClick={() => setStep(session.step)}
+              className="flex w-full items-center gap-2"
+            >
+              {t('buildingWindow.sessionContinueButton')}
+              <ArrowIcon />
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => setConfirmOpen(true)}
+              className="mt-2 flex w-full items-center gap-2"
+            >
+              {t('buildingWindow.startOverButton')}
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button onClick={onContinue} className="flex w-full items-center gap-2">
+              {t('buildingWindow.continueButton')}
+              <ArrowIcon />
+            </Button>
+            <div className="mt-2 flex items-center gap-1">
+              <Info className="size-3 shrink-0 text-muted-foreground" />
+              <Typography variant="verySmall">{t('buildingWindow.processingTime')}</Typography>
+            </div>
+          </>
+        )}
       </div>
       <StartOverConfirmDialog
         open={confirmOpen}
         onOpenChange={setConfirmOpen}
-        onConfirm={() => setConfirmOpen(false)}
+        onConfirm={handleStartOver}
       />
     </>
   );
@@ -62,16 +107,19 @@ export default function BuildingWindow() {
 
   if (isMobile) {
     return (
-      <Drawer
-        open={isOpen}
-        onOpenChange={(open) => !open && unselectBuilding()}
-      >
+      <Drawer open={isOpen} onOpenChange={(open) => !open && unselectBuilding()}>
         <DrawerContent>
           <DrawerHeader>
             <DrawerTitle>{t('buildingWindow.title')}</DrawerTitle>
             <Typography variant="muted">{t('buildingWindow.subtitle')}</Typography>
           </DrawerHeader>
-          <BuildingWindowContent onContinue={gotoGeneralDataStep} />
+          {selectedBuilding && (
+            <BuildingWindowContent
+              key={selectedBuilding.id}
+              building={selectedBuilding}
+              onContinue={gotoGeneralDataStep}
+            />
+          )}
         </DrawerContent>
       </Drawer>
     );
@@ -96,7 +144,13 @@ export default function BuildingWindow() {
             <X />
           </Button>
         </div>
-        <BuildingWindowContent onContinue={gotoGeneralDataStep} />
+        {selectedBuilding && (
+          <BuildingWindowContent
+            key={selectedBuilding.id}
+            building={selectedBuilding}
+            onContinue={gotoGeneralDataStep}
+          />
+        )}
       </Paper>
     </Draggable>
   );
