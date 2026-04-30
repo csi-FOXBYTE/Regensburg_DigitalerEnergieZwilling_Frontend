@@ -10,12 +10,25 @@ import {
   type DETTopFloorInput,
 } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import { computed, type ReadableAtom } from 'nanostores';
+import type { InputState } from '../inputs/atoms';
 import { $currentEnergyState } from './current-energy-state';
 
 export const $resolvedInput = computed(
   $currentEnergyState,
   (state) => state.resolvedInput,
 );
+
+export const $resolvedInputState: ReadableAtom<InputState> = computed($resolvedInput, (r) => ({
+  general: r.general,
+  heat: r.heat,
+  roof: r.roof,
+  roofWindows: r.roofWindows,
+  exteriorWallWindows: r.exteriorWallWindows,
+  topFloor: r.topFloor,
+  outerWall: r.outerWall,
+  bottomFloor: r.bottomFloor,
+  electricity: r.electricity,
+}));
 
 export const $resolvedGeneralInput: ReadableAtom<Partial<DETGeneralInput>> =
   computed($resolvedInput, (r) => r.general);

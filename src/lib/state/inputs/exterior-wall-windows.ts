@@ -1,18 +1,16 @@
-import { type DETExteriorWallWindowsInput, type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+import { type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import makeFieldStore from '../../field-store';
 import { makeSelectionStore } from '../../selection-store';
-import { $resolvedExteriorWallWindowsInput } from '../computed/resolved-input';
-import { $exteriorWallWindowsInputState } from './atoms';
-
-export { $exteriorWallWindowsInputState };
+import { $resolvedInputState } from '../computed/resolved-input';
+import { $inputState } from './atoms';
 
 export const exteriorWallWindowsAreaField = makeFieldStore({
-  store: $exteriorWallWindowsInputState,
-  getValue: (obj): number | null | undefined => obj.area,
+  store: $inputState,
+  getValue: (obj): number | null | undefined => obj.exteriorWallWindows.area,
   setValue: (draft, value) => {
-    draft.area = value ?? undefined;
+    draft.exteriorWallWindows.area = value ?? undefined;
   },
-  placeholderStore: $resolvedExteriorWallWindowsInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
@@ -21,31 +19,31 @@ export const exteriorWallWindowsWindowTypeOptions = makeSelectionStore(
 );
 
 export const exteriorWallWindowsWindowTypeField = makeFieldStore({
-  store: $exteriorWallWindowsInputState,
-  getValue: (obj) => obj.windowType ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.exteriorWallWindows.windowType ?? undefined,
   setValue: (draft, value) => {
-    draft.windowType = value;
+    draft.exteriorWallWindows.windowType = value;
   },
-  placeholderStore: $resolvedExteriorWallWindowsInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const exteriorWallWindowsUValueField = makeFieldStore({
-  store: $exteriorWallWindowsInputState,
-  getValue: (obj) => obj.uValue,
+  store: $inputState,
+  getValue: (obj) => obj.exteriorWallWindows.uValue,
   setValue: (draft, value) => {
-    draft.uValue = value;
+    draft.exteriorWallWindows.uValue = value;
   },
-  placeholderStore: $resolvedExteriorWallWindowsInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const exteriorWallWindowsYearField = makeFieldStore({
-  store: $exteriorWallWindowsInputState,
-  getValue: (obj) => obj.year as RangeKey | undefined,
+  store: $inputState,
+  getValue: (obj) => obj.exteriorWallWindows.year as RangeKey | undefined,
   setValue: (draft, value) => {
-    draft.year = value;
+    draft.exteriorWallWindows.year = value;
   },
-  placeholderStore: $resolvedExteriorWallWindowsInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });

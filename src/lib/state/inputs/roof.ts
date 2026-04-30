@@ -1,18 +1,18 @@
-import { type DETRoofInput, RoofInsulationType, type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+import { RoofInsulationType, type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import makeFieldStore from '../../field-store';
 import { makeSelectionStore } from '../../selection-store';
-import { $resolvedRoofInput } from '../computed/resolved-input';
-import { $roofInputState } from './atoms';
+import { $resolvedInputState } from '../computed/resolved-input';
+import { $inputState } from './atoms';
 
-export { $roofInputState };
+export { RoofInsulationType };
 
 export const roofAreaField = makeFieldStore({
-  store: $roofInputState,
-  getValue: (obj) => obj.area,
+  store: $inputState,
+  getValue: (obj) => obj.roof.area,
   setValue: (draft, value) => {
-    draft.area = value;
+    draft.roof.area = value;
   },
-  placeholderStore: $resolvedRoofInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
@@ -21,53 +21,51 @@ export const roofConstructionTypeOptions = makeSelectionStore(
 );
 
 export const roofConstructionTypeField = makeFieldStore({
-  store: $roofInputState,
-  getValue: (obj) => obj.constructionType ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.roof.constructionType ?? undefined,
   setValue: (draft, value) => {
-    draft.constructionType = value;
+    draft.roof.constructionType = value;
   },
-  placeholderStore: $resolvedRoofInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const roofHasInsulationField = makeFieldStore({
-  store: $roofInputState,
-  getValue: (obj) => obj.hasInsulation ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.roof.hasInsulation ?? undefined,
   setValue: (draft, value) => {
-    draft.hasInsulation = value;
+    draft.roof.hasInsulation = value;
   },
-  placeholderStore: $resolvedRoofInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const roofInsulationThicknessField = makeFieldStore({
-  store: $roofInputState,
-  getValue: (obj) => obj.insulationThickness,
+  store: $inputState,
+  getValue: (obj) => obj.roof.insulationThickness,
   setValue: (draft, value) => {
-    draft.insulationThickness = value;
+    draft.roof.insulationThickness = value;
   },
-  placeholderStore: $resolvedRoofInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const roofInsulationTypeField = makeFieldStore({
-  store: $roofInputState,
-  getValue: (obj) => obj.insulationType ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.roof.insulationType ?? undefined,
   setValue: (draft, value) => {
-    draft.insulationType = value;
+    draft.roof.insulationType = value;
   },
-  placeholderStore: $resolvedRoofInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
-export { RoofInsulationType };
-
 export const roofYearField = makeFieldStore({
-  store: $roofInputState,
-  getValue: (obj) => obj.year as RangeKey | undefined,
+  store: $inputState,
+  getValue: (obj) => obj.roof.year as RangeKey | undefined,
   setValue: (draft, value) => {
-    draft.year = value;
+    draft.roof.year = value;
   },
-  placeholderStore: $resolvedRoofInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });

@@ -1,76 +1,75 @@
-import { type DETBottomFloorInput, type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+import { type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import makeFieldStore from '../../field-store';
 import { makeSelectionStore } from '../../selection-store';
-import { $resolvedBottomFloorInput } from '../computed/resolved-input';
-import { $bottomFloorInputState } from './atoms';
-
-export { $bottomFloorInputState };
+import { $resolvedInputState } from '../computed/resolved-input';
+import { $inputState } from './atoms';
 
 export const bottomFloorYearField = makeFieldStore({
-  store: $bottomFloorInputState,
-  getValue: (obj) => obj.year as RangeKey | undefined,
+  store: $inputState,
+  getValue: (obj) => obj.bottomFloor.year as RangeKey | undefined,
   setValue: (draft, value) => {
-    draft.year = value;
+    draft.bottomFloor.year = value;
   },
-  placeholderStore: $resolvedBottomFloorInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const hasBasementField = makeFieldStore({
-  store: $bottomFloorInputState,
-  getValue: (obj) => obj.hasBasement ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.bottomFloor.hasBasement ?? undefined,
   setValue: (draft, value) => {
-    draft.hasBasement = value;
+    draft.bottomFloor.hasBasement = value;
   },
-  placeholderStore: $resolvedBottomFloorInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const isBasementHeatedField = makeFieldStore({
-  store: $bottomFloorInputState,
-  getValue: (obj) => obj.isBasementHeated ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.bottomFloor.isBasementHeated ?? undefined,
   setValue: (draft, value) => {
-    draft.isBasementHeated = value;
+    draft.bottomFloor.isBasementHeated = value;
   },
-  placeholderStore: $resolvedBottomFloorInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const bottomFloorConstructionTypeOptions = makeSelectionStore(
   (config) => config.bottomFloor.constructionTypes,
   {
-    $store: $bottomFloorInputState,
-    getKey: (state) => state.hasBasement === false || state.isBasementHeated === true,
+    $store: $inputState,
+    getKey: (state) =>
+      state.bottomFloor.hasBasement === false || state.bottomFloor.isBasementHeated === true,
     getFilter: (config) => config.bottomFloor.allowedConstructionTypesByHeatedCellar,
   },
 );
 
 export const bottomFloorConstructionTypeField = makeFieldStore({
-  store: $bottomFloorInputState,
-  getValue: (obj) => obj.constructionType ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.bottomFloor.constructionType ?? undefined,
   setValue: (draft, value) => {
-    draft.constructionType = value;
+    draft.bottomFloor.constructionType = value;
   },
-  placeholderStore: $resolvedBottomFloorInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const bottomFloorHasInsulationField = makeFieldStore({
-  store: $bottomFloorInputState,
-  getValue: (obj) => obj.hasInsulation ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.bottomFloor.hasInsulation ?? undefined,
   setValue: (draft, value) => {
-    draft.hasInsulation = value;
+    draft.bottomFloor.hasInsulation = value;
   },
-  placeholderStore: $resolvedBottomFloorInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const bottomFloorInsulationThicknessField = makeFieldStore({
-  store: $bottomFloorInputState,
-  getValue: (obj): number | null | undefined => obj.insulationThickness,
+  store: $inputState,
+  getValue: (obj): number | null | undefined => obj.bottomFloor.insulationThickness,
   setValue: (draft, value) => {
-    draft.insulationThickness = value;
+    draft.bottomFloor.insulationThickness = value;
   },
-  placeholderStore: $resolvedBottomFloorInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });

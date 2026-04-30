@@ -1,28 +1,26 @@
-import { type DETHeatInput, type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+import { type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import makeFieldStore from '../../field-store';
 import { makeSelectionStore } from '../../selection-store';
-import { $resolvedHeatInput } from '../computed/resolved-input';
-import { $heatInputState } from './atoms';
-
-export { $heatInputState };
+import { $resolvedInputState } from '../computed/resolved-input';
+import { $inputState } from './atoms';
 
 export const heatingSystemConstructionYearField = makeFieldStore({
-  store: $heatInputState,
-  getValue: (obj) => obj.heatingSystemConstructionYear as RangeKey | undefined,
+  store: $inputState,
+  getValue: (obj) => obj.heat.heatingSystemConstructionYear as RangeKey | undefined,
   setValue: (draft, value) => {
-    draft.heatingSystemConstructionYear = value;
+    draft.heat.heatingSystemConstructionYear = value;
   },
-  placeholderStore: $resolvedHeatInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const primaryEnergyCarrierField = makeFieldStore({
-  store: $heatInputState,
-  getValue: (obj) => obj.primaryEnergyCarrier ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.heat.primaryEnergyCarrier ?? undefined,
   setValue: (draft, value) => {
-    draft.primaryEnergyCarrier = value;
+    draft.heat.primaryEnergyCarrier = value;
   },
-  placeholderStore: $resolvedHeatInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
@@ -33,19 +31,19 @@ export const primaryEnergyCarrierOptions = makeSelectionStore(
 export const heatingSystemTypeOptions = makeSelectionStore(
   (config) => config.heat.heatingSystemTypes,
   {
-    $store: $heatInputState,
-    getKey: (state) => state.primaryEnergyCarrier,
+    $store: $inputState,
+    getKey: (state) => state.heat.primaryEnergyCarrier,
     getFilter: (config) => config.heat.allowedHeatingSystemTypesByCarrier,
   },
 );
 
 export const heatingSystemTypeField = makeFieldStore({
-  store: $heatInputState,
-  getValue: (obj) => obj.heatingSystemType ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.heat.heatingSystemType ?? undefined,
   setValue: (draft, value) => {
-    draft.heatingSystemType = value;
+    draft.heat.heatingSystemType = value;
   },
-  placeholderStore: $resolvedHeatInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
@@ -54,62 +52,61 @@ export const heatingSurfaceTypeOptions = makeSelectionStore(
 );
 
 export const heatingSurfaceTypeField = makeFieldStore({
-  store: $heatInputState,
-  getValue: (obj) => obj.heatingSurfaceType ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.heat.heatingSurfaceType ?? undefined,
   setValue: (draft, value) => {
-    draft.heatingSurfaceType = value;
+    draft.heat.heatingSurfaceType = value;
   },
-  placeholderStore: $resolvedHeatInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const hasGasSupplyField = makeFieldStore({
-  store: $heatInputState,
-  getValue: (obj) => obj.hasGasSupply ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.heat.hasGasSupply ?? undefined,
   setValue: (draft, value) => {
-    draft.hasGasSupply = value;
+    draft.heat.hasGasSupply = value;
   },
-  placeholderStore: $resolvedHeatInput,
+  placeholderStore: $resolvedInputState,
   resettable: false,
 });
 
 export const hasBioGasField = makeFieldStore({
-  store: $heatInputState,
-  getValue: (obj) => obj.hasBioGas ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.heat.hasBioGas ?? undefined,
   setValue: (draft, value) => {
-    draft.hasBioGas = value;
+    draft.heat.hasBioGas = value;
   },
-  placeholderStore: $resolvedHeatInput,
+  placeholderStore: $resolvedInputState,
   resettable: false,
 });
 
 export const hasStorageField = makeFieldStore({
-  store: $heatInputState,
-  getValue: (obj) => obj.hasStorage ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.heat.hasStorage ?? undefined,
   setValue: (draft, value) => {
-    draft.hasStorage = value;
+    draft.heat.hasStorage = value;
   },
-  placeholderStore: $resolvedHeatInput,
+  placeholderStore: $resolvedInputState,
   resettable: false,
 });
 
 export const userThermalConsumptionField = makeFieldStore({
-  store: $heatInputState,
-  getValue: (obj) => obj.userThermalConsumption ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.heat.userThermalConsumption ?? undefined,
   setValue: (draft, value) => {
-    draft.userThermalConsumption = value;
+    draft.heat.userThermalConsumption = value;
   },
-  placeholderStore: $resolvedHeatInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const userThermalUnitRateField = makeFieldStore({
-  store: $heatInputState,
-  getValue: (obj) => obj.userThermalUnitRate ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.heat.userThermalUnitRate ?? undefined,
   setValue: (draft, value) => {
-    draft.userThermalUnitRate = value;
+    draft.heat.userThermalUnitRate = value;
   },
-  placeholderStore: $resolvedHeatInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
-

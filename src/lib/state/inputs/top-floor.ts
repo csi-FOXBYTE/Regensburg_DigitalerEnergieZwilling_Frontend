@@ -1,48 +1,46 @@
-import { type DETTopFloorInput, type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+import { type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import makeFieldStore from '../../field-store';
 import { makeSelectionStore } from '../../selection-store';
-import { $resolvedTopFloorInput } from '../computed/resolved-input';
-import { $topFloorInputState } from './atoms';
-
-export { $topFloorInputState };
+import { $resolvedInputState } from '../computed/resolved-input';
+import { $inputState } from './atoms';
 
 export const hasAtticField = makeFieldStore({
-  store: $topFloorInputState,
-  getValue: (obj) => obj.hasAttic ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.topFloor.hasAttic ?? undefined,
   setValue: (draft, value) => {
-    draft.hasAttic = value;
+    draft.topFloor.hasAttic = value;
   },
-  placeholderStore: $resolvedTopFloorInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const isAtticHeatedField = makeFieldStore({
-  store: $topFloorInputState,
-  getValue: (obj) => obj.isAtticHeated ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.topFloor.isAtticHeated ?? undefined,
   setValue: (draft, value) => {
-    draft.isAtticHeated = value;
+    draft.topFloor.isAtticHeated = value;
   },
-  placeholderStore: $resolvedTopFloorInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const topFloorYearField = makeFieldStore({
-  store: $topFloorInputState,
-  getValue: (obj) => obj.year as RangeKey | undefined,
+  store: $inputState,
+  getValue: (obj) => obj.topFloor.year as RangeKey | undefined,
   setValue: (draft, value) => {
-    draft.year = value;
+    draft.topFloor.year = value;
   },
-  placeholderStore: $resolvedTopFloorInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const topFloorAreaField = makeFieldStore({
-  store: $topFloorInputState,
-  getValue: (obj): number | null | undefined => obj.area,
+  store: $inputState,
+  getValue: (obj): number | null | undefined => obj.topFloor.area,
   setValue: (draft, value) => {
-    draft.area = value ?? undefined;
+    draft.topFloor.area = value ?? undefined;
   },
-  placeholderStore: $resolvedTopFloorInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
@@ -51,31 +49,31 @@ export const topFloorTypeOptions = makeSelectionStore(
 );
 
 export const topFloorTypeField = makeFieldStore({
-  store: $topFloorInputState,
-  getValue: (obj) => obj.topFloorType ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.topFloor.topFloorType ?? undefined,
   setValue: (draft, value) => {
-    draft.topFloorType = value;
+    draft.topFloor.topFloorType = value;
   },
-  placeholderStore: $resolvedTopFloorInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const topFloorHasInsulationField = makeFieldStore({
-  store: $topFloorInputState,
-  getValue: (obj) => obj.hasInsulation ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.topFloor.hasInsulation ?? undefined,
   setValue: (draft, value) => {
-    draft.hasInsulation = value;
+    draft.topFloor.hasInsulation = value;
   },
-  placeholderStore: $resolvedTopFloorInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const topFloorInsulationThicknessField = makeFieldStore({
-  store: $topFloorInputState,
-  getValue: (obj): number | null | undefined => obj.insulationThickness,
+  store: $inputState,
+  getValue: (obj): number | null | undefined => obj.topFloor.insulationThickness,
   setValue: (draft, value) => {
-    draft.insulationThickness = value;
+    draft.topFloor.insulationThickness = value;
   },
-  placeholderStore: $resolvedTopFloorInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });

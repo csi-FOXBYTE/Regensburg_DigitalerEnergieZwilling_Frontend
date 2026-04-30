@@ -1,22 +1,19 @@
 import {
   type DETConfig,
-  type DETGeneralInput,
   type RangeKey,
 } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import makeFieldStore from '../../field-store';
 import { makeRangeBandStore } from '../../selection-store';
-import { $resolvedGeneralInput } from '../computed/resolved-input';
-import { $generalInputState } from './atoms';
-
-export { $generalInputState };
+import { $resolvedInputState } from '../computed/resolved-input';
+import { $inputState } from './atoms';
 
 export const buildingYearField = makeFieldStore({
-  store: $generalInputState,
-  getValue: (obj) => obj.buildingYear as RangeKey | undefined,
+  store: $inputState,
+  getValue: (obj) => obj.general.buildingYear as RangeKey | undefined,
   setValue: (draft, value) => {
-    draft.buildingYear = value;
+    draft.general.buildingYear = value;
   },
-  placeholderStore: $resolvedGeneralInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
@@ -27,49 +24,49 @@ export const buildingYearOptions = makeRangeBandStore({
 });
 
 export const buildingTypeField = makeFieldStore({
-  store: $generalInputState,
-  getValue: (obj) => obj.type,
+  store: $inputState,
+  getValue: (obj) => obj.general.type,
   setValue: (draft, value) => {
-    draft.type = value;
+    draft.general.type = value;
   },
-  placeholderStore: $resolvedGeneralInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const numberOfStoriesField = makeFieldStore({
-  store: $generalInputState,
-  getValue: (obj) => obj.numberOfStories,
+  store: $inputState,
+  getValue: (obj) => obj.general.numberOfStories,
   setValue: (draft, value) => {
-    draft.numberOfStories = value;
+    draft.general.numberOfStories = value;
   },
-  placeholderStore: $resolvedGeneralInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const buildingHeightField = makeFieldStore({
-  store: $generalInputState,
-  getValue: (obj) => obj.buildingHeight,
+  store: $inputState,
+  getValue: (obj) => obj.general.buildingHeight,
   setValue: (draft, value) => {
-    draft.buildingHeight = value;
+    draft.general.buildingHeight = value;
   },
-  placeholderStore: $resolvedGeneralInput,
+  placeholderStore: $resolvedInputState,
 });
 
 export const buildingBaseAreaField = makeFieldStore({
-  store: $generalInputState,
-  getValue: (obj) => obj.buildingBaseArea,
+  store: $inputState,
+  getValue: (obj) => obj.general.buildingBaseArea,
   setValue: (draft, value) => {
-    draft.buildingBaseArea = value;
+    draft.general.buildingBaseArea = value;
   },
-  placeholderStore: $resolvedGeneralInput,
+  placeholderStore: $resolvedInputState,
 });
 
 export const livingAreaField = makeFieldStore({
-  store: $generalInputState,
-  getValue: (obj) => obj.livingArea,
+  store: $inputState,
+  getValue: (obj) => obj.general.livingArea,
   setValue: (draft, value) => {
-    draft.livingArea = value;
+    draft.general.livingArea = value;
   },
-  placeholderStore: $resolvedGeneralInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });

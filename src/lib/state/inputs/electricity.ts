@@ -1,40 +1,38 @@
 import makeFieldStore from '../../field-store';
 import { makeSelectionStore } from '../../selection-store';
-import { $resolvedElectricityInput } from '../computed/resolved-input';
-import { $electricityInputState } from './atoms';
-
-export { $electricityInputState };
+import { $resolvedInputState } from '../computed/resolved-input';
+import { $inputState } from './atoms';
 
 export const electricityTypeOptions = makeSelectionStore(
   (config) => config.heat.electricityTypes,
 );
 
 export const electricityTypeField = makeFieldStore({
-  store: $electricityInputState,
-  getValue: (obj) => obj.electricityType ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.electricity.electricityType ?? undefined,
   setValue: (draft, value) => {
-    draft.electricityType = value;
+    draft.electricity.electricityType = value;
   },
-  placeholderStore: $resolvedElectricityInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const userElectricityConsumptionField = makeFieldStore({
-  store: $electricityInputState,
-  getValue: (obj) => obj.userElectricityConsumption ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.electricity.userElectricityConsumption ?? undefined,
   setValue: (draft, value) => {
-    draft.userElectricityConsumption = value;
+    draft.electricity.userElectricityConsumption = value;
   },
-  placeholderStore: $resolvedElectricityInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const electricityUnitRateField = makeFieldStore({
-  store: $electricityInputState,
-  getValue: (obj) => obj.electricityUnitRate ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.electricity.electricityUnitRate ?? undefined,
   setValue: (draft, value) => {
-    draft.electricityUnitRate = value;
+    draft.electricity.electricityUnitRate = value;
   },
-  placeholderStore: $resolvedElectricityInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });

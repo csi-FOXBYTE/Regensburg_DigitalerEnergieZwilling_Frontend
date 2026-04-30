@@ -13,15 +13,31 @@ import {
 import { atom } from 'nanostores';
 import { $building } from '../building';
 
-export const $generalInputState = atom<Partial<DETGeneralInput>>({});
-export const $heatInputState = atom<Partial<DETHeatInput>>({});
-export const $roofInputState = atom<Partial<DETRoofInput>>({});
-export const $roofWindowsInputState = atom<Partial<DETRoofWindowsInput>>({});
-export const $exteriorWallWindowsInputState = atom<Partial<DETExteriorWallWindowsInput>>({});
-export const $topFloorInputState = atom<Partial<DETTopFloorInput>>({});
-export const $outerWallInputState = atom<Partial<DETOuterWallInput>>({});
-export const $bottomFloorInputState = atom<Partial<DETBottomFloorInput>>({});
-export const $electricityInputState = atom<Partial<DETElectricityInput>>({});
+export type InputState = {
+  general: Partial<DETGeneralInput>;
+  heat: Partial<DETHeatInput>;
+  roof: Partial<DETRoofInput>;
+  roofWindows: Partial<DETRoofWindowsInput>;
+  exteriorWallWindows: Partial<DETExteriorWallWindowsInput>;
+  topFloor: Partial<DETTopFloorInput>;
+  outerWall: Partial<DETOuterWallInput>;
+  bottomFloor: Partial<DETBottomFloorInput>;
+  electricity: Partial<DETElectricityInput>;
+};
+
+const emptyInputState = (): InputState => ({
+  general: {},
+  heat: {},
+  roof: {},
+  roofWindows: {},
+  exteriorWallWindows: {},
+  topFloor: {},
+  outerWall: {},
+  bottomFloor: {},
+  electricity: {},
+});
+
+export const $inputState = atom<InputState>(emptyInputState());
 
 export const $selectedInsulationRenovations = atom<Renovation[]>([]);
 export const $selectedHeatingSurfaceRenovations = atom<Renovation[]>([]);
@@ -29,15 +45,7 @@ export const $selectedHeatingRenovations = atom<Renovation[]>([]);
 
 $building.subscribe((building) => {
   if (building === null) return;
-  $generalInputState.set({});
-  $heatInputState.set({});
-  $roofInputState.set({});
-  $roofWindowsInputState.set({});
-  $exteriorWallWindowsInputState.set({});
-  $topFloorInputState.set({});
-  $outerWallInputState.set({});
-  $bottomFloorInputState.set({});
-  $electricityInputState.set({});
+  $inputState.set(emptyInputState());
   $selectedInsulationRenovations.set([]);
   $selectedHeatingSurfaceRenovations.set([]);
   $selectedHeatingRenovations.set([]);

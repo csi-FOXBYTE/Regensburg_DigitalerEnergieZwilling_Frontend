@@ -1,28 +1,26 @@
-import { type DETOuterWallInput, type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+import { type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import makeFieldStore from '../../field-store';
 import { makeSelectionStore } from '../../selection-store';
-import { $resolvedOuterWallInput } from '../computed/resolved-input';
-import { $outerWallInputState } from './atoms';
-
-export { $outerWallInputState };
+import { $resolvedInputState } from '../computed/resolved-input';
+import { $inputState } from './atoms';
 
 export const outerWallYearField = makeFieldStore({
-  store: $outerWallInputState,
-  getValue: (obj) => obj.year as RangeKey | undefined,
+  store: $inputState,
+  getValue: (obj) => obj.outerWall.year as RangeKey | undefined,
   setValue: (draft, value) => {
-    draft.year = value;
+    draft.outerWall.year = value;
   },
-  placeholderStore: $resolvedOuterWallInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const outerWallAreaField = makeFieldStore({
-  store: $outerWallInputState,
-  getValue: (obj): number | null | undefined => obj.area,
+  store: $inputState,
+  getValue: (obj): number | null | undefined => obj.outerWall.area,
   setValue: (draft, value) => {
-    draft.area = value ?? undefined;
+    draft.outerWall.area = value ?? undefined;
   },
-  placeholderStore: $resolvedOuterWallInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
@@ -31,31 +29,31 @@ export const outerWallConstructionTypeOptions = makeSelectionStore(
 );
 
 export const outerWallConstructionTypeField = makeFieldStore({
-  store: $outerWallInputState,
-  getValue: (obj) => obj.constructionType ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.outerWall.constructionType ?? undefined,
   setValue: (draft, value) => {
-    draft.constructionType = value;
+    draft.outerWall.constructionType = value;
   },
-  placeholderStore: $resolvedOuterWallInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const outerWallHasInsulationField = makeFieldStore({
-  store: $outerWallInputState,
-  getValue: (obj) => obj.hasInsulation ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.outerWall.hasInsulation ?? undefined,
   setValue: (draft, value) => {
-    draft.hasInsulation = value;
+    draft.outerWall.hasInsulation = value;
   },
-  placeholderStore: $resolvedOuterWallInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const outerWallInsulationThicknessField = makeFieldStore({
-  store: $outerWallInputState,
-  getValue: (obj): number | null | undefined => obj.insulationThickness,
+  store: $inputState,
+  getValue: (obj): number | null | undefined => obj.outerWall.insulationThickness,
   setValue: (draft, value) => {
-    draft.insulationThickness = value;
+    draft.outerWall.insulationThickness = value;
   },
-  placeholderStore: $resolvedOuterWallInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });

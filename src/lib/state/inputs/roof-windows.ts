@@ -1,18 +1,16 @@
-import { type DETRoofWindowsInput, type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+import { type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import makeFieldStore from '../../field-store';
 import { makeSelectionStore } from '../../selection-store';
-import { $resolvedRoofWindowsInput } from '../computed/resolved-input';
-import { $roofWindowsInputState } from './atoms';
-
-export { $roofWindowsInputState };
+import { $resolvedInputState } from '../computed/resolved-input';
+import { $inputState } from './atoms';
 
 export const roofWindowsAreaField = makeFieldStore({
-  store: $roofWindowsInputState,
-  getValue: (obj): number | null | undefined => obj.area,
+  store: $inputState,
+  getValue: (obj): number | null | undefined => obj.roofWindows.area,
   setValue: (draft, value) => {
-    draft.area = value ?? undefined;
+    draft.roofWindows.area = value ?? undefined;
   },
-  placeholderStore: $resolvedRoofWindowsInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
@@ -21,31 +19,31 @@ export const roofWindowsWindowTypeOptions = makeSelectionStore(
 );
 
 export const roofWindowsWindowTypeField = makeFieldStore({
-  store: $roofWindowsInputState,
-  getValue: (obj) => obj.windowType ?? undefined,
+  store: $inputState,
+  getValue: (obj) => obj.roofWindows.windowType ?? undefined,
   setValue: (draft, value) => {
-    draft.windowType = value;
+    draft.roofWindows.windowType = value;
   },
-  placeholderStore: $resolvedRoofWindowsInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const roofWindowsUValueField = makeFieldStore({
-  store: $roofWindowsInputState,
-  getValue: (obj) => obj.uValue,
+  store: $inputState,
+  getValue: (obj) => obj.roofWindows.uValue,
   setValue: (draft, value) => {
-    draft.uValue = value;
+    draft.roofWindows.uValue = value;
   },
-  placeholderStore: $resolvedRoofWindowsInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });
 
 export const roofWindowsYearField = makeFieldStore({
-  store: $roofWindowsInputState,
-  getValue: (obj) => obj.year as RangeKey | undefined,
+  store: $inputState,
+  getValue: (obj) => obj.roofWindows.year as RangeKey | undefined,
   setValue: (draft, value) => {
-    draft.year = value;
+    draft.roofWindows.year = value;
   },
-  placeholderStore: $resolvedRoofWindowsInput,
+  placeholderStore: $resolvedInputState,
   resettable: true,
 });

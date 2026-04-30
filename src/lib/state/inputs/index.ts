@@ -1,3 +1,4 @@
+export * from './atoms';
 export * from './bottom-floor';
 export * from './renovation';
 export * from './electricity';

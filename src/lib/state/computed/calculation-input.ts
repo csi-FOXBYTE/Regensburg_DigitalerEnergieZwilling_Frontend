@@ -13,24 +13,14 @@ import {
   type DETTopFloorInput,
 } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import { computed } from 'nanostores';
+import { $inputState } from '../inputs/atoms';
+import { $lod2Input } from './lod2-input';
 
 function defined<T extends object>(obj: T): Partial<T> {
   return Object.fromEntries(
     Object.entries(obj).filter(([, v]) => v !== undefined),
   ) as Partial<T>;
 }
-import {
-  $bottomFloorInputState,
-  $electricityInputState,
-  $exteriorWallWindowsInputState,
-  $generalInputState,
-  $heatInputState,
-  $outerWallInputState,
-  $roofInputState,
-  $roofWindowsInputState,
-  $topFloorInputState,
-} from '../inputs/atoms';
-import { $lod2Input } from './lod2-input';
 
 const placeholderGeneral: DETGeneralInput = {
   buildingBaseArea: 0,
@@ -40,113 +30,26 @@ const placeholderGeneral: DETGeneralInput = {
 };
 
 const placeholderHeat: DETHeatInput = {};
-
 const placeholderElectricity: DETElectricityInput = {};
+const placeholderBottomFloor: DETBottomFloorInput = { area: 0 };
+const placeholderExteriorWall: DETExteriorWallWindowsInput = { area: 0 };
+const placeholderRoofWindow: DETRoofWindowsInput = { area: 0 };
+const placeholderOuterWall: DETOuterWallInput = { area: 0 };
+const placeholderRoof: DETRoofInput = { area: 0 };
+const placeholderTopFloor: DETTopFloorInput = { area: 0 };
 
-const placeholderBottomFloor: DETBottomFloorInput = {
-  area: 0,
-};
-
-const placeholderExteriorWall: DETExteriorWallWindowsInput = {
-  area: 0,
-};
-
-const placeholderRoofWindow: DETRoofWindowsInput = {
-  area: 0,
-};
-
-const placeholderOuterWall: DETOuterWallInput = {
-  area: 0,
-};
-
-const placeholderRoof: DETRoofInput = {
-  area: 0,
-};
-
-const placeholderTopFloor: DETTopFloorInput = {
-  area: 0,
-};
-
-const inputStores: [
-  typeof $lod2Input,
-  typeof $generalInputState,
-  typeof $heatInputState,
-  typeof $electricityInputState,
-  typeof $bottomFloorInputState,
-  typeof $exteriorWallWindowsInputState,
-  typeof $outerWallInputState,
-  typeof $roofInputState,
-  typeof $roofWindowsInputState,
-  typeof $topFloorInputState,
-] = [
-  $lod2Input,
-  $generalInputState,
-  $heatInputState,
-  $electricityInputState,
-  $bottomFloorInputState,
-  $exteriorWallWindowsInputState,
-  $outerWallInputState,
-  $roofInputState,
-  $roofWindowsInputState,
-  $topFloorInputState,
-];
-
-export const $calculationInput = computed<DETInput, typeof inputStores>(
-  inputStores,
-  (
-    lod2,
-    general,
-    heat,
-    electricity,
-    bottomFloor,
-    exteriorWallWindows,
-    outerWall,
-    roof,
-    roofWindows,
-    topFloor,
-  ) => {
-    return {
-      general: {
-        ...placeholderGeneral,
-        ...lod2.general,
-        ...defined(general),
-      },
-      heat: {
-        ...placeholderHeat,
-        ...defined(heat),
-      },
-      electricity: {
-        ...placeholderElectricity,
-        ...defined(electricity),
-      },
-      bottomFloor: {
-        ...placeholderBottomFloor,
-        ...lod2.bottomFloor,
-        ...defined(bottomFloor),
-      },
-      exteriorWallWindows: {
-        ...placeholderExteriorWall,
-        ...defined(exteriorWallWindows),
-      },
-      roofWindows: {
-        ...placeholderRoofWindow,
-        ...defined(roofWindows),
-      },
-      outerWall: {
-        ...placeholderOuterWall,
-        ...lod2.outerWall,
-        ...defined(outerWall),
-      },
-      roof: {
-        ...placeholderRoof,
-        ...lod2.roof,
-        ...defined(roof),
-      },
-      topFloor: {
-        ...placeholderTopFloor,
-        ...lod2.topFloor,
-        ...defined(topFloor),
-      },
-    } satisfies DETInput;
-  },
+export const $calculationInput = computed(
+  [$lod2Input, $inputState],
+  (lod2, inputs) =>
+    ({
+      general: { ...placeholderGeneral, ...lod2.general, ...defined(inputs.general) },
+      heat: { ...placeholderHeat, ...defined(inputs.heat) },
+      electricity: { ...placeholderElectricity, ...defined(inputs.electricity) },
+      bottomFloor: { ...placeholderBottomFloor, ...lod2.bottomFloor, ...defined(inputs.bottomFloor) },
+      exteriorWallWindows: { ...placeholderExteriorWall, ...defined(inputs.exteriorWallWindows) },
+      roofWindows: { ...placeholderRoofWindow, ...defined(inputs.roofWindows) },
+      outerWall: { ...placeholderOuterWall, ...lod2.outerWall, ...defined(inputs.outerWall) },
+      roof: { ...placeholderRoof, ...lod2.roof, ...defined(inputs.roof) },
+      topFloor: { ...placeholderTopFloor, ...lod2.topFloor, ...defined(inputs.topFloor) },
+    }) satisfies DETInput,
 );
