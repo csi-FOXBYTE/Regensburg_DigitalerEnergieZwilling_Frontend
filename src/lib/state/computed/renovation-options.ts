@@ -16,10 +16,10 @@ export const $insulationRenovations = computed([$config], (config) =>
   generateInsulationRenovations(config, translateInsulationKey),
 );
 
-export const $heatingSurfaceRenovations = computed([$config], (config) =>
-  generateHeatingSurfaceRenovations(config, i18next.language),
+export const $heatingSurfaceRenovations = computed([$config, $resolvedInput], (config, resolvedInput) =>
+  generateHeatingSurfaceRenovations(config, resolvedInput, i18next.language),
 );
 
 export const $heatingRenovations = computed([$config, $resolvedInput], (config, resolvedInput) =>
-  generateHeatingRenovations(config, resolvedInput, i18next.language),
+  generateHeatingRenovations(config, resolvedInput, i18next.language, i18next.t('energyCalculation:renovation.heating.renewal')),
 );

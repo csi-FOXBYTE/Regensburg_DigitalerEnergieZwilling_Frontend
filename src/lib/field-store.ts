@@ -1,10 +1,5 @@
 import { produce, type Draft } from 'immer';
-import {
-  atom,
-  computed,
-  type ReadableAtom,
-  type WritableAtom,
-} from 'nanostores';
+import { atom, computed, type ReadableAtom, type WritableAtom } from 'nanostores';
 
 export type FieldStore<TValue> = {
   $store: ReadableAtom<TValue>;

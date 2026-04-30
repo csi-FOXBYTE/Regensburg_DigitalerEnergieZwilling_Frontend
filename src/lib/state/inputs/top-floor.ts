@@ -40,7 +40,7 @@ export const topFloorAreaField = makeFieldStore({
   store: $topFloorInputState,
   getValue: (obj): number | null | undefined => obj.area,
   setValue: (draft, value) => {
-    draft.area = value;
+    draft.area = value ?? undefined;
   },
   placeholderStore: $resolvedTopFloorInput,
   resettable: true,

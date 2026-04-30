@@ -1,9 +1,15 @@
-import { type Renovation } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
-import { atom, computed } from 'nanostores';
+import { computed } from 'nanostores';
+import {
+  $selectedHeatingRenovations,
+  $selectedHeatingSurfaceRenovations,
+  $selectedInsulationRenovations,
+} from './atoms';
 
-export const $selectedInsulationRenovations = atom<Renovation[]>([]);
-export const $selectedHeatingSurfaceRenovations = atom<Renovation[]>([]);
-export const $selectedHeatingRenovations = atom<Renovation[]>([]);
+export {
+  $selectedHeatingRenovations,
+  $selectedHeatingSurfaceRenovations,
+  $selectedInsulationRenovations,
+};
 
 export const $renovations = computed(
   [$selectedInsulationRenovations, $selectedHeatingSurfaceRenovations, $selectedHeatingRenovations],

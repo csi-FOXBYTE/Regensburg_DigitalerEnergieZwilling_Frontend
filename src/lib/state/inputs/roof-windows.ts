@@ -10,7 +10,7 @@ export const roofWindowsAreaField = makeFieldStore({
   store: $roofWindowsInputState,
   getValue: (obj): number | null | undefined => obj.area,
   setValue: (draft, value) => {
-    draft.area = value;
+    draft.area = value ?? undefined;
   },
   placeholderStore: $resolvedRoofWindowsInput,
   resettable: true,

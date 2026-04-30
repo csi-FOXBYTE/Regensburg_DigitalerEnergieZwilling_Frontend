@@ -10,7 +10,7 @@ export const exteriorWallWindowsAreaField = makeFieldStore({
   store: $exteriorWallWindowsInputState,
   getValue: (obj): number | null | undefined => obj.area,
   setValue: (draft, value) => {
-    draft.area = value;
+    draft.area = value ?? undefined;
   },
   placeholderStore: $resolvedExteriorWallWindowsInput,
   resettable: true,

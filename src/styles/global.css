@@ -5,6 +5,17 @@
 @import '@fontsource-variable/geist';
 
 :root {
+  /* Energy Efficiency Class Colors */
+  --energy-class-a-plus: #1B9E3E;
+  --energy-class-a: #4CAF50;
+  --energy-class-b: #6CB432;
+  --energy-class-c: #B3CC2A;
+  --energy-class-d: #ECDB23;
+  --energy-class-e: #E8A824;
+  --energy-class-f: #E67322;
+  --energy-class-g: #D9381E;
+  --energy-class-h: #A11A1A;
+
   /* Regensburg Brand Colors */
   --regensburg-red: #e30613;
   --regensburg-red-dark: #8b2412;
@@ -121,6 +132,17 @@
   --font-sans: 'Open Sans', sans-serif;
 
   /* Colors */
+  /* Energy Efficiency Classes */
+  --color-energy-class-a-plus: var(--energy-class-a-plus);
+  --color-energy-class-a: var(--energy-class-a);
+  --color-energy-class-b: var(--energy-class-b);
+  --color-energy-class-c: var(--energy-class-c);
+  --color-energy-class-d: var(--energy-class-d);
+  --color-energy-class-e: var(--energy-class-e);
+  --color-energy-class-f: var(--energy-class-f);
+  --color-energy-class-g: var(--energy-class-g);
+  --color-energy-class-h: var(--energy-class-h);
+
   /* Neutral Scale */
   --color-neutral-850: var(--neutral-850);
   --color-neutral-550: var(--neutral-550);

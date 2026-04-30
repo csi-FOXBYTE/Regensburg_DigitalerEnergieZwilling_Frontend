@@ -93,3 +93,23 @@ export const hasStorageField = makeFieldStore({
   resettable: false,
 });
 
+export const userThermalConsumptionField = makeFieldStore({
+  store: $heatInputState,
+  getValue: (obj) => obj.userThermalConsumption ?? undefined,
+  setValue: (draft, value) => {
+    draft.userThermalConsumption = value;
+  },
+  placeholderStore: $resolvedHeatInput,
+  resettable: true,
+});
+
+export const userThermalUnitRateField = makeFieldStore({
+  store: $heatInputState,
+  getValue: (obj) => obj.userThermalUnitRate ?? undefined,
+  setValue: (draft, value) => {
+    draft.userThermalUnitRate = value;
+  },
+  placeholderStore: $resolvedHeatInput,
+  resettable: true,
+});
+

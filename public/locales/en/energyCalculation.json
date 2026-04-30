@@ -102,11 +102,17 @@
       "primaryEnergyCarrier": "What energy carrier do you use for heating?",
       "heatingSystemType": "What type of heating system do you use?",
       "heatingSurfaceType": "How is heat distributed in the room?"
+    },
+    "bills": {
+      "consumption": "What is your annual energy consumption?",
+      "unitRate": "How much does your energy cost?"
     }
   },
   "electricity": {
     "title": "Electricity & Renewable Energy",
-    "hasRenewableEnergy": "Do you use electricity from renewable sources?"
+    "type": "What type of electricity do you use?",
+    "consumption": "What is your annual electricity consumption?",
+    "unitRate": "What is your electricity price?"
   },
   "renovation": {
     "title": "Renovation Measures",
@@ -117,10 +123,19 @@
       "outerWalls": "Outer wall insulation",
       "outerWindows": "Window replacement (outer wall)",
       "roofWindows": "Roof window replacement"
+    },
+    "heating": {
+      "renewal": "Heating System Renewal"
     }
   },
   "result": {
-    "title": "Your Results at a Glance"
+    "title": "Your Results at a Glance",
+    "energyEfficiencyClass": "Energy Efficiency Class",
+    "energyClassImprovement": "Your building improves from class <bold>{{from}}</bold> to class <bold>{{to}}</bold>.",
+    "energyClassUnchanged": "Your building has energy class <bold>{{class}}</bold>.",
+    "classTooltip": "Class {{cls}}: {{range}}",
+    "classTooltipAfterRenovation": "Class {{cls}}: {{range}} (After Renovation)",
+    "classTooltipCurrentState": "Class {{cls}}: {{range}} (Your Current State)"
   },
   "continueButton": "Continue",
   "backButton": "Back",

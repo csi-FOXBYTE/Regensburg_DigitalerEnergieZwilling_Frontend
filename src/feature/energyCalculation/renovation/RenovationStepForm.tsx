@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { Typography } from '@/components/ui/typography';
 import { $config } from '@/lib/state/calculation-config';
 import { $calculationInput } from '@/lib/state/computed/calculation-input';
+import { $currentEnergyState } from '@/lib/state/computed/current-energy-state';
 import {
   $heatingRenovations,
   $heatingSurfaceRenovations,
@@ -19,7 +20,12 @@ import { RenovationSingleSelectTable } from './RenovationSingleSelectTable';
 
 export default function RenovationStepForm() {
   const config = useStore($config);
-  const baseInput = useStore($calculationInput);
+  const rawBaseInput = useStore($calculationInput);
+  const currentState = useStore($currentEnergyState);
+  const baseInput = useMemo(
+    () => ({ ...rawBaseInput, preRenovationValues: currentState.preRenovationValues }),
+    [rawBaseInput, currentState.preRenovationValues],
+  );
 
   const insulationRenovations = useStore($insulationRenovations);
   const heatingSurfaceRenovations = useStore($heatingSurfaceRenovations);
@@ -51,26 +57,30 @@ export default function RenovationStepForm() {
           config={config}
         />
       </div>
-      <div>
-        <Typography variant="h4" className="mb-2">Heizungsfläche</Typography>
-        <RenovationSingleSelectTable
-          renovations={heatingSurfaceRenovations}
-          value={selectedHeatingSurface}
-          onSelectionChange={(v) => $selectedHeatingSurfaceRenovations.set(v)}
-          baseInput={insulationPatchedInput}
-          config={config}
-        />
-      </div>
-      <div>
-        <Typography variant="h4" className="mb-2">Heizung</Typography>
-        <RenovationSingleSelectTable
-          renovations={heatingRenovations}
-          value={selectedHeating}
-          onSelectionChange={(v) => $selectedHeatingRenovations.set(v)}
-          baseInput={heatingSurfacePatchedInput}
-          config={config}
-        />
-      </div>
+      {heatingSurfaceRenovations.length > 0 && (
+        <div>
+          <Typography variant="h4" className="mb-2">Heizungsfläche</Typography>
+          <RenovationSingleSelectTable
+            renovations={heatingSurfaceRenovations}
+            value={selectedHeatingSurface}
+            onSelectionChange={(v) => $selectedHeatingSurfaceRenovations.set(v)}
+            baseInput={insulationPatchedInput}
+            config={config}
+          />
+        </div>
+      )}
+      {heatingRenovations.length > 0 && (
+        <div>
+          <Typography variant="h4" className="mb-2">Heizung</Typography>
+          <RenovationSingleSelectTable
+            renovations={heatingRenovations}
+            value={selectedHeating}
+            onSelectionChange={(v) => $selectedHeatingRenovations.set(v)}
+            baseInput={heatingSurfacePatchedInput}
+            config={config}
+          />
+        </div>
+      )}
     </div>
   );
 }

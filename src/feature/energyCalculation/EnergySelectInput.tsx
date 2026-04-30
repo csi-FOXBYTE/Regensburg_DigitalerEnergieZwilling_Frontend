@@ -173,5 +173,5 @@ export default function EnergySelectInput<T extends string>(
     );
   }
   const { options, ...rest } = props;
-  return <EnergySelectInputBase options={options} {...(rest as BaseProps<T>)} />;
+  return <EnergySelectInputBase options={options} {...(rest as Omit<BaseProps<T>, 'options' | 'isEqual'>)} />;
 }

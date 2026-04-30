@@ -5,8 +5,5 @@ import { $calculationInput } from './calculation-input';
 
 export const $currentEnergyState = computed(
   [$calculationInput, $config],
-  (input, config) => {
-    console.log('Running calculation:', input);
-    return calculate(config, input, { debug: true });
-  },
+  (input, config) => calculate(config, input, { debug: true }),
 );

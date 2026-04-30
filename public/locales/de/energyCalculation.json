@@ -102,11 +102,17 @@
       "primaryEnergyCarrier": "Welchen Energieträger nutzen Sie für Ihre Heizung?",
       "heatingSystemType": "Welche Art von Heizung nutzen Sie?",
       "heatingSurfaceType": "Wie wird die Wärme im Raum verteilt?"
+    },
+    "bills": {
+      "consumption": "Wie hoch ist Ihr jährlicher Verbrauch?",
+      "unitRate": "Was wie viel kostet Ihre Energie?"
     }
   },
   "electricity": {
     "title": "Strom & erneuerbare Energien",
-    "hasRenewableEnergy": "Nutzen Sie Strom aus erneuerbaren Quellen?"
+    "type": "Welche Stromart beziehen Sie?",
+    "consumption": "Was ist Ihr jährlicher Stromverbrauch?",
+    "unitRate": "Wie hoch ist Ihr Strompreis?"
   },
   "renovation": {
     "title": "Sanierungsmaßnamen",
@@ -117,10 +123,19 @@
       "outerWalls": "Außenwanddämmung",
       "outerWindows": "Fensteraustausch (Außenwand)",
       "roofWindows": "Dachfensteraustausch"
+    },
+    "heating": {
+      "renewal": "Heizungserneuerung"
     }
   },
   "result": {
-    "title": "Ihre Ergebnisse im Überblick"
+    "title": "Ihre Ergebnisse im Überblick",
+    "energyEfficiencyClass": "Energieeffizienzklasse",
+    "energyClassImprovement": "Ihr Gebäude verbessert sich von Klasse <bold>{{from}}</bold> auf Klasse <bold>{{to}}</bold>.",
+    "energyClassUnchanged": "Ihr Gebäude hat die Energieklasse <bold>{{class}}</bold>.",
+    "classTooltip": "Klasse {{cls}}: {{range}}",
+    "classTooltipAfterRenovation": "Klasse {{cls}}: {{range}} (Nach Sanierung)",
+    "classTooltipCurrentState": "Klasse {{cls}}: {{range}} (Ihr aktueller Stand)"
   },
   "continueButton": "Weiter",
   "backButton": "Zurück",

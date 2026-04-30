@@ -20,7 +20,7 @@ export const outerWallAreaField = makeFieldStore({
   store: $outerWallInputState,
   getValue: (obj): number | null | undefined => obj.area,
   setValue: (draft, value) => {
-    draft.area = value;
+    draft.area = value ?? undefined;
   },
   placeholderStore: $resolvedOuterWallInput,
   resettable: true,
