@@ -1,8 +1,21 @@
 {
+  "sessionResumeDialog": {
+    "title": "Offene Sitzung",
+    "description": "Du hast eine offene Sitzung. Möchtest du weitermachen?",
+    "continueButton": "Weiter machen",
+    "dismissButton": "Abbrechen"
+  },
+  "startOverConfirmDialog": {
+    "title": "Sitzung zurücksetzen?",
+    "description": "Bist du sicher? Alle gespeicherten Daten für dieses Gebäude werden gelöscht.",
+    "confirmButton": "Ja, neu starten",
+    "cancelButton": "Abbrechen"
+  },
   "buildingWindow": {
     "title": "Energetische Ersteinschätzung",
     "subtitle": "Diese Ergebnisse wurden automatisch aus öffentlichen Daten und Modellannahmen berechnet. Im nächsten Schritt können Sie die Gebäudedaten prüfen, ergänzen oder ändern.",
     "continueButton": "Jetzt Sanierungsvorschlag ermitteln",
+    "startOverButton": "Neu starten",
     "processingTime": "Die Bearbeitung dauert ungefähr 5 Minuten bis zum Ergebnis"
   }
 }

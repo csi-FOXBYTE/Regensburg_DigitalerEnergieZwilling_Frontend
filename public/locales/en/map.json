@@ -1,8 +1,21 @@
 {
+  "sessionResumeDialog": {
+    "title": "Open Session",
+    "description": "You have an open session. Would you like to continue?",
+    "continueButton": "Continue",
+    "dismissButton": "Dismiss"
+  },
+  "startOverConfirmDialog": {
+    "title": "Reset session?",
+    "description": "Are you sure? All saved data for this building will be deleted.",
+    "confirmButton": "Yes, start over",
+    "cancelButton": "Cancel"
+  },
   "buildingWindow": {
     "title": "Initial Energy Assessment",
     "subtitle": "These results were automatically calculated from public data and model assumptions. In the next step, you can review, supplement, or modify the building data.",
     "continueButton": "Determine renovation proposal now",
+    "startOverButton": "Start over",
     "processingTime": "Processing takes approximately 5 minutes to complete"
   }
 }

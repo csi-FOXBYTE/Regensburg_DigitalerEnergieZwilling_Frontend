@@ -5,6 +5,7 @@ import AddressSearch from './AddressSearch';
 import BuildingWindow from './BuildingWindow';
 import { Map3D } from './Map3D';
 import { MapNav } from './MapNav';
+import SessionResumeDialog from './SessionResumeDialog';
 
 function MapWithControls() {
   const [viewer, setViewer] = useState<Cesium.Viewer | null>(null);
@@ -27,6 +28,7 @@ function MapWithControls() {
       />
       <MapNav viewer={viewer} />
       <BuildingWindow />
+      <SessionResumeDialog open={false} onOpenChange={() => {}} />
     </Map3D>
   );
 }

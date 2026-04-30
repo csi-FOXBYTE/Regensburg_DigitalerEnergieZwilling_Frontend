@@ -1,6 +1,6 @@
 import { useStore } from '@nanostores/react';
 import { Info, X } from 'lucide-react';
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import Draggable from 'react-draggable';
 import { useTranslation } from 'react-i18next';
 import ArrowIcon from '../../components/ArrowIcon';
@@ -18,9 +18,11 @@ import { cn } from '../../lib/utils';
 import { setStep, Step } from '../../lib/state/ui/progress';
 import { $building, unselectBuilding } from '../../lib/state/building';
 import { CurrentStatsReduced } from '../energyCalculation/CurrentStats';
+import StartOverConfirmDialog from './StartOverConfirmDialog';
 
 function BuildingWindowContent({ onContinue }: { onContinue: () => void }) {
   const { t } = useTranslation('map');
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   return (
     <>
@@ -37,6 +39,11 @@ function BuildingWindowContent({ onContinue }: { onContinue: () => void }) {
           <Typography variant="verySmall">{t('buildingWindow.processingTime')}</Typography>
         </div>
       </div>
+      <StartOverConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        onConfirm={() => setConfirmOpen(false)}
+      />
     </>
   );
 }
