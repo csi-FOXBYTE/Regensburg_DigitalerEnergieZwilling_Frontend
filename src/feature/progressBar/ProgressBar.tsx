@@ -1,7 +1,7 @@
 import DesktopOnly from '@/components/DesktopOnly';
 import MobileOnly from '@/components/MobileOnly';
 import { Typography } from '@/components/ui/typography';
-import { $step, setStep, Step } from '@/lib/state/ui/progress';
+import { $step, navigateToStep, Step } from '@/lib/state/ui/progress';
 import { cn } from '@/lib/utils';
 import { useStore } from '@nanostores/react';
 import { ArrowLeft } from 'lucide-react';
@@ -18,7 +18,7 @@ function MobileProgressBar({ step }: VisualProgressBarProps) {
   const label = t(`steps.${step}`);
 
   const stepBack = useCallback(() => {
-    setStep(step - 1);
+    navigateToStep(step - 1);
   }, [step]);
 
   return (
@@ -86,7 +86,7 @@ function DesktopProgressBar({ step }: VisualProgressBarProps) {
 
   const ticks: ReactNode[] = [];
   for (let i = 1; i <= Step.Result; i++) {
-    ticks.push(<DesktopTick step={step} index={i} key={i} onClick={setStep} />);
+    ticks.push(<DesktopTick step={step} index={i} key={i} onClick={navigateToStep} />);
   }
 
   return (

@@ -9,6 +9,7 @@ import {
   setBuilding,
   unselectBuilding,
 } from '../../lib/state/building';
+import { $cameraPosition } from '../../lib/state/session';
 import { $step, Step } from '../../lib/state/ui/progress';
 
 const terrainProvider = Cesium.CesiumTerrainProvider.fromUrl(
@@ -161,6 +162,7 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
             if (!Cesium.defined(picked)) return;
 
             const cartographic = Cesium.Cartographic.fromCartesian(picked);
+            $cameraPosition.set({ lon: cartographic.longitude, lat: cartographic.latitude });
             const groundHeight =
               viewerRef.scene.globe.getHeight(cartographic) ?? 0;
             const position = Cesium.Cartesian3.fromRadians(

@@ -15,7 +15,7 @@ import { Paper } from '../../components/ui/paper';
 import { Typography } from '../../components/ui/typography';
 import useIsMobile from '../../lib/useIsMobile';
 import { cn } from '../../lib/utils';
-import { setStep, Step } from '../../lib/state/ui/progress';
+import { navigateToStep, Step } from '../../lib/state/ui/progress';
 import { $building, type BuildingState, unselectBuilding } from '../../lib/state/building';
 import {
   $inputState,
@@ -45,7 +45,7 @@ function BuildingWindowContent({
     $selectedInsulationRenovations.set([]);
     $selectedHeatingSurfaceRenovations.set([]);
     $selectedHeatingRenovations.set([]);
-    setStep(Step.GeneralData);
+    navigateToStep(Step.GeneralData);
   };
 
   return (
@@ -57,7 +57,7 @@ function BuildingWindowContent({
         {session ? (
           <>
             <Button
-              onClick={() => setStep(session.step)}
+              onClick={() => navigateToStep(session.step)}
               className="flex w-full items-center gap-2"
             >
               {t('buildingWindow.sessionContinueButton')}
@@ -100,7 +100,7 @@ export default function BuildingWindow() {
   const { t } = useTranslation('map');
 
   const gotoGeneralDataStep = useCallback(() => {
-    setStep(Step.GeneralData);
+    navigateToStep(Step.GeneralData);
   }, []);
 
   const isOpen = !!selectedBuilding;

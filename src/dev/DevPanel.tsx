@@ -5,11 +5,57 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { $historyDebug, Step, type HistoryDebugState } from '@/lib/state/ui/progress';
+import { cn } from '@/lib/utils';
+import { useStore } from '@nanostores/react';
 import { Settings } from 'lucide-react';
 import { useState } from 'react';
 
 const BUILDING_KEY_PREFIX = 'det_building_data_';
 const META_KEY = 'det_meta';
+
+const STEP_LABELS: Record<number, string> = {
+  [Step.Welcome]: 'Welcome',
+  [Step.Building]: 'Building',
+  [Step.GeneralData]: 'General',
+  [Step.OuterParts]: 'Outer',
+  [Step.Heat]: 'Heat',
+  [Step.Electricity]: 'Elec',
+  [Step.Renovation]: 'Renov',
+  [Step.Result]: 'Result',
+};
+
+function HistoryStack({ debug }: { debug: HistoryDebugState }) {
+  const { entries, currentIndex } = debug;
+  return (
+    <div className="flex flex-col gap-1">
+      <span className="text-xs font-medium text-neutral-500">History stack</span>
+      <div className="flex flex-wrap gap-1">
+        {entries.map((entry, i) => {
+          const isCurrent = i === currentIndex;
+          const isAhead = i > currentIndex;
+          const label = entry === null ? '—' : `${entry}:${STEP_LABELS[entry] ?? '?'}`;
+          return (
+            <span
+              key={i}
+              className={cn(
+                'rounded px-2 py-0.5 font-mono text-xs',
+                isCurrent && 'bg-primary text-white',
+                !isCurrent && !isAhead && 'bg-neutral-200 text-neutral-600',
+                isAhead && 'bg-neutral-100 text-neutral-400',
+              )}
+            >
+              {label}
+            </span>
+          );
+        })}
+      </div>
+      <span className="font-mono text-xs text-neutral-400">
+        index {currentIndex} / {entries.length - 1} &nbsp;·&nbsp; browser history.length {typeof history !== 'undefined' ? history.length : '?'}
+      </span>
+    </div>
+  );
+}
 
 function getBuildingIds(): string[] {
   return Object.keys(localStorage)
@@ -35,6 +81,7 @@ function logBuildings() {
 
 export default function DevPanel() {
   const [open, setOpen] = useState(false);
+  const historyDebug = useStore($historyDebug);
 
   return (
     <>
@@ -49,13 +96,16 @@ export default function DevPanel() {
           <DialogHeader>
             <DialogTitle>Dev Panel</DialogTitle>
           </DialogHeader>
-          <div className="flex flex-col gap-2">
-            <Button variant="secondary" onClick={clearBuildingData}>
-              Clear building data
-            </Button>
-            <Button variant="secondary" onClick={logBuildings}>
-              Log buildings with data
-            </Button>
+          <div className="flex flex-col gap-4">
+            <HistoryStack debug={historyDebug} />
+            <div className="flex flex-col gap-2">
+              <Button variant="secondary" onClick={clearBuildingData}>
+                Clear building data
+              </Button>
+              <Button variant="secondary" onClick={logBuildings}>
+                Log buildings with data
+              </Button>
+            </div>
           </div>
         </DialogContent>
       </Dialog>

@@ -6,7 +6,7 @@ import {
   $selectedHeatingSurfaceRenovations,
   $selectedInsulationRenovations,
 } from '../inputs/atoms';
-import { $step, setStep, Step } from '../ui/progress';
+import { $step, navigateToStep, setStep, Step } from '../ui/progress';
 import { getMeta, getSession, saveRawSession, setMeta } from './storage';
 
 export { clearSession, getSession } from './storage';
@@ -53,7 +53,7 @@ export function loadSession(buildingId: string): void {
   }
   console.log('[session] loadSession — restoring step:', session.step);
   $building.set(session.building); // triggers atoms.ts subscriber → restores inputState + renovations
-  setStep(session.step);
+  navigateToStep(session.step);
   $pendingFlyTo.set({ lon: session.cameraLon, lat: session.cameraLat });
 }
 
@@ -65,7 +65,12 @@ export function getLastActiveSession() {
     return null;
   }
   const session = getSession(meta.lastActiveBuildingId);
-  console.log('[session] getLastActiveSession —', session ? 'found' : 'not found');
+  if (!session) {
+    console.log('[session] getLastActiveSession — blob missing, clearing stale meta');
+    setMeta({ lastActiveBuildingId: null, step: null });
+    return null;
+  }
+  console.log('[session] getLastActiveSession — found');
   return session;
 }
 
