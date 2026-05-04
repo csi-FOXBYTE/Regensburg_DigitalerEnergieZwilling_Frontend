@@ -20,7 +20,7 @@ export const getStaticPaths = (() => {
 
 <script>
   import '@/lib/state/session/auto-save';
-  import { $step, setStep, navigateToStep, Step, recordHistoryNav, recordHistoryPush } from '@/lib/state/ui/progress';
+  import { $step, setStep, navigateToStep, Step } from '@/lib/state/ui/progress';
   document.querySelector('[data-next-step]')?.addEventListener('click', () => {
     navigateToStep($step.get() + 1);
   });
@@ -28,10 +28,8 @@ export const getStaticPaths = (() => {
     const prevStep = $step.get();
     const step: Step = e.state?.step ?? Step.Welcome;
     if (prevStep !== step) setStep(step);
-    recordHistoryNav(step);
     if (prevStep >= Step.GeneralData && step < Step.GeneralData) {
       history.pushState({ step }, '');
-      recordHistoryPush(step);
     }
   });
 </script>
