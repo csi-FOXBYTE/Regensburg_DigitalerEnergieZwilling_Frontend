@@ -126,7 +126,13 @@
     },
     "heating": {
       "renewal": "Heizungserneuerung"
-    }
+    },
+    "recommended": "Empfohlen"
+  },
+  "subsidy": {
+    "sectionTitle": "Förderprogramme",
+    "benefitUpTo": "Bis zu",
+    "moreInfo": "Mehr anzeigen"
   },
   "result": {
     "title": "Ihre Ergebnisse im Überblick",

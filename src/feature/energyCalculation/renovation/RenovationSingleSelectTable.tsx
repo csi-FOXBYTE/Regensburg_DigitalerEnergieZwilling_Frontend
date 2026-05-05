@@ -70,6 +70,7 @@ export function RenovationSingleSelectTable({
               selectionCell={<RadioGroupItem value={row.id} />}
               label={row.original.label}
               savings={savingsMap[row.id] ?? 0}
+              recommended={row.original.recommended}
             />
           ))}
           <RenovationRow

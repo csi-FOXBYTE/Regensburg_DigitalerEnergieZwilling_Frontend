@@ -8,10 +8,12 @@ import OuterPartsStepForm from './OuterPartsStepForm';
 ---
 
 <EnergyCalculationPage step={3}>
-  <Typography variant="h2">
-    {i18next.t('energyCalculation:outerParts.title')}
-  </Typography>
-  <CurrentStats client:load />
+  <div class="flex flex-col gap-3">
+    <Typography variant="h2">
+      {i18next.t('energyCalculation:outerParts.title')}
+    </Typography>
+    <CurrentStats client:load />
+  </div>
   <OuterPartsStepForm client:load />
   <ButtonBar client:load />
 </EnergyCalculationPage>

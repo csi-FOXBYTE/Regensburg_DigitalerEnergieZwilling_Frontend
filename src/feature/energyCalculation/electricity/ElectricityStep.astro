@@ -8,10 +8,12 @@ import ElectricityStepForm from './ElectricityStepForm';
 ---
 
 <EnergyCalculationPage step={5}>
-  <Typography variant="h2">
-    {i18next.t('energyCalculation:electricity.title')}
-  </Typography>
-  <CurrentStats client:load />
+  <div class="flex flex-col gap-3">
+    <Typography variant="h2">
+      {i18next.t('energyCalculation:electricity.title')}
+    </Typography>
+    <CurrentStats client:load />
+  </div>
   <ElectricityStepForm client:load />
   <ButtonBar backTextKey="backButton" client:load />
 </EnergyCalculationPage>

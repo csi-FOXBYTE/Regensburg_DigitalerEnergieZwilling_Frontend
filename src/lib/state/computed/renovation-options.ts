@@ -12,8 +12,8 @@ import { $resolvedInput } from './resolved-input';
 const translateInsulationKey = (key: InsulationRenovationKeys) =>
   i18next.t(`energyCalculation:renovation.insulation.${key}`);
 
-export const $insulationRenovations = computed([$config], (config) =>
-  generateInsulationRenovations(config, translateInsulationKey),
+export const $insulationRenovations = computed([$config, $resolvedInput], (config, resolvedInput) =>
+  generateInsulationRenovations(config, resolvedInput, translateInsulationKey),
 );
 
 export const $heatingSurfaceRenovations = computed([$config, $resolvedInput], (config, resolvedInput) =>

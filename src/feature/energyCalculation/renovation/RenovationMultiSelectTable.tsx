@@ -89,6 +89,7 @@ export function RenovationMultiSelectTable({
             }
             label={row.original.label}
             savings={savingsMap[row.id] ?? 0}
+            recommended={row.original.recommended}
           />
         ))}
       </tbody>

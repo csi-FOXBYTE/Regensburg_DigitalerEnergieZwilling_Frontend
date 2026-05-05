@@ -8,10 +8,12 @@ import HeatStepForm from './HeatStepForm';
 ---
 
 <EnergyCalculationPage step={4}>
-  <Typography variant="h2">
-    {i18next.t('energyCalculation:heat.title')}
-  </Typography>
-  <CurrentStats client:load />
+  <div class="flex flex-col gap-3">
+    <Typography variant="h2">
+      {i18next.t('energyCalculation:heat.title')}
+    </Typography>
+    <CurrentStats client:load />
+  </div>
   <HeatStepForm client:load />
   <ButtonBar client:load />
 </EnergyCalculationPage>

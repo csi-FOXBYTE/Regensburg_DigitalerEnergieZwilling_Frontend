@@ -126,7 +126,13 @@
     },
     "heating": {
       "renewal": "Heating System Renewal"
-    }
+    },
+    "recommended": "Recommended"
+  },
+  "subsidy": {
+    "sectionTitle": "Funding Programmes",
+    "benefitUpTo": "Up to",
+    "moreInfo": "Show more"
   },
   "result": {
     "title": "Your Results at a Glance",
