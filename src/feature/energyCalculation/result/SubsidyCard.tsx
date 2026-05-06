@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Badge } from '@/components/ui/badge';
 import { Paper } from '@/components/ui/paper';
 import { Typography } from '@/components/ui/typography';
-import type { Subsidy, SubsidyBenefit } from '@/lib/subsidies/subsidies';
+import type { Subsidy, SubsidyBenefit } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 
 function formatBenefit(benefit: SubsidyBenefit, upToLabel: string): string {
   const num = (n: number) => n.toLocaleString('de-DE');

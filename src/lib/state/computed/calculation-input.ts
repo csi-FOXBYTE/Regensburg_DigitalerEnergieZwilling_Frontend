@@ -32,8 +32,8 @@ const placeholderGeneral: DETGeneralInput = {
 const placeholderHeat: DETHeatInput = {};
 const placeholderElectricity: DETElectricityInput = {};
 const placeholderBottomFloor: DETBottomFloorInput = { area: 0 };
-const placeholderExteriorWall: DETExteriorWallWindowsInput = { area: 0 };
-const placeholderRoofWindow: DETRoofWindowsInput = { area: 0 };
+const placeholderExteriorWall: DETExteriorWallWindowsInput = {};
+const placeholderRoofWindow: DETRoofWindowsInput = {};
 const placeholderOuterWall: DETOuterWallInput = { area: 0 };
 const placeholderRoof: DETRoofInput = { area: 0 };
 const placeholderTopFloor: DETTopFloorInput = { area: 0 };
@@ -42,14 +42,36 @@ export const $calculationInput = computed(
   [$lod2Input, $inputState],
   (lod2, inputs) =>
     ({
-      general: { ...placeholderGeneral, ...lod2.general, ...defined(inputs.general) },
+      general: {
+        ...placeholderGeneral,
+        ...lod2.general,
+        ...defined(inputs.general),
+      },
       heat: { ...placeholderHeat, ...defined(inputs.heat) },
-      electricity: { ...placeholderElectricity, ...defined(inputs.electricity) },
-      bottomFloor: { ...placeholderBottomFloor, ...lod2.bottomFloor, ...defined(inputs.bottomFloor) },
-      exteriorWallWindows: { ...placeholderExteriorWall, ...defined(inputs.exteriorWallWindows) },
+      electricity: {
+        ...placeholderElectricity,
+        ...defined(inputs.electricity),
+      },
+      bottomFloor: {
+        ...placeholderBottomFloor,
+        ...lod2.bottomFloor,
+        ...defined(inputs.bottomFloor),
+      },
+      exteriorWallWindows: {
+        ...placeholderExteriorWall,
+        ...defined(inputs.exteriorWallWindows),
+      },
       roofWindows: { ...placeholderRoofWindow, ...defined(inputs.roofWindows) },
-      outerWall: { ...placeholderOuterWall, ...lod2.outerWall, ...defined(inputs.outerWall) },
+      outerWall: {
+        ...placeholderOuterWall,
+        ...lod2.outerWall,
+        ...defined(inputs.outerWall),
+      },
       roof: { ...placeholderRoof, ...lod2.roof, ...defined(inputs.roof) },
-      topFloor: { ...placeholderTopFloor, ...lod2.topFloor, ...defined(inputs.topFloor) },
+      topFloor: {
+        ...placeholderTopFloor,
+        ...lod2.topFloor,
+        ...defined(inputs.topFloor),
+      },
     }) satisfies DETInput,
 );

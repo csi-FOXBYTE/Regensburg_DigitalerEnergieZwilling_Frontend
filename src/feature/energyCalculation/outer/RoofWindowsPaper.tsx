@@ -8,10 +8,22 @@ import {
   roofWindowsWindowTypeOptions,
   roofWindowsYearField,
 } from '@/lib/state/inputs/roof-windows';
+import { hasAtticField, isAtticHeatedField } from '@/lib/state/inputs/top-floor';
+import { useStore } from '@nanostores/react';
 import EnergyNumberInput from '../EnergyNumberInput';
 import EnergySelectInput from '../EnergySelectInput';
 
 export default function RoofWindowsPaper() {
+  const hasAtticValue = useStore(hasAtticField.$store);
+  const hasAtticPlaceholder = useStore(hasAtticField.$placeholder);
+  const hasAttic = hasAtticValue ?? hasAtticPlaceholder;
+
+  const isAtticHeatedValue = useStore(isAtticHeatedField.$store);
+  const isAtticHeatedPlaceholder = useStore(isAtticHeatedField.$placeholder);
+  const isAtticHeated = isAtticHeatedValue ?? isAtticHeatedPlaceholder;
+
+  if (hasAttic && !isAtticHeated) return null;
+
   return (
     <Paper variant="outlined" className="p-3">
       <FieldSet className="grid grid-cols-1 lg:grid-cols-2">

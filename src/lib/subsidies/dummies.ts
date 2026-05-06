@@ -1,4 +1,4 @@
-import type { Subsidy } from './subsidies';
+import type { Subsidy } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 
 export const DUMMY_SUBSIDIES: Subsidy[] = [
   {

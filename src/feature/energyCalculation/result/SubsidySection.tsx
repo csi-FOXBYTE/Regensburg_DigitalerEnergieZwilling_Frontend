@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Typography } from '@/components/ui/typography';
-import type { Subsidy } from '@/lib/subsidies/subsidies';
+import type { Subsidy } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import { SubsidyCard } from './SubsidyCard';
 
 export function SubsidySection({ subsidies }: { subsidies: Subsidy[] }) {
