@@ -1,5 +1,6 @@
 import { EnergyEfficiencyClass } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import { useStore } from '@nanostores/react';
+import { ArrowDown, ArrowUp } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import {
   Tooltip,
@@ -40,6 +41,7 @@ function EnergyClassRow({
   ringClass,
   tooltipText,
   selected,
+  badge,
 }: {
   cls: string;
   color: string;
@@ -48,13 +50,14 @@ function EnergyClassRow({
   ringClass: string;
   tooltipText: string;
   selected: boolean;
+  badge?: { label: string; bgClass: string; arrow?: 'up' | 'down' };
 }) {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <div className={`group flex items-stretch gap-4 p-2 ring-2 ${ringClass}`}>
           <div
-            className="flex w-16 shrink-0 items-center justify-center p-1 text-sm font-bold text-white"
+            className="flex aspect-[3/2] shrink-0 items-center justify-center p-1 text-sm font-bold text-white"
             style={{ backgroundColor: color }}
           >
             {cls}
@@ -64,9 +67,18 @@ function EnergyClassRow({
               className={`absolute inset-y-0 left-0 transition-opacity group-hover:opacity-100 ${selected ? 'opacity-80' : 'opacity-40'}`}
               style={{ clipPath: CHEVRON_CLIP, width: fill, backgroundColor: color }}
             />
-            <span className="relative z-10 flex h-full items-center pl-2 text-sm">
-              {rangeText}
-            </span>
+            <div className="relative z-10 flex h-full items-center justify-between pl-2 pr-2">
+              <span className="text-sm">{rangeText}</span>
+              <div className="shrink-0 flex justify-end">
+                {badge && (
+                  <span className={`flex items-center gap-0.5 px-1.5 py-0.5 text-xs font-bold text-white ${badge.bgClass}`}>
+                    {badge.arrow === 'up' && <ArrowUp />}
+                    {badge.arrow === 'down' && <ArrowDown />}
+                    {badge.label}
+                  </span>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </TooltipTrigger>
@@ -101,6 +113,14 @@ export default function EnergyClassBars() {
     return 'ring-transparent';
   }
 
+  function badge(cls: EnergyEfficiencyClass): { label: string; bgClass: string; arrow?: 'up' | 'down' } | undefined {
+    if (cls === afterClass && !same)
+      return { label: t('stats.afterRenovation'), bgClass: improved ? 'bg-green-600' : 'bg-red-600', arrow: improved ? 'up' : 'down' };
+    if (cls === beforeClass)
+      return { label: t('stats.beforeRenovation'), bgClass: 'bg-neutral-850' };
+    return undefined;
+  }
+
   function tooltipText(cls: EnergyEfficiencyClass, rangeText: string): string {
     const values = { cls, range: rangeText };
     if (cls === afterClass && cls !== beforeClass)
@@ -128,6 +148,7 @@ export default function EnergyClassBars() {
               ringClass={ringClass(band.value)}
               tooltipText={tooltipText(band.value, rangeText)}
               selected={band.value === beforeClass || band.value === afterClass}
+              badge={badge(band.value)}
             />
           );
         })}

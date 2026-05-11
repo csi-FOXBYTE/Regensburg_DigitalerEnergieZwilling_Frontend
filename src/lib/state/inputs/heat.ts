@@ -31,7 +31,7 @@ export const primaryEnergyCarrierOptions = makeSelectionStore(
 export const heatingSystemTypeOptions = makeSelectionStore(
   (config) => config.heat.heatingSystemTypes,
   {
-    $store: $inputState,
+    $store: $resolvedInputState,
     getKey: (state) => state.heat.primaryEnergyCarrier,
     getFilter: (config) => config.heat.allowedHeatingSystemTypesByCarrier,
   },

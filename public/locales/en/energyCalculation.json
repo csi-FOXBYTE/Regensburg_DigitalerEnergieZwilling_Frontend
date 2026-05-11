@@ -143,6 +143,22 @@
     "classTooltipAfterRenovation": "Class {{cls}}: {{range}} (After Renovation)",
     "classTooltipCurrentState": "Class {{cls}}: {{range}} (Your Current State)"
   },
+  "export": {
+    "reportTitle": "Energy Report",
+    "documentTitle": "Your Renovation Proposal",
+    "documentSubtitle": "Energy Renovation – Digital Energy Twin",
+    "building": "Building",
+    "reportDate": "Report Date",
+    "pageOf": "Page {{page}} of {{total}}",
+    "sectionEnergyEfficiency": "Energy Efficiency Analysis Summary",
+    "renovationScenariosTitle": "Renovation Scenarios – Results",
+    "energySavings": "Energy savings",
+    "costSavings": "Cost savings",
+    "categoryInsulation": "Insulation",
+    "categoryHeating": "Heating",
+    "categoryHeatingSurface": "Heating Surface",
+    "categoryLabel": "Category"
+  },
   "continueButton": "Continue",
   "backButton": "Back",
   "resultsButton": "Show Results",

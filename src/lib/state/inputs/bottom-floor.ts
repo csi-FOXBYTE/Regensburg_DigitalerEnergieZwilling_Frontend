@@ -37,7 +37,7 @@ export const isBasementHeatedField = makeFieldStore({
 export const bottomFloorConstructionTypeOptions = makeSelectionStore(
   (config) => config.bottomFloor.constructionTypes,
   {
-    $store: $inputState,
+    $store: $resolvedInputState,
     getKey: (state) =>
       state.bottomFloor.hasBasement === false || state.bottomFloor.isBasementHeated === true,
     getFilter: (config) => config.bottomFloor.allowedConstructionTypesByHeatedCellar,

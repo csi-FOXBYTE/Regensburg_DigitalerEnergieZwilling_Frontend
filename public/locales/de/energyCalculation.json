@@ -143,6 +143,22 @@
     "classTooltipAfterRenovation": "Klasse {{cls}}: {{range}} (Nach Sanierung)",
     "classTooltipCurrentState": "Klasse {{cls}}: {{range}} (Ihr aktueller Stand)"
   },
+  "export": {
+    "reportTitle": "Energiebericht",
+    "documentTitle": "Ihr Sanierungsvorschlag",
+    "documentSubtitle": "Energetische Sanierung – Digitaler Energie Zwilling",
+    "building": "Gebäude",
+    "reportDate": "Berichtsdatum",
+    "pageOf": "Seite {{page}} von {{total}}",
+    "sectionEnergyEfficiency": "Zusammenfassung der Energieeffizienz-Analyse",
+    "renovationScenariosTitle": "Sanierungsszenarien – Ergebnisse",
+    "energySavings": "Energieeinsparung",
+    "costSavings": "Kostenersparnis",
+    "categoryInsulation": "Dämmung",
+    "categoryHeating": "Heizung",
+    "categoryHeatingSurface": "Heizungsfläche",
+    "categoryLabel": "Kategorie"
+  },
   "continueButton": "Weiter",
   "backButton": "Zurück",
   "resultsButton": "Ergebnis anzeigen",

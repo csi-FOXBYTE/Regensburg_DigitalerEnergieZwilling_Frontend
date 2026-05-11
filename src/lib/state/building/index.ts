@@ -12,12 +12,18 @@ export type DigitalEnergyTwin = {
   envelopeArea: number | undefined;
 };
 
+export type BuildingAddress = {
+  street: string;
+  city: string;
+};
+
 export type BuildingProperties = {
   measuredHeight: number | undefined;
   lowestEave: number | undefined;
   groundHeight: number | undefined;
   roofHeight: number | undefined;
   digitalEnergyTwin: DigitalEnergyTwin;
+  address: BuildingAddress | undefined;
 };
 
 export type BuildingState = {
@@ -35,6 +41,15 @@ function numProp(
   return typeof value === 'string' ? Number(value) : (value ?? undefined);
 }
 
+function parseAddress(
+  feature: Cesium3DTileFeature,
+): BuildingAddress | undefined {
+  const street = feature.getProperty('addresses.0.ThoroughfareName');
+  const city = feature.getProperty('addresses.0.Locality');
+  if (typeof street !== 'string' || typeof city !== 'string') return undefined;
+  return { street, city };
+}
+
 export function setBuilding(feature: Cesium3DTileFeature) {
   const id = feature.getProperty('id');
 
@@ -47,6 +62,7 @@ export function setBuilding(feature: Cesium3DTileFeature) {
       lowestEave: numProp(feature, 'NiedrigsteTraufeDesGebaeudes'),
       groundHeight: numProp(feature, 'HoeheGrund'),
       roofHeight: numProp(feature, 'HoeheDach'),
+      address: parseAddress(feature),
       digitalEnergyTwin: {
         volume: numProp(feature, 'digitalEnergyTwin.volume'),
         groundArea: numProp(feature, 'digitalEnergyTwin.groundArea'),

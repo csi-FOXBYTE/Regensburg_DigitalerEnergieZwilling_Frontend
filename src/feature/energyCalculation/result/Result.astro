@@ -6,6 +6,7 @@ import { DUMMY_SUBSIDIES } from '@/lib/subsidies/dummies';
 import ButtonBar from '../ButtonBar';
 import RenovationStats from '../renovation/RenovationStats';
 import EnergyClassDisplay from './EnergyClassDisplay';
+import { ExportSection } from './ExportSection';
 import { NextStepsSection } from './NextStepsSection';
 import { SubsidySection } from './SubsidySection';
 ---
@@ -24,6 +25,7 @@ import { SubsidySection } from './SubsidySection';
     <EnergyClassDisplay client:load />
   </div>
   <SubsidySection subsidies={DUMMY_SUBSIDIES} client:load />
+  <ExportSection client:load />
   <NextStepsSection client:load />
   <ButtonBar backTextKey="backFromResults" client:load />
 </EnergyCalculationPage>

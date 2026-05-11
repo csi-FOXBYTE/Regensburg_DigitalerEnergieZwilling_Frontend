@@ -12,11 +12,14 @@ importers:
         specifier: ^4.4.2
         version: 4.4.2(@types/node@25.0.2)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(jiti@2.6.1)(lightningcss@1.30.2)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tsx@4.21.0)
       '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore':
-        specifier: 0.8.1
-        version: 0.8.1
+        specifier: 0.8.2
+        version: 0.8.2
       '@fontsource-variable/geist':
         specifier: ^5.2.8
         version: 5.2.8
+      '@fontsource/open-sans':
+        specifier: ^5.2.7
+        version: 5.2.7
       '@hey-api/openapi-ts':
         specifier: ^0.92.3
         version: 0.92.3(magicast@0.5.1)(typescript@5.9.3)
@@ -531,8 +534,8 @@ packages:
     resolution: {integrity: sha512-/8xJTi95XZrdkmJGABEHuQLu2ZarJ59J4V21dmgU/GJAFoqnjPlqFaFajx5XBZzRufGFYW1vGsq9BMqbdOJn5Q==}
     engines: {node: '>=20.19.0'}
 
-  '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore@0.8.1':
-    resolution: {integrity: sha512-oAUPl5t7i6zTHyglpjpdQbIbb1OeDSxdQ9+8h4/nfGR6Ul19zlzxbBlphDTzL/yrYMBqMDeEn5P4gMCL2UkBxA==, tarball: https://npm.pkg.github.com/download/@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore/0.8.1/d37e6b1b5665f8d27ff811d86366b4edc738197c}
+  '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore@0.8.2':
+    resolution: {integrity: sha512-YvMY4R8vQ/cRQJ54VO7atju9eCtAJLtuWy5nFF0et1sqh1dbf3dH4CccFBcAy2Xc1NcKxe2RRkP3w4D3eHqcXA==, tarball: https://npm.pkg.github.com/download/@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore/0.8.2/73fc5b089ab7fdacf525fe36485aaeab9c0882ed}
 
   '@date-fns/tz@1.4.1':
     resolution: {integrity: sha512-P5LUNhtbj6YfI3iJjw5EL9eUAG6OitD0W3fWQcpQjDRc/QIsL0tRNuO1PcDvPccWL1fSTXXdE1ds+l95DV/OFA==}
@@ -897,6 +900,9 @@ packages:
 
   '@fontsource-variable/geist@5.2.8':
     resolution: {integrity: sha512-cJ6m9e+8MQ5dCYJsLylfZrgBh6KkG4bOLckB35Tr9J/EqdkEM6QllH5PxqP1dhTvFup+HtMRPuz9xOjxXJggxw==}
+
+  '@fontsource/open-sans@5.2.7':
+    resolution: {integrity: sha512-8yfgDYjE5O0vmTPdrcjV35y4yMnctsokmi9gN49Gcsr0sjzkMkR97AnKDe6OqZh2SFkYlR28fxOvi21bYEgMSw==}
 
   '@hey-api/codegen-core@0.7.0':
     resolution: {integrity: sha512-HglL4B4QwpzocE+c8qDU6XK8zMf8W8Pcv0RpFDYxHuYALWLTnpDUuEsglC7NQ4vC1maoXsBpMbmwpco0N4QviA==}
@@ -6049,7 +6055,7 @@ snapshots:
       '@cesium/engine': 22.1.0
       nosleep.js: 0.12.0
 
-  '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore@0.8.1': {}
+  '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore@0.8.2': {}
 
   '@date-fns/tz@1.4.1': {}
 
@@ -6262,6 +6268,8 @@ snapshots:
   '@floating-ui/utils@0.2.10': {}
 
   '@fontsource-variable/geist@5.2.8': {}
+
+  '@fontsource/open-sans@5.2.7': {}
 
   '@hey-api/codegen-core@0.7.0(magicast@0.5.1)(typescript@5.9.3)':
     dependencies:

@@ -40,9 +40,9 @@ export default function RenovationStepForm() {
     [baseInput, selectedInsulation],
   );
 
-  const heatingSurfacePatchedInput = useMemo(
-    () => selectedHeatingSurface.length > 0 ? applyRenovation(insulationPatchedInput, selectedHeatingSurface) : insulationPatchedInput,
-    [insulationPatchedInput, selectedHeatingSurface],
+  const heatingPatchedInput = useMemo(
+    () => selectedHeating.length > 0 ? applyRenovation(insulationPatchedInput, selectedHeating) : insulationPatchedInput,
+    [insulationPatchedInput, selectedHeating],
   );
 
   return (
@@ -57,18 +57,6 @@ export default function RenovationStepForm() {
           config={config}
         />
       </div>
-      {heatingSurfaceRenovations.length > 0 && (
-        <div>
-          <Typography variant="h4" className="mb-2">Heizungsfläche</Typography>
-          <RenovationSingleSelectTable
-            renovations={heatingSurfaceRenovations}
-            value={selectedHeatingSurface}
-            onSelectionChange={(v) => $selectedHeatingSurfaceRenovations.set(v)}
-            baseInput={insulationPatchedInput}
-            config={config}
-          />
-        </div>
-      )}
       {heatingRenovations.length > 0 && (
         <div>
           <Typography variant="h4" className="mb-2">Heizung</Typography>
@@ -76,7 +64,19 @@ export default function RenovationStepForm() {
             renovations={heatingRenovations}
             value={selectedHeating}
             onSelectionChange={(v) => $selectedHeatingRenovations.set(v)}
-            baseInput={heatingSurfacePatchedInput}
+            baseInput={insulationPatchedInput}
+            config={config}
+          />
+        </div>
+      )}
+      {heatingSurfaceRenovations.length > 0 && (
+        <div>
+          <Typography variant="h4" className="mb-2">Heizungsfläche</Typography>
+          <RenovationSingleSelectTable
+            renovations={heatingSurfaceRenovations}
+            value={selectedHeatingSurface}
+            onSelectionChange={(v) => $selectedHeatingSurfaceRenovations.set(v)}
+            baseInput={heatingPatchedInput}
             config={config}
           />
         </div>

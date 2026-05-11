@@ -55,7 +55,7 @@ function EnergySelectInputBase<T>({
       labelKey={labelKey}
       info={info}
       onReset={field.resettable ? () => field.setValue(undefined) : undefined}
-      resetDisabled={!value}
+      resetDisabled={!value || !!disabled}
       className={className}
     >
       <Select
