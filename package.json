@@ -97,6 +97,9 @@
     "vite-plugin-cesium": "^1.2.23",
     "zod": "^4.0.0"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild", "msw", "protobufjs", "sharp"]
+  },
   "devDependencies": {
     "prettier": "^3.8.1",
     "prettier-plugin-astro": "^0.14.1",
