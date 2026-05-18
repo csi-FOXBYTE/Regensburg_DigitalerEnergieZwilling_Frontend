@@ -1,15 +1,23 @@
+import { useStore } from '@nanostores/react';
 import { useQuery } from '@tanstack/react-query';
 import { useDebounce } from '@uidotdev/usehooks';
 import { Search } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Input } from '../../components/ui/input';
+import { $building, unselectBuilding } from '../../lib/state/building';
 
 export default function AddressSearch({
   onAddressFound,
 }: {
   onAddressFound: (lat: string, lon: string) => void;
 }) {
+  const building = useStore($building);
+
   const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    if (building !== null) setSearch('');
+  }, [building]);
 
   const debouncedSearch = useDebounce(search, 500) ?? '';
 
@@ -35,6 +43,11 @@ export default function AddressSearch({
     },
   });
 
+  const extractAddressFromDisplayName = (displayName: string) => {
+    const idx = displayName.indexOf(', Regensburg, Bayern,');
+    return idx !== -1 ? displayName.slice(0, idx) : displayName;
+  };
+
   return (
     <div className="absolute top-2 right-2 left-2 z-10 max-w-full transition-all duration-300 md:top-4 md:right-4 md:left-4 md:max-w-md">
       <form
@@ -46,9 +59,21 @@ export default function AddressSearch({
         <Input
           type="text"
           leftIcon={<Search />}
-          onChange={(event) => setSearch(event.target.value)}
-          onClear={() => setSearch('')}
-          value={search}
+          onChange={(event) => {
+            if ($building.get() !== null) unselectBuilding();
+            setSearch(event.target.value);
+          }}
+          onClear={() => {
+            unselectBuilding();
+            setSearch('');
+          }}
+          value={
+            search == ''
+              ? building?.properties.address
+                ? `${building.properties.address.street}`
+                : ''
+              : search
+          }
           className="py-3"
           placeholder="Adresse suchen in Regensburg..."
           aria-label="Adresse eingeben"
@@ -61,9 +86,10 @@ export default function AddressSearch({
               key={d.place_id}
               onClick={() => {
                 onAddressFound(d.lat, d.lon);
+                setSearch(extractAddressFromDisplayName(d.display_name));
               }}
             >
-              {d.display_name}
+              {extractAddressFromDisplayName(d.display_name)}
             </div>
           ))
         : null}
