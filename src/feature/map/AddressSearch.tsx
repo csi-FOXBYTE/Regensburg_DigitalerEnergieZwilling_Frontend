@@ -27,26 +27,33 @@ export default function AddressSearch({
       if (debouncedSearch === '') return [];
 
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?q=${debouncedSearch},Regensburg,Deutschland&format=json`,
+        `https://photon.komoot.io/api/?q=${debouncedSearch}&limit=20&lang=de`,
       );
 
       const json = await response.json();
-
-      return json as {
-        place_id: string;
-        licence: string;
-        name: string;
-        display_name: string;
-        lat: string;
-        lon: string;
-      }[];
+      return (
+        json.features as {
+          properties: {
+            osm_id: number;
+            osm_type: string;
+            street?: string;
+            housenumber?: string;
+            postcode?: string;
+            city?: string;
+          };
+          geometry: { coordinates: [number, number] };
+        }[]
+      ).filter((f) => f.properties.street != null);
     },
   });
 
-  const extractAddressFromDisplayName = (displayName: string) => {
-    const idx = displayName.indexOf(', Regensburg, Bayern,');
-    return idx !== -1 ? displayName.slice(0, idx) : displayName;
-  };
+  const formatStreet = (p: (typeof data)[number]['properties']) =>
+    [p.street, p.housenumber].filter(Boolean).join(' ');
+
+  const formatFullAddress = (p: (typeof data)[number]['properties']) =>
+    [formatStreet(p), [p.postcode, p.city].filter(Boolean).join(' ')]
+      .filter(Boolean)
+      .join(', ');
 
   return (
     <div className="absolute top-2 right-2 left-2 z-10 max-w-full transition-all duration-300 md:top-4 md:right-4 md:left-4 md:max-w-md">
@@ -83,13 +90,14 @@ export default function AddressSearch({
         ? data.map((d) => (
             <div
               className="w-full border border-gray-300 bg-white py-2.5 pr-10 pl-9 text-sm shadow-lg outline-offset-2 focus:border-[#D9291C] focus:ring-2 focus:ring-[#D9291C] focus:outline-none md:py-3 md:pr-4 md:pl-10 md:text-base"
-              key={d.place_id}
+              key={`${d.properties.osm_type}${d.properties.osm_id}`}
               onClick={() => {
-                onAddressFound(d.lat, d.lon);
-                setSearch(extractAddressFromDisplayName(d.display_name));
+                const [lon, lat] = d.geometry.coordinates;
+                onAddressFound(String(lat), String(lon));
+                setSearch(formatStreet(d.properties));
               }}
             >
-              {extractAddressFromDisplayName(d.display_name)}
+              {formatFullAddress(d.properties)}
             </div>
           ))
         : null}
