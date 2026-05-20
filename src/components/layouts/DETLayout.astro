@@ -19,11 +19,17 @@ import ProgressBar from '@/feature/progressBar/ProgressBar';
 <script>
   import { $step } from '@/lib/state/ui';
 
+  let initialized = false;
+
   function update(step: number) {
     document.querySelectorAll<HTMLElement>('[data-step-gate]').forEach((el) => {
       const steps = el.dataset.stepGate!.split(',').map(Number);
       el.style.display = steps.includes(step) ? '' : 'none';
     });
+    if (initialized) {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+    initialized = true;
   }
 
   $step.subscribe(update);
