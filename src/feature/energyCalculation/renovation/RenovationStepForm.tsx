@@ -1,6 +1,3 @@
-import { applyRenovation } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
-import { useStore } from '@nanostores/react';
-import { useMemo } from 'react';
 import { Typography } from '@/components/ui/typography';
 import { $config } from '@/lib/state/calculation-config';
 import { $calculationInput } from '@/lib/state/computed/calculation-input';
@@ -15,6 +12,9 @@ import {
   $selectedHeatingSurfaceRenovations,
   $selectedInsulationRenovations,
 } from '@/lib/state/inputs/renovation';
+import { applyRenovation } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+import { useStore } from '@nanostores/react';
+import { useMemo } from 'react';
 import { RenovationMultiSelectTable } from './RenovationMultiSelectTable';
 import { RenovationSingleSelectTable } from './RenovationSingleSelectTable';
 
@@ -23,7 +23,10 @@ export default function RenovationStepForm() {
   const rawBaseInput = useStore($calculationInput);
   const currentState = useStore($currentEnergyState);
   const baseInput = useMemo(
-    () => ({ ...rawBaseInput, preRenovationValues: currentState.preRenovationValues }),
+    () => ({
+      ...rawBaseInput,
+      preRenovationValues: currentState.preRenovationValues,
+    }),
     [rawBaseInput, currentState.preRenovationValues],
   );
 
@@ -36,19 +39,27 @@ export default function RenovationStepForm() {
   const selectedHeating = useStore($selectedHeatingRenovations);
 
   const insulationPatchedInput = useMemo(
-    () => selectedInsulation.length > 0 ? applyRenovation(baseInput, selectedInsulation) : baseInput,
+    () =>
+      selectedInsulation.length > 0
+        ? applyRenovation(baseInput, selectedInsulation)
+        : baseInput,
     [baseInput, selectedInsulation],
   );
 
   const heatingPatchedInput = useMemo(
-    () => selectedHeating.length > 0 ? applyRenovation(insulationPatchedInput, selectedHeating) : insulationPatchedInput,
+    () =>
+      selectedHeating.length > 0
+        ? applyRenovation(insulationPatchedInput, selectedHeating)
+        : insulationPatchedInput,
     [insulationPatchedInput, selectedHeating],
   );
 
   return (
     <div className="flex flex-col gap-4">
       <div>
-        <Typography variant="h4" className="mb-2">Dämmung</Typography>
+        <Typography variant="h4" className="mb-2">
+          Dämmung
+        </Typography>
         <RenovationMultiSelectTable
           renovations={insulationRenovations}
           value={selectedInsulation}
@@ -59,7 +70,9 @@ export default function RenovationStepForm() {
       </div>
       {heatingRenovations.length > 0 && (
         <div>
-          <Typography variant="h4" className="mb-2">Heizung</Typography>
+          <Typography variant="h4" className="mb-2">
+            Heizung
+          </Typography>
           <RenovationSingleSelectTable
             renovations={heatingRenovations}
             value={selectedHeating}
@@ -71,7 +84,9 @@ export default function RenovationStepForm() {
       )}
       {heatingSurfaceRenovations.length > 0 && (
         <div>
-          <Typography variant="h4" className="mb-2">Heizungsfläche</Typography>
+          <Typography variant="h4" className="mb-2">
+            Heizflächen
+          </Typography>
           <RenovationSingleSelectTable
             renovations={heatingSurfaceRenovations}
             value={selectedHeatingSurface}

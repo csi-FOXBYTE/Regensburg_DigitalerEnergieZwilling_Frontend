@@ -20,7 +20,7 @@ function InfoButton({ onClick }: { onClick?: () => void }) {
       onClick={onClick}
       className="text-muted-foreground hover:text-foreground inline-flex cursor-pointer items-center"
     >
-      <Info className="size-3.5" />
+      <Info className="size-3.5" color="#e30613" />
     </button>
   );
 }
@@ -29,9 +29,14 @@ export function InfoTooltipButton({ content }: { content: ReactNode }) {
   return (
     <Tooltip>
       <TooltipTrigger className="text-muted-foreground hover:text-foreground inline-flex cursor-pointer items-center">
-        <Info className="size-3.5" />
+        <Info className="size-3.5" color="#e30613" />
       </TooltipTrigger>
-      <TooltipContent>{content}</TooltipContent>
+      <TooltipContent
+        className="max-w-70 rounded bg-white px-4 py-3 text-sm leading-relaxed shadow-lg"
+        style={{ color: '#191919' }}
+      >
+        {content}
+      </TooltipContent>
     </Tooltip>
   );
 }
