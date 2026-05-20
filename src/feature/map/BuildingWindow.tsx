@@ -1,5 +1,5 @@
 import { useStore } from '@nanostores/react';
-import { Info, X } from 'lucide-react';
+import { Info, MapPin, X } from 'lucide-react';
 import { useCallback, useRef, useState } from 'react';
 import Draggable from 'react-draggable';
 import { useTranslation } from 'react-i18next';
@@ -13,10 +13,11 @@ import {
 } from '../../components/ui/drawer';
 import { Paper } from '../../components/ui/paper';
 import { Typography } from '../../components/ui/typography';
-import useIsMobile from '../../lib/useIsMobile';
-import { cn } from '../../lib/utils';
-import { navigateToStep, Step } from '../../lib/state/ui/progress';
-import { $building, type BuildingState, unselectBuilding } from '../../lib/state/building';
+import {
+  $building,
+  type BuildingState,
+  unselectBuilding,
+} from '../../lib/state/building';
 import {
   $inputState,
   $selectedHeatingRenovations,
@@ -25,6 +26,9 @@ import {
   emptyInputState,
 } from '../../lib/state/inputs/atoms';
 import { clearSession, getSession } from '../../lib/state/session/storage';
+import { navigateToStep, Step } from '../../lib/state/ui/progress';
+import useIsMobile from '../../lib/useIsMobile';
+import { cn } from '../../lib/utils';
 import { CurrentStatsReduced } from '../energyCalculation/CurrentStats';
 import StartOverConfirmDialog from './StartOverConfirmDialog';
 
@@ -51,6 +55,24 @@ function BuildingWindowContent({
   return (
     <>
       <div className="min-h-0 flex-1 overflow-y-auto border-b border-neutral-200 px-6 py-3">
+        <div className="flex items-center gap-1 pt-1 pb-4">
+          <MapPin className="size-4 shrink-0" />
+          <Typography variant="body">
+            {[
+              building.properties.address?.street,
+              building.properties.address
+                ? [
+                    building.properties.address.postcode,
+                    building.properties.address.city,
+                  ]
+                    .filter(Boolean)
+                    .join(' ')
+                : undefined,
+            ]
+              .filter(Boolean)
+              .join(', ')}
+          </Typography>
+        </div>
         <CurrentStatsReduced />
       </div>
       <div className="shrink-0 px-6 py-3">
@@ -73,13 +95,18 @@ function BuildingWindowContent({
           </>
         ) : (
           <>
-            <Button onClick={onContinue} className="flex w-full items-center gap-2">
+            <Button
+              onClick={onContinue}
+              className="flex w-full items-center gap-2"
+            >
               {t('buildingWindow.continueButton')}
               <ArrowIcon />
             </Button>
             <div className="mt-2 flex items-center gap-1">
-              <Info className="size-3 shrink-0 text-muted-foreground" />
-              <Typography variant="verySmall">{t('buildingWindow.processingTime')}</Typography>
+              <Info className="text-muted-foreground size-3 shrink-0" />
+              <Typography variant="verySmall">
+                {t('buildingWindow.processingTime')}
+              </Typography>
             </div>
           </>
         )}
@@ -107,11 +134,16 @@ export default function BuildingWindow() {
 
   if (isMobile) {
     return (
-      <Drawer open={isOpen} onOpenChange={(open) => !open && unselectBuilding()}>
+      <Drawer
+        open={isOpen}
+        onOpenChange={(open) => !open && unselectBuilding()}
+      >
         <DrawerContent>
           <DrawerHeader>
             <DrawerTitle>{t('buildingWindow.title')}</DrawerTitle>
-            <Typography variant="muted">{t('buildingWindow.subtitle')}</Typography>
+            <Typography variant="muted">
+              {t('buildingWindow.subtitle')}
+            </Typography>
           </DrawerHeader>
           {selectedBuilding && (
             <BuildingWindowContent
@@ -138,7 +170,9 @@ export default function BuildingWindow() {
         <div className="drag-handle flex shrink-0 cursor-move items-start border-b border-neutral-200 px-6 pt-6 pb-3 select-none">
           <div className="grow">
             <Typography variant="h2">{t('buildingWindow.title')}</Typography>
-            <Typography variant="muted">{t('buildingWindow.subtitle')}</Typography>
+            <Typography variant="muted">
+              {t('buildingWindow.subtitle')}
+            </Typography>
           </div>
           <Button variant="ghost" size="icon" onClick={unselectBuilding}>
             <X />

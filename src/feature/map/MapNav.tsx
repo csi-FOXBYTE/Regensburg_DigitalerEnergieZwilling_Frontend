@@ -10,6 +10,7 @@ import {
   Plus,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { MapHelp } from './MapHelp';
 
 type MapNavProps = {
   viewer: Cesium.Viewer | null;
@@ -55,6 +56,7 @@ export function MapNav({ viewer }: MapNavProps) {
 
   return (
     <div className="absolute top-20 right-4 z-10 flex flex-col items-end gap-2">
+      <MapHelp />
       <nav
         className="bg-background grid h-30 w-30 place-items-center rounded-full border border-neutral-200 shadow-lg"
         style={{
