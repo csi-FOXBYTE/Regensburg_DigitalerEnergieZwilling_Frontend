@@ -28,7 +28,7 @@ export type InputState = {
 
 export const emptyInputState = (): InputState => ({
   general: {},
-  heat: {},
+  heat: { heatingSurfaceType: 'free_heat_emitter' },
   roof: {},
   roofWindows: {},
   exteriorWallWindows: {},

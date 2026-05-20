@@ -70,6 +70,11 @@
       "year": "When were your windows installed or last replaced?"
     },
     "bottomFloor": {
+      "area": {
+        "default": "What is the area of your basement ceiling? [m²]",
+        "heated": "What is the area of your basement floor? [m²]",
+        "noBasement": "What is the area of your ground floor? [m²]"
+      },
       "year": {
         "default": "When was your basement ceiling built or last renovated?",
         "heated": "When was your basement floor built or last renovated?",

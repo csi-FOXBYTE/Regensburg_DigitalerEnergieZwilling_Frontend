@@ -70,6 +70,11 @@
       "year": "Wann wurden Ihre Fenster eingebaut oder zuletzt erneuert?"
     },
     "bottomFloor": {
+      "area": {
+        "default": "Wie groß ist Ihre Kellerdecke? [m²]",
+        "heated": "Wie groß ist Ihr Kellerboden? [m²]",
+        "noBasement": "Wie groß ist Ihr unterster Boden? [m²]"
+      },
       "year": {
         "default": "Wann wurde Ihre Kellerdecke gebaut oder zuletzt saniert?",
         "heated": "Wann wurde Ihr Kellerboden gebaut oder zuletzt saniert?",

@@ -1,4 +1,5 @@
 import { type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+import { computed } from 'nanostores';
 import makeFieldStore from '../../field-store';
 import { makeSelectionStore } from '../../selection-store';
 import { $resolvedInputState } from '../computed/resolved-input';
@@ -24,8 +25,16 @@ export const primaryEnergyCarrierField = makeFieldStore({
   resettable: true,
 });
 
-export const primaryEnergyCarrierOptions = makeSelectionStore(
-  (config) => config.heat.primaryEnergyCarriers,
+export const primaryEnergyCarrierOptions = computed(
+  makeSelectionStore((config) => config.heat.primaryEnergyCarriers),
+  (options) =>
+    options
+      .filter((o) => o.value !== 'heating_oil_light')
+      .map((o) =>
+        o.value === 'heating_oil_heavy'
+          ? { ...o, localization: { ...o.localization, de: 'Heizöl', en: 'Heating oil' } }
+          : o,
+      ),
 );
 
 export const heatingSystemTypeOptions = makeSelectionStore(

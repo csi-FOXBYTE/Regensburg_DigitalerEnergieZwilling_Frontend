@@ -1,6 +1,7 @@
 import { FieldLegend, FieldSeparator, FieldSet } from '@/components/ui/field';
 import { Paper } from '@/components/ui/paper';
 import {
+  bottomFloorAreaField,
   bottomFloorConstructionTypeField,
   bottomFloorConstructionTypeOptions,
   bottomFloorHasInsulationField,
@@ -69,11 +70,18 @@ export default function BottomFloorPaper() {
             }
           />
         )}
+        <EnergyNumberInput
+          field={bottomFloorAreaField}
+          labelKey={`outerParts.bottomFloor.area.${context}`}
+          suffix=" m²"
+          decimalScale={1}
+          allowNegative={false}
+          className="col-start-1"
+        />
         <EnergySelectInput
           field={bottomFloorYearField}
           labelKey={`outerParts.bottomFloor.year.${context}`}
           rangeBandStore={buildingYearOptions}
-          className="col-start-1"
           info={
             <InfoTooltipButton
               content="Geben Sie das Baujahr oder das Jahr der letzten Sanierung an. 
