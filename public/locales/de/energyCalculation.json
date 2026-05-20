@@ -17,7 +17,7 @@
     "statsRemark": "Diese Werte aktualisieren sich automatisch bei Änderung der Gebäudedaten",
     "fields": {
       "buildingType": "Ist das Gebäude ein Ein- oder Mehrfamilienhaus?",
-      "numberOfFloors": "Wie viele Stockwerke (ohne Keller und Dachgeschoss) hat Ihr Gebäude?",
+      "numberOfFloors": "Wie viele Stockwerke hat Ihr Gebäude, ohne Keller und Dachraum?",
       "livingArea": "Wie groß ist Ihre Wohnfläche?",
       "hasBasement": "Hat Ihr Gebäude einen Keller?",
       "constructionYear": "Wann wurde Ihr Gebäude gebaut?"
@@ -30,62 +30,62 @@
   "outerParts": {
     "title": "Außenbauteile des Gebäudes",
     "roof": {
-      "area": "Wie groß ist Ihre Dachfläche?",
-      "constructionType": "Welche Dachform hat Ihr Gebäude?",
+      "area": "Wie groß ist die gesamte Dachfläche Ihres Gebäudes? [m²]",
+      "constructionType": "Welche Dachform hat Ihr Dach?",
       "hasAttic": "Hat Ihr Gebäude ein Dachgeschoss?",
       "hasInsulation": "Ist Ihr Dach gedämmt?",
       "insulationThickness": "Wie dick ist die Dämmung?",
-      "insulationType": "Wie ist Ihr Dach gedämmt?",
+      "insulationType": "Welche Art der Dämmung wurde verbaut?",
       "insulationTypes": {
         "betweenRafter": "Zwischensparren",
         "aboveRafter": "Aufdachdämmung"
       },
-      "isAtticHeated": "Wird das Dachgeschoss beheizt?",
+      "isAtticHeated": "Wird Ihr Dachraum beheizt? Beheizt/ Nicht beheizt",
       "year": "Wann wurde Ihr Dach gebaut oder zuletzt saniert?"
     },
     "roofWindows": {
-      "area": "Wie groß ist die Fläche Ihrer Dachfenster insgesamt?",
+      "area": "Wie groß ist die gesamte Dachfensterfläche Ihres Gebäudes? [m²]",
       "windowType": "Welche Art von Dachfenster sind verbaut?",
-      "uValue": "Kennen Sie den U-Wert Ihrer Dachfenster?",
-      "year": "Wann wurden Ihre Dachfenster eingebaut oder zuletzt erneuert?"
+      "uValue": "Welchen U-Wert (Wärmedurchgangskoeffizenten) haben Ihre Dachfenster? [W/m²K]",
+      "year": "Wann wurden Ihre Dachfenster zuletzt eingebaut oder erneuert?"
     },
     "topFloor": {
-      "year": "Wann wurde Ihre oberste Geschossdecke gebaut oder zuletzt saniert?",
-      "area": "Wie groß ist die Fläche der Decke zu Ihrem Dachboden?",
+      "year": "Wann wurde die Decke unter Ihrem Dachraum gebaut oder zuletzt saniert?",
+      "area": "Wie groß ist die Fläche der Decke unter Ihrem Dachraum? [m²]",
       "type": "Welche Bauweise hat die Decke zu Ihrem Dachboden?",
-      "hasInsulation": "Ist die Decke zu Ihrem Dachboden gedämmt?",
+      "hasInsulation": "Ist die Decke unter Ihrem Dachraum gedämmt? Gedämmt/ Nicht gedämmt",
       "insulationThickness": "Wie dick ist die Dämmung?"
     },
     "outerWall": {
       "year": "Wann wurde Ihre Außenwand gebaut oder zuletzt saniert?",
       "area": "Wie groß ist die Fläche Ihrer Außenwände?",
-      "constructionType": "Welche Bauweise hat Ihre Außenwand?",
-      "hasInsulation": "Ist Ihre Außenwand gedämmt?",
+      "constructionType": "Welche Bauweise haben Ihre Außenwände?",
+      "hasInsulation": "Sind Ihre Außenwände gedämmt? Gedämmt/ Nicht gedämmt",
       "insulationThickness": "Wie dick ist die Dämmung?"
     },
     "windows": {
       "area": "Wie groß ist die Fläche Ihrer Fenster insgesamt?",
       "windowType": "Welche Art von Fenstern sind verbaut?",
-      "uValue": "Kennen Sie den U-Wert Ihrer Fenster?",
+      "uValue": "Welchen U-Wert (Wärmedurchgangskoeffizenten) haben Ihre Fenster? [W/m²K]",
       "year": "Wann wurden Ihre Fenster eingebaut oder zuletzt erneuert?"
     },
     "bottomFloor": {
       "year": {
         "default": "Wann wurde Ihre Kellerdecke gebaut oder zuletzt saniert?",
         "heated": "Wann wurde Ihr Kellerboden gebaut oder zuletzt saniert?",
-        "noBasement": "Wann wurde Ihr Boden gebaut oder zuletzt saniert?"
+        "noBasement": "Wann wurde der unterste Boden in Ihrem Gebäude gebaut oder zuletzt saniert?"
       },
       "hasBasement": "Hat Ihr Gebäude einen Keller?",
-      "isBasementHeated": "Wird Ihr Keller beheizt?",
+      "isBasementHeated": "Wird Ihr Keller beheizt? Beheizt/ Nicht beheizt",
       "constructionType": {
         "default": "Welche Bauweise hat Ihre Kellerdecke?",
         "heated": "Welche Bauweise hat Ihr Kellerboden?",
         "noBasement": "Welche Bauweise hat Ihr Boden?"
       },
       "hasInsulation": {
-        "default": "Ist Ihre Kellerdecke gedämmt?",
-        "heated": "Ist Ihr Kellerboden gedämmt?",
-        "noBasement": "Ist Ihr Boden gedämmt?"
+        "default": "Ist Ihre Kellerdecke gedämmt? Gedämmt/ Nicht gedämmt ",
+        "heated": "Ist Ihr Kellerboden gedämmt? Gedämmt/ Nicht gedämmt",
+        "noBasement": "Ist Ihr Boden gedämmt? Gedämmt/ Nicht gedämmt"
       },
       "insulationThickness": "Wie dick ist die Dämmung?"
     }
@@ -95,10 +95,10 @@
     "supply": {
       "hasGasSupply": "Gibt es einen Gasanschluss in Ihrem Gebäude?",
       "hasBioGas": "Können Sie Biogas beziehen?",
-      "hasStorage": "Können bei Ihnen Brennstoffe wie Öl oder Pellets gelagert werden?"
+      "hasStorage": "Ist eine Lagerfläche für Brennstoffe, wie Öl oder Pellets vorhanden?"
     },
     "heating": {
-      "constructionYear": "Wann wurde Ihre Heizung gebaut oder das letzte Mal saniert?",
+      "constructionYear": "Wann wurde Ihre Heizung eingebaut oder zuletzt erneuert?",
       "primaryEnergyCarrier": "Welchen Energieträger nutzen Sie für Ihre Heizung?",
       "heatingSystemType": "Welche Art von Heizung nutzen Sie?",
       "heatingSurfaceType": "Wie wird die Wärme im Raum verteilt?"

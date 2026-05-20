@@ -15,6 +15,7 @@ import {
 
 import EnergyNumberInput from '../EnergyNumberInput';
 import EnergySelectInput from '../EnergySelectInput';
+import { InfoTooltipButton } from '../InfoButton';
 
 export default function GeneralDataStepForm() {
   const { t } = useTranslation('energyCalculation');
@@ -42,6 +43,13 @@ export default function GeneralDataStepForm() {
               field={buildingYearField}
               labelKey="generalData.fields.constructionYear"
               rangeBandStore={buildingYearOptions}
+              info={
+                <InfoTooltipButton
+                  content="Geben sie das ursprüngliche Baujahr des Gebäudes an. 
+                  Größere Sanierungen können später erhänzt werden. 
+                  Ältere Gebäude sind oft schlechter gedämmt und verbrauchen mehr Heizenergie."
+                ></InfoTooltipButton>
+              }
             />
             <EnergySelectInput
               field={buildingTypeField}
@@ -54,6 +62,12 @@ export default function GeneralDataStepForm() {
               labelKey="generalData.fields.numberOfFloors"
               decimalScale={0}
               allowNegative={false}
+              info={
+                <InfoTooltipButton
+                  content="Zählen Sie nur Stockwerke ohne Keller und nicht ausgebaute Dachräume. 
+                  Ein Haus mit Erdgeschoss und Obergeschoss hat zum Beispiel 2 Stockwerke."
+                ></InfoTooltipButton>
+              }
             />
             <EnergyNumberInput
               className="col-span-1"
@@ -62,8 +76,10 @@ export default function GeneralDataStepForm() {
               suffix=" m²"
               decimalScale={1}
               allowNegative={false}
+              info={
+                <InfoTooltipButton content="Die Wohnfläche ist die beheizte Fläche in Ihrem Gebäude"></InfoTooltipButton>
+              }
             />
-
           </FieldSet>
         </Paper>
       </FieldGroup>

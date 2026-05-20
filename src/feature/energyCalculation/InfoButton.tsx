@@ -1,5 +1,12 @@
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { Info } from 'lucide-react';
-import { type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import {
   Tooltip,
   TooltipContent,
@@ -29,6 +36,25 @@ export function InfoTooltipButton({ content }: { content: ReactNode }) {
   );
 }
 
-export function InfoDialogButton({ onClick }: { onClick: () => void }) {
-  return <InfoButton onClick={onClick} />;
+export function InfoDialogButton({
+  title,
+  content,
+}: {
+  title: ReactNode;
+  content: ReactNode;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <InfoButton onClick={() => setOpen(true)} />
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{title}</DialogTitle>
+            <DialogDescription>{content}</DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
 }

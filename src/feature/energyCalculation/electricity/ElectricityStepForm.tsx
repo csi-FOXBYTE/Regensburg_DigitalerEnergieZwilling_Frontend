@@ -9,6 +9,7 @@ import {
 } from '@/lib/state/inputs/electricity';
 import EnergyNumberInput from '../EnergyNumberInput';
 import EnergySelectInput from '../EnergySelectInput';
+import { InfoTooltipButton } from '../InfoButton';
 
 export default function ElectricityStepForm() {
   return (
@@ -21,6 +22,12 @@ export default function ElectricityStepForm() {
               field={electricityTypeField}
               labelKey="electricity.type"
               selectionStore={electricityTypeOptions}
+              info={
+                <InfoTooltipButton
+                  content="Mix-Strom enthält Strom aus verschiedenen Quellen, auch aus fossiler Energie. 
+                  Erneuerbarer Strom stammt aus Wind, Sonne oder Wasser und hat eine deutlich bessere CO₂-Bilanz."
+                ></InfoTooltipButton>
+              }
             />
             <EnergyNumberInput
               field={userElectricityConsumptionField}
@@ -28,6 +35,13 @@ export default function ElectricityStepForm() {
               suffix=" kWh/a"
               decimalScale={0}
               allowNegative={false}
+              info={
+                <InfoTooltipButton
+                  content="Tragen Sie Ihren jährlichen Stromverbrauch in kWh ein. 
+                  Den Wert finden Sie auf Ihrer Jahresabrechnung. 
+                  Bei einem Durchschnittshaushalt sind es ca. 2.500–4.000 kWh pro Jahr."
+                ></InfoTooltipButton>
+              }
             />
             <EnergyNumberInput
               field={electricityUnitRateField}
@@ -35,6 +49,13 @@ export default function ElectricityStepForm() {
               suffix=" €/kWh"
               decimalScale={2}
               allowNegative={false}
+              info={
+                <InfoTooltipButton
+                  content="Der Preis, den Sie pro Kilowattstunde (kWh) Strom zahlen.
+                  Diesen Wert finden Sie auf Ihrer Stromrechnung. 
+                  Der Durchschnittspreis liegt bei ca. 30–40 Cent pro kWh."
+                ></InfoTooltipButton>
+              }
             />
           </FieldSet>
         </Paper>

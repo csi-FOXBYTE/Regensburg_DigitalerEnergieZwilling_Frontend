@@ -15,6 +15,7 @@ import { useStore } from '@nanostores/react';
 import EnergyBooleanInput from '../EnergyBooleanInput';
 import EnergyNumberInput from '../EnergyNumberInput';
 import EnergySelectInput from '../EnergySelectInput';
+import { InfoTooltipButton } from '../InfoButton';
 
 export default function TopFloorPaper() {
   const hasAtticValue = useStore(hasAtticField.$store);
@@ -25,9 +26,14 @@ export default function TopFloorPaper() {
   const isAtticHeatedPlaceholder = useStore(isAtticHeatedField.$placeholder);
   const isAtticHeated = isAtticHeatedValue ?? isAtticHeatedPlaceholder;
 
-  const topFloorHasInsulationValue = useStore(topFloorHasInsulationField.$store);
-  const topFloorHasInsulationPlaceholder = useStore(topFloorHasInsulationField.$placeholder);
-  const topFloorHasInsulation = topFloorHasInsulationValue ?? topFloorHasInsulationPlaceholder;
+  const topFloorHasInsulationValue = useStore(
+    topFloorHasInsulationField.$store,
+  );
+  const topFloorHasInsulationPlaceholder = useStore(
+    topFloorHasInsulationField.$placeholder,
+  );
+  const topFloorHasInsulation =
+    topFloorHasInsulationValue ?? topFloorHasInsulationPlaceholder;
 
   if (!hasAttic || isAtticHeated) return null;
 
@@ -39,6 +45,12 @@ export default function TopFloorPaper() {
           field={topFloorYearField}
           labelKey="outerParts.topFloor.year"
           rangeBandStore={buildingYearOptions}
+          info={
+            <InfoTooltipButton
+              content="Geben Sie das Baujahr oder das Jahr der letzten Sanierung an. 
+              Das Baujahr der Decke zwischen Wohnbereich und Dachraum hilft, die Dämmqualität einzuschätzen. Ältere Decken sind oft ungedämmt."
+            ></InfoTooltipButton>
+          }
         />
         <EnergyNumberInput
           field={topFloorAreaField}
@@ -46,6 +58,12 @@ export default function TopFloorPaper() {
           suffix=" m²"
           decimalScale={1}
           allowNegative={false}
+          info={
+            <InfoTooltipButton
+              content="Geben Sie die Fläche der Decke zwischen Wohnbereich und Dachraum in m² an. 
+              Die Fläche der Decke zum Dachraum bestimmt, wie viel Wärme aus Ihrer Wohnung in den (meist unbeheizten) Dachraum entweichen kann."
+            ></InfoTooltipButton>
+          }
         />
         <EnergySelectInput
           field={topFloorTypeField}
@@ -55,10 +73,18 @@ export default function TopFloorPaper() {
       </FieldSet>
       <FieldSeparator />
       <FieldSet className="grid grid-cols-1 lg:grid-cols-2">
-        <FieldLegend variant="label" className="col-span-full">Dämmung</FieldLegend>
+        <FieldLegend variant="label" className="col-span-full">
+          Dämmung
+        </FieldLegend>
         <EnergyBooleanInput
           field={topFloorHasInsulationField}
           labelKey="outerParts.topFloor.hasInsulation"
+          info={
+            <InfoTooltipButton
+              content="Eine Dämmung der Decke unter dem Dachraum verhindert, dass Wärme aus Ihrer Wohnung nach oben entweicht. 
+              Das kann bis zu 15 % der Heizkosten sparen."
+            ></InfoTooltipButton>
+          }
         />
         {topFloorHasInsulation && (
           <EnergyNumberInput

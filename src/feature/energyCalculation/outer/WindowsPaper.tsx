@@ -10,6 +10,7 @@ import {
 import { buildingYearOptions } from '@/lib/state/inputs/general';
 import EnergyNumberInput from '../EnergyNumberInput';
 import EnergySelectInput from '../EnergySelectInput';
+import { InfoTooltipButton } from '../InfoButton';
 
 export default function WindowsPaper() {
   return (
@@ -27,11 +28,23 @@ export default function WindowsPaper() {
           suffix=" m²"
           decimalScale={1}
           allowNegative={false}
+          info={
+            <InfoTooltipButton
+              content="Geben Sie die Gesamtfläche aller Fenster in an. 
+              Die Gesamtfläche aller Fenster beeinflusst den Wärmeverlust durch die Gebäudehülle. "
+            ></InfoTooltipButton>
+          }
         />
         <EnergySelectInput
           field={exteriorWallWindowsWindowTypeField}
           labelKey="outerParts.windows.windowType"
           selectionStore={exteriorWallWindowsWindowTypeOptions}
+          info={
+            <InfoTooltipButton
+              content="Holz- und Kunststoffrahmen dämmen gut. 
+              Aluminium- und Stahlrahmen leiten Kälte stärker und sind weniger energieeffizient."
+            ></InfoTooltipButton>
+          }
         />
         <EnergyNumberInput
           field={exteriorWallWindowsUValueField}
@@ -39,6 +52,13 @@ export default function WindowsPaper() {
           suffix=" W/m²K"
           decimalScale={2}
           allowNegative={false}
+          info={
+            <InfoTooltipButton
+              content="Der U-Wert beschreibt die Wärmedämmung des Fensters. Niedrigere Werte bedeuten bessere Dämmung. 
+              Alte Einfachfenster haben etwa 5,0 W/m²K. Moderne Dreifachfenster liegen bei etwa 0,7 W/m²K.
+               Den U-Wert finden Sie in den Unterlagen Ihrer Fenster oder auf dem Typenschild."
+            ></InfoTooltipButton>
+          }
         />
       </FieldSet>
     </Paper>

@@ -8,10 +8,14 @@ import {
   roofWindowsWindowTypeOptions,
   roofWindowsYearField,
 } from '@/lib/state/inputs/roof-windows';
-import { hasAtticField, isAtticHeatedField } from '@/lib/state/inputs/top-floor';
+import {
+  hasAtticField,
+  isAtticHeatedField,
+} from '@/lib/state/inputs/top-floor';
 import { useStore } from '@nanostores/react';
 import EnergyNumberInput from '../EnergyNumberInput';
 import EnergySelectInput from '../EnergySelectInput';
+import { InfoTooltipButton } from '../InfoButton';
 
 export default function RoofWindowsPaper() {
   const hasAtticValue = useStore(hasAtticField.$store);
@@ -32,6 +36,9 @@ export default function RoofWindowsPaper() {
           field={roofWindowsYearField}
           labelKey="outerParts.roofWindows.year"
           rangeBandStore={buildingYearOptions}
+          info={
+            <InfoTooltipButton content="Ältere Dachfenster verlieren mehr Wärme als neuere."></InfoTooltipButton>
+          }
         />
         <EnergyNumberInput
           field={roofWindowsAreaField}
@@ -39,11 +46,23 @@ export default function RoofWindowsPaper() {
           suffix=" m²"
           decimalScale={1}
           allowNegative={false}
+          info={
+            <InfoTooltipButton
+              content="Geben Sie die gesamte Fläche aller Dachfenster an. 
+              Die Gesamtfläche aller Dachfenster beeinflusst den Wärmeverlust."
+            ></InfoTooltipButton>
+          }
         />
         <EnergySelectInput
           field={roofWindowsWindowTypeField}
           labelKey="outerParts.roofWindows.windowType"
           selectionStore={roofWindowsWindowTypeOptions}
+          info={
+            <InfoTooltipButton
+              content="Holz- und Kunststoffrahmen dämmen gut. 
+            Aluminium- und Stahlrahmen leiten Kälte stärker und sind weniger energieeffizient."
+            ></InfoTooltipButton>
+          }
         />
         <EnergyNumberInput
           field={roofWindowsUValueField}
@@ -51,6 +70,13 @@ export default function RoofWindowsPaper() {
           suffix=" W/m²K"
           decimalScale={2}
           allowNegative={false}
+          info={
+            <InfoTooltipButton
+              content="Der U-Wert beschreibt die Wärmedämmung des Fensters. Niedrigere Werte bedeuten bessere Dämmung. 
+              Alte Einfachfenster haben etwa 5,0 W/m²K. Moderne Dreifachfenster liegen bei etwa 0,7 W/m²K. 
+              Den U-Wert finden Sie in den Unterlagen Ihrer Fenster oder auf dem Typenschild."
+            ></InfoTooltipButton>
+          }
         />
       </FieldSet>
     </Paper>
