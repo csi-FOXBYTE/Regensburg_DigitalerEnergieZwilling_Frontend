@@ -42,7 +42,9 @@ export default function TopFloorPaper() {
     <Paper variant="outlined" className="flex flex-col gap-4 p-4">
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <FieldLegend>
-          <Typography variant="h3">Oberste Geschossdecke</Typography>
+          <Typography variant="h3" className="mb-2">
+            Oberste Geschossdecke
+          </Typography>
         </FieldLegend>
         <EnergySelectInput
           field={topFloorYearField}
@@ -77,7 +79,9 @@ export default function TopFloorPaper() {
       <FieldSeparator />
       <FieldSet className="grid grid-cols-1 lg:grid-cols-2">
         <FieldLegend variant="label" className="col-span-full">
-          Dämmung
+          <Typography variant="h5" className="mb-2">
+            Dämmung
+          </Typography>
         </FieldLegend>
         <EnergyBooleanInput
           field={topFloorHasInsulationField}

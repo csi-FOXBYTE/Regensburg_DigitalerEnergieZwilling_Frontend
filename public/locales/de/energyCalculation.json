@@ -18,7 +18,7 @@
     "fields": {
       "buildingType": "Ist das Gebäude ein Ein- oder Mehrfamilienhaus?",
       "numberOfFloors": "Wie viele Stockwerke hat Ihr Gebäude, ohne Keller und Dachraum?",
-      "livingArea": "Wie groß ist Ihre Wohnfläche?",
+      "livingArea": "Wie groß ist Ihre Wohnfläche? [m²]",
       "hasBasement": "Hat Ihr Gebäude einen Keller?",
       "constructionYear": "Wann wurde Ihr Gebäude gebaut?"
     },
@@ -32,8 +32,8 @@
     "roof": {
       "area": "Wie groß ist die gesamte Dachfläche Ihres Gebäudes? [m²]",
       "constructionType": "Welche Dachform hat Ihr Dach?",
-      "hasAttic": "Hat Ihr Gebäude ein Dachgeschoss?",
-      "hasInsulation": "Ist Ihr Dach gedämmt?",
+      "hasAttic": "Hat Ihr Gebäude einen Dachraum? Ja/ Nein",
+      "hasInsulation": "Ist Ihr Dach gedämmt? Gedämmt/ Nicht gedämmt",
       "insulationThickness": "Wie dick ist die Dämmung?",
       "insulationType": "Welche Art der Dämmung wurde verbaut?",
       "insulationTypes": {
@@ -45,7 +45,7 @@
     },
     "roofWindows": {
       "area": "Wie groß ist die gesamte Dachfensterfläche Ihres Gebäudes? [m²]",
-      "windowType": "Welche Art von Dachfenster sind verbaut?",
+      "windowType": "Welche Art von Dachfenstern sind verbaut?",
       "uValue": "Welchen U-Wert (Wärmedurchgangskoeffizenten) haben Ihre Dachfenster? [W/m²K]",
       "year": "Wann wurden Ihre Dachfenster zuletzt eingebaut oder erneuert?"
     },
@@ -58,29 +58,29 @@
     },
     "outerWall": {
       "year": "Wann wurde Ihre Außenwand gebaut oder zuletzt saniert?",
-      "area": "Wie groß ist die Fläche Ihrer Außenwände?",
+      "area": "Wie groß ist die Fläche Ihrer Außenwände? [m²]",
       "constructionType": "Welche Bauweise haben Ihre Außenwände?",
       "hasInsulation": "Sind Ihre Außenwände gedämmt? Gedämmt/ Nicht gedämmt",
       "insulationThickness": "Wie dick ist die Dämmung?"
     },
     "windows": {
-      "area": "Wie groß ist die Fläche Ihrer Fenster insgesamt?",
+      "area": "Wie groß ist die gesamte Fläche Ihrer Außenwandfenster? [m²]",
       "windowType": "Welche Art von Fenstern sind verbaut?",
       "uValue": "Welchen U-Wert (Wärmedurchgangskoeffizenten) haben Ihre Fenster? [W/m²K]",
       "year": "Wann wurden Ihre Fenster eingebaut oder zuletzt erneuert?"
     },
     "bottomFloor": {
       "area": {
-        "default": "Wie groß ist Ihre Kellerdecke? [m²]",
-        "heated": "Wie groß ist Ihr Kellerboden? [m²]",
-        "noBasement": "Wie groß ist Ihr unterster Boden? [m²]"
+        "default": "Wie groß ist die Fläche Ihrer Kellerdecke? [m²]",
+        "heated": "Wie groß ist die Fläche Ihres Kellerbodens? [m²]",
+        "noBasement": "Wie groß ist die Fläche Ihres Bodens? [m²]"
       },
       "year": {
         "default": "Wann wurde Ihre Kellerdecke gebaut oder zuletzt saniert?",
         "heated": "Wann wurde Ihr Kellerboden gebaut oder zuletzt saniert?",
         "noBasement": "Wann wurde der unterste Boden in Ihrem Gebäude gebaut oder zuletzt saniert?"
       },
-      "hasBasement": "Hat Ihr Gebäude einen Keller?",
+      "hasBasement": "Hat Ihr Gebäude einen Keller? Ja/ Nein",
       "isBasementHeated": "Wird Ihr Keller beheizt? Beheizt/ Nicht beheizt",
       "constructionType": {
         "default": "Welche Bauweise hat Ihre Kellerdecke?",
@@ -109,15 +109,15 @@
       "heatingSurfaceType": "Wie wird die Wärme im Raum verteilt?"
     },
     "bills": {
-      "consumption": "Wie hoch ist Ihr jährlicher Verbrauch?",
-      "unitRate": "Was wie viel kostet Ihre Energie?"
+      "consumption": "Wie hoch sind Ihre jährlichen Heizkosten? [€]",
+      "unitRate": "Wie hoch ist Ihr Energiepreis?"
     }
   },
   "electricity": {
     "title": "Strom & erneuerbare Energien",
     "type": "Welche Stromart beziehen Sie?",
-    "consumption": "Was ist Ihr jährlicher Stromverbrauch?",
-    "unitRate": "Wie hoch ist Ihr Strompreis?"
+    "consumption": "Wie hoch ist Ihr jährlicher Stromverbrauch? [kWh/a]",
+    "unitRate": "Wie hoch ist Ihr Strompreis? [€/kWh]"
   },
   "renovation": {
     "title": "Sanierungsmaßnamen",

@@ -30,7 +30,9 @@ export default function OuterWallPaper() {
     <Paper variant="outlined" className="flex flex-col gap-4 p-4">
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <FieldLegend>
-          <Typography variant="h3">Außenwand</Typography>
+          <Typography variant="h3" className="mb-2">
+            Außenwand
+          </Typography>
         </FieldLegend>
         <EnergySelectInput
           field={outerWallYearField}
@@ -68,7 +70,9 @@ export default function OuterWallPaper() {
       <FieldSeparator />
       <FieldSet className="grid grid-cols-1 lg:grid-cols-2">
         <FieldLegend variant="label" className="col-span-full">
-          Dämmung
+          <Typography variant="h5" className="mb-2">
+            Dämmung
+          </Typography>
         </FieldLegend>
         <EnergyBooleanInput
           field={outerWallHasInsulationField}

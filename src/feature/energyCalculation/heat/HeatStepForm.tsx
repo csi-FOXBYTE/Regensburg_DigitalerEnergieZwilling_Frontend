@@ -44,7 +44,9 @@ export default function HeatStepForm() {
         <Paper variant="outlined" className="p-4">
           <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <FieldLegend>
-              <Typography variant="h3">Versorgung</Typography>
+              <Typography variant="h3" className="mb-2">
+                Versorgung
+              </Typography>
             </FieldLegend>
             <EnergyBooleanInput
               field={hasGasSupplyField}
@@ -75,7 +77,9 @@ export default function HeatStepForm() {
         <Paper variant="outlined" className="p-4">
           <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <FieldLegend>
-              <Typography variant="h3">Heizung</Typography>
+              <Typography variant="h3" className="mb-2">
+                Heizung
+              </Typography>
             </FieldLegend>
             <EnergySelectInput
               field={heatingSystemConstructionYearField}
@@ -127,7 +131,9 @@ export default function HeatStepForm() {
         <Paper variant="outlined" className="p-4">
           <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <FieldLegend>
-              <Typography variant="h3">Verbrauch</Typography>
+              <Typography variant="h3" className="mb-2">
+                Verbrauch
+              </Typography>
             </FieldLegend>
             <EnergyNumberInput
               field={userThermalConsumptionField}

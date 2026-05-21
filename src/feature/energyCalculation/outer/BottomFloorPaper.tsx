@@ -48,7 +48,9 @@ export default function BottomFloorPaper() {
     <Paper variant="outlined" className="flex flex-col gap-4 p-4">
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <FieldLegend>
-          <Typography variant="h3">Unterste Geschossdecke</Typography>
+          <Typography variant="h3" className="mb-2">
+            Unterste Geschossdecke
+          </Typography>
         </FieldLegend>
         <EnergyBooleanInput
           field={hasBasementField}
@@ -80,6 +82,13 @@ export default function BottomFloorPaper() {
           decimalScale={1}
           allowNegative={false}
           className="col-start-1"
+          info={
+            <InfoTooltipButton
+              content="Geben Sie die Fläche der/des Kellerdecke/Kellerbodens/Bodens an. 
+               Die Fläche der/des Kellerdecke/Kellerbodens/Bodens zeigt, 
+               wie viel Kälte aus dem Keller in Ihre Wohnräume dringen kann."
+            ></InfoTooltipButton>
+          }
         />
         <EnergySelectInput
           field={bottomFloorYearField}
@@ -107,7 +116,9 @@ export default function BottomFloorPaper() {
       <FieldSeparator />
       <FieldSet className="grid grid-cols-1 lg:grid-cols-2">
         <FieldLegend variant="label" className="col-span-full">
-          Dämmung
+          <Typography variant="h5" className="mb-2">
+            Dämmung
+          </Typography>
         </FieldLegend>
         <EnergyBooleanInput
           field={bottomFloorHasInsulationField}

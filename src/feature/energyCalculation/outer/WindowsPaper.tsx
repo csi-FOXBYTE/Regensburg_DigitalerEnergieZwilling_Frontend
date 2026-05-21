@@ -18,7 +18,9 @@ export default function WindowsPaper() {
     <Paper variant="outlined" className="p-4">
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <FieldLegend>
-          <Typography variant="h3">Fenster</Typography>
+          <Typography variant="h3" className="mb-2">
+            Fenster
+          </Typography>
         </FieldLegend>
         <EnergySelectInput
           field={exteriorWallWindowsYearField}
