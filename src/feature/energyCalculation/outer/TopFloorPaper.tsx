@@ -12,6 +12,7 @@ import {
   topFloorYearField,
 } from '@/lib/state/inputs/top-floor';
 import { useStore } from '@nanostores/react';
+import { Typography } from '../../../components/ui/typography';
 import EnergyBooleanInput from '../EnergyBooleanInput';
 import EnergyNumberInput from '../EnergyNumberInput';
 import EnergySelectInput from '../EnergySelectInput';
@@ -38,9 +39,11 @@ export default function TopFloorPaper() {
   if (!hasAttic || isAtticHeated) return null;
 
   return (
-    <Paper variant="outlined" className="flex flex-col gap-4 p-3">
-      <FieldSet className="grid grid-cols-1 lg:grid-cols-2">
-        <FieldLegend>Oberste Geschossdecke</FieldLegend>
+    <Paper variant="outlined" className="flex flex-col gap-4 p-4">
+      <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <FieldLegend>
+          <Typography variant="h3">Oberste Geschossdecke</Typography>
+        </FieldLegend>
         <EnergySelectInput
           field={topFloorYearField}
           labelKey="outerParts.topFloor.year"

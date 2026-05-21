@@ -8,15 +8,18 @@ import {
   exteriorWallWindowsYearField,
 } from '@/lib/state/inputs/exterior-wall-windows';
 import { buildingYearOptions } from '@/lib/state/inputs/general';
+import { Typography } from '../../../components/ui/typography';
 import EnergyNumberInput from '../EnergyNumberInput';
 import EnergySelectInput from '../EnergySelectInput';
 import { InfoTooltipButton } from '../InfoButton';
 
 export default function WindowsPaper() {
   return (
-    <Paper variant="outlined" className="p-3">
-      <FieldSet className="grid grid-cols-1 lg:grid-cols-2">
-        <FieldLegend>Fenster</FieldLegend>
+    <Paper variant="outlined" className="p-4">
+      <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <FieldLegend>
+          <Typography variant="h3">Fenster</Typography>
+        </FieldLegend>
         <EnergySelectInput
           field={exteriorWallWindowsYearField}
           labelKey="outerParts.windows.year"

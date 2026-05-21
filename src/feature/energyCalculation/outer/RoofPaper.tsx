@@ -18,6 +18,7 @@ import {
 import { useStore } from '@nanostores/react';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Typography } from '../../../components/ui/typography';
 import EnergyBooleanInput from '../EnergyBooleanInput';
 import EnergyNumberInput from '../EnergyNumberInput';
 import EnergySelectInput from '../EnergySelectInput';
@@ -52,9 +53,11 @@ export default function RoofPaper() {
   );
 
   return (
-    <Paper variant="outlined" className="flex flex-col gap-4 p-3">
-      <FieldSet className="grid grid-cols-1 lg:grid-cols-2">
-        <FieldLegend>Dach</FieldLegend>
+    <Paper variant="outlined" className="flex flex-col gap-4 p-4">
+      <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <FieldLegend>
+          <Typography variant="h3">Dach</Typography>
+        </FieldLegend>
         <EnergySelectInput
           field={roofYearField}
           labelKey="outerParts.roof.year"

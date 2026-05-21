@@ -37,8 +37,8 @@ export default function GeneralDataStepForm() {
   return (
     <TooltipProvider>
       <FieldGroup>
-        <Paper variant="outlined" className="p-3">
-          <FieldSet className="grid grid-cols-1 lg:grid-cols-2">
+        <Paper variant="outlined" className="p-4">
+          <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <EnergySelectInput
               field={buildingYearField}
               labelKey="generalData.fields.constructionYear"

@@ -13,6 +13,7 @@ import {
   isAtticHeatedField,
 } from '@/lib/state/inputs/top-floor';
 import { useStore } from '@nanostores/react';
+import { Typography } from '../../../components/ui/typography';
 import EnergyNumberInput from '../EnergyNumberInput';
 import EnergySelectInput from '../EnergySelectInput';
 import { InfoTooltipButton } from '../InfoButton';
@@ -29,9 +30,11 @@ export default function RoofWindowsPaper() {
   if (hasAttic && !isAtticHeated) return null;
 
   return (
-    <Paper variant="outlined" className="p-3">
-      <FieldSet className="grid grid-cols-1 lg:grid-cols-2">
-        <FieldLegend>Dachfenster</FieldLegend>
+    <Paper variant="outlined" className="p-4">
+      <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <FieldLegend>
+          <Typography variant="h3">Dachfenster</Typography>
+        </FieldLegend>
         <EnergySelectInput
           field={roofWindowsYearField}
           labelKey="outerParts.roofWindows.year"

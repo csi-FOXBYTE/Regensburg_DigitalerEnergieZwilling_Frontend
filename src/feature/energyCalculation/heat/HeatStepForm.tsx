@@ -18,6 +18,7 @@ import {
   userThermalUnitRateField,
 } from '@/lib/state/inputs/heat';
 import { useStore } from '@nanostores/react';
+import { Typography } from '../../../components/ui/typography';
 import EnergyBooleanInput from '../EnergyBooleanInput';
 import EnergyNumberInput from '../EnergyNumberInput';
 import EnergySelectInput from '../EnergySelectInput';
@@ -40,9 +41,11 @@ export default function HeatStepForm() {
   return (
     <TooltipProvider>
       <FieldGroup>
-        <Paper variant="outlined" className="p-3">
-          <FieldSet className="grid grid-cols-1 lg:grid-cols-2">
-            <FieldLegend>Versorgung</FieldLegend>
+        <Paper variant="outlined" className="p-4">
+          <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <FieldLegend>
+              <Typography variant="h3">Versorgung</Typography>
+            </FieldLegend>
             <EnergyBooleanInput
               field={hasGasSupplyField}
               labelKey="heat.supply.hasGasSupply"
@@ -69,9 +72,11 @@ export default function HeatStepForm() {
             />
           </FieldSet>
         </Paper>
-        <Paper variant="outlined" className="p-3">
-          <FieldSet className="grid grid-cols-1 lg:grid-cols-2">
-            <FieldLegend>Heizung</FieldLegend>
+        <Paper variant="outlined" className="p-4">
+          <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <FieldLegend>
+              <Typography variant="h3">Heizung</Typography>
+            </FieldLegend>
             <EnergySelectInput
               field={heatingSystemConstructionYearField}
               labelKey="heat.heating.constructionYear"
@@ -119,9 +124,11 @@ export default function HeatStepForm() {
             />
           </FieldSet>
         </Paper>
-        <Paper variant="outlined" className="p-3">
-          <FieldSet className="grid grid-cols-1 lg:grid-cols-2">
-            <FieldLegend>Verbrauch</FieldLegend>
+        <Paper variant="outlined" className="p-4">
+          <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <FieldLegend>
+              <Typography variant="h3">Verbrauch</Typography>
+            </FieldLegend>
             <EnergyNumberInput
               field={userThermalConsumptionField}
               labelKey="heat.bills.consumption"

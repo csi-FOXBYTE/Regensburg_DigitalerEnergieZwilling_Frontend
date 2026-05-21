@@ -12,6 +12,7 @@ import {
 } from '@/lib/state/inputs/bottom-floor';
 import { buildingYearOptions } from '@/lib/state/inputs/general';
 import { useStore } from '@nanostores/react';
+import { Typography } from '../../../components/ui/typography';
 import EnergyBooleanInput from '../EnergyBooleanInput';
 import EnergyNumberInput from '../EnergyNumberInput';
 import EnergySelectInput from '../EnergySelectInput';
@@ -44,9 +45,11 @@ export default function BottomFloorPaper() {
       : 'default';
 
   return (
-    <Paper variant="outlined" className="flex flex-col gap-4 p-3">
-      <FieldSet className="grid grid-cols-1 lg:grid-cols-2">
-        <FieldLegend>Unterste Geschossdecke</FieldLegend>
+    <Paper variant="outlined" className="flex flex-col gap-4 p-4">
+      <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <FieldLegend>
+          <Typography variant="h3">Unterste Geschossdecke</Typography>
+        </FieldLegend>
         <EnergyBooleanInput
           field={hasBasementField}
           labelKey="outerParts.bottomFloor.hasBasement"
