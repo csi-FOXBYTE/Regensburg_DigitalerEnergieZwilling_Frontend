@@ -1,6 +1,6 @@
 import { useStore } from '@nanostores/react';
 import { Info, MapPin, X } from 'lucide-react';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Draggable from 'react-draggable';
 import { useTranslation } from 'react-i18next';
 import ArrowIcon from '../../components/ArrowIcon';
@@ -125,12 +125,42 @@ export default function BuildingWindow() {
   const selectedBuilding = useStore($building);
   const isMobile = useIsMobile();
   const { t } = useTranslation('map');
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [dragBounds, setDragBounds] = useState<
+    { left: number; top: number; right: number; bottom: number } | undefined
+  >(undefined);
 
   const gotoGeneralDataStep = useCallback(() => {
     navigateToStep(Step.GeneralData);
   }, []);
 
   const isOpen = !!selectedBuilding;
+
+  const recalculate = useCallback(() => {
+    const node = nodeRef.current;
+    if (!node?.parentElement || !node.offsetHeight) return;
+    const parent = node.parentElement;
+    const newBounds = {
+      left: -node.offsetLeft,
+      top: -node.offsetTop,
+      right: parent.clientWidth - node.offsetWidth - node.offsetLeft,
+      bottom: parent.clientHeight - node.offsetHeight - node.offsetTop,
+    };
+    setDragBounds(newBounds);
+    setPosition((prev) => ({
+      x: Math.max(newBounds.left, Math.min(prev.x, newBounds.right)),
+      y: Math.max(newBounds.top, Math.min(prev.y, newBounds.bottom)),
+    }));
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('resize', recalculate);
+    return () => window.removeEventListener('resize', recalculate);
+  }, [recalculate]);
+
+  useEffect(() => {
+    if (isOpen) recalculate();
+  }, [isOpen, recalculate]);
 
   if (isMobile) {
     return (
@@ -158,7 +188,13 @@ export default function BuildingWindow() {
   }
 
   return (
-    <Draggable nodeRef={nodeRef} bounds="parent" handle=".drag-handle">
+    <Draggable
+      nodeRef={nodeRef}
+      bounds={dragBounds ?? 'parent'}
+      handle=".drag-handle"
+      position={position}
+      onDrag={(_, data) => setPosition({ x: data.x, y: data.y })}
+    >
       <Paper
         ref={nodeRef}
         variant="outlined"
