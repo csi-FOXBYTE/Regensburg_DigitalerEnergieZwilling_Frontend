@@ -6,7 +6,8 @@ import { $inputState } from './atoms';
 
 export const heatingSystemConstructionYearField = makeFieldStore({
   store: $inputState,
-  getValue: (obj) => obj.heat.heatingSystemConstructionYear as RangeKey | undefined,
+  getValue: (obj) =>
+    obj.heat.heatingSystemConstructionYear as RangeKey | undefined,
   setValue: (draft, value) => {
     draft.heat.heatingSystemConstructionYear = value;
   },

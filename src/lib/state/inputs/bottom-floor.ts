@@ -73,3 +73,13 @@ export const bottomFloorInsulationThicknessField = makeFieldStore({
   placeholderStore: $resolvedInputState,
   resettable: true,
 });
+
+export const bottomFloorAreaField = makeFieldStore({
+  store: $inputState,
+  getValue: (obj): number | null | undefined => obj.bottomFloor.area,
+  setValue: (draft, value) => {
+    draft.bottomFloor.area = value ?? undefined;
+  },
+  placeholderStore: $resolvedInputState,
+  resettable: true,
+});

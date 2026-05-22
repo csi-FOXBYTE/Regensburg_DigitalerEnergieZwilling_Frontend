@@ -27,7 +27,15 @@ function CurrentStatsCard({
         <Typography variant={'h4'}>{t(titleKey)}</Typography>
       </div>
       <Typography variant={'lead'} className="self-end font-bold sm:self-start">
-        {t(valueKey, { value: typeof value === 'number' ? value.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : value })}
+        {t(valueKey, {
+          value:
+            typeof value === 'number'
+              ? value.toLocaleString('de-DE', {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })
+              : value,
+        })}
       </Typography>
     </Paper>
   );
@@ -64,7 +72,7 @@ export default function CurrentStats() {
   const currentStats = useStore($currentEnergyState);
 
   return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
       <CurrentStatsCard
         value={currentStats.energyConsumptionPerSquareMeter}
         titleKey="stats.energyDemand"

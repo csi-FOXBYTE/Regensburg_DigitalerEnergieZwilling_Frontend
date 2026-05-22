@@ -9,6 +9,7 @@ import {
   setBuilding,
   unselectBuilding,
 } from '../../lib/state/building';
+import { $currentEnergyState } from '../../lib/state/computed/current-energy-state';
 import { $cameraPosition } from '../../lib/state/session';
 import { $step, Step } from '../../lib/state/ui/progress';
 
@@ -25,12 +26,28 @@ const openStreetMapImagerProvider = new Cesium.UrlTemplateImageryProvider({
 
 const CESIUM_3D_TILES_URL = 'https://det.rg.foxbyte.de:4455/tileset.json';
 
-function createTilesetStyle(selectedBuildingId: string | null) {
+const colors: Record<string, string> = {
+  'A+': '#1B9E3E',
+  A: '#4CAF50',
+  B: '#6CB432',
+  C: '#B3CC2A',
+  D: '#ECDB23',
+  E: '#E8A824',
+  F: '#E67322',
+  G: '#D9381E',
+  H: '#A11A1A',
+};
+
+function createTilesetStyle(
+  selectedBuildingId: string | null,
+  energyClass: string,
+) {
+  const color = colors[energyClass] ?? '#4CAF50';
   return new Cesium.Cesium3DTileStyle({
     color: {
       conditions: selectedBuildingId
         ? [
-            [`\${id} === '${selectedBuildingId}'`, "color('yellow')"],
+            [`\${id} === '${selectedBuildingId}'`, `color('${color}')`],
             ['true', "color('white')"],
           ]
         : [['true', "color('white')"]],
@@ -48,6 +65,7 @@ type Map3DProps = {
 export function Map3D({ children, onViewerReady }: Map3DProps) {
   const currentStep = useStore($step);
   const building = useStore($building);
+  const currentStats = useStore($currentEnergyState);
   const [viewerRef, setViewerRef] = useState<Cesium.Viewer | null>(null);
   const [tilesetRef, setTilesetRef] = useState<Cesium.Cesium3DTileset | null>(
     null,
@@ -55,12 +73,13 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
   const [loading, setLoading] = useState(true);
 
   const selectedBuildingId = building ? building.id : null;
+  const energyClass = currentStats.energyEfficiencyClass;
 
   useEffect(() => {
     if (!tilesetRef) return;
-    tilesetRef.style = createTilesetStyle(selectedBuildingId);
+    tilesetRef.style = createTilesetStyle(selectedBuildingId, energyClass);
     viewerRef?.scene.requestRender();
-  }, [selectedBuildingId, tilesetRef, viewerRef]);
+  }, [selectedBuildingId, energyClass, tilesetRef, viewerRef]);
 
   useEffect(() => {
     if (!viewerRef || building) return;
@@ -149,7 +168,7 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
           onAllTilesLoad={() => setLoading(false)}
           onReady={(tileset) => {
             setTilesetRef(tileset);
-            tileset.style = createTilesetStyle(selectedBuildingId);
+            tileset.style = createTilesetStyle(selectedBuildingId, energyClass);
             tileset.imageBasedLighting.imageBasedLightingFactor.x = 2;
             tileset.imageBasedLighting.imageBasedLightingFactor.y = 2;
           }}
@@ -162,7 +181,10 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
             if (!Cesium.defined(picked)) return;
 
             const cartographic = Cesium.Cartographic.fromCartesian(picked);
-            $cameraPosition.set({ lon: cartographic.longitude, lat: cartographic.latitude });
+            $cameraPosition.set({
+              lon: cartographic.longitude,
+              lat: cartographic.latitude,
+            });
             const groundHeight =
               viewerRef.scene.globe.getHeight(cartographic) ?? 0;
             const position = Cesium.Cartesian3.fromRadians(

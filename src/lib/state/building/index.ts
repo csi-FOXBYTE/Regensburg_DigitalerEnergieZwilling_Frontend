@@ -14,6 +14,7 @@ export type DigitalEnergyTwin = {
 
 export type BuildingAddress = {
   street: string;
+  postcode?: string;
   city: string;
 };
 
@@ -47,7 +48,8 @@ function parseAddress(
   const street = feature.getProperty('addresses.0.ThoroughfareName');
   const city = feature.getProperty('addresses.0.Locality');
   if (typeof street !== 'string' || typeof city !== 'string') return undefined;
-  return { street, city };
+  const postcode = feature.getProperty('addresses.0.PostalCode');
+  return { street, postcode: typeof postcode === 'string' ? postcode : undefined, city };
 }
 
 export function setBuilding(feature: Cesium3DTileFeature) {
