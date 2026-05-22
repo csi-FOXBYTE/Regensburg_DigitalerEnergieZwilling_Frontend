@@ -1,7 +1,18 @@
-import { $config, $energyEfficiencyClasses } from '@/lib/state/calculation-config';
+import {
+  $config,
+  $energyEfficiencyClasses,
+} from '@/lib/state/calculation-config';
 import { $currentEnergyState } from '@/lib/state/computed/current-energy-state';
 import { $renovatedEnergyState } from '@/lib/state/computed/renovated-energy-state';
-import { Polygon, Rect, StyleSheet, Svg, Text, View } from '@react-pdf/renderer';
+import type { EnergyEfficiencyClass } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+import {
+  Polygon,
+  Rect,
+  StyleSheet,
+  Svg,
+  Text,
+  View,
+} from '@react-pdf/renderer';
 import i18next from 'i18next';
 import { PdfIcon } from './PdfIcon';
 
@@ -31,7 +42,13 @@ const styles = StyleSheet.create({
     paddingRight: 4,
   },
   rangeText: { fontSize: 9, fontWeight: 700, color: '#ffffff' },
-  badge: { flexDirection: 'row', alignItems: 'center', gap: 3, paddingHorizontal: 4, paddingVertical: 2 },
+  badge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 3,
+    paddingHorizontal: 4,
+    paddingVertical: 2,
+  },
   badgeText: { fontSize: 8, fontWeight: 700, color: '#ffffff' },
 });
 
@@ -54,10 +71,16 @@ export function PdfEnergyClassBars() {
   const afterClass = renovated.energyEfficiencyClass;
   const same = beforeClass === afterClass;
 
-  const classIndex = Object.fromEntries(bands.map((band, i) => [band.value, i]));
+  const classIndex = Object.fromEntries(
+    bands.map((band, i) => [band.value, i]),
+  );
   const improved = classIndex[afterClass] < classIndex[beforeClass];
 
-  function badge(cls: EnergyEfficiencyClass): { label: string; color: string; arrow?: 'arrow-up' | 'arrow-down' } | undefined {
+  function badge(
+    cls: EnergyEfficiencyClass,
+  ):
+    | { label: string; color: string; arrow?: 'arrow-up' | 'arrow-down' }
+    | undefined {
     if (cls === afterClass && !same)
       return {
         label: t('energyCalculation:stats.afterRenovation'),
@@ -65,7 +88,10 @@ export function PdfEnergyClassBars() {
         arrow: improved ? 'arrow-up' : 'arrow-down',
       } as const;
     if (cls === beforeClass)
-      return { label: t('energyCalculation:stats.beforeRenovation'), color: '#191919' };
+      return {
+        label: t('energyCalculation:stats.beforeRenovation'),
+        color: '#191919',
+      };
     return undefined;
   }
 
@@ -73,33 +99,69 @@ export function PdfEnergyClassBars() {
     <View style={styles.list}>
       {bands.map((band, i) => {
         const color = effClasses.get(band.value)?.color ?? '';
-        const isActive = band.value === beforeClass || band.value === afterClass;
+        const isActive =
+          band.value === beforeClass || band.value === afterClass;
         const rowHeight = isActive ? ACTIVE_H : INACTIVE_H;
-        const fillWidth = Math.round((20 + (i * 80) / steps) / 100 * BAR_W);
+        const fillWidth = Math.round(((20 + (i * 80) / steps) / 100) * BAR_W);
         const arrowTip = Math.round(rowHeight * ARROW_TIP_RATIO);
         const tipX = fillWidth - arrowTip;
         const arrowPoints = `0,0 ${tipX},0 ${fillWidth},${rowHeight / 2} ${tipX},${rowHeight} 0,${rowHeight}`;
         const b = badge(band.value);
         const rangeText = isActive
-          ? formatRange('from' in band ? band.from : undefined, 'to' in band ? band.to : undefined)
+          ? formatRange(
+              'from' in band ? band.from : undefined,
+              'to' in band ? band.to : undefined,
+            )
           : null;
 
         return (
           <View key={band.value} style={styles.row}>
-            <View style={[styles.label, { width: LABEL_W, height: rowHeight, backgroundColor: color }]}>
-              <Text style={isActive ? styles.labelTextActive : styles.labelTextInactive}>{band.value}</Text>
+            <View
+              style={[
+                styles.label,
+                { width: LABEL_W, height: rowHeight, backgroundColor: color },
+              ]}
+            >
+              <Text
+                style={
+                  isActive ? styles.labelTextActive : styles.labelTextInactive
+                }
+              >
+                {band.value}
+              </Text>
             </View>
-            <View style={{ width: BAR_W, height: rowHeight, position: 'relative' }}>
-              <Svg style={{ position: 'absolute', top: 0, left: 0 }} width={BAR_W} height={rowHeight}>
-                <Rect x={0} y={0} width={BAR_W} height={rowHeight} fill="#f0f0f0" />
+            <View
+              style={{ width: BAR_W, height: rowHeight, position: 'relative' }}
+            >
+              <Svg
+                style={{ position: 'absolute', top: 0, left: 0 }}
+                width={BAR_W}
+                height={rowHeight}
+              >
+                <Rect
+                  x={0}
+                  y={0}
+                  width={BAR_W}
+                  height={rowHeight}
+                  fill="#f0f0f0"
+                />
                 <Polygon points={arrowPoints} fill={color} />
               </Svg>
               {isActive && (
-                <View style={[styles.barContent, { width: BAR_W, height: rowHeight }]}>
-                  {rangeText && <Text style={styles.rangeText}>{rangeText}</Text>}
+                <View
+                  style={[
+                    styles.barContent,
+                    { width: BAR_W, height: rowHeight },
+                  ]}
+                >
+                  {rangeText && (
+                    <Text style={styles.rangeText}>{rangeText}</Text>
+                  )}
                   {b && (
                     <View style={[styles.badge, { backgroundColor: b.color }]}>
-                      {b.arrow && <PdfIcon name={b.arrow} size={8} color="#ffffff" />}
+                      {b.arrow && (
+                        <PdfIcon name={b.arrow} size={8} color="#ffffff" />
+                      )}
                       <Text style={styles.badgeText}>{b.label}</Text>
                     </View>
                   )}
