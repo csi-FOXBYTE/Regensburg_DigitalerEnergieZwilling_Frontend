@@ -86,6 +86,8 @@ export default function TopFloorPaper() {
         <EnergyBooleanInput
           field={topFloorHasInsulationField}
           labelKey="outerParts.topFloor.hasInsulation"
+          trueKey={{ ns: 'energyCalculation', key: 'booleanLabels.insulated' }}
+          falseKey={{ ns: 'energyCalculation', key: 'booleanLabels.notInsulated' }}
           info={
             <InfoTooltipButton
               content="Eine Dämmung der Decke unter dem Dachraum verhindert, dass Wärme aus Ihrer Wohnung nach oben entweicht. 

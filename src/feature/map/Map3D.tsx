@@ -9,6 +9,7 @@ import {
   setBuilding,
   unselectBuilding,
 } from '../../lib/state/building';
+import { $energyEfficiencyClasses } from '../../lib/state/calculation-config';
 import { $currentEnergyState } from '../../lib/state/computed/current-energy-state';
 import { $cameraPosition } from '../../lib/state/session';
 import { $step, Step } from '../../lib/state/ui/progress';
@@ -26,23 +27,10 @@ const openStreetMapImagerProvider = new Cesium.UrlTemplateImageryProvider({
 
 const CESIUM_3D_TILES_URL = 'https://det.rg.foxbyte.de:4455/tileset.json';
 
-const colors: Record<string, string> = {
-  'A+': '#1B9E3E',
-  A: '#4CAF50',
-  B: '#6CB432',
-  C: '#B3CC2A',
-  D: '#ECDB23',
-  E: '#E8A824',
-  F: '#E67322',
-  G: '#D9381E',
-  H: '#A11A1A',
-};
-
 function createTilesetStyle(
   selectedBuildingId: string | null,
-  energyClass: string,
+  color: string,
 ) {
-  const color = colors[energyClass] ?? '#4CAF50';
   return new Cesium.Cesium3DTileStyle({
     color: {
       conditions: selectedBuildingId
@@ -72,14 +60,16 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
   );
   const [loading, setLoading] = useState(true);
 
+  const effClasses = useStore($energyEfficiencyClasses);
   const selectedBuildingId = building ? building.id : null;
   const energyClass = currentStats.energyEfficiencyClass;
+  const energyColor = effClasses.get(energyClass)?.color ?? '#ffffff';
 
   useEffect(() => {
     if (!tilesetRef) return;
-    tilesetRef.style = createTilesetStyle(selectedBuildingId, energyClass);
+    tilesetRef.style = createTilesetStyle(selectedBuildingId, energyColor);
     viewerRef?.scene.requestRender();
-  }, [selectedBuildingId, energyClass, tilesetRef, viewerRef]);
+  }, [selectedBuildingId, energyColor, tilesetRef, viewerRef]);
 
   useEffect(() => {
     if (!viewerRef || building) return;
@@ -168,7 +158,7 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
           onAllTilesLoad={() => setLoading(false)}
           onReady={(tileset) => {
             setTilesetRef(tileset);
-            tileset.style = createTilesetStyle(selectedBuildingId, energyClass);
+            tileset.style = createTilesetStyle(selectedBuildingId, energyColor);
             tileset.imageBasedLighting.imageBasedLightingFactor.x = 2;
             tileset.imageBasedLighting.imageBasedLightingFactor.y = 2;
           }}

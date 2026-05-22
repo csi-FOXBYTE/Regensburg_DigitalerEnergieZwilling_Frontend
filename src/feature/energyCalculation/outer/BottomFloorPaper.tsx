@@ -67,6 +67,8 @@ export default function BottomFloorPaper() {
           <EnergyBooleanInput
             field={isBasementHeatedField}
             labelKey="outerParts.bottomFloor.isBasementHeated"
+            trueKey={{ ns: 'energyCalculation', key: 'booleanLabels.heated' }}
+            falseKey={{ ns: 'energyCalculation', key: 'booleanLabels.notHeated' }}
             info={
               <InfoTooltipButton
                 content="Bei einem unbeheizten Keller ist die Dämmung der Kellerdecke besonders
@@ -123,6 +125,8 @@ export default function BottomFloorPaper() {
         <EnergyBooleanInput
           field={bottomFloorHasInsulationField}
           labelKey={`outerParts.bottomFloor.hasInsulation.${context}`}
+          trueKey={{ ns: 'energyCalculation', key: 'booleanLabels.insulated' }}
+          falseKey={{ ns: 'energyCalculation', key: 'booleanLabels.notInsulated' }}
           info={
             <InfoTooltipButton
               content="Eine Dämmung der/des Kellerdecke/Kellerbodens/Bodens verhindert, 

@@ -116,6 +116,8 @@ export default function RoofPaper() {
           <EnergyBooleanInput
             field={isAtticHeatedField}
             labelKey="outerParts.roof.isAtticHeated"
+            trueKey={{ ns: 'energyCalculation', key: 'booleanLabels.heated' }}
+            falseKey={{ ns: 'energyCalculation', key: 'booleanLabels.notHeated' }}
             info={
               <InfoTooltipButton content="Geben Sie an, ob der Raum direkt unter dem Dach beheizt wird."></InfoTooltipButton>
             }
@@ -132,6 +134,8 @@ export default function RoofPaper() {
         <EnergyBooleanInput
           field={roofHasInsulationField}
           labelKey="outerParts.roof.hasInsulation"
+          trueKey={{ ns: 'energyCalculation', key: 'booleanLabels.insulated' }}
+          falseKey={{ ns: 'energyCalculation', key: 'booleanLabels.notInsulated' }}
           info={
             <InfoTooltipButton
               content="Eine vorhandene Dämmung reduziert den Wärmeverlust erheblich. 

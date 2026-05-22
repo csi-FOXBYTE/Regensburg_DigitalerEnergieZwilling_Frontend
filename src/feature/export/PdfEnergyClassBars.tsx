@@ -1,22 +1,9 @@
-import { EnergyEfficiencyClass } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
-import { $config } from '@/lib/state/calculation-config';
+import { $config, $energyEfficiencyClasses } from '@/lib/state/calculation-config';
 import { $currentEnergyState } from '@/lib/state/computed/current-energy-state';
 import { $renovatedEnergyState } from '@/lib/state/computed/renovated-energy-state';
 import { Polygon, Rect, StyleSheet, Svg, Text, View } from '@react-pdf/renderer';
 import i18next from 'i18next';
 import { PdfIcon } from './PdfIcon';
-
-const COLOR_MAP: Record<EnergyEfficiencyClass, string> = {
-  [EnergyEfficiencyClass.A_PLUS]: '#1B9E3E',
-  [EnergyEfficiencyClass.A]: '#4CAF50',
-  [EnergyEfficiencyClass.B]: '#6CB432',
-  [EnergyEfficiencyClass.C]: '#B3CC2A',
-  [EnergyEfficiencyClass.D]: '#ECDB23',
-  [EnergyEfficiencyClass.E]: '#E8A824',
-  [EnergyEfficiencyClass.F]: '#E67322',
-  [EnergyEfficiencyClass.G]: '#D9381E',
-  [EnergyEfficiencyClass.H]: '#A11A1A',
-};
 
 // A4 content width: 595pt − 2×48pt padding = 499pt
 const LABEL_W = 24;
@@ -56,6 +43,7 @@ function formatRange(from: number | undefined, to: number | undefined): string {
 
 export function PdfEnergyClassBars() {
   const config = $config.get();
+  const effClasses = $energyEfficiencyClasses.get();
   const current = $currentEnergyState.get();
   const renovated = $renovatedEnergyState.get();
   const t = i18next.t.bind(i18next);
@@ -84,7 +72,7 @@ export function PdfEnergyClassBars() {
   return (
     <View style={styles.list}>
       {bands.map((band, i) => {
-        const color = COLOR_MAP[band.value];
+        const color = effClasses.get(band.value)?.color ?? '';
         const isActive = band.value === beforeClass || band.value === afterClass;
         const rowHeight = isActive ? ACTIVE_H : INACTIVE_H;
         const fillWidth = Math.round((20 + (i * 80) / steps) / 100 * BAR_W);

@@ -3,32 +3,51 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import type { FieldStore } from '@/lib/field-store';
 import { cn } from '@/lib/utils';
 import { useStore } from '@nanostores/react';
-import type { ParseKeys } from 'i18next';
+import type { Namespace, ParseKeys } from 'i18next';
 import { useId, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import EnergyCalculationField from './EnergyCalculationField';
 
-type EnergyBooleanInputProps = {
+type BooleanLabel<NS extends Namespace> = {
+  ns?: NS;
+  key: ParseKeys<NS>;
+};
+
+type EnergyBooleanInputProps<TNS extends Namespace, FNS extends Namespace> = {
   field: FieldStore<boolean | undefined>;
   labelKey?: ParseKeys<'energyCalculation'>;
   info?: ReactNode;
   className?: string;
+  trueKey?: BooleanLabel<TNS>;
+  falseKey?: BooleanLabel<FNS>;
 };
 
-export default function EnergyBooleanInput({
+export default function EnergyBooleanInput<
+  TNS extends Namespace = 'common',
+  FNS extends Namespace = 'common',
+>({
   field,
   labelKey,
   info,
   className,
-}: EnergyBooleanInputProps) {
+  trueKey,
+  falseKey,
+}: EnergyBooleanInputProps<TNS, FNS>) {
   const { t } = useTranslation('common');
   const value = useStore(field.$store);
   const placeholder = useStore(field.$placeholder);
   const id = useId();
+  const { t: trueT } = useTranslation(trueKey ? trueKey.ns : 'common');
+  const { t: falseT } = useTranslation(falseKey ? falseKey.ns : 'common');
 
   const isPlaceholder = value == null;
   const fakeChecked =
     'border-primary bg-background before:absolute before:top-1/2 before:left-1/2 before:size-2 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-primary';
+
+  // @ts-expect-error key is constrained by BooleanLabel<TNS> at the call site
+  const trueLabel: string = trueKey ? trueT(trueKey.key) : t('yes');
+  // @ts-expect-error key is constrained by BooleanLabel<FNS> at the call site
+  const falseLabel: string = falseKey ? falseT(falseKey.key) : t('no');
 
   return (
     <EnergyCalculationField
@@ -49,7 +68,7 @@ export default function EnergyBooleanInput({
             id={`${id}-true`}
             className={cn(isPlaceholder && placeholder === true && fakeChecked)}
           />
-          {t('yes')}
+          {trueLabel}
         </Label>
         <Label htmlFor={`${id}-false`}>
           <RadioGroupItem
@@ -59,7 +78,7 @@ export default function EnergyBooleanInput({
               isPlaceholder && placeholder === false && fakeChecked,
             )}
           />
-          {t('no')}
+          {falseLabel}
         </Label>
       </RadioGroup>
     </EnergyCalculationField>

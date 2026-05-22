@@ -7,10 +7,9 @@ import { useTranslation } from 'react-i18next';
 import { Paper } from '../../../components/ui/paper';
 import { Separator } from '../../../components/ui/separator';
 import { Typography } from '../../../components/ui/typography';
+import { $energyEfficiencyClasses } from '../../../lib/state/calculation-config';
 import { $currentEnergyState } from '../../../lib/state/computed/current-energy-state';
 import { $renovatedEnergyState } from '../../../lib/state/computed/renovated-energy-state';
-
-const CLASS_ORDER = ['A+', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 
 function formatValue(value: number) {
   return value.toLocaleString('de-DE', {
@@ -51,9 +50,9 @@ function NumericDelta({ before, after, unit }: { before: number; after: number; 
   );
 }
 
-function ClassDelta({ before, after }: { before: EnergyEfficiencyClass; after: EnergyEfficiencyClass }) {
-  const beforeIndex = CLASS_ORDER.indexOf(before);
-  const afterIndex = CLASS_ORDER.indexOf(after);
+function ClassDelta({ before, after, classIndex }: { before: EnergyEfficiencyClass; after: EnergyEfficiencyClass; classIndex: Map<string, number> }) {
+  const beforeIndex = classIndex.get(before) ?? 0;
+  const afterIndex = classIndex.get(after) ?? 0;
   const improved = afterIndex < beforeIndex ? true : afterIndex > beforeIndex ? false : null;
   return (
     <DeltaPill improved={improved}>
@@ -98,8 +97,10 @@ function RenovationStatsCard({
 
 export default function RenovationStats() {
   const { t } = useTranslation('energyCalculation');
+  const effClasses = useStore($energyEfficiencyClasses);
   const before = useStore($currentEnergyState);
   const after = useStore($renovatedEnergyState);
+  const classIndex = new Map(Array.from(effClasses.keys()).map((cls, i) => [cls, i]));
 
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -125,6 +126,7 @@ export default function RenovationStats() {
           <ClassDelta
             before={before.energyEfficiencyClass}
             after={after.energyEfficiencyClass}
+            classIndex={classIndex}
           />
         }
       />

@@ -8,21 +8,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '../../../components/ui/tooltip';
-import { $config } from '../../../lib/state/calculation-config';
+import { $config, $energyEfficiencyClasses } from '../../../lib/state/calculation-config';
 import { $currentEnergyState } from '../../../lib/state/computed/current-energy-state';
 import { $renovatedEnergyState } from '../../../lib/state/computed/renovated-energy-state';
-
-const COLOR_MAP: Record<EnergyEfficiencyClass, string> = {
-  [EnergyEfficiencyClass.A_PLUS]: 'var(--energy-class-a-plus)',
-  [EnergyEfficiencyClass.A]: 'var(--energy-class-a)',
-  [EnergyEfficiencyClass.B]: 'var(--energy-class-b)',
-  [EnergyEfficiencyClass.C]: 'var(--energy-class-c)',
-  [EnergyEfficiencyClass.D]: 'var(--energy-class-d)',
-  [EnergyEfficiencyClass.E]: 'var(--energy-class-e)',
-  [EnergyEfficiencyClass.F]: 'var(--energy-class-f)',
-  [EnergyEfficiencyClass.G]: 'var(--energy-class-g)',
-  [EnergyEfficiencyClass.H]: 'var(--energy-class-h)',
-};
 
 const CHEVRON_CLIP =
   'polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%)';
@@ -89,6 +77,7 @@ function EnergyClassRow({
 
 export default function EnergyClassBars() {
   const config = useStore($config);
+  const effClasses = useStore($energyEfficiencyClasses);
   const current = useStore($currentEnergyState);
   const renovated = useStore($renovatedEnergyState);
 
@@ -142,7 +131,7 @@ export default function EnergyClassBars() {
             <EnergyClassRow
               key={band.value}
               cls={band.value}
-              color={COLOR_MAP[band.value]}
+              color={effClasses.get(band.value)?.color ?? ''}
               fill={`min(100%, calc(160px + ${i} * (100% - 160px) / ${steps}))`}
               rangeText={rangeText}
               ringClass={ringClass(band.value)}

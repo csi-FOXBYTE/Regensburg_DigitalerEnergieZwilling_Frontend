@@ -77,6 +77,8 @@ export default function OuterWallPaper() {
         <EnergyBooleanInput
           field={outerWallHasInsulationField}
           labelKey="outerParts.outerWall.hasInsulation"
+          trueKey={{ ns: 'energyCalculation', key: 'booleanLabels.insulated' }}
+          falseKey={{ ns: 'energyCalculation', key: 'booleanLabels.notInsulated' }}
           info={
             <InfoTooltipButton
               content="Durch ungedämmte Außenwände gehen bis zu 40 % der Heizwärme verloren. 

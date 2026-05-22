@@ -164,6 +164,12 @@
     "categoryHeatingSurface": "Heating Surface",
     "categoryLabel": "Category"
   },
+  "booleanLabels": {
+    "insulated": "Insulated",
+    "notInsulated": "Not insulated",
+    "heated": "Heated",
+    "notHeated": "Not heated"
+  },
   "continueButton": "Continue",
   "backButton": "Back",
   "resultsButton": "Show Results",

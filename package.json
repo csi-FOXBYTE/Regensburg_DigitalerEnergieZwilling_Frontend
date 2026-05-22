@@ -2,7 +2,6 @@
   "name": "frontend",
   "type": "module",
   "version": "0.4.0",
-  "packageManager": "pnpm@10.33.2",
   "scripts": {
     "dev": "astro dev --host 0.0.0.0",
     "build": "node ./scripts/copyCesiumAssets.mjs && astro build",
@@ -11,7 +10,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
-    "@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore": "0.8.2",
+    "@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore": "0.9.0",
     "@fontsource-variable/geist": "^5.2.8",
     "@fontsource/open-sans": "^5.2.7",
     "@hey-api/openapi-ts": "^0.92.3",
@@ -97,9 +96,6 @@
     "vaul": "^1.1.2",
     "vite-plugin-cesium": "^1.2.23",
     "zod": "^4.0.0"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": ["esbuild", "msw", "protobufjs", "sharp"]
   },
   "devDependencies": {
     "prettier": "^3.8.1",
