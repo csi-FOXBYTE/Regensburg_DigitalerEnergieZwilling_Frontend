@@ -1,6 +1,8 @@
 allowBuilds:
   msw: true
   sharp: true
+  esbuild: true
+  protobufjs: true
 
 minimumReleaseAgeExclude:
   - '@csi-foxbyte/*'
