@@ -168,6 +168,8 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
           onAllTilesLoad={() => setLoading(false)}
           onReady={(tileset) => {
             setTilesetRef(tileset);
+            tileset.colorBlendMode = Cesium.Cesium3DTileColorBlendMode.REPLACE;
+            tileset.colorBlendAmount = 1.0;
             tileset.style = createTilesetStyle(selectedBuildingId, energyClass);
             tileset.imageBasedLighting.imageBasedLightingFactor.x = 2;
             tileset.imageBasedLighting.imageBasedLightingFactor.y = 2;
