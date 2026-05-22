@@ -27,10 +27,7 @@ const openStreetMapImagerProvider = new Cesium.UrlTemplateImageryProvider({
 
 const CESIUM_3D_TILES_URL = 'https://det.rg.foxbyte.de:4455/tileset.json';
 
-function createTilesetStyle(
-  selectedBuildingId: string | null,
-  color: string,
-) {
+function createTilesetStyle(selectedBuildingId: string | null, color: string) {
   return new Cesium.Cesium3DTileStyle({
     color: {
       conditions: selectedBuildingId
@@ -158,6 +155,8 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
           onAllTilesLoad={() => setLoading(false)}
           onReady={(tileset) => {
             setTilesetRef(tileset);
+            tileset.colorBlendMode = Cesium.Cesium3DTileColorBlendMode.REPLACE;
+            tileset.colorBlendAmount = 1.0;
             tileset.style = createTilesetStyle(selectedBuildingId, energyColor);
             tileset.imageBasedLighting.imageBasedLightingFactor.x = 2;
             tileset.imageBasedLighting.imageBasedLightingFactor.y = 2;
