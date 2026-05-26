@@ -86,9 +86,7 @@ export default function BottomFloorPaper() {
           className="col-start-1"
           info={
             <InfoTooltipButton
-              content="Geben Sie die Fläche der/des Kellerdecke/Kellerbodens/Bodens an. 
-               Die Fläche der/des Kellerdecke/Kellerbodens/Bodens zeigt, 
-               wie viel Kälte aus dem Keller in Ihre Wohnräume dringen kann."
+              content={`Geben Sie die Fläche ${context === 'noBasement' ? 'des Bodens' : context === 'heated' ? 'des Kellerbodens' : 'der Kellerdecke'} an. Die Fläche ${context === 'noBasement' ? 'des Bodens' : context === 'heated' ? 'des Kellerbodens' : 'der Kellerdecke'} zeigt, wie viel Kälte aus dem Keller in Ihre Wohnräume dringen kann.`}
             ></InfoTooltipButton>
           }
         />
@@ -98,8 +96,7 @@ export default function BottomFloorPaper() {
           rangeBandStore={buildingYearOptions}
           info={
             <InfoTooltipButton
-              content="Geben Sie das Baujahr oder das Jahr der letzten Sanierung an. 
-              Ältere, ungedämmte Kellerdecken/Kellerböden lassen Kälte in die Wohnräume aufsteigen."
+              content={`Geben Sie das Baujahr oder das Jahr der letzten Sanierung an. Ältere, ungedämmte ${context === 'noBasement' ? 'Böden' : context === 'heated' ? 'Kellerböden' : 'Kellerdecken'} lassen Kälte in die Wohnräume aufsteigen.`}
             ></InfoTooltipButton>
           }
         />
@@ -109,8 +106,7 @@ export default function BottomFloorPaper() {
           selectionStore={bottomFloorConstructionTypeOptions}
           info={
             <InfoTooltipButton
-              content="Massive Betondecken/Betonböden lassen sich gut dämmen und speichern Wärme besser.
-               Holzbalkendecken haben andere Dämmeigenschaften."
+              content={`Massive ${context === 'default' ? 'Betondecken' : 'Betonböden'} lassen sich gut dämmen und speichern Wärme besser. ${context === 'default' ? 'Holzbalkendecken' : 'Holzbalkenböden'} haben andere Dämmeigenschaften.`}
             ></InfoTooltipButton>
           }
         />
@@ -129,9 +125,7 @@ export default function BottomFloorPaper() {
           falseKey={{ ns: 'energyCalculation', key: 'booleanLabels.notInsulated' }}
           info={
             <InfoTooltipButton
-              content="Eine Dämmung der/des Kellerdecke/Kellerbodens/Bodens verhindert, 
-              dass Kälte aus dem Keller in Ihre Wohnräume dringt. 
-              Das verbessert den Wohnkomfort und senkt Heizkosten."
+              content={`Eine Dämmung ${context === 'noBasement' ? 'des Bodens' : context === 'heated' ? 'des Kellerbodens' : 'der Kellerdecke'} verhindert, dass Kälte aus dem Keller in Ihre Wohnräume dringt. Das verbessert den Wohnkomfort und senkt Heizkosten.`}
             ></InfoTooltipButton>
           }
         />
