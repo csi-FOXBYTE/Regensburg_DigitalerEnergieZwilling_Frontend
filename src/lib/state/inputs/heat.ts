@@ -69,7 +69,7 @@ export const hasGasSupplyField = makeFieldStore({
     draft.heat.hasGasSupply = value;
   },
   placeholderStore: $resolvedInputState,
-  resettable: false,
+  resettable: true,
 });
 
 export const hasBioGasField = makeFieldStore({
@@ -79,7 +79,7 @@ export const hasBioGasField = makeFieldStore({
     draft.heat.hasBioGas = value;
   },
   placeholderStore: $resolvedInputState,
-  resettable: false,
+  resettable: true,
 });
 
 export const hasStorageField = makeFieldStore({
@@ -89,7 +89,7 @@ export const hasStorageField = makeFieldStore({
     draft.heat.hasStorage = value;
   },
   placeholderStore: $resolvedInputState,
-  resettable: false,
+  resettable: true,
 });
 
 export const userThermalConsumptionField = makeFieldStore({

@@ -77,7 +77,7 @@ export default function TopFloorPaper() {
         />
       </FieldSet>
       <FieldSeparator />
-      <FieldSet className="grid grid-cols-1 lg:grid-cols-2">
+      <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <FieldLegend variant="label" className="col-span-full">
           <Typography variant="h5" className="mb-2">
             Dämmung
