@@ -3,7 +3,7 @@
     "title": "Offene Sitzung",
     "description": "Du hast eine offene Sitzung. Möchtest du weitermachen?",
     "continueButton": "Weiter machen",
-    "dismissButton": "Abbrechen"
+    "dismissButton": "Neu starten"
   },
   "startOverConfirmDialog": {
     "title": "Sitzung zurücksetzen?",

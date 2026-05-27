@@ -1,7 +1,7 @@
 import { useStore } from '@nanostores/react';
 import { useQuery } from '@tanstack/react-query';
 import { useDebounce } from '@uidotdev/usehooks';
-import { Search } from 'lucide-react';
+import { Info, Search, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Input } from '../../components/ui/input';
 import { $building, unselectBuilding } from '../../lib/state/building';
@@ -14,6 +14,7 @@ export default function AddressSearch({
   const building = useStore($building);
 
   const [search, setSearch] = useState('');
+  const [hintDismissed, setHintDismissed] = useState(false);
 
   useEffect(() => {
     if (building !== null) setSearch('');
@@ -86,6 +87,23 @@ export default function AddressSearch({
           aria-label="Adresse eingeben"
         />
       </form>
+      {!hintDismissed && !building && (
+        <div className="mt-2 flex items-start gap-2 border border-[#e30613] bg-white/80 px-3 py-2 text-sm shadow-lg">
+          <Info className="mt-0.5 size-4 shrink-0 text-[#e30613]" />
+          <p className="flex-1">
+            <strong>Gebäude auswählen:</strong> Geben Sie eine Adresse ein oder
+            klicken Sie direkt auf ein Gebäude in der Karte.
+          </p>
+          <button
+            type="button"
+            onClick={() => setHintDismissed(true)}
+            className="text-[#e30613] hover:text-[#8b2412]"
+            aria-label="Hinweis schließen"
+          >
+            <X className="size-4" />
+          </button>
+        </div>
+      )}
       {data.length > 0
         ? data.map((d) => (
             <div
