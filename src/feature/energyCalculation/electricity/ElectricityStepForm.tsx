@@ -1,5 +1,6 @@
 import { FieldGroup, FieldLegend, FieldSet } from '@/components/ui/field';
 import { Paper } from '@/components/ui/paper';
+import { Separator } from '@/components/ui/separator';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import {
   electricityTypeField,
@@ -16,13 +17,14 @@ export default function ElectricityStepForm() {
   return (
     <TooltipProvider>
       <FieldGroup>
-        <Paper variant="outlined" className="p-4">
+        <Paper variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
           <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <FieldLegend>
-              <Typography variant="h3" className="mb-2">
+            <FieldLegend className="col-span-full">
+              <Typography variant="h4">
                 Strom
               </Typography>
             </FieldLegend>
+            <Separator className="col-span-full" />
             <EnergySelectInput
               field={electricityTypeField}
               labelKey="electricity.type"

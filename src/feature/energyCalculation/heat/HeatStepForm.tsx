@@ -1,5 +1,6 @@
 import { FieldGroup, FieldLegend, FieldSet } from '@/components/ui/field';
 import { Paper } from '@/components/ui/paper';
+import { Separator } from '@/components/ui/separator';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { $config } from '@/lib/state/calculation-config';
 import { buildingYearOptions } from '@/lib/state/inputs/general';
@@ -41,13 +42,14 @@ export default function HeatStepForm() {
   return (
     <TooltipProvider>
       <FieldGroup>
-        <Paper variant="outlined" className="p-4">
+        <Paper variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
           <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <FieldLegend>
-              <Typography variant="h3" className="mb-2">
+            <FieldLegend className="col-span-full">
+              <Typography variant="h4">
                 Versorgung
               </Typography>
             </FieldLegend>
+            <Separator className="col-span-full" />
             <EnergyBooleanInput
               field={hasGasSupplyField}
               labelKey="heat.supply.hasGasSupply"
@@ -74,13 +76,14 @@ export default function HeatStepForm() {
             />
           </FieldSet>
         </Paper>
-        <Paper variant="outlined" className="p-4">
+        <Paper variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
           <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <FieldLegend>
-              <Typography variant="h3" className="mb-2">
+            <FieldLegend className="col-span-full">
+              <Typography variant="h4">
                 Heizung
               </Typography>
             </FieldLegend>
+            <Separator className="col-span-full" />
             <EnergySelectInput
               field={heatingSystemConstructionYearField}
               labelKey="heat.heating.constructionYear"
@@ -128,13 +131,14 @@ export default function HeatStepForm() {
             />
           </FieldSet>
         </Paper>
-        <Paper variant="outlined" className="p-4">
+        <Paper variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
           <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <FieldLegend>
-              <Typography variant="h3" className="mb-2">
+            <FieldLegend className="col-span-full">
+              <Typography variant="h4">
                 Verbrauch
               </Typography>
             </FieldLegend>
+            <Separator className="col-span-full" />
             <EnergyNumberInput
               field={userThermalConsumptionField}
               labelKey="heat.bills.consumption"

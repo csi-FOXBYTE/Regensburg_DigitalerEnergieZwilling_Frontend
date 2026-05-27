@@ -1,5 +1,6 @@
 import { FieldLegend, FieldSeparator, FieldSet } from '@/components/ui/field';
 import { Paper } from '@/components/ui/paper';
+import { Separator } from '@/components/ui/separator';
 import { buildingYearOptions } from '@/lib/state/inputs/general';
 import {
   outerWallAreaField,
@@ -27,13 +28,14 @@ export default function OuterWallPaper() {
     outerWallHasInsulationValue ?? outerWallHasInsulationPlaceholder;
 
   return (
-    <Paper variant="outlined" className="flex flex-col gap-4 p-4">
+    <Paper variant="outlined" className="flex flex-col gap-6 pt-4 pr-5 pb-5 pl-5">
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <FieldLegend>
-          <Typography variant="h3" className="mb-2">
+        <FieldLegend className="col-span-full">
+          <Typography variant="h4">
             Außenwand
           </Typography>
         </FieldLegend>
+        <Separator className="col-span-full" />
         <EnergySelectInput
           field={outerWallYearField}
           labelKey="outerParts.outerWall.year"
@@ -69,10 +71,8 @@ export default function OuterWallPaper() {
       </FieldSet>
       <FieldSeparator />
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <FieldLegend variant="label" className="col-span-full">
-          <Typography variant="h5" className="mb-2">
-            Dämmung
-          </Typography>
+        <FieldLegend variant="label" className="col-span-full font-bold">
+          Dämmung
         </FieldLegend>
         <EnergyBooleanInput
           field={outerWallHasInsulationField}

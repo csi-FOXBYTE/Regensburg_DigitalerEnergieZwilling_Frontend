@@ -54,112 +54,136 @@ export function MapNav({ viewer }: MapNavProps) {
     });
   };
 
+  const resetNorth = () => {
+    if (!viewer) return;
+    const camera = viewer.camera;
+    const canvas = viewer.scene.canvas;
+    const ray = camera.getPickRay(
+      new Cesium.Cartesian2(canvas.clientWidth / 2, canvas.clientHeight / 2),
+    );
+    if (!ray) return;
+    const center = viewer.scene.globe.pick(ray, viewer.scene);
+    if (!center) return;
+    const range = Cesium.Cartesian3.distance(camera.position, center);
+    camera.flyToBoundingSphere(new Cesium.BoundingSphere(center, 0), {
+      offset: new Cesium.HeadingPitchRange(0, camera.pitch, range),
+      duration: 0.6,
+    });
+  };
+
   return (
-    <div className="absolute top-20 right-4 z-10 flex flex-col items-end gap-2">
-      <MapHelp />
-      <nav
-        className="bg-background grid h-30 w-30 place-items-center rounded-full border border-neutral-200 shadow-lg"
-        style={{
-          gridTemplateColumns: '1fr 1fr 1fr',
-          gridTemplateRows: '1fr 1fr 1fr',
-        }}
-        aria-label="Kartensteuerung"
-      >
-        <Button
-          variant="ghost"
-          size="icon"
-          className="col-start-2 row-start-1 rounded-full"
-          onClick={() => panCamera(viewer, 'up')}
-          aria-label="Nach oben bewegen"
-        >
-          <ChevronUp aria-hidden="true" />
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="col-start-1 row-start-2 rounded-full"
-          onClick={() => panCamera(viewer, 'left')}
-          aria-label="Nach links bewegen"
-        >
-          <ChevronLeft aria-hidden="true" />
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="col-start-2 row-start-2 rounded-full"
-          onClick={() => {
-            if (!viewer) return;
-            const camera = viewer.camera;
-            const canvas = viewer.scene.canvas;
-            const ray = camera.getPickRay(
-              new Cesium.Cartesian2(
-                canvas.clientWidth / 2,
-                canvas.clientHeight / 2,
-              ),
-            );
-            if (!ray) return;
-            const center = viewer.scene.globe.pick(ray, viewer.scene);
-            if (!center) return;
-            const range = Cesium.Cartesian3.distance(camera.position, center);
-            camera.flyToBoundingSphere(new Cesium.BoundingSphere(center, 0), {
-              offset: new Cesium.HeadingPitchRange(0, camera.pitch, range),
-              duration: 0.6,
-            });
-          }}
-          aria-label="Nach Norden ausrichten"
-        >
-          <svg
-            className="size-8"
-            viewBox="0 0 20 20"
-            aria-hidden="true"
-            style={{ transform: `rotate(${-heading}deg)` }}
-          >
-            <polygon points="10,1 13,10 10,8 7,10" className="fill-primary" />
-            <polygon
-              points="10,19 7,10 10,12 13,10"
-              className="fill-neutral-300"
-            />
-          </svg>
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="col-start-3 row-start-2 rounded-full"
-          onClick={() => panCamera(viewer, 'right')}
-          aria-label="Nach rechts bewegen"
-        >
-          <ChevronRight aria-hidden="true" />
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="col-start-2 row-start-3 rounded-full"
-          onClick={() => panCamera(viewer, 'down')}
-          aria-label="Nach unten bewegen"
-        >
-          <ChevronDown aria-hidden="true" />
-        </Button>
-      </nav>
-      <div className="bg-background flex flex-col rounded-lg border border-neutral-200 shadow-lg">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-b-none"
-          onClick={() => zoom('in')}
-          aria-label="Hineinzoomen"
-        >
-          <Plus aria-hidden="true" />
-        </Button>
+    <div className="absolute top-10 right-4 z-10 max-w-20">
+      <div className="flex flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-lg">
+        {/* Help */}
+        <div className="flex flex-col items-center gap-1 px-3 pt-3 pb-2">
+          <MapHelp />
+          <span className="text-xs font-medium">Hilfe</span>
+        </div>
+
         <hr className="border-neutral-200" />
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-t-none"
-          onClick={() => zoom('out')}
-          aria-label="Herauszoomen"
-        >
-          <Minus aria-hidden="true" />
-        </Button>
+
+        {/* Compass */}
+        <div className="flex flex-col items-center gap-1 px-3 pt-2 pb-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="rounded-full"
+            onClick={resetNorth}
+            aria-label="Nach Norden ausrichten"
+          >
+            <svg
+              className="size-8"
+              viewBox="0 0 20 20"
+              aria-hidden="true"
+              style={{ transform: `rotate(${-heading}deg)` }}
+            >
+              <polygon points="10,1 13,10 10,8 7,10" className="fill-primary" />
+              <polygon
+                points="10,19 7,10 10,12 13,10"
+                className="fill-neutral-300"
+              />
+            </svg>
+          </Button>
+          <span className="text-center text-xs font-medium">
+            Nord ausrichten
+          </span>
+        </div>
+
+        <hr className="border-neutral-200" />
+
+        {/* Pan */}
+        <div className="flex flex-col items-center gap-1 px-1 pt-2 pb-2">
+          <div
+            className="grid"
+            style={{
+              gridTemplateColumns: 'repeat(2, 1.5rem)',
+              gridTemplateRows: 'repeat(2, 1.5rem)',
+            }}
+          >
+            <Button
+              variant="ghost"
+              size="icon"
+              className="col-start-2 row-start-1 h-8 w-8 rounded-full"
+              onClick={() => panCamera(viewer, 'up')}
+              aria-label="Nach oben bewegen"
+            >
+              <ChevronUp aria-hidden="true" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="col-start-1 row-start-2 h-8 w-8 rounded-full"
+              onClick={() => panCamera(viewer, 'left')}
+              aria-label="Nach links bewegen"
+            >
+              <ChevronLeft aria-hidden="true" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="col-start-3 row-start-2 h-8 w-8 rounded-full"
+              onClick={() => panCamera(viewer, 'right')}
+              aria-label="Nach rechts bewegen"
+            >
+              <ChevronRight aria-hidden="true" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="col-start-2 row-start-3 h-8 w-8 rounded-full"
+              onClick={() => panCamera(viewer, 'down')}
+              aria-label="Nach unten bewegen"
+            >
+              <ChevronDown aria-hidden="true" />
+            </Button>
+          </div>
+          <span className="text-xs font-medium">Navigation</span>
+        </div>
+
+        <hr className="border-neutral-200" />
+
+        {/* Zoom */}
+        <div className="flex flex-col items-center gap-1 px-3 pt-2 pb-3">
+          <div className="flex flex-col">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => zoom('in')}
+              aria-label="Hineinzoomen"
+            >
+              <Plus aria-hidden="true" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => zoom('out')}
+              aria-label="Herauszoomen"
+            >
+              <Minus aria-hidden="true" />
+            </Button>
+          </div>
+          <span className="text-xs font-medium">Zoom</span>
+        </div>
       </div>
     </div>
   );

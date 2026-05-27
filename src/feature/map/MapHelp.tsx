@@ -105,10 +105,10 @@ export function MapHelp() {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-black text-white shadow-lg hover:bg-neutral-800 focus-visible:outline-none"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-neutral-800 hover:bg-neutral-100 focus-visible:outline-none"
           aria-label="Kartenbedienung anzeigen"
         >
-          <span className="text-sm leading-none font-bold">?</span>
+          <span className="text-xl leading-none font-bold">?</span>
         </button>
       )}
       <Dialog open={open} onOpenChange={setOpen}>

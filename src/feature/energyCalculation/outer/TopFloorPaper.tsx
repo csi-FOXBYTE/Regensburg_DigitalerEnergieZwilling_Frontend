@@ -1,5 +1,6 @@
 import { FieldLegend, FieldSeparator, FieldSet } from '@/components/ui/field';
 import { Paper } from '@/components/ui/paper';
+import { Separator } from '@/components/ui/separator';
 import { buildingYearOptions } from '@/lib/state/inputs/general';
 import {
   hasAtticField,
@@ -39,13 +40,14 @@ export default function TopFloorPaper() {
   if (!hasAttic || isAtticHeated) return null;
 
   return (
-    <Paper variant="outlined" className="flex flex-col gap-4 p-4">
+    <Paper variant="outlined" className="flex flex-col gap-6 pt-4 pr-5 pb-5 pl-5">
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <FieldLegend>
-          <Typography variant="h3" className="mb-2">
+        <FieldLegend className="col-span-full">
+          <Typography variant="h4">
             Oberste Geschossdecke
           </Typography>
         </FieldLegend>
+        <Separator className="col-span-full" />
         <EnergySelectInput
           field={topFloorYearField}
           labelKey="outerParts.topFloor.year"
@@ -74,20 +76,28 @@ export default function TopFloorPaper() {
           field={topFloorTypeField}
           labelKey="outerParts.topFloor.type"
           selectionStore={topFloorTypeOptions}
+          info={
+            <InfoTooltipButton
+              content="Die Bauweise der Decke beeinflusst die Wärmedämmung und Speicherfähigkeit des Gebäudes. \n
+                       Massive Decke: z. B. Beton- oder Ziegeldecke \n
+                       Holzbalkendecke: Konstruktion aus Holzbalken, häufig in älteren Gebäuden"
+            ></InfoTooltipButton>
+          }
         />
       </FieldSet>
       <FieldSeparator />
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <FieldLegend variant="label" className="col-span-full">
-          <Typography variant="h5" className="mb-2">
-            Dämmung
-          </Typography>
+        <FieldLegend variant="label" className="col-span-full font-bold">
+          Dämmung
         </FieldLegend>
         <EnergyBooleanInput
           field={topFloorHasInsulationField}
           labelKey="outerParts.topFloor.hasInsulation"
           trueKey={{ ns: 'energyCalculation', key: 'booleanLabels.insulated' }}
-          falseKey={{ ns: 'energyCalculation', key: 'booleanLabels.notInsulated' }}
+          falseKey={{
+            ns: 'energyCalculation',
+            key: 'booleanLabels.notInsulated',
+          }}
           info={
             <InfoTooltipButton
               content="Eine Dämmung der Decke unter dem Dachraum verhindert, dass Wärme aus Ihrer Wohnung nach oben entweicht. 

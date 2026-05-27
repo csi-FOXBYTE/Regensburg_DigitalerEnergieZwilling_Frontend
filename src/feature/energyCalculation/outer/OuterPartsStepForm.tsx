@@ -11,7 +11,7 @@ export default function OuterPartsStepForm() {
   return (
     <TooltipProvider>
       <FieldGroup>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-6">
           <RoofPaper />
           <RoofWindowsPaper />
           <TopFloorPaper />

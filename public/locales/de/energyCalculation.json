@@ -9,7 +9,20 @@
     "energyDemandValue": "{{value}} kWh/m²a",
     "energyEfficiencyValue": "Klasse {{value}}",
     "annualCostsValue": "{{value}} €/a",
-    "co2EmissionsValue": "{{value}} t CO₂/a"
+    "co2EmissionsValue": "{{value}} t CO₂/a",
+    "energyDemandLow": "Niedriger Energieverbrauch",
+    "energyDemandModerate": "Moderater Energieverbrauch",
+    "energyDemandHigh": "Hoher Energieverbrauch",
+    "energyDemandVeryHigh": "Sehr hoher Energieverbrauch",
+    "efficiencyVeryGood": "Sehr gute Effizienz",
+    "efficiencyGood": "Gute Effizienz",
+    "efficiencySatisfactory": "Befriedigende Effizienz",
+    "efficiencyPoor": "Mäßige Effizienz",
+    "efficiencyVeryPoor": "Schlechte Effizienz",
+    "co2Low": "Geringe Klimabelastung",
+    "co2Moderate": "Moderate Klimabelastung",
+    "co2Elevated": "Erhöhte Klimabelastung",
+    "co2High": "Hohe Klimabelastung"
   },
   "generalData": {
     "title": "Allgemeine Daten zu Ihrem Gebäude",

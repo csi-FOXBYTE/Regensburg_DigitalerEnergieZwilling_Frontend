@@ -1,5 +1,6 @@
 import { FieldLegend, FieldSeparator, FieldSet } from '@/components/ui/field';
 import { Paper } from '@/components/ui/paper';
+import { Separator } from '@/components/ui/separator';
 import { buildingYearOptions } from '@/lib/state/inputs/general';
 import {
   roofAreaField,
@@ -53,13 +54,14 @@ export default function RoofPaper() {
   );
 
   return (
-    <Paper variant="outlined" className="flex flex-col gap-4 p-4">
+    <Paper variant="outlined" className="flex flex-col gap-6 pt-4 pr-5 pb-5 pl-5">
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <FieldLegend>
-          <Typography variant="h3" className="mb-2">
+        <FieldLegend className="col-span-full">
+          <Typography variant="h4">
             Dach
           </Typography>
         </FieldLegend>
+        <Separator className="col-span-full" />
         <EnergySelectInput
           field={roofYearField}
           labelKey="outerParts.roof.year"
@@ -117,7 +119,10 @@ export default function RoofPaper() {
             field={isAtticHeatedField}
             labelKey="outerParts.roof.isAtticHeated"
             trueKey={{ ns: 'energyCalculation', key: 'booleanLabels.heated' }}
-            falseKey={{ ns: 'energyCalculation', key: 'booleanLabels.notHeated' }}
+            falseKey={{
+              ns: 'energyCalculation',
+              key: 'booleanLabels.notHeated',
+            }}
             info={
               <InfoTooltipButton content="Geben Sie an, ob der Raum direkt unter dem Dach beheizt wird."></InfoTooltipButton>
             }
@@ -126,16 +131,17 @@ export default function RoofPaper() {
       </FieldSet>
       <FieldSeparator />
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <FieldLegend variant="label" className="col-span-full">
-          <Typography variant="h5" className="mb-2">
-            Dämmung
-          </Typography>
+        <FieldLegend variant="label" className="col-span-full font-bold">
+          Dämmung
         </FieldLegend>
         <EnergyBooleanInput
           field={roofHasInsulationField}
           labelKey="outerParts.roof.hasInsulation"
           trueKey={{ ns: 'energyCalculation', key: 'booleanLabels.insulated' }}
-          falseKey={{ ns: 'energyCalculation', key: 'booleanLabels.notInsulated' }}
+          falseKey={{
+            ns: 'energyCalculation',
+            key: 'booleanLabels.notInsulated',
+          }}
           info={
             <InfoTooltipButton
               content="Eine vorhandene Dämmung reduziert den Wärmeverlust erheblich. 
@@ -160,7 +166,7 @@ export default function RoofPaper() {
               info={
                 <InfoDialogButton
                   title="Art der Dachdämmung"
-                  content="Bei der Aufsparrendämmung wird die Dämmung oberhalb der Dachsparren angebracht. 
+                  content="Bei der Aufdachdämmung wird die Dämmung oberhalb der Dachsparren angebracht. 
                   Sie bietet den besten Wärmeschutz, da keine Wärmebrücken durch die Sparren entstehen. 
                   Bei der Zwischensparrendämmung wird der Dämmstoff zwischen den Sparren eingebracht. 
                   Diese Variante ist kostengünstiger, bietet aber durch die Sparren als Wärmebrücken einen etwas geringeren Schutz."

@@ -1,5 +1,6 @@
 import { FieldLegend, FieldSet } from '@/components/ui/field';
 import { Paper } from '@/components/ui/paper';
+import { Separator } from '@/components/ui/separator';
 import { buildingYearOptions } from '@/lib/state/inputs/general';
 import {
   roofWindowsAreaField,
@@ -30,13 +31,14 @@ export default function RoofWindowsPaper() {
   if (hasAttic && !isAtticHeated) return null;
 
   return (
-    <Paper variant="outlined" className="p-4">
+    <Paper variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <FieldLegend>
-          <Typography variant="h3" className="mb-2">
+        <FieldLegend className="col-span-full">
+          <Typography variant="h4">
             Dachfenster
           </Typography>
         </FieldLegend>
+        <Separator className="col-span-full" />
         <EnergySelectInput
           field={roofWindowsYearField}
           labelKey="outerParts.roofWindows.year"

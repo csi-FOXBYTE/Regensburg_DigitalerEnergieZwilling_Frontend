@@ -1,5 +1,5 @@
 import { useStore } from '@nanostores/react';
-import { Info, MapPin, X } from 'lucide-react';
+import { HelpCircle, Info, MapPin, X } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Draggable from 'react-draggable';
 import { useTranslation } from 'react-i18next';
@@ -74,6 +74,13 @@ function BuildingWindowContent({
           </Typography>
         </div>
         <CurrentStatsReduced />
+        <button
+          type="button"
+          className="text-primary hover:text-primary-hover mt-3 flex items-center gap-1.5 text-sm underline underline-offset-2"
+        >
+          <HelpCircle className="size-3.5 shrink-0" />
+          {t('buildingWindow.howCalculated')}
+        </button>
       </div>
       <div className="shrink-0 px-6 py-3">
         {session ? (
@@ -104,7 +111,7 @@ function BuildingWindowContent({
             </Button>
             <div className="mt-2 flex items-center gap-1">
               <Info className="text-muted-foreground size-3 shrink-0" />
-              <Typography variant="verySmall">
+              <Typography variant="small">
                 {t('buildingWindow.processingTime')}
               </Typography>
             </div>
@@ -199,14 +206,14 @@ export default function BuildingWindow() {
         ref={nodeRef}
         variant="outlined"
         className={cn(
-          'absolute top-4 right-20 z-20 hidden max-h-[calc(100%-2rem)] w-[calc(100vw-120px)] max-w-210 min-w-120 flex-col',
+          'absolute top-4 right-20 z-20 hidden max-h-[calc(100%-2rem)] w-[calc(100vw-120px)] max-w-120 min-w-80 flex-col',
           isOpen ? 'flex' : null,
         )}
       >
         <div className="drag-handle flex shrink-0 cursor-move items-start border-b border-neutral-200 px-6 pt-6 pb-3 select-none">
           <div className="grow">
             <Typography variant="h2">{t('buildingWindow.title')}</Typography>
-            <Typography variant="muted">
+            <Typography variant="muted" className="pt-3">
               {t('buildingWindow.subtitle')}
             </Typography>
           </div>

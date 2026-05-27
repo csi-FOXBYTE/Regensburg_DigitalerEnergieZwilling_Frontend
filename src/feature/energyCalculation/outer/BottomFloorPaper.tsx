@@ -1,5 +1,6 @@
 import { FieldLegend, FieldSeparator, FieldSet } from '@/components/ui/field';
 import { Paper } from '@/components/ui/paper';
+import { Separator } from '@/components/ui/separator';
 import {
   bottomFloorAreaField,
   bottomFloorConstructionTypeField,
@@ -45,13 +46,14 @@ export default function BottomFloorPaper() {
       : 'default';
 
   return (
-    <Paper variant="outlined" className="flex flex-col gap-4 p-4">
+    <Paper variant="outlined" className="flex flex-col gap-6 pt-4 pr-5 pb-5 pl-5">
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <FieldLegend>
-          <Typography variant="h3" className="mb-2">
+        <FieldLegend className="col-span-full">
+          <Typography variant="h4">
             Unterste Geschossdecke
           </Typography>
         </FieldLegend>
+        <Separator className="col-span-full" />
         <EnergyBooleanInput
           field={hasBasementField}
           labelKey="outerParts.bottomFloor.hasBasement"
@@ -68,7 +70,10 @@ export default function BottomFloorPaper() {
             field={isBasementHeatedField}
             labelKey="outerParts.bottomFloor.isBasementHeated"
             trueKey={{ ns: 'energyCalculation', key: 'booleanLabels.heated' }}
-            falseKey={{ ns: 'energyCalculation', key: 'booleanLabels.notHeated' }}
+            falseKey={{
+              ns: 'energyCalculation',
+              key: 'booleanLabels.notHeated',
+            }}
             info={
               <InfoTooltipButton
                 content="Bei einem unbeheizten Keller ist die Dämmung der Kellerdecke besonders
@@ -86,7 +91,8 @@ export default function BottomFloorPaper() {
           className="col-start-1"
           info={
             <InfoTooltipButton
-              content={`Geben Sie die Fläche ${context === 'noBasement' ? 'des Bodens' : context === 'heated' ? 'des Kellerbodens' : 'der Kellerdecke'} an. Die Fläche ${context === 'noBasement' ? 'des Bodens' : context === 'heated' ? 'des Kellerbodens' : 'der Kellerdecke'} zeigt, wie viel Kälte aus dem Keller in Ihre Wohnräume dringen kann.`}
+              content={`Geben Sie die Fläche ${context === 'noBasement' ? 'des Bodens' : context === 'heated' ? 'des Kellerbodens' : 'der Kellerdecke'} an. 
+              Die Fläche beeinflusst, wie viel Wärme über den unteren Gebäudeabschluss verloren gehen kann.`}
             ></InfoTooltipButton>
           }
         />
@@ -113,19 +119,21 @@ export default function BottomFloorPaper() {
       </FieldSet>
       <FieldSeparator />
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <FieldLegend variant="label" className="col-span-full">
-          <Typography variant="h5" className="mb-2">
-            Dämmung
-          </Typography>
+        <FieldLegend variant="label" className="col-span-full font-bold">
+          Dämmung
         </FieldLegend>
         <EnergyBooleanInput
           field={bottomFloorHasInsulationField}
           labelKey={`outerParts.bottomFloor.hasInsulation.${context}`}
           trueKey={{ ns: 'energyCalculation', key: 'booleanLabels.insulated' }}
-          falseKey={{ ns: 'energyCalculation', key: 'booleanLabels.notInsulated' }}
+          falseKey={{
+            ns: 'energyCalculation',
+            key: 'booleanLabels.notInsulated',
+          }}
           info={
             <InfoTooltipButton
-              content={`Eine Dämmung ${context === 'noBasement' ? 'des Bodens' : context === 'heated' ? 'des Kellerbodens' : 'der Kellerdecke'} verhindert, dass Kälte aus dem Keller in Ihre Wohnräume dringt. Das verbessert den Wohnkomfort und senkt Heizkosten.`}
+              content={`Eine Dämmung ${context === 'noBasement' ? 'des Bodens' : context === 'heated' ? 'des Kellerbodens' : 'der Kellerdecke'} hilft, Wärme im Gebäude zu halten. 
+              Dadurch bleiben Fußböden wärmer und Heizkosten können reduziert werden.`}
             ></InfoTooltipButton>
           }
         />

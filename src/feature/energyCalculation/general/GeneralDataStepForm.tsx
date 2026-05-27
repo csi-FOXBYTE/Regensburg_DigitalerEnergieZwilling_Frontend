@@ -37,7 +37,7 @@ export default function GeneralDataStepForm() {
   return (
     <TooltipProvider>
       <FieldGroup>
-        <Paper variant="outlined" className="p-4">
+        <Paper variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
           <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <EnergySelectInput
               field={buildingYearField}
@@ -45,8 +45,8 @@ export default function GeneralDataStepForm() {
               rangeBandStore={buildingYearOptions}
               info={
                 <InfoTooltipButton
-                  content="Geben sie das ursprüngliche Baujahr des Gebäudes an. 
-                  Größere Sanierungen können später erhänzt werden. 
+                  content="Geben Sie das ursprüngliche Baujahr des Gebäudes an. 
+                  Größere Sanierungen können später ergänzt werden. 
                   Ältere Gebäude sind oft schlechter gedämmt und verbrauchen mehr Heizenergie."
                 ></InfoTooltipButton>
               }
@@ -77,7 +77,7 @@ export default function GeneralDataStepForm() {
               decimalScale={1}
               allowNegative={false}
               info={
-                <InfoTooltipButton content="Die Wohnfläche ist die beheizte Fläche in Ihrem Gebäude"></InfoTooltipButton>
+                <InfoTooltipButton content="Die Wohnfläche ist die beheizte Fläche in Ihrem Gebäude."></InfoTooltipButton>
               }
             />
           </FieldSet>
