@@ -15,6 +15,7 @@ export default function AddressSearch({
 
   const [search, setSearch] = useState('');
   const [hintDismissed, setHintDismissed] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   useEffect(() => {
     if (building !== null) setSearch('');
@@ -28,7 +29,7 @@ export default function AddressSearch({
       if (debouncedSearch === '') return [];
 
       const response = await fetch(
-        `https://photon.komoot.io/api/?q=${debouncedSearch}&limit=20&lang=de`,
+        `https://photon.komoot.io/api/?q=${debouncedSearch}&limit=10&lang=de&bbox=11.9,48.95,12.2,49.05`,
       );
 
       const json = await response.json();
@@ -69,6 +70,7 @@ export default function AddressSearch({
           leftIcon={<Search />}
           onChange={(event) => {
             if ($building.get() !== null) unselectBuilding();
+            setShowSuggestions(true);
             setSearch(event.target.value);
           }}
           onClear={() => {
@@ -104,12 +106,13 @@ export default function AddressSearch({
           </button>
         </div>
       )}
-      {data.length > 0
+      {showSuggestions && data.length > 0
         ? data.map((d) => (
             <div
               className="w-full border border-gray-300 bg-white py-2.5 pr-10 pl-9 text-sm shadow-lg outline-offset-2 focus:border-[#D9291C] focus:ring-2 focus:ring-[#D9291C] focus:outline-none md:py-3 md:pr-4 md:pl-10 md:text-base"
               key={`${d.properties.osm_type}${d.properties.osm_id}`}
               onClick={() => {
+                setShowSuggestions(false);
                 const [lon, lat] = d.geometry.coordinates;
                 onAddressFound(String(lat), String(lon));
                 setSearch(formatStreet(d.properties));

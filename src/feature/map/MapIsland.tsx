@@ -2,6 +2,7 @@ import ClientHydration from '@/components/ClientHydration';
 import { $pendingFlyTo } from '@/lib/state/session';
 import { useStore } from '@nanostores/react';
 import * as Cesium from 'cesium';
+import { setBuilding } from '../../lib/state/building';
 import { useEffect, useState } from 'react';
 import AddressSearch from './AddressSearch';
 import BuildingWindow from './BuildingWindow';
@@ -50,6 +51,15 @@ function MapWithControls() {
                 Cesium.Math.toRadians(-40),
                 300,
               ),
+              complete: () => {
+                viewer.scene.requestRender();
+                const screenPos = viewer.scene.cartesianToCanvasCoordinates(position);
+                if (!screenPos) return;
+                const picked = viewer.scene.pick(screenPos);
+                if (picked instanceof Cesium.Cesium3DTileFeature) {
+                  setBuilding(picked);
+                }
+              },
             },
           );
         }}
