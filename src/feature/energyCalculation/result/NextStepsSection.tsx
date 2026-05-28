@@ -1,4 +1,3 @@
-import { Paper } from '@/components/ui/paper';
 import { Typography } from '@/components/ui/typography';
 
 const STEPS = [
@@ -28,17 +27,22 @@ export function NextStepsSection() {
   return (
     <div className="flex flex-col gap-4">
       <Typography variant="h3">So geht's weiter</Typography>
-      <div className="flex flex-col gap-3">
+      <div className="mt-1.5 flex flex-col">
         {STEPS.map((step, index) => (
-          <Paper key={index} className="flex gap-4 p-4">
-            <div className="flex size-8 shrink-0 items-center justify-center rounded bg-neutral-100 text-sm font-bold text-neutral-600">
-              {index + 1}
+          <div key={index} className="flex gap-5">
+            <div className="flex flex-col items-center">
+              <div className="bg-primary flex size-8 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white">
+                {index + 1}
+              </div>
+              {index < STEPS.length - 1 && (
+                <div className="my-1 w-px flex-1 bg-neutral-200" />
+              )}
             </div>
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 pb-6">
               <Typography variant="h4">{step.title}</Typography>
               <Typography variant="muted">{step.description}</Typography>
             </div>
-          </Paper>
+          </div>
         ))}
       </div>
     </div>

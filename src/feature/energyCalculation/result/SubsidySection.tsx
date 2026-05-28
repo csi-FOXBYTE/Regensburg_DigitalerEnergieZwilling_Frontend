@@ -16,7 +16,7 @@ export function SubsidySection({ subsidies }: { subsidies: Subsidy[] }) {
           Die angezeigten Förderprogramme sind Beispieldaten und erheben keinen Anspruch auf Vollständigkeit oder Aktualität.
         </Typography>
       </div>
-      <div className="flex flex-col gap-4">
+      <div className="grid grid-cols-2 gap-4">
         {subsidies.map((subsidy) => (
           <SubsidyCard key={subsidy.href} {...subsidy} />
         ))}
