@@ -25,7 +25,7 @@ const openStreetMapImagerProvider = new Cesium.UrlTemplateImageryProvider({
     'Map tiles by CartoDB, under CC BY 3.0. Data by OpenStreetMap, under ODbL.',
 });
 
-const CESIUM_3D_TILES_URL = 'https://det.rg.foxbyte.de:4455/tileset.json';
+const CESIUM_3D_TILES_URL = 'https://s3.rg.foxbyte.de/det-rg-main/tileset.json';
 
 function createTilesetStyle(selectedBuildingId: string | null, color: string) {
   return new Cesium.Cesium3DTileStyle({
