@@ -35,7 +35,7 @@ export default function EnergyNumberInput({
         minimumFractionDigits: decimalScale,
         maximumFractionDigits: decimalScale,
       })}${suffix ?? ''}`
-    : undefined;
+    : suffix != null ? `- ${suffix.trim()}` : undefined;
 
   return (
     <EnergyCalculationField

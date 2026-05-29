@@ -24,6 +24,16 @@ export const outerWallAreaField = makeFieldStore({
   resettable: true,
 });
 
+export const outerWallAdjacentWallAreaField = makeFieldStore({
+  store: $inputState,
+  getValue: (obj): number | null | undefined => obj.outerWall.adjacentWallArea,
+  setValue: (draft, value) => {
+    draft.outerWall.adjacentWallArea = value ?? undefined;
+  },
+  placeholderStore: $resolvedInputState,
+  resettable: true,
+});
+
 export const outerWallConstructionTypeOptions = makeSelectionStore(
   (config) => config.outerWall.constructionTypes,
 );

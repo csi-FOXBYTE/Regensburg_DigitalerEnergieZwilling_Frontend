@@ -18,7 +18,7 @@
     "fields": {
       "buildingType": "Ist das Gebäude ein Ein- oder Mehrfamilienhaus?",
       "numberOfFloors": "Wie viele Stockwerke hat Ihr Gebäude, ohne Keller und Dachraum?",
-      "livingArea": "Wie groß ist Ihre Wohnfläche? [m²]",
+      "livingArea": "Wie groß ist Ihre Wohnfläche?",
       "hasBasement": "Hat Ihr Gebäude einen Keller?",
       "constructionYear": "Wann wurde Ihr Gebäude gebaut?"
     },
@@ -30,7 +30,7 @@
   "outerParts": {
     "title": "Außenbauteile des Gebäudes",
     "roof": {
-      "area": "Wie groß ist die gesamte Dachfläche Ihres Gebäudes? [m²]",
+      "area": "Wie groß ist die gesamte Dachfläche Ihres Gebäudes?",
       "constructionType": "Welche Dachform hat Ihr Dach?",
       "hasAttic": "Hat Ihr Gebäude einen Dachraum?",
       "hasInsulation": "Ist Ihr Dach gedämmt?",
@@ -44,36 +44,37 @@
       "year": "Wann wurde Ihr Dach gebaut oder zuletzt saniert?"
     },
     "roofWindows": {
-      "area": "Wie groß ist die gesamte Dachfensterfläche Ihres Gebäudes? [m²]",
+      "area": "Wie groß ist die gesamte Dachfensterfläche Ihres Gebäudes?",
       "windowType": "Welche Art von Dachfenstern sind verbaut?",
-      "uValue": "Welchen U-Wert (Wärmedurchgangskoeffizenten) haben Ihre Dachfenster? [W/m²K]",
+      "uValue": "Welchen U-Wert (Wärmedurchgangskoeffizenten) haben Ihre Dachfenster?",
       "year": "Wann wurden Ihre Dachfenster zuletzt eingebaut oder erneuert?"
     },
     "topFloor": {
       "year": "Wann wurde die Decke unter Ihrem Dachraum gebaut oder zuletzt saniert?",
-      "area": "Wie groß ist die Fläche der Decke unter Ihrem Dachraum? [m²]",
+      "area": "Wie groß ist die Fläche der Decke unter Ihrem Dachraum?",
       "type": "Welche Bauweise hat die Decke zu Ihrem Dachboden?",
       "hasInsulation": "Ist die Decke unter Ihrem Dachraum gedämmt?",
       "insulationThickness": "Wie dick ist die Dämmung?"
     },
     "outerWall": {
       "year": "Wann wurde Ihre Außenwand gebaut oder zuletzt saniert?",
-      "area": "Wie groß ist die Fläche Ihrer Außenwände? [m²]",
+      "area": "Wie groß ist die Fläche Ihrer Außenwände?",
       "constructionType": "Welche Bauweise haben Ihre Außenwände?",
       "hasInsulation": "Sind Ihre Außenwände gedämmt?",
-      "insulationThickness": "Wie dick ist die Dämmung?"
+      "insulationThickness": "Wie dick ist die Dämmung?",
+      "adjacentWallArea": "Wie groß ist die Wandfläche, die direkt an benachbarte Gebäude grenzt?"
     },
     "windows": {
-      "area": "Wie groß ist die gesamte Fläche Ihrer Außenwandfenster? [m²]",
+      "area": "Wie groß ist die gesamte Fläche Ihrer Außenwandfenster?",
       "windowType": "Welche Art von Fenstern sind verbaut?",
-      "uValue": "Welchen U-Wert (Wärmedurchgangskoeffizenten) haben Ihre Fenster? [W/m²K]",
+      "uValue": "Welchen U-Wert (Wärmedurchgangskoeffizenten) haben Ihre Fenster?",
       "year": "Wann wurden Ihre Fenster eingebaut oder zuletzt erneuert?"
     },
     "bottomFloor": {
       "area": {
-        "default": "Wie groß ist die Fläche Ihrer Kellerdecke? [m²]",
-        "heated": "Wie groß ist die Fläche Ihres Kellerbodens? [m²]",
-        "noBasement": "Wie groß ist die Fläche Ihres Bodens? [m²]"
+        "default": "Wie groß ist die Fläche Ihrer Kellerdecke?",
+        "heated": "Wie groß ist die Fläche Ihres Kellerbodens?",
+        "noBasement": "Wie groß ist die Fläche Ihres Bodens?"
       },
       "year": {
         "default": "Wann wurde Ihre Kellerdecke gebaut oder zuletzt saniert?",
@@ -109,15 +110,15 @@
       "heatingSurfaceType": "Wie wird die Wärme im Raum verteilt?"
     },
     "bills": {
-      "consumption": "Wie hoch sind Ihre jährlichen Heizkosten? [€]",
+      "consumption": "Wie hoch sind Ihre jährlichen Heizkosten?",
       "unitRate": "Wie hoch ist Ihr Energiepreis?"
     }
   },
   "electricity": {
     "title": "Strom & erneuerbare Energien",
     "type": "Welche Stromart beziehen Sie?",
-    "consumption": "Wie hoch ist Ihr jährlicher Stromverbrauch? [kWh/a]",
-    "unitRate": "Wie hoch ist Ihr Strompreis? [€/kWh]"
+    "consumption": "Wie hoch ist Ihr jährlicher Stromverbrauch?",
+    "unitRate": "Wie hoch ist Ihr Strompreis?"
   },
   "renovation": {
     "title": "Sanierungsmaßnamen",

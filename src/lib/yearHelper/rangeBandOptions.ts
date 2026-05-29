@@ -43,3 +43,10 @@ export function rangesToOptions(
 export function rangeKeyEquals(a: RangeKey, b: RangeKey): boolean {
   return a.from === b.from && a.to === b.to;
 }
+
+export function yearToRangeKey(year: number, ranges: Ranges): RangeKey | undefined {
+  const band = (ranges as { from?: number; to?: number }[]).find(
+    (r) => (r.from == null || year >= r.from) && (r.to == null || year <= r.to),
+  );
+  return band ? { from: band.from, to: band.to } : undefined;
+}

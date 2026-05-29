@@ -2,6 +2,7 @@ import { FieldLegend, FieldSeparator, FieldSet } from '@/components/ui/field';
 import { Paper } from '@/components/ui/paper';
 import { buildingYearOptions } from '@/lib/state/inputs/general';
 import {
+  outerWallAdjacentWallAreaField,
   outerWallAreaField,
   outerWallConstructionTypeField,
   outerWallConstructionTypeOptions,
@@ -56,6 +57,16 @@ export default function OuterWallPaper() {
               content="Geben Sie die gesamte Fläche aller Außenwände an, ohne Abzug von Fensterflächen.
                Die Gesamtfläche aller Außenwände beeinflusst den Wärmeverlust. Größere Wandflächen bedeuten mehr Wärmeverlust."
             ></InfoTooltipButton>
+          }
+        />
+        <EnergyNumberInput
+          field={outerWallAdjacentWallAreaField}
+          labelKey="outerParts.outerWall.adjacentWallArea"
+          suffix=" m²"
+          decimalScale={1}
+          allowNegative={false}
+          info={
+            <InfoTooltipButton content="Wandfläche, die direkt an Nachbargebäude grenzt und daher keine Wärme nach außen verliert." />
           }
         />
         <EnergySelectInput

@@ -61,7 +61,8 @@
       "area": "What is the total area of your outer walls?",
       "constructionType": "What is the construction type of your outer wall?",
       "hasInsulation": "Is your outer wall insulated?",
-      "insulationThickness": "How thick is the insulation?"
+      "insulationThickness": "How thick is the insulation?",
+      "adjacentWallArea": "What is the wall area adjacent to neighbouring buildings?"
     },
     "windows": {
       "area": "What is the total area of your windows?",
@@ -71,9 +72,9 @@
     },
     "bottomFloor": {
       "area": {
-        "default": "What is the area of your basement ceiling? [m²]",
-        "heated": "What is the area of your basement floor? [m²]",
-        "noBasement": "What is the area of your ground floor? [m²]"
+        "default": "What is the area of your basement ceiling?",
+        "heated": "What is the area of your basement floor?",
+        "noBasement": "What is the area of your ground floor?"
       },
       "year": {
         "default": "When was your basement ceiling built or last renovated?",

@@ -6,6 +6,9 @@ import { useEffect, useState } from 'react';
 import { Input } from '../../components/ui/input';
 import { $building, unselectBuilding } from '../../lib/state/building';
 
+const ADDRESS_DB_URL =
+  'https://s3.rg.foxbyte.de/det-rg-main/det-rg-addresses.sqlite';
+
 export default function AddressSearch({
   onAddressFound,
 }: {

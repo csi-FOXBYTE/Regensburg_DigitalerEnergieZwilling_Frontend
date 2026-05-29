@@ -10,6 +10,8 @@ export type DigitalEnergyTwin = {
   roofPitchDegrees: number | undefined;
   height: number | undefined;
   envelopeArea: number | undefined;
+  adjacentWallArea: number | undefined;
+  constructionYear: number | undefined;
 };
 
 export type BuildingAddress = {
@@ -34,6 +36,23 @@ export type BuildingState = {
 
 export const $building = atom<BuildingState | null>(null);
 
+function sharedWallAreaSum(feature: Cesium3DTileFeature): number | undefined {
+  const raw = feature.getProperty('digitalEnergyTwin.adjacentBuildings');
+  if (typeof raw !== 'string') return undefined;
+  try {
+    const parsed = JSON.parse(raw) as unknown;
+    if (!Array.isArray(parsed)) return undefined;
+    return parsed.reduce((sum, b) => {
+      const area = typeof b === 'object' && b !== null && typeof (b as Record<string, unknown>).sharedWallArea === 'number'
+        ? (b as Record<string, unknown>).sharedWallArea as number
+        : 0;
+      return sum + area;
+    }, 0);
+  } catch {
+    return undefined;
+  }
+}
+
 function numProp(
   feature: Cesium3DTileFeature,
   name: string,
@@ -49,10 +68,17 @@ function parseAddress(
   const city = feature.getProperty('addresses.0.Locality');
   if (typeof street !== 'string' || typeof city !== 'string') return undefined;
   const postcode = feature.getProperty('addresses.0.PostalCode');
-  return { street, postcode: typeof postcode === 'string' ? postcode : undefined, city };
+  return {
+    street,
+    postcode: typeof postcode === 'string' ? postcode : undefined,
+    city,
+  };
 }
 
 export function setBuilding(feature: Cesium3DTileFeature) {
+  // DEBUG: remove when done
+  console.log(Object.fromEntries(feature.getPropertyIds([]).map(k => [k, feature.getProperty(k)])));
+
   const id = feature.getProperty('id');
 
   if (id == null) return;
@@ -80,6 +106,8 @@ export function setBuilding(feature: Cesium3DTileFeature) {
         ),
         height: numProp(feature, 'digitalEnergyTwin.height'),
         envelopeArea: numProp(feature, 'digitalEnergyTwin.envelopeArea'),
+        adjacentWallArea: sharedWallAreaSum(feature),
+        constructionYear: numProp(feature, 'digitalEnergyTwin.constructionYear'),
       },
     },
   });
