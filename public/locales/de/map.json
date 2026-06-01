@@ -12,7 +12,7 @@
     "cancelButton": "Abbrechen"
   },
   "buildingWindow": {
-    "title": "Ihre Auswahl",
+    "title": "Ihr Gebäude",
     "subtitle": "Energetische Ersteinschätzung auf Basis öffentlicher Daten und Modellannahmen. Im nächsten Schritt können Sie die Gebäudedaten prüfen, ergänzen oder ändern.",
     "continueButton": "Jetzt Sanierungsvorschlag ermitteln",
     "sessionContinueButton": "Dort weitermachen",

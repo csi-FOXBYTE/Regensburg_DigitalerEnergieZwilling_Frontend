@@ -72,7 +72,7 @@ export function MapNav({ viewer }: MapNavProps) {
   };
 
   return (
-    <div className="absolute top-10 right-4 z-10 max-w-20">
+    <div className="absolute top-2 right-2 z-10 max-w-20 md:top-4 md:right-4">
       <div className="flex flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-lg">
         {/* Help */}
         <div className="flex flex-col items-center gap-1 px-3 pt-3 pb-2">

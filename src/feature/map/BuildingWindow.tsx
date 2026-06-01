@@ -206,7 +206,7 @@ export default function BuildingWindow() {
         ref={nodeRef}
         variant="outlined"
         className={cn(
-          'absolute top-4 right-20 z-20 hidden max-h-[calc(100%-2rem)] w-[calc(100vw-120px)] max-w-120 min-w-80 flex-col',
+          'absolute top-4 right-28 z-20 hidden max-h-[calc(100%-2rem)] w-[calc(100vw-7rem-1rem)] max-w-120 min-w-80 flex-col',
           isOpen ? 'flex' : null,
         )}
       >

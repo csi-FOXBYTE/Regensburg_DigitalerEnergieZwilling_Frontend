@@ -19,7 +19,6 @@ export function SubsidySection() {
         );
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
-        console.log('foerderprogramme raw:', JSON.parse(data.foerderprogramme));
         setSubsides(JSON.parse(data.foerderprogramme));
       } catch (error) {
         console.error('fetchSubsides failed:', error);
@@ -39,7 +38,7 @@ export function SubsidySection() {
           Anspruch auf Vollständigkeit oder Aktualität.
         </Typography>
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {subsides.map((subsidy) => {
           const s = foerderprogrammToSubsidy(subsidy);
           return <SubsidyCard key={s.href} {...s} />;
