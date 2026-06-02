@@ -19,9 +19,9 @@ export function SubsidySection() {
         );
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
-        setSubsides(JSON.parse(data.foerderprogramme));
-      } catch (error) {
-        console.error('fetchSubsides failed:', error);
+        setSubsides(JSON.parse(data.subsidies));
+      } catch {
+        console.error('fetchSubsides failed:');
       }
     };
     fetchSubsides();
