@@ -1,5 +1,6 @@
 import { FieldLegend, FieldSet } from '@/components/ui/field';
 import { Paper } from '@/components/ui/paper';
+import { Separator } from '@/components/ui/separator';
 import {
   exteriorWallWindowsAreaField,
   exteriorWallWindowsUValueField,
@@ -8,20 +9,21 @@ import {
   exteriorWallWindowsYearField,
 } from '@/lib/state/inputs/exterior-wall-windows';
 import { buildingYearOptions } from '@/lib/state/inputs/general';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '../../../components/ui/typography';
 import EnergyNumberInput from '../EnergyNumberInput';
 import EnergySelectInput from '../EnergySelectInput';
 import { InfoTooltipButton } from '../InfoButton';
 
 export default function WindowsPaper() {
+  const { t } = useTranslation('energyCalculation');
   return (
-    <Paper variant="outlined" className="p-4">
+    <Paper variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <FieldLegend>
-          <Typography variant="h3" className="mb-2">
-            Fenster
-          </Typography>
+        <FieldLegend className="col-span-full">
+          <Typography variant="h4">{t('outerParts.windows.windows')}</Typography>
         </FieldLegend>
+        <Separator className="col-span-full" />
         <EnergySelectInput
           field={exteriorWallWindowsYearField}
           labelKey="outerParts.windows.year"
@@ -35,8 +37,7 @@ export default function WindowsPaper() {
           allowNegative={false}
           info={
             <InfoTooltipButton
-              content="Geben Sie die Gesamtfläche aller Fenster in an. 
-              Die Gesamtfläche aller Fenster beeinflusst den Wärmeverlust durch die Gebäudehülle. "
+              content={t('outerParts.windows.tooltips.area')}
             ></InfoTooltipButton>
           }
         />
@@ -46,8 +47,7 @@ export default function WindowsPaper() {
           selectionStore={exteriorWallWindowsWindowTypeOptions}
           info={
             <InfoTooltipButton
-              content="Holz- und Kunststoffrahmen dämmen gut. 
-              Aluminium- und Stahlrahmen leiten Kälte stärker und sind weniger energieeffizient."
+              content={t('outerParts.windows.tooltips.windowType')}
             ></InfoTooltipButton>
           }
         />
@@ -59,9 +59,7 @@ export default function WindowsPaper() {
           allowNegative={false}
           info={
             <InfoTooltipButton
-              content="Der U-Wert beschreibt die Wärmedämmung des Fensters. Niedrigere Werte bedeuten bessere Dämmung. 
-              Alte Einfachfenster haben etwa 5,0 W/m²K. Moderne Dreifachfenster liegen bei etwa 0,7 W/m²K.
-               Den U-Wert finden Sie in den Unterlagen Ihrer Fenster oder auf dem Typenschild."
+              content={t('outerParts.windows.tooltips.uValue')}
             ></InfoTooltipButton>
           }
         />

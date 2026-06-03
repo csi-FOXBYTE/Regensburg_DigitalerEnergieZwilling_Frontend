@@ -1,8 +1,9 @@
 import { useStore } from '@nanostores/react';
 import { useQuery } from '@tanstack/react-query';
 import { useDebounce } from '@uidotdev/usehooks';
-import { Search } from 'lucide-react';
+import { Info, Search, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Input } from '../../components/ui/input';
 import { $building, unselectBuilding } from '../../lib/state/building';
 
@@ -17,6 +18,9 @@ export default function AddressSearch({
   const building = useStore($building);
 
   const [search, setSearch] = useState('');
+  const [hintDismissed, setHintDismissed] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const { t } = useTranslation('map');
 
   useEffect(() => {
     if (building !== null) setSearch('');
@@ -30,7 +34,7 @@ export default function AddressSearch({
       if (debouncedSearch === '') return [];
 
       const response = await fetch(
-        `https://photon.komoot.io/api/?q=${debouncedSearch}&limit=20&lang=de`,
+        `https://photon.komoot.io/api/?q=${debouncedSearch}&limit=10&lang=de&bbox=11.9,48.95,12.2,49.05`,
       );
 
       const json = await response.json();
@@ -63,7 +67,7 @@ export default function AddressSearch({
       <form
         className="relative"
         role="search"
-        aria-label="Gebäudeadresse suchen"
+        aria-label={t('addressSearch.ariaFormLabel')}
         onSubmit={(e) => e.preventDefault()}
       >
         <Input
@@ -71,6 +75,7 @@ export default function AddressSearch({
           leftIcon={<Search />}
           onChange={(event) => {
             if ($building.get() !== null) unselectBuilding();
+            setShowSuggestions(true);
             setSearch(event.target.value);
           }}
           onClear={() => {
@@ -85,16 +90,34 @@ export default function AddressSearch({
               : search
           }
           className="py-3"
-          placeholder="Adresse suchen in Regensburg..."
-          aria-label="Adresse eingeben"
+          placeholder={`${t('addressSearch.placeHolder')}`}
+          aria-label={t('addressSearch.ariaInputLabel')}
         />
       </form>
-      {data.length > 0
+      {!hintDismissed && !building && (
+        <div className="mt-2 flex items-start gap-2 border border-[#e30613] bg-white/80 px-3 py-2 text-sm shadow-lg">
+          <Info className="mt-0.5 size-4 shrink-0 text-[#e30613]" />
+          <p className="flex-1">
+            <strong>{t('addressSearch.chooseBuilding')}</strong>{' '}
+            {t('addressSearch.infoText')}
+          </p>
+          <button
+            type="button"
+            onClick={() => setHintDismissed(true)}
+            className="text-[#e30613] hover:text-[#8b2412]"
+            aria-label={t('addressSearch.ariaDismissLabel')}
+          >
+            <X className="size-4" />
+          </button>
+        </div>
+      )}
+      {showSuggestions && data.length > 0
         ? data.map((d) => (
             <div
               className="w-full border border-gray-300 bg-white py-2.5 pr-10 pl-9 text-sm shadow-lg outline-offset-2 focus:border-[#D9291C] focus:ring-2 focus:ring-[#D9291C] focus:outline-none md:py-3 md:pr-4 md:pl-10 md:text-base"
               key={`${d.properties.osm_type}${d.properties.osm_id}`}
               onClick={() => {
+                setShowSuggestions(false);
                 const [lon, lat] = d.geometry.coordinates;
                 onAddressFound(String(lat), String(lon));
                 setSearch(formatStreet(d.properties));

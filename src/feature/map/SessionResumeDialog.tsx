@@ -7,8 +7,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { clearLastActive, getLastActiveSession, loadSession } from '@/lib/state/session';
 import type { SavedSession } from '@/lib/state/session';
+import {
+  clearLastActive,
+  getLastActiveSession,
+  loadSession,
+} from '@/lib/state/session';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -41,7 +45,9 @@ export default function SessionResumeDialog() {
       <DialogContent showCloseButton={false}>
         <DialogHeader>
           <DialogTitle>{t('sessionResumeDialog.title')}</DialogTitle>
-          <DialogDescription>{t('sessionResumeDialog.description')}</DialogDescription>
+          <DialogDescription>
+            {t('sessionResumeDialog.description')}
+          </DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <Button variant="secondary" onClick={handleDismiss}>

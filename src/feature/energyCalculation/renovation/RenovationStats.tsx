@@ -32,15 +32,31 @@ function deltaPillClass(improved: boolean | null) {
   return 'bg-neutral-550 text-white';
 }
 
-function DeltaPill({ children, improved }: { children: ReactNode; improved: boolean | null }) {
+function DeltaPill({
+  children,
+  improved,
+}: {
+  children: ReactNode;
+  improved: boolean | null;
+}) {
   return (
-    <span className={`w-fit rounded-full px-2 py-0.5 text-xs font-bold ${deltaPillClass(improved)}`}>
+    <span
+      className={`w-fit rounded-full px-2 py-1 text-xs font-bold ${deltaPillClass(improved)}`}
+    >
       {children}
     </span>
   );
 }
 
-function NumericDelta({ before, after, unit }: { before: number; after: number; unit: string }) {
+function NumericDelta({
+  before,
+  after,
+  unit,
+}: {
+  before: number;
+  after: number;
+  unit: string;
+}) {
   const delta = after - before;
   const improved = delta < 0 ? true : delta > 0 ? false : null;
   return (
@@ -50,10 +66,19 @@ function NumericDelta({ before, after, unit }: { before: number; after: number; 
   );
 }
 
-function ClassDelta({ before, after, classIndex }: { before: EnergyEfficiencyClass; after: EnergyEfficiencyClass; classIndex: Map<string, number> }) {
+function ClassDelta({
+  before,
+  after,
+  classIndex,
+}: {
+  before: EnergyEfficiencyClass;
+  after: EnergyEfficiencyClass;
+  classIndex: Map<string, number>;
+}) {
   const beforeIndex = classIndex.get(before) ?? 0;
   const afterIndex = classIndex.get(after) ?? 0;
-  const improved = afterIndex < beforeIndex ? true : afterIndex > beforeIndex ? false : null;
+  const improved =
+    afterIndex < beforeIndex ? true : afterIndex > beforeIndex ? false : null;
   return (
     <DeltaPill improved={improved}>
       {before} → {after}
@@ -77,17 +102,22 @@ function RenovationStatsCard({
   const { t } = useTranslation('energyCalculation');
 
   return (
-    <Paper className="flex flex-col gap-2 p-3" elevation={2}>
+    <Paper className="flex flex-col gap-2 p-4" elevation={2}>
       <div className="flex gap-2">
         {icon}
         <Typography variant="h4">{t(titleKey)}</Typography>
       </div>
-      <Typography variant="muted">
-        {t('stats.beforeRenovation')} {beforeFormatted}
+      <Typography variant="muted">{t('stats.beforeRenovation')}</Typography>
+      <Typography variant="muted" style={{ fontSize: '16px' }}>
+        {beforeFormatted}
       </Typography>
-      <Separator />
-      <Typography variant="muted">{t('stats.afterRenovation')}</Typography>
-      <Typography variant="lead" className="font-bold">
+      <Separator style={{ margin: '4px 0' }} />
+      <Typography style={{ fontSize: '16px', fontWeight: 'bold' }}>
+        {t('stats.afterRenovation')}
+      </Typography>
+      <Typography
+        style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '8px' }}
+      >
         {afterFormatted}
       </Typography>
       {delta}
@@ -100,15 +130,21 @@ export default function RenovationStats() {
   const effClasses = useStore($energyEfficiencyClasses);
   const before = useStore($currentEnergyState);
   const after = useStore($renovatedEnergyState);
-  const classIndex = new Map(Array.from(effClasses.keys()).map((cls, i) => [cls, i]));
+  const classIndex = new Map(
+    Array.from(effClasses.keys()).map((cls, i) => [cls, i]),
+  );
 
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
       <RenovationStatsCard
         icon={<Zap className="size-5 text-amber-600" />}
         titleKey="stats.energyDemand"
-        beforeFormatted={t('stats.energyDemandValue', { value: formatValue(before.energyConsumptionPerSquareMeter) })}
-        afterFormatted={t('stats.energyDemandValue', { value: formatValue(after.energyConsumptionPerSquareMeter) })}
+        beforeFormatted={t('stats.energyDemandValue', {
+          value: formatValue(before.energyConsumptionPerSquareMeter),
+        })}
+        afterFormatted={t('stats.energyDemandValue', {
+          value: formatValue(after.energyConsumptionPerSquareMeter),
+        })}
         delta={
           <NumericDelta
             before={before.energyConsumptionPerSquareMeter}
@@ -120,8 +156,12 @@ export default function RenovationStats() {
       <RenovationStatsCard
         icon={<TrendingUp className="size-5 text-green-600" />}
         titleKey="stats.energyEfficiency"
-        beforeFormatted={t('stats.energyEfficiencyValue', { value: before.energyEfficiencyClass })}
-        afterFormatted={t('stats.energyEfficiencyValue', { value: after.energyEfficiencyClass })}
+        beforeFormatted={t('stats.energyEfficiencyValue', {
+          value: before.energyEfficiencyClass,
+        })}
+        afterFormatted={t('stats.energyEfficiencyValue', {
+          value: after.energyEfficiencyClass,
+        })}
         delta={
           <ClassDelta
             before={before.energyEfficiencyClass}
@@ -133,8 +173,12 @@ export default function RenovationStats() {
       <RenovationStatsCard
         icon={<Euro className="size-5 text-blue-600" />}
         titleKey="stats.annualCosts"
-        beforeFormatted={t('stats.annualCostsValue', { value: formatValue(before.yearlyCost) })}
-        afterFormatted={t('stats.annualCostsValue', { value: formatValue(after.yearlyCost) })}
+        beforeFormatted={t('stats.annualCostsValue', {
+          value: formatValue(before.yearlyCost),
+        })}
+        afterFormatted={t('stats.annualCostsValue', {
+          value: formatValue(after.yearlyCost),
+        })}
         delta={
           <NumericDelta
             before={before.yearlyCost}
@@ -146,8 +190,12 @@ export default function RenovationStats() {
       <RenovationStatsCard
         icon={<Leaf className="size-5 text-green-700" />}
         titleKey="stats.co2Emissions"
-        beforeFormatted={t('stats.co2EmissionsValue', { value: formatValue(before.co2Emissions) })}
-        afterFormatted={t('stats.co2EmissionsValue', { value: formatValue(after.co2Emissions) })}
+        beforeFormatted={t('stats.co2EmissionsValue', {
+          value: formatValue(before.co2Emissions),
+        })}
+        afterFormatted={t('stats.co2EmissionsValue', {
+          value: formatValue(after.co2Emissions),
+        })}
         delta={
           <NumericDelta
             before={before.co2Emissions}

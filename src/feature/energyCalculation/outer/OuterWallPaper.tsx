@@ -1,5 +1,6 @@
 import { FieldLegend, FieldSeparator, FieldSet } from '@/components/ui/field';
 import { Paper } from '@/components/ui/paper';
+import { Separator } from '@/components/ui/separator';
 import { buildingYearOptions } from '@/lib/state/inputs/general';
 import {
   outerWallAdjacentWallAreaField,
@@ -11,6 +12,7 @@ import {
   outerWallYearField,
 } from '@/lib/state/inputs/outer-wall';
 import { useStore } from '@nanostores/react';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '../../../components/ui/typography';
 import EnergyBooleanInput from '../EnergyBooleanInput';
 import EnergyNumberInput from '../EnergyNumberInput';
@@ -18,6 +20,7 @@ import EnergySelectInput from '../EnergySelectInput';
 import { InfoTooltipButton } from '../InfoButton';
 
 export default function OuterWallPaper() {
+  const { t } = useTranslation('energyCalculation');
   const outerWallHasInsulationValue = useStore(
     outerWallHasInsulationField.$store,
   );
@@ -28,22 +31,21 @@ export default function OuterWallPaper() {
     outerWallHasInsulationValue ?? outerWallHasInsulationPlaceholder;
 
   return (
-    <Paper variant="outlined" className="flex flex-col gap-4 p-4">
+    <Paper
+      variant="outlined"
+      className="flex flex-col gap-6 pt-4 pr-5 pb-5 pl-5"
+    >
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <FieldLegend>
-          <Typography variant="h3" className="mb-2">
-            Außenwand
-          </Typography>
+        <FieldLegend className="col-span-full">
+          <Typography variant="h4">{t('outerParts.outerWall.outerWall')}</Typography>
         </FieldLegend>
+        <Separator className="col-span-full" />
         <EnergySelectInput
           field={outerWallYearField}
           labelKey="outerParts.outerWall.year"
           rangeBandStore={buildingYearOptions}
           info={
-            <InfoTooltipButton
-              content="Geben Sie das Baujahr oder das Jahr der letzten größeren Fassadensanierung an. 
-              Ältere Wände ohne Dämmung verlieren viel Heizwärme nach außen."
-            ></InfoTooltipButton>
+            <InfoTooltipButton content={t('outerParts.outerWall.tooltips.year')} />
           }
         />
         <EnergyNumberInput
@@ -54,8 +56,7 @@ export default function OuterWallPaper() {
           allowNegative={false}
           info={
             <InfoTooltipButton
-              content="Geben Sie die gesamte Fläche aller Außenwände an, ohne Abzug von Fensterflächen.
-               Die Gesamtfläche aller Außenwände beeinflusst den Wärmeverlust. Größere Wandflächen bedeuten mehr Wärmeverlust."
+              content={t('outerParts.outerWall.tooltips.area')}
             ></InfoTooltipButton>
           }
         />
@@ -74,26 +75,26 @@ export default function OuterWallPaper() {
           labelKey="outerParts.outerWall.constructionType"
           selectionStore={outerWallConstructionTypeOptions}
           info={
-            <InfoTooltipButton content="Massivwände (z. B. Ziegel oder Beton) speichern Wärme gut."></InfoTooltipButton>
+            <InfoTooltipButton content={t('outerParts.outerWall.tooltips.constructionType')}></InfoTooltipButton>
           }
         />
       </FieldSet>
       <FieldSeparator />
-      <FieldSet className="grid grid-cols-1 lg:grid-cols-2">
-        <FieldLegend variant="label" className="col-span-full">
-          <Typography variant="h5" className="mb-2">
-            Dämmung
-          </Typography>
+      <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <FieldLegend variant="label" className="col-span-full font-bold">
+          {t('outerParts.insulation')}
         </FieldLegend>
         <EnergyBooleanInput
           field={outerWallHasInsulationField}
           labelKey="outerParts.outerWall.hasInsulation"
           trueKey={{ ns: 'energyCalculation', key: 'booleanLabels.insulated' }}
-          falseKey={{ ns: 'energyCalculation', key: 'booleanLabels.notInsulated' }}
+          falseKey={{
+            ns: 'energyCalculation',
+            key: 'booleanLabels.notInsulated',
+          }}
           info={
             <InfoTooltipButton
-              content="Durch ungedämmte Außenwände gehen bis zu 40 % der Heizwärme verloren. 
-              Eine Dämmung senkt die Heizkosten erheblich."
+              content={t('outerParts.outerWall.tooltips.hasInsulation')}
             ></InfoTooltipButton>
           }
         />

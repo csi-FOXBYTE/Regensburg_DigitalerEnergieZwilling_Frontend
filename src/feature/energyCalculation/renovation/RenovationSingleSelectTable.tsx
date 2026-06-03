@@ -7,6 +7,7 @@ import {
 } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { RenovationRow } from './RenovationRow';
 
@@ -27,6 +28,7 @@ export function RenovationSingleSelectTable({
   baseInput,
   config,
 }: RenovationSingleSelectTableProps) {
+  const { t } = useTranslation('energyCalculation');
   const selectedId = value.length > 0 ? value[0].id : NONE;
 
   const table = useReactTable({
@@ -59,8 +61,8 @@ export function RenovationSingleSelectTable({
         <thead>
           <tr className="bg-neutral-150">
             <th className="w-8" />
-            <th className="px-4 py-3 text-left font-medium">Maßnahme</th>
-            <th className="w-px whitespace-nowrap px-4 py-3 text-right font-medium">Sparpotential</th>
+            <th className="px-4 py-3 text-left font-medium">{t('renovation.table.measure')}</th>
+            <th className="w-px whitespace-nowrap px-4 py-3 text-right font-medium">{t('renovation.table.savings')}</th>
           </tr>
         </thead>
         <tbody>
@@ -75,7 +77,7 @@ export function RenovationSingleSelectTable({
           ))}
           <RenovationRow
             selectionCell={<RadioGroupItem value={NONE} />}
-            label="Keine Maßnahme"
+            label={t('renovation.table.noMeasure')}
             savings={0}
           />
         </tbody>

@@ -2,6 +2,7 @@ import ClientHydration from '@/components/ClientHydration';
 import { $pendingFlyTo } from '@/lib/state/session';
 import { useStore } from '@nanostores/react';
 import * as Cesium from 'cesium';
+import { setBuilding } from '../../lib/state/building';
 import { useEffect, useState } from 'react';
 import AddressSearch from './AddressSearch';
 import BuildingWindow from './BuildingWindow';
@@ -14,7 +15,11 @@ function MapWithControls() {
 
   useEffect(() => {
     if (!viewer || !pendingFlyTo) return;
-    const position = Cesium.Cartesian3.fromRadians(pendingFlyTo.lon, pendingFlyTo.lat, 0);
+    const position = Cesium.Cartesian3.fromRadians(
+      pendingFlyTo.lon,
+      pendingFlyTo.lat,
+      0,
+    );
     viewer.camera.flyToBoundingSphere(new Cesium.BoundingSphere(position, 50), {
       duration: 1.5,
       offset: new Cesium.HeadingPitchRange(0, Cesium.Math.toRadians(-40), 300),
@@ -27,15 +32,36 @@ function MapWithControls() {
       <AddressSearch
         onAddressFound={(lat, lon) => {
           if (!viewer) return;
-          viewer.camera.flyTo({
-            easingFunction: Cesium.EasingFunction.LINEAR_NONE,
-            duration: 0.2,
-            destination: Cesium.Cartesian3.fromDegrees(
-              parseFloat(lon),
-              parseFloat(lat),
-              viewer.camera.positionCartographic.height,
-            ),
-          });
+          const latF = parseFloat(lat);
+          const lonF = parseFloat(lon);
+          const cartographic = Cesium.Cartographic.fromDegrees(lonF, latF);
+          const groundHeight =
+            viewer.scene.globe.getHeight(cartographic) ?? 350;
+          const position = Cesium.Cartesian3.fromDegrees(
+            lonF,
+            latF,
+            groundHeight,
+          );
+          viewer.camera.flyToBoundingSphere(
+            new Cesium.BoundingSphere(position, 50),
+            {
+              duration: 1.5,
+              offset: new Cesium.HeadingPitchRange(
+                viewer.camera.heading,
+                Cesium.Math.toRadians(-40),
+                300,
+              ),
+              complete: () => {
+                viewer.scene.requestRender();
+                const screenPos = viewer.scene.cartesianToCanvasCoordinates(position);
+                if (!screenPos) return;
+                const picked = viewer.scene.pick(screenPos);
+                if (picked instanceof Cesium.Cesium3DTileFeature) {
+                  setBuilding(picked);
+                }
+              },
+            },
+          );
         }}
       />
       <MapNav viewer={viewer} />

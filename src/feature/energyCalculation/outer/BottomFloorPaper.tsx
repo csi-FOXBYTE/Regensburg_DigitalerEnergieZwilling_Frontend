@@ -1,5 +1,6 @@
 import { FieldLegend, FieldSeparator, FieldSet } from '@/components/ui/field';
 import { Paper } from '@/components/ui/paper';
+import { Separator } from '@/components/ui/separator';
 import {
   bottomFloorAreaField,
   bottomFloorConstructionTypeField,
@@ -12,6 +13,7 @@ import {
 } from '@/lib/state/inputs/bottom-floor';
 import { buildingYearOptions } from '@/lib/state/inputs/general';
 import { useStore } from '@nanostores/react';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '../../../components/ui/typography';
 import EnergyBooleanInput from '../EnergyBooleanInput';
 import EnergyNumberInput from '../EnergyNumberInput';
@@ -19,6 +21,7 @@ import EnergySelectInput from '../EnergySelectInput';
 import { InfoTooltipButton } from '../InfoButton';
 
 export default function BottomFloorPaper() {
+  const { t } = useTranslation('energyCalculation');
   const hasBasementValue = useStore(hasBasementField.$store);
   const hasBasementPlaceholder = useStore(hasBasementField.$placeholder);
   const hasBasement = hasBasementValue ?? hasBasementPlaceholder;
@@ -45,21 +48,21 @@ export default function BottomFloorPaper() {
       : 'default';
 
   return (
-    <Paper variant="outlined" className="flex flex-col gap-4 p-4">
+    <Paper
+      variant="outlined"
+      className="flex flex-col gap-6 pt-4 pr-5 pb-5 pl-5"
+    >
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <FieldLegend>
-          <Typography variant="h3" className="mb-2">
-            Unterste Geschossdecke
-          </Typography>
+        <FieldLegend className="col-span-full">
+          <Typography variant="h4">{t('outerParts.bottomFloor.bottomFloor')}</Typography>
         </FieldLegend>
+        <Separator className="col-span-full" />
         <EnergyBooleanInput
           field={hasBasementField}
           labelKey="outerParts.bottomFloor.hasBasement"
           info={
             <InfoTooltipButton
-              content="Geben Sie an, ob Ihr Gebäude einen Keller hat. 
-              Ein Keller unter den Wohnräumen beeinflusst die Wärmedämmung und damit Ihren Energiebedarf – 
-              besonders wenn er unbeheizt ist."
+              content={t('outerParts.bottomFloor.tooltips.hasBasement')}
             ></InfoTooltipButton>
           }
         />
@@ -68,11 +71,13 @@ export default function BottomFloorPaper() {
             field={isBasementHeatedField}
             labelKey="outerParts.bottomFloor.isBasementHeated"
             trueKey={{ ns: 'energyCalculation', key: 'booleanLabels.heated' }}
-            falseKey={{ ns: 'energyCalculation', key: 'booleanLabels.notHeated' }}
+            falseKey={{
+              ns: 'energyCalculation',
+              key: 'booleanLabels.notHeated',
+            }}
             info={
               <InfoTooltipButton
-                content="Bei einem unbeheizten Keller ist die Dämmung der Kellerdecke besonders
-                 sinnvoll, damit keine Kälte in die Wohnräume aufsteigt."
+                content={t('outerParts.bottomFloor.tooltips.isBasementHeated')}
               ></InfoTooltipButton>
             }
           />
@@ -86,9 +91,7 @@ export default function BottomFloorPaper() {
           className="col-start-1"
           info={
             <InfoTooltipButton
-              content="Geben Sie die Fläche der/des Kellerdecke/Kellerbodens/Bodens an. 
-               Die Fläche der/des Kellerdecke/Kellerbodens/Bodens zeigt, 
-               wie viel Kälte aus dem Keller in Ihre Wohnräume dringen kann."
+              content={t(`outerParts.bottomFloor.tooltips.area.${context}`)}
             ></InfoTooltipButton>
           }
         />
@@ -98,8 +101,7 @@ export default function BottomFloorPaper() {
           rangeBandStore={buildingYearOptions}
           info={
             <InfoTooltipButton
-              content="Geben Sie das Baujahr oder das Jahr der letzten Sanierung an. 
-              Ältere, ungedämmte Kellerdecken/Kellerböden lassen Kälte in die Wohnräume aufsteigen."
+              content={t(`outerParts.bottomFloor.tooltips.year.${context}`)}
             ></InfoTooltipButton>
           }
         />
@@ -109,29 +111,27 @@ export default function BottomFloorPaper() {
           selectionStore={bottomFloorConstructionTypeOptions}
           info={
             <InfoTooltipButton
-              content="Massive Betondecken/Betonböden lassen sich gut dämmen und speichern Wärme besser.
-               Holzbalkendecken haben andere Dämmeigenschaften."
+              content={t(`outerParts.bottomFloor.tooltips.constructionType.${context}`)}
             ></InfoTooltipButton>
           }
         />
       </FieldSet>
       <FieldSeparator />
-      <FieldSet className="grid grid-cols-1 lg:grid-cols-2">
-        <FieldLegend variant="label" className="col-span-full">
-          <Typography variant="h5" className="mb-2">
-            Dämmung
-          </Typography>
+      <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <FieldLegend variant="label" className="col-span-full font-bold">
+          {t('outerParts.insulation')}
         </FieldLegend>
         <EnergyBooleanInput
           field={bottomFloorHasInsulationField}
           labelKey={`outerParts.bottomFloor.hasInsulation.${context}`}
           trueKey={{ ns: 'energyCalculation', key: 'booleanLabels.insulated' }}
-          falseKey={{ ns: 'energyCalculation', key: 'booleanLabels.notInsulated' }}
+          falseKey={{
+            ns: 'energyCalculation',
+            key: 'booleanLabels.notInsulated',
+          }}
           info={
             <InfoTooltipButton
-              content="Eine Dämmung der/des Kellerdecke/Kellerbodens/Bodens verhindert, 
-              dass Kälte aus dem Keller in Ihre Wohnräume dringt. 
-              Das verbessert den Wohnkomfort und senkt Heizkosten."
+              content={t(`outerParts.bottomFloor.tooltips.hasInsulation.${context}`)}
             ></InfoTooltipButton>
           }
         />

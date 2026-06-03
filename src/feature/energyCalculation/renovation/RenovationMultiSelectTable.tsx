@@ -7,6 +7,7 @@ import {
 } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import { getCoreRowModel, useReactTable, type RowSelectionState } from '@tanstack/react-table';
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Checkbox } from '@/components/ui/checkbox';
 import { RenovationRow } from './RenovationRow';
 
@@ -25,6 +26,7 @@ export function RenovationMultiSelectTable({
   baseInput,
   config,
 }: RenovationMultiSelectTableProps) {
+  const { t } = useTranslation('energyCalculation');
   const rowSelection = useMemo<RowSelectionState>(
     () => Object.fromEntries(value.map((r) => [r.id, true])),
     [value],
@@ -72,8 +74,8 @@ export function RenovationMultiSelectTable({
       <thead>
         <tr className="bg-neutral-150">
           <th className="w-8" />
-          <th className="px-4 py-3 text-left font-medium">Maßnahme</th>
-          <th className="w-px whitespace-nowrap px-4 py-3 text-right font-medium">Sparpotential</th>
+          <th className="px-4 py-3 text-left font-medium">{t('renovation.table.measure')}</th>
+          <th className="w-px whitespace-nowrap px-4 py-3 text-right font-medium">{t('renovation.table.savings')}</th>
         </tr>
       </thead>
       <tbody>
@@ -97,7 +99,7 @@ export function RenovationMultiSelectTable({
         <tfoot>
           <tr className="border-t border-neutral-200 bg-neutral-150 text-base">
             <td />
-            <td className="px-4 py-4 font-medium">Gesamt</td>
+            <td className="px-4 py-4 font-medium">{t('renovation.table.total')}</td>
             <td className={`whitespace-nowrap px-4 py-4 text-right font-medium ${savingsColorClass}`}>
               {selectedSavings.toLocaleString('de-DE', {
                 minimumFractionDigits: 2,

@@ -1,4 +1,4 @@
-import type { EnergyEfficiencyClass } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+import { type EnergyEfficiencyClass } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import { useStore } from '@nanostores/react';
 import { ArrowDown, ArrowUp } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +8,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '../../../components/ui/tooltip';
-import { $config, $energyEfficiencyClasses } from '../../../lib/state/calculation-config';
+import {
+  $config,
+  $energyEfficiencyClasses,
+} from '../../../lib/state/calculation-config';
 import { $currentEnergyState } from '../../../lib/state/computed/current-energy-state';
 import { $renovatedEnergyState } from '../../../lib/state/computed/renovated-energy-state';
 
@@ -43,23 +46,31 @@ function EnergyClassRow({
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <div className={`group flex items-stretch gap-4 p-2 ring-2 ${ringClass}`}>
+        <div
+          className={`group flex items-stretch gap-4 p-2 ring-2 ${ringClass}`}
+        >
           <div
             className="flex aspect-[3/2] shrink-0 items-center justify-center p-1 text-sm font-bold text-white"
             style={{ backgroundColor: color }}
           >
             {cls}
           </div>
-          <div className="relative flex-1 bg-neutral-150">
+          <div className="bg-neutral-150 relative flex-1">
             <div
               className={`absolute inset-y-0 left-0 transition-opacity group-hover:opacity-100 ${selected ? 'opacity-80' : 'opacity-40'}`}
-              style={{ clipPath: CHEVRON_CLIP, width: fill, backgroundColor: color }}
+              style={{
+                clipPath: CHEVRON_CLIP,
+                width: fill,
+                backgroundColor: color,
+              }}
             />
-            <div className="relative z-10 flex h-full items-center justify-between pl-2 pr-2">
+            <div className="relative z-10 flex h-full items-center justify-between pr-2 pl-2">
               <span className="text-sm">{rangeText}</span>
-              <div className="shrink-0 flex justify-end">
+              <div className="flex shrink-0 justify-end">
                 {badge && (
-                  <span className={`flex items-center gap-0.5 px-1.5 py-0.5 text-xs font-bold text-white ${badge.bgClass}`}>
+                  <span
+                    className={`flex items-center gap-0.5 px-1.5 py-0.5 text-xs font-bold text-white ${badge.bgClass}`}
+                  >
                     {badge.arrow === 'up' && <ArrowUp />}
                     {badge.arrow === 'down' && <ArrowDown />}
                     {badge.label}
@@ -70,7 +81,9 @@ function EnergyClassRow({
           </div>
         </div>
       </TooltipTrigger>
-      <TooltipContent side="top" align="start">{tooltipText}</TooltipContent>
+      <TooltipContent side="top" align="start">
+        {tooltipText}
+      </TooltipContent>
     </Tooltip>
   );
 }
@@ -102,9 +115,15 @@ export default function EnergyClassBars() {
     return 'ring-transparent';
   }
 
-  function badge(cls: EnergyEfficiencyClass): { label: string; bgClass: string; arrow?: 'up' | 'down' } | undefined {
+  function badge(
+    cls: EnergyEfficiencyClass,
+  ): { label: string; bgClass: string; arrow?: 'up' | 'down' } | undefined {
     if (cls === afterClass && !same)
-      return { label: t('stats.afterRenovation'), bgClass: improved ? 'bg-green-600' : 'bg-red-600', arrow: improved ? 'up' : 'down' };
+      return {
+        label: t('stats.afterRenovation'),
+        bgClass: improved ? 'bg-green-600' : 'bg-red-600',
+        arrow: improved ? 'up' : 'down',
+      };
     if (cls === beforeClass)
       return { label: t('stats.beforeRenovation'), bgClass: 'bg-neutral-850' };
     return undefined;

@@ -26,14 +26,20 @@ function InfoButton({ onClick }: { onClick?: () => void }) {
 }
 
 export function InfoTooltipButton({ content }: { content: ReactNode }) {
+  const [open, setOpen] = useState(false);
   return (
-    <Tooltip>
-      <TooltipTrigger className="group text-muted-foreground hover:text-foreground inline-flex cursor-pointer items-center">
+    <Tooltip open={open}>
+      <TooltipTrigger
+        onClick={() => setOpen((v) => !v)}
+        className="group text-muted-foreground hover:text-foreground inline-flex cursor-pointer items-center"
+      >
         <Info className="size-3.5 text-muted-foreground group-hover:text-[#e30613]" />
       </TooltipTrigger>
       <TooltipContent
         className="max-w-70 rounded bg-white px-4 py-3 text-sm leading-relaxed shadow-lg"
         style={{ color: '#191919' }}
+        onPointerDownOutside={() => setOpen(false)}
+        onEscapeKeyDown={() => setOpen(false)}
       >
         {content}
       </TooltipContent>

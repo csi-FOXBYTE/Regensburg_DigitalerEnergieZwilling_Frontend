@@ -1,5 +1,6 @@
 import { FieldGroup, FieldLegend, FieldSet } from '@/components/ui/field';
 import { Paper } from '@/components/ui/paper';
+import { Separator } from '@/components/ui/separator';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { $config } from '@/lib/state/calculation-config';
 import { buildingYearOptions } from '@/lib/state/inputs/general';
@@ -19,6 +20,7 @@ import {
   userThermalUnitRateField,
 } from '@/lib/state/inputs/heat';
 import { useStore } from '@nanostores/react';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '../../../components/ui/typography';
 import EnergyBooleanInput from '../EnergyBooleanInput';
 import EnergyNumberInput from '../EnergyNumberInput';
@@ -26,6 +28,7 @@ import EnergySelectInput from '../EnergySelectInput';
 import { InfoTooltipButton } from '../InfoButton';
 
 export default function HeatStepForm() {
+  const { t } = useTranslation('energyCalculation');
   const hasGasSupplyValue = useStore(hasGasSupplyField.$store);
   const hasGasSupplyPlaceholder = useStore(hasGasSupplyField.$placeholder);
   const showBioGas = hasGasSupplyValue ?? hasGasSupplyPlaceholder;
@@ -42,18 +45,17 @@ export default function HeatStepForm() {
   return (
     <TooltipProvider>
       <FieldGroup>
-        <Paper variant="outlined" className="p-4">
+        <Paper variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
           <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <FieldLegend>
-              <Typography variant="h3" className="mb-2">
-                Versorgung
-              </Typography>
+            <FieldLegend className="col-span-full">
+              <Typography variant="h4">{t('heat.supply.title')}</Typography>
             </FieldLegend>
+            <Separator className="col-span-full" />
             <EnergyBooleanInput
               field={hasGasSupplyField}
               labelKey="heat.supply.hasGasSupply"
               info={
-                <InfoTooltipButton content="Ein Gasanschluss ermöglicht die Nutzung gasbetriebener Heizsysteme."></InfoTooltipButton>
+                <InfoTooltipButton content={t('heat.supply.tooltips.hasGasSupply')}></InfoTooltipButton>
               }
             />
             {showBioGas && (
@@ -61,7 +63,7 @@ export default function HeatStepForm() {
                 field={hasBioGasField}
                 labelKey="heat.supply.hasBioGas"
                 info={
-                  <InfoTooltipButton content="Biogas verursacht geringerer CO2-Emissionen."></InfoTooltipButton>
+                  <InfoTooltipButton content={t('heat.supply.tooltips.hasBioGas')}></InfoTooltipButton>
                 }
               />
             )}
@@ -70,26 +72,24 @@ export default function HeatStepForm() {
               labelKey="heat.supply.hasStorage"
               className="lg:col-start-1"
               info={
-                <InfoTooltipButton content="Für Öl- oder Pelletheizungen wird ausreichend Lagerfläche benötigt."></InfoTooltipButton>
+                <InfoTooltipButton content={t('heat.supply.tooltips.hasStorage')}></InfoTooltipButton>
               }
             />
           </FieldSet>
         </Paper>
-        <Paper variant="outlined" className="p-4">
+        <Paper variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
           <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <FieldLegend>
-              <Typography variant="h3" className="mb-2">
-                Heizung
-              </Typography>
+            <FieldLegend className="col-span-full">
+              <Typography variant="h4">{t('heat.heating.title')}</Typography>
             </FieldLegend>
+            <Separator className="col-span-full" />
             <EnergySelectInput
               field={heatingSystemConstructionYearField}
               labelKey="heat.heating.constructionYear"
               rangeBandStore={buildingYearOptions}
               info={
                 <InfoTooltipButton
-                  content="Das Jahr, in dem Ihre aktuelle Heizungsanlage eingebaut wurde. 
-                  Ältere Anlagen arbeiten oft weniger effizient und verbrauchen mehr Energie."
+                  content={t('heat.heating.tooltips.constructionYear')}
                 ></InfoTooltipButton>
               }
             />
@@ -99,8 +99,7 @@ export default function HeatStepForm() {
               selectionStore={primaryEnergyCarrierOptions}
               info={
                 <InfoTooltipButton
-                  content="Wählen Sie den Brennstoff Ihrer Heizung – 
-                  zum Beispiel Erdgas, Heizöl oder Strom für eine Wärmepumpe."
+                  content={t('heat.heating.tooltips.primaryEnergyCarrier')}
                 ></InfoTooltipButton>
               }
             />
@@ -110,8 +109,7 @@ export default function HeatStepForm() {
               selectionStore={heatingSystemTypeOptions}
               info={
                 <InfoTooltipButton
-                  content="Das ist das Gerät, das die Wärme erzeugt, zum Beispiel ein Brennwertkessel oder eine Wärmepumpe. 
-                  Modernere Geräte verbrauchen in der Regel weniger Energie."
+                  content={t('heat.heating.tooltips.heatingSystemType')}
                 ></InfoTooltipButton>
               }
             />
@@ -121,21 +119,18 @@ export default function HeatStepForm() {
               selectionStore={heatingSurfaceTypeOptions}
               info={
                 <InfoTooltipButton
-                  content="Heizkörper sind die klassischen Radiatoren an der Wand. 
-                  Eine Flächenheizung verteilt die Wärme über Boden, Wand oder Decke und arbeitet besonders 
-                  effizient bei niedrigen Temperaturen."
+                  content={t('heat.heating.tooltips.heatingSurfaceType')}
                 ></InfoTooltipButton>
               }
             />
           </FieldSet>
         </Paper>
-        <Paper variant="outlined" className="p-4">
+        <Paper variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
           <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <FieldLegend>
-              <Typography variant="h3" className="mb-2">
-                Verbrauch
-              </Typography>
+            <FieldLegend className="col-span-full">
+              <Typography variant="h4">{t('heat.bills.title')}</Typography>
             </FieldLegend>
+            <Separator className="col-span-full" />
             <EnergyNumberInput
               field={userThermalTotalCostField}
               labelKey="heat.bills.consumption"
@@ -143,7 +138,7 @@ export default function HeatStepForm() {
               decimalScale={0}
               allowNegative={false}
               info={
-                <InfoTooltipButton content="Geben Sie Ihre jährlichen Heizkosten oder Ihren Verbrauch laut Abrechnung an."></InfoTooltipButton>
+                <InfoTooltipButton content={t('heat.bills.tooltips.consumption')}></InfoTooltipButton>
               }
             />
             <EnergyNumberInput
@@ -154,8 +149,7 @@ export default function HeatStepForm() {
               allowNegative={false}
               info={
                 <InfoTooltipButton
-                  content="Der Preis pro Kilowattstunde (kWh) für Ihren Energieträger. 
-                  Diesen finden Sie auf Ihrer Rechnung oder beim Anbieter."
+                  content={t('heat.bills.tooltips.unitRate')}
                 ></InfoTooltipButton>
               }
             />

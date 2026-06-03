@@ -4,35 +4,18 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { MousePointerClick, Move, RotateCcw, ZoomIn } from 'lucide-react';
+import { Hand, MousePointerClick, Move, RotateCcw, ZoomIn } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import useIsMobile from '../../lib/useIsMobile';
 
 const STORAGE_KEY = 'map-help-seen';
 
-function HelpContent() {
-  const rows = [
-    {
-      icon: <MousePointerClick className="size-5 shrink-0" />,
-      label: 'Gebäude auswählen',
-      action: 'Linksklick auf ein Gebäude',
-    },
-    {
-      icon: <Move className="size-5 shrink-0" />,
-      label: 'Karte bewegen',
-      action: 'Linke Maustaste halten & ziehen',
-    },
-    {
-      icon: <RotateCcw className="size-5 shrink-0" />,
-      label: 'Ansicht neigen & drehen',
-      action: 'Mittlere Maustaste halten & ziehen',
-    },
-    {
-      icon: <ZoomIn className="size-5 shrink-0" />,
-      label: 'Zoom',
-      action: 'Mausrad oder +/– Schaltflächen',
-    },
-  ];
-
+function HelpRows({
+  rows,
+}: {
+  rows: { icon: React.ReactNode; label: string; action: string }[];
+}) {
   return (
     <ul className="flex flex-col gap-3">
       {rows.map((row) => (
@@ -48,9 +31,69 @@ function HelpContent() {
   );
 }
 
+function DesktopHelpContent() {
+  const { t } = useTranslation('map');
+  const rows = [
+    {
+      icon: <MousePointerClick className="size-5 shrink-0" />,
+      label: t('mapHelp.chooseBuilding'),
+      action: t('mapHelp.chooseBuildingExplain'),
+    },
+    {
+      icon: <Move className="size-5 shrink-0" />,
+      label: t('mapHelp.moveMap'),
+      action: t('mapHelp.moveMapExplain'),
+    },
+    {
+      icon: <RotateCcw className="size-5 shrink-0" />,
+      label: t('mapHelp.tiltView'),
+      action: t('mapHelp.tiltViewExplain'),
+    },
+    {
+      icon: <ZoomIn className="size-5 shrink-0" />,
+      label: t('mapHelp.zoom'),
+      action: t('mapHelp.zoomExplain'),
+    },
+  ];
+  return <HelpRows rows={rows} />;
+}
+
+function MobileHelpContent() {
+  const { t } = useTranslation('map');
+  const rows = [
+    {
+      icon: <Hand className="size-5 shrink-0" />,
+      label: t('mapHelp.chooseBuilding'),
+      action: t('mapHelp.chooseBuildingMobileExplain'),
+    },
+    {
+      icon: <Move className="size-5 shrink-0" />,
+      label: t('mapHelp.moveMap'),
+      action: t('mapHelp.moveMapMobileExplain'),
+    },
+    {
+      icon: <RotateCcw className="size-5 shrink-0" />,
+      label: t('mapHelp.tiltView'),
+      action: t('mapHelp.tiltViewMobileExplain'),
+    },
+    {
+      icon: <ZoomIn className="size-5 shrink-0" />,
+      label: t('mapHelp.zoom'),
+      action: t('mapHelp.zoomMobileExplain'),
+    },
+  ];
+  return <HelpRows rows={rows} />;
+}
+
+function HelpContent({ isMobile }: { isMobile: boolean }) {
+  return isMobile ? <MobileHelpContent /> : <DesktopHelpContent />;
+}
+
 export function MapHelp() {
+  const { t } = useTranslation('map');
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     setMounted(true);
@@ -66,18 +109,18 @@ export function MapHelp() {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-black text-white shadow-lg hover:bg-neutral-800 focus-visible:outline-none"
-          aria-label="Kartenbedienung anzeigen"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-neutral-800 hover:bg-neutral-100 focus-visible:outline-none"
+          aria-label={t('mapHelp.ariaLabelButton')}
         >
-          <span className="text-sm leading-none font-bold">?</span>
+          <span className="text-xl leading-none font-bold">?</span>
         </button>
       )}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Kartenbedienung</DialogTitle>
+            <DialogTitle>{t('mapHelp.mapControls')}</DialogTitle>
           </DialogHeader>
-          <HelpContent />
+          <HelpContent isMobile={isMobile} />
         </DialogContent>
       </Dialog>
     </>
