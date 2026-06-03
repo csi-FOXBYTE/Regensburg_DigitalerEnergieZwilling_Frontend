@@ -111,14 +111,16 @@
     },
     "bills": {
       "consumption": "Wie hoch sind Ihre jährlichen Heizkosten?",
-      "unitRate": "Wie hoch ist Ihr Energiepreis?"
+      "unitRate": "Wie hoch ist Ihr Energiepreis?",
+      "baseRate": "Wie hoch ist die Basisrate für Ihre Energie?"
     }
   },
   "electricity": {
     "title": "Strom & erneuerbare Energien",
     "type": "Welche Stromart beziehen Sie?",
     "consumption": "Wie hoch ist Ihr jährlicher Stromverbrauch?",
-    "unitRate": "Wie hoch ist Ihr Strompreis?"
+    "unitRate": "Wie hoch ist Ihr Strompreis?",
+    "baseRate": "Wie hoch ist die Basisrate Ihrer Stromkosten?"
   },
   "renovation": {
     "title": "Sanierungsmaßnamen",
