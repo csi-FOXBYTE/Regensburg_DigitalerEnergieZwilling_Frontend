@@ -92,11 +92,11 @@ export const hasStorageField = makeFieldStore({
   resettable: false,
 });
 
-export const userThermalConsumptionField = makeFieldStore({
+export const userThermalTotalCostField = makeFieldStore({
   store: $inputState,
-  getValue: (obj) => obj.heat.userThermalConsumption ?? undefined,
+  getValue: (obj) => obj.heat.userThermalTotalCost ?? undefined,
   setValue: (draft, value) => {
-    draft.heat.userThermalConsumption = value;
+    draft.heat.userThermalTotalCost = value;
   },
   placeholderStore: $resolvedInputState,
   resettable: true,
@@ -107,6 +107,16 @@ export const userThermalUnitRateField = makeFieldStore({
   getValue: (obj) => obj.heat.userThermalUnitRate ?? undefined,
   setValue: (draft, value) => {
     draft.heat.userThermalUnitRate = value;
+  },
+  placeholderStore: $resolvedInputState,
+  resettable: true,
+});
+
+export const userThermalBaseRateField = makeFieldStore({
+  store: $inputState,
+  getValue: (obj) => obj.heat.userThermalBaseRate ?? undefined,
+  setValue: (draft, value) => {
+    draft.heat.userThermalBaseRate = value;
   },
   placeholderStore: $resolvedInputState,
   resettable: true,

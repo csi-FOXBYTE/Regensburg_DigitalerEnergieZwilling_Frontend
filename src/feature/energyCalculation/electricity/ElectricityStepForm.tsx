@@ -2,6 +2,7 @@ import { FieldGroup, FieldLegend, FieldSet } from '@/components/ui/field';
 import { Paper } from '@/components/ui/paper';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import {
+  electricityBaseRateField,
   electricityTypeField,
   electricityTypeOptions,
   electricityUnitRateField,
@@ -61,6 +62,13 @@ export default function ElectricityStepForm() {
                   Der Durchschnittspreis liegt bei ca. 30–40 Cent pro kWh."
                 ></InfoTooltipButton>
               }
+            />
+            <EnergyNumberInput
+              field={electricityBaseRateField}
+              labelKey="electricity.baseRate"
+              suffix=" €/kWh"
+              decimalScale={2}
+              allowNegative={false}
             />
           </FieldSet>
         </Paper>

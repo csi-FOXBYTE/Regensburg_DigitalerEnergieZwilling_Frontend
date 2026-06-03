@@ -36,3 +36,13 @@ export const electricityUnitRateField = makeFieldStore({
   placeholderStore: $resolvedInputState,
   resettable: true,
 });
+
+export const electricityBaseRateField = makeFieldStore({
+  store: $inputState,
+  getValue: (obj) => obj.electricity.userElectricityBaseRate ?? undefined,
+  setValue: (draft, value) => {
+    draft.electricity.userElectricityBaseRate = value;
+  },
+  placeholderStore: $resolvedInputState,
+  resettable: true,
+});

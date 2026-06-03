@@ -111,14 +111,16 @@
     },
     "bills": {
       "consumption": "What is your annual energy consumption?",
-      "unitRate": "How much does your energy cost?"
+      "unitRate": "How much does your energy cost?",
+      "baseRate": "How much is the base rate of your energy cost?"
     }
   },
   "electricity": {
     "title": "Electricity & Renewable Energy",
     "type": "What type of electricity do you use?",
     "consumption": "What is your annual electricity consumption?",
-    "unitRate": "What is your electricity price?"
+    "unitRate": "What is your electricity price?",
+    "baseRate": "How much is the base rate of your electricity cost?"
   },
   "renovation": {
     "title": "Renovation Measures",

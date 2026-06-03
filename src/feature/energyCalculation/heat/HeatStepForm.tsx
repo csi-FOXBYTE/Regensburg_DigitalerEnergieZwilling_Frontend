@@ -14,7 +14,8 @@ import {
   heatingSystemTypeOptions,
   primaryEnergyCarrierField,
   primaryEnergyCarrierOptions,
-  userThermalConsumptionField,
+  userThermalBaseRateField,
+  userThermalTotalCostField,
   userThermalUnitRateField,
 } from '@/lib/state/inputs/heat';
 import { useStore } from '@nanostores/react';
@@ -136,9 +137,9 @@ export default function HeatStepForm() {
               </Typography>
             </FieldLegend>
             <EnergyNumberInput
-              field={userThermalConsumptionField}
+              field={userThermalTotalCostField}
               labelKey="heat.bills.consumption"
-              suffix={thermalUnit ? ` ${thermalUnit}/a` : undefined}
+              suffix="€/a"
               decimalScale={0}
               allowNegative={false}
               info={
@@ -157,6 +158,13 @@ export default function HeatStepForm() {
                   Diesen finden Sie auf Ihrer Rechnung oder beim Anbieter."
                 ></InfoTooltipButton>
               }
+            />
+            <EnergyNumberInput
+              field={userThermalBaseRateField}
+              labelKey="heat.bills.baseRate"
+              suffix="€/a"
+              decimalScale={2}
+              allowNegative={false}
             />
           </FieldSet>
         </Paper>
