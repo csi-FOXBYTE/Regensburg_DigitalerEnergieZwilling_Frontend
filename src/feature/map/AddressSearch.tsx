@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useDebounce } from '@uidotdev/usehooks';
 import { Info, Search, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Input } from '../../components/ui/input';
 import { $building, unselectBuilding } from '../../lib/state/building';
 
@@ -16,6 +17,7 @@ export default function AddressSearch({
   const [search, setSearch] = useState('');
   const [hintDismissed, setHintDismissed] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const { t } = useTranslation('map');
 
   useEffect(() => {
     if (building !== null) setSearch('');
@@ -62,7 +64,7 @@ export default function AddressSearch({
       <form
         className="relative"
         role="search"
-        aria-label="Gebäudeadresse suchen"
+        aria-label={t('addressSearch.ariaFormLabel')}
         onSubmit={(e) => e.preventDefault()}
       >
         <Input
@@ -85,22 +87,22 @@ export default function AddressSearch({
               : search
           }
           className="py-3"
-          placeholder="Adresse suchen in Regensburg..."
-          aria-label="Adresse eingeben"
+          placeholder={`${t('addressSearch.placeHolder')}`}
+          aria-label={t('addressSearch.ariaInputLabel')}
         />
       </form>
       {!hintDismissed && !building && (
         <div className="mt-2 flex items-start gap-2 border border-[#e30613] bg-white/80 px-3 py-2 text-sm shadow-lg">
           <Info className="mt-0.5 size-4 shrink-0 text-[#e30613]" />
           <p className="flex-1">
-            <strong>Gebäude auswählen:</strong> Geben Sie eine Adresse ein oder
-            klicken Sie direkt auf ein Gebäude in der Karte.
+            <strong>{t('addressSearch.chooseBuilding')}</strong>{' '}
+            {t('addressSearch.infoText')}
           </p>
           <button
             type="button"
             onClick={() => setHintDismissed(true)}
             className="text-[#e30613] hover:text-[#8b2412]"
-            aria-label="Hinweis schließen"
+            aria-label={t('addressSearch.ariaDismissLabel')}
           >
             <X className="size-4" />
           </button>

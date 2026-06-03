@@ -8,21 +8,21 @@ import {
   electricityUnitRateField,
   userElectricityConsumptionField,
 } from '@/lib/state/inputs/electricity';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '../../../components/ui/typography';
 import EnergyNumberInput from '../EnergyNumberInput';
 import EnergySelectInput from '../EnergySelectInput';
 import { InfoTooltipButton } from '../InfoButton';
 
 export default function ElectricityStepForm() {
+  const { t } = useTranslation('energyCalculation');
   return (
     <TooltipProvider>
       <FieldGroup>
         <Paper variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
           <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <FieldLegend className="col-span-full">
-              <Typography variant="h4">
-                Strom
-              </Typography>
+              <Typography variant="h4">{t('electricity.electricity')}</Typography>
             </FieldLegend>
             <Separator className="col-span-full" />
             <EnergySelectInput
@@ -31,8 +31,7 @@ export default function ElectricityStepForm() {
               selectionStore={electricityTypeOptions}
               info={
                 <InfoTooltipButton
-                  content="Mix-Strom enthält Strom aus verschiedenen Quellen, auch aus fossiler Energie. 
-                  Erneuerbarer Strom stammt aus Wind, Sonne oder Wasser und hat eine deutlich bessere CO₂-Bilanz."
+                  content={t('electricity.tooltips.type')}
                 ></InfoTooltipButton>
               }
             />
@@ -44,9 +43,7 @@ export default function ElectricityStepForm() {
               allowNegative={false}
               info={
                 <InfoTooltipButton
-                  content="Tragen Sie Ihren jährlichen Stromverbrauch in kWh ein. 
-                  Den Wert finden Sie auf Ihrer Jahresabrechnung. 
-                  Bei einem Durchschnittshaushalt sind es ca. 2.500–4.000 kWh pro Jahr."
+                  content={t('electricity.tooltips.consumption')}
                 ></InfoTooltipButton>
               }
             />
@@ -58,9 +55,7 @@ export default function ElectricityStepForm() {
               allowNegative={false}
               info={
                 <InfoTooltipButton
-                  content="Der Preis, den Sie pro Kilowattstunde (kWh) Strom zahlen.
-                  Diesen Wert finden Sie auf Ihrer Stromrechnung. 
-                  Der Durchschnittspreis liegt bei ca. 30–40 Cent pro kWh."
+                  content={t('electricity.tooltips.unitRate')}
                 ></InfoTooltipButton>
               }
             />

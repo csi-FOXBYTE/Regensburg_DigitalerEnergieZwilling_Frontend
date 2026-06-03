@@ -6,6 +6,7 @@ import {
 } from '@/components/ui/dialog';
 import { Hand, MousePointerClick, Move, RotateCcw, ZoomIn } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useIsMobile from '../../lib/useIsMobile';
 
 const STORAGE_KEY = 'map-help-seen';
@@ -31,52 +32,54 @@ function HelpRows({
 }
 
 function DesktopHelpContent() {
+  const { t } = useTranslation('map');
   const rows = [
     {
       icon: <MousePointerClick className="size-5 shrink-0" />,
-      label: 'Gebäude auswählen',
-      action: 'Linksklick auf ein Gebäude',
+      label: t('mapHelp.chooseBuilding'),
+      action: t('mapHelp.chooseBuildingExplain'),
     },
     {
       icon: <Move className="size-5 shrink-0" />,
-      label: 'Karte bewegen',
-      action: 'Linke Maustaste halten & ziehen',
+      label: t('mapHelp.moveMap'),
+      action: t('mapHelp.moveMapExplain'),
     },
     {
       icon: <RotateCcw className="size-5 shrink-0" />,
-      label: 'Ansicht neigen & drehen',
-      action: 'Mittlere Maustaste halten & ziehen',
+      label: t('mapHelp.tiltView'),
+      action: t('mapHelp.tiltViewExplain'),
     },
     {
       icon: <ZoomIn className="size-5 shrink-0" />,
-      label: 'Zoom',
-      action: 'Mausrad oder +/– Schaltflächen',
+      label: t('mapHelp.zoom'),
+      action: t('mapHelp.zoomExplain'),
     },
   ];
   return <HelpRows rows={rows} />;
 }
 
 function MobileHelpContent() {
+  const { t } = useTranslation('map');
   const rows = [
     {
       icon: <Hand className="size-5 shrink-0" />,
-      label: 'Gebäude auswählen',
-      action: 'Auf ein Gebäude tippen',
+      label: t('mapHelp.chooseBuilding'),
+      action: t('mapHelp.chooseBuildingMobileExplain'),
     },
     {
       icon: <Move className="size-5 shrink-0" />,
-      label: 'Karte bewegen',
-      action: 'Mit einem Finger wischen',
+      label: t('mapHelp.moveMap'),
+      action: t('mapHelp.moveMapMobileExplain'),
     },
     {
       icon: <RotateCcw className="size-5 shrink-0" />,
-      label: 'Ansicht neigen & drehen',
-      action: 'Mit zwei Fingern ziehen',
+      label: t('mapHelp.tiltView'),
+      action: t('mapHelp.tiltViewMobileExplain'),
     },
     {
       icon: <ZoomIn className="size-5 shrink-0" />,
-      label: 'Zoom',
-      action: 'Zwei Finger spreizen oder zusammenziehen',
+      label: t('mapHelp.zoom'),
+      action: t('mapHelp.zoomMobileExplain'),
     },
   ];
   return <HelpRows rows={rows} />;
@@ -87,6 +90,7 @@ function HelpContent({ isMobile }: { isMobile: boolean }) {
 }
 
 export function MapHelp() {
+  const { t } = useTranslation('map');
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const isMobile = useIsMobile();
@@ -106,7 +110,7 @@ export function MapHelp() {
           type="button"
           onClick={() => setOpen(true)}
           className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-neutral-800 hover:bg-neutral-100 focus-visible:outline-none"
-          aria-label="Kartenbedienung anzeigen"
+          aria-label={t('mapHelp.ariaLabelButton')}
         >
           <span className="text-xl leading-none font-bold">?</span>
         </button>
@@ -114,7 +118,7 @@ export function MapHelp() {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Kartenbedienung</DialogTitle>
+            <DialogTitle>{t('mapHelp.mapControls')}</DialogTitle>
           </DialogHeader>
           <HelpContent isMobile={isMobile} />
         </DialogContent>

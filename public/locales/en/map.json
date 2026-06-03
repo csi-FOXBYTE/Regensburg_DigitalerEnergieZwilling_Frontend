@@ -19,5 +19,42 @@
     "startOverButton": "Start over",
     "processingTime": "Processing takes approximately 5 minutes to complete",
     "howCalculated": "How are these values calculated?"
+  },
+  "addressSearch": {
+    "placeHolder": "Search address in Regensburg...",
+    "chooseBuilding": "Select building: ",
+    "infoText": "Enter an address or click directly on a building on the map.",
+    "ariaFormLabel": "Search building address",
+    "ariaInputLabel": "Enter address",
+    "ariaDismissLabel": "Dismiss hint"
+  },
+  "mapNav": {
+    "help": "Help",
+    "alighToNorth": "Align North",
+    "navigation": "Navigation",
+    "zoom": "Zoom",
+    "ariaLabelNorth": "Align to north",
+    "ariaLabelPanUp": "Move up",
+    "ariaLabelPanLeft": "Move left",
+    "ariaLabelPanRight": "Move right",
+    "ariaLabelPanDown": "Move down",
+    "ariaLabelZoomIn": "Zoom in",
+    "ariaLabelZoomOut": "Zoom out"
+  },
+  "mapHelp": {
+    "mapControls": "Map Controls",
+    "ariaLabelButton": "Show map controls",
+    "chooseBuilding": "Select building",
+    "chooseBuildingExplain": "Left-click on a building",
+    "chooseBuildingMobileExplain": "Tap on a building",
+    "moveMap": "Move map",
+    "moveMapExplain": "Hold left mouse button & drag",
+    "moveMapMobileExplain": "Swipe with one finger",
+    "tiltView": "Tilt & rotate view",
+    "tiltViewExplain": "Hold middle mouse button & drag",
+    "tiltViewMobileExplain": "Drag with two fingers",
+    "zoom": "Zoom",
+    "zoomExplain": "Scroll wheel or +/– buttons",
+    "zoomMobileExplain": "Pinch or spread two fingers"
   }
 }

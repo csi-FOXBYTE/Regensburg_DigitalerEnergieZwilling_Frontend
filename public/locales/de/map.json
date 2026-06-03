@@ -19,5 +19,42 @@
     "startOverButton": "Neu starten",
     "processingTime": "Die Bearbeitung dauert ungefähr 5 Minuten bis zum Ergebnis",
     "howCalculated": "Wie werden diese Werte berechnet?"
+  },
+  "addressSearch": {
+    "placeHolder": "Adresse suche in Regensburg...",
+    "chooseBuilding": "Gebäude auswählen: ",
+    "infoText": "Geben Sie eine Adresse ein oder klicken Sie direkt auf ein Gebäude in der Karte.",
+    "ariaFormLabel": "Gebäudeadresse suchen",
+    "ariaInputLabel": "Adresse eingeben",
+    "ariaDismissLabel": "Hinweis schließen"
+  },
+  "mapNav": {
+    "help": "Hilfe",
+    "alighToNorth": "Nord ausrichten",
+    "navigation": "Navigation",
+    "zoom": "Zoom",
+    "ariaLabelNorth": "Nach Norden ausrichten",
+    "ariaLabelPanUp": "Nach oben bewegen",
+    "ariaLabelPanLeft": "Nach links bewegen",
+    "ariaLabelPanRight": "Nach rechts bewegen",
+    "ariaLabelPanDown": "Nach unten bewegen",
+    "ariaLabelZoomIn": "Hineinzoomen",
+    "ariaLabelZoomOut": "Herauszoomen"
+  },
+  "mapHelp": {
+    "mapControls": "Kartenbedienung",
+    "ariaLabelButton": "Kartenbedienung anzeigen",
+    "chooseBuilding": "Gebäude auswählen",
+    "chooseBuildingExplain": "Linksklick auf ein Gebäude",
+    "chooseBuildingMobileExplain": "Auf ein Gebäude tippen",
+    "moveMap": "Karte bewegen",
+    "moveMapExplain": "Linke Maustaste halten & ziehen",
+    "moveMapMobileExplain": "Mit einem Finger wischen",
+    "tiltView": "Ansicht neigen & drehen",
+    "tiltViewExplain": "Mittlere Maustaste halten & ziehen",
+    "tiltViewMobileExplain": "Mit zwei Fingern ziehen",
+    "zoom": "Zoom",
+    "zoomExplain": "Mausrad oder +/- Schaltflächen",
+    "zoomMobileExplain": "Zwei Finger spreizen oder zusammenziehen"
   }
 }

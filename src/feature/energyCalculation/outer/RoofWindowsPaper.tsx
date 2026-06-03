@@ -14,12 +14,14 @@ import {
   isAtticHeatedField,
 } from '@/lib/state/inputs/top-floor';
 import { useStore } from '@nanostores/react';
+import { useTranslation } from 'react-i18next';
 import { Typography } from '../../../components/ui/typography';
 import EnergyNumberInput from '../EnergyNumberInput';
 import EnergySelectInput from '../EnergySelectInput';
 import { InfoTooltipButton } from '../InfoButton';
 
 export default function RoofWindowsPaper() {
+  const { t } = useTranslation('energyCalculation');
   const hasAtticValue = useStore(hasAtticField.$store);
   const hasAtticPlaceholder = useStore(hasAtticField.$placeholder);
   const hasAttic = hasAtticValue ?? hasAtticPlaceholder;
@@ -34,9 +36,7 @@ export default function RoofWindowsPaper() {
     <Paper variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <FieldLegend className="col-span-full">
-          <Typography variant="h4">
-            Dachfenster
-          </Typography>
+          <Typography variant="h4">{t('outerParts.roofWindows.roofWindows')}</Typography>
         </FieldLegend>
         <Separator className="col-span-full" />
         <EnergySelectInput
@@ -44,7 +44,7 @@ export default function RoofWindowsPaper() {
           labelKey="outerParts.roofWindows.year"
           rangeBandStore={buildingYearOptions}
           info={
-            <InfoTooltipButton content="Ältere Dachfenster verlieren mehr Wärme als neuere."></InfoTooltipButton>
+            <InfoTooltipButton content={t('outerParts.roofWindows.tooltips.year')}></InfoTooltipButton>
           }
         />
         <EnergyNumberInput
@@ -55,8 +55,7 @@ export default function RoofWindowsPaper() {
           allowNegative={false}
           info={
             <InfoTooltipButton
-              content="Geben Sie die gesamte Fläche aller Dachfenster an. 
-              Die Gesamtfläche aller Dachfenster beeinflusst den Wärmeverlust."
+              content={t('outerParts.roofWindows.tooltips.area')}
             ></InfoTooltipButton>
           }
         />
@@ -66,8 +65,7 @@ export default function RoofWindowsPaper() {
           selectionStore={roofWindowsWindowTypeOptions}
           info={
             <InfoTooltipButton
-              content="Holz- und Kunststoffrahmen dämmen gut. 
-            Aluminium- und Stahlrahmen leiten Kälte stärker und sind weniger energieeffizient."
+              content={t('outerParts.roofWindows.tooltips.windowType')}
             ></InfoTooltipButton>
           }
         />
@@ -79,9 +77,7 @@ export default function RoofWindowsPaper() {
           allowNegative={false}
           info={
             <InfoTooltipButton
-              content="Der U-Wert beschreibt die Wärmedämmung des Fensters. Niedrigere Werte bedeuten bessere Dämmung. 
-              Alte Einfachfenster haben etwa 5,0 W/m²K. Moderne Dreifachfenster liegen bei etwa 0,7 W/m²K. 
-              Den U-Wert finden Sie in den Unterlagen Ihrer Fenster oder auf dem Typenschild."
+              content={t('outerParts.roofWindows.tooltips.uValue')}
             ></InfoTooltipButton>
           }
         />

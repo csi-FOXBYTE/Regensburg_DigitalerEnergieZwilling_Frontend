@@ -54,12 +54,13 @@ export default function RoofPaper() {
   );
 
   return (
-    <Paper variant="outlined" className="flex flex-col gap-6 pt-4 pr-5 pb-5 pl-5">
+    <Paper
+      variant="outlined"
+      className="flex flex-col gap-6 pt-4 pr-5 pb-5 pl-5"
+    >
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <FieldLegend className="col-span-full">
-          <Typography variant="h4">
-            Dach
-          </Typography>
+          <Typography variant="h4">{t('outerParts.roof.roof')}</Typography>
         </FieldLegend>
         <Separator className="col-span-full" />
         <EnergySelectInput
@@ -67,10 +68,7 @@ export default function RoofPaper() {
           labelKey="outerParts.roof.year"
           rangeBandStore={buildingYearOptions}
           info={
-            <InfoTooltipButton
-              content="Geben Sie das Baujahr oder das Jahr der letzten Dachsanierung an. 
-            Ältere Dächer sind oft schlechter gedämmt und verlieren mehr Wärme nach außen."
-            ></InfoTooltipButton>
+            <InfoTooltipButton content={t('outerParts.roof.tooltips.year')} />
           }
         />
         <EnergyNumberInput
@@ -80,10 +78,7 @@ export default function RoofPaper() {
           decimalScale={1}
           allowNegative={false}
           info={
-            <InfoTooltipButton
-              content="Geben Sie die gesamte Fläche Ihres Dachs an, ohne Abzug von Fensterflächen. 
-              Je größer die Fläche, desto wichtiger ist eine gute Dämmung."
-            ></InfoTooltipButton>
+            <InfoTooltipButton content={t('outerParts.roof.tooltips.area')} />
           }
         />
         <EnergySelectInput
@@ -92,12 +87,8 @@ export default function RoofPaper() {
           selectionStore={roofConstructionTypeOptions}
           info={
             <InfoDialogButton
-              title="Dachformen"
-              content="Ein Flachdach ist nahezu eben oder nur leicht geneigt. 
-              Ein Schrägdach besitzt eine deutlich sichtbare Dachneigung, z. B. ein Satteldach oder Walmdach. 
-              Die Dachform beeinflusst sowohl die Dachfläche als auch den Wärmeverlust eines Gebäudes: 
-              Flachdächer (typisch massive Bauweise) haben bei gleicher Grundfläche eine geringere Fläche als Schrägdächer
-               (typisch Holzbauweise) und damit andere energetische Eigenschaften."
+              title={t('outerParts.roof.tooltips.constructionTypeTitle')}
+              content={t('outerParts.roof.tooltips.constructionTypeContent')}
             />
           }
         />
@@ -107,11 +98,7 @@ export default function RoofPaper() {
           field={hasAtticField}
           labelKey="outerParts.roof.hasAttic"
           info={
-            <InfoTooltipButton
-              content="Geben Sie an, ob Ihr Gebäude einen zugänglichen Dachraum (Dachboden) hat. 
-              Ein vorhandener Dachraum beeinflusst die Dämmung der obersten Geschossdecke und 
-              damit den Wärmeverlust des Gebäudes nach oben."
-            ></InfoTooltipButton>
+            <InfoTooltipButton content={t('outerParts.roof.tooltips.hasAttic')} />
           }
         />
         {hasAttic && (
@@ -124,7 +111,7 @@ export default function RoofPaper() {
               key: 'booleanLabels.notHeated',
             }}
             info={
-              <InfoTooltipButton content="Geben Sie an, ob der Raum direkt unter dem Dach beheizt wird."></InfoTooltipButton>
+              <InfoTooltipButton content={t('outerParts.roof.tooltips.isAtticHeated')} />
             }
           />
         )}
@@ -132,7 +119,7 @@ export default function RoofPaper() {
       <FieldSeparator />
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <FieldLegend variant="label" className="col-span-full font-bold">
-          Dämmung
+          {t('outerParts.insulation')}
         </FieldLegend>
         <EnergyBooleanInput
           field={roofHasInsulationField}
@@ -143,10 +130,7 @@ export default function RoofPaper() {
             key: 'booleanLabels.notInsulated',
           }}
           info={
-            <InfoTooltipButton
-              content="Eine vorhandene Dämmung reduziert den Wärmeverlust erheblich. 
-              Ohne Dämmung gehen über das Dach bis zu 30 % der Heizwärme verloren."
-            ></InfoTooltipButton>
+            <InfoTooltipButton content={t('outerParts.roof.tooltips.hasInsulation')} />
           }
         />
         {roofHasInsulation && (
@@ -165,11 +149,8 @@ export default function RoofPaper() {
               options={roofInsulationTypeOptions}
               info={
                 <InfoDialogButton
-                  title="Art der Dachdämmung"
-                  content="Bei der Aufdachdämmung wird die Dämmung oberhalb der Dachsparren angebracht. 
-                  Sie bietet den besten Wärmeschutz, da keine Wärmebrücken durch die Sparren entstehen. 
-                  Bei der Zwischensparrendämmung wird der Dämmstoff zwischen den Sparren eingebracht. 
-                  Diese Variante ist kostengünstiger, bietet aber durch die Sparren als Wärmebrücken einen etwas geringeren Schutz."
+                  title={t('outerParts.roof.tooltips.insulationTypeTitle')}
+                  content={t('outerParts.roof.tooltips.insulationTypeContent')}
                 />
               }
             />

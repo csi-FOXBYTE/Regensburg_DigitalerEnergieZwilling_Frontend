@@ -10,6 +10,7 @@ import {
   Plus,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MapHelp } from './MapHelp';
 
 type MapNavProps = {
@@ -18,6 +19,7 @@ type MapNavProps = {
 
 export function MapNav({ viewer }: MapNavProps) {
   const [heading, setHeading] = useState(0);
+  const { t } = useTranslation('map');
 
   useEffect(() => {
     if (!viewer) return;
@@ -77,7 +79,7 @@ export function MapNav({ viewer }: MapNavProps) {
         {/* Help */}
         <div className="flex flex-col items-center gap-1 px-3 pt-3 pb-2">
           <MapHelp />
-          <span className="text-xs font-medium">Hilfe</span>
+          <span className="text-xs font-medium">{t('mapNav.help')}</span>
         </div>
 
         <hr className="border-neutral-200" />
@@ -89,7 +91,7 @@ export function MapNav({ viewer }: MapNavProps) {
             size="icon"
             className="rounded-full"
             onClick={resetNorth}
-            aria-label="Nach Norden ausrichten"
+            aria-label={t('mapNav.ariaLabelNorth')}
           >
             <svg
               className="size-8"
@@ -105,7 +107,7 @@ export function MapNav({ viewer }: MapNavProps) {
             </svg>
           </Button>
           <span className="text-center text-xs font-medium">
-            Nord ausrichten
+            {t('mapNav.alighToNorth')}
           </span>
         </div>
 
@@ -125,7 +127,7 @@ export function MapNav({ viewer }: MapNavProps) {
               size="icon"
               className="col-start-2 row-start-1 h-8 w-8 rounded-full"
               onClick={() => panCamera(viewer, 'up')}
-              aria-label="Nach oben bewegen"
+              aria-label={t('mapNav.ariaLabelPanUp')}
             >
               <ChevronUp aria-hidden="true" />
             </Button>
@@ -134,7 +136,7 @@ export function MapNav({ viewer }: MapNavProps) {
               size="icon"
               className="col-start-1 row-start-2 h-8 w-8 rounded-full"
               onClick={() => panCamera(viewer, 'left')}
-              aria-label="Nach links bewegen"
+              aria-label={t('mapNav.ariaLabelPanLeft')}
             >
               <ChevronLeft aria-hidden="true" />
             </Button>
@@ -143,7 +145,7 @@ export function MapNav({ viewer }: MapNavProps) {
               size="icon"
               className="col-start-3 row-start-2 h-8 w-8 rounded-full"
               onClick={() => panCamera(viewer, 'right')}
-              aria-label="Nach rechts bewegen"
+              aria-label={t('mapNav.ariaLabelPanRight')}
             >
               <ChevronRight aria-hidden="true" />
             </Button>
@@ -152,12 +154,12 @@ export function MapNav({ viewer }: MapNavProps) {
               size="icon"
               className="col-start-2 row-start-3 h-8 w-8 rounded-full"
               onClick={() => panCamera(viewer, 'down')}
-              aria-label="Nach unten bewegen"
+              aria-label={t('mapNav.ariaLabelPanDown')}
             >
               <ChevronDown aria-hidden="true" />
             </Button>
           </div>
-          <span className="text-xs font-medium">Navigation</span>
+          <span className="text-xs font-medium">{t('mapNav.navigation')}</span>
         </div>
 
         <hr className="border-neutral-200" />
@@ -169,7 +171,7 @@ export function MapNav({ viewer }: MapNavProps) {
               variant="ghost"
               size="icon"
               onClick={() => zoom('in')}
-              aria-label="Hineinzoomen"
+              aria-label={t('mapNav.ariaLabelZoomIn')}
             >
               <Plus aria-hidden="true" />
             </Button>
@@ -177,12 +179,12 @@ export function MapNav({ viewer }: MapNavProps) {
               variant="ghost"
               size="icon"
               onClick={() => zoom('out')}
-              aria-label="Herauszoomen"
+              aria-label={t('mapNav.ariaLabelZoomOut')}
             >
               <Minus aria-hidden="true" />
             </Button>
           </div>
-          <span className="text-xs font-medium">Zoom</span>
+          <span className="text-xs font-medium">{t('mapNav.zoom')}</span>
         </div>
       </div>
     </div>
