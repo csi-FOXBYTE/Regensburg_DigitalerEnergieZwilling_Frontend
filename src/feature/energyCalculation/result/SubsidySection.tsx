@@ -14,9 +14,7 @@ export function SubsidySection() {
   useEffect(() => {
     const fetchSubsides = async () => {
       try {
-        const response = await fetch(
-          'http://localhost:5000/api/public/config/active',
-        );
+        const response = await fetch('/api/public/config/active');
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
         setSubsides(JSON.parse(data.subsidies));
