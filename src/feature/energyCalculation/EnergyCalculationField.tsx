@@ -1,5 +1,10 @@
 import { Field, FieldLabel } from '@/components/ui/field';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import type { ParseKeys } from 'i18next';
 import { RotateCcw } from 'lucide-react';
 import { type ReactNode } from 'react';
@@ -43,14 +48,18 @@ export default function EnergyCalculationField({
                   className={
                     resetDisabled
                       ? 'cursor-not-allowed text-neutral-200'
-                      : 'text-foreground hover:text-muted-foreground cursor-pointer transition-colors'
+                      : 'text-foreground hover:text-[#e30613] cursor-pointer transition-colors'
                   }
                 >
                   <RotateCcw className="size-4" />
                 </button>
               </TooltipTrigger>
-              <TooltipContent hideArrow className="bg-background text-foreground border shadow-sm">
-                Setzt diese Angabe auf den automatisch abgeleiteten Ausgangswert zurück
+              <TooltipContent
+                hideArrow
+                className="bg-background text-foreground border shadow-sm"
+              >
+                Setzt diese Angabe auf den automatisch abgeleiteten Ausgangswert
+                zurück
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>

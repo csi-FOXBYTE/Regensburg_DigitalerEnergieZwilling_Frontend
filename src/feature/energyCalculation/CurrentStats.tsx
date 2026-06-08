@@ -52,9 +52,11 @@ function CurrentStatsCard({
     <Paper className="flex flex-col gap-2 p-3" elevation={2}>
       <div className="flex gap-2">
         {icon}
-        <Typography variant={'h4'}>{t(titleKey)}</Typography>
+        <Typography variant={'h4'} className="text-[16px] font-bold">
+          {t(titleKey)}
+        </Typography>
       </div>
-      <Typography variant={'h3'} className="self-start font-bold">
+      <Typography variant={'h3'} className="self-start text-[30px] font-bold">
         {t(valueKey, {
           value:
             typeof value === 'number'

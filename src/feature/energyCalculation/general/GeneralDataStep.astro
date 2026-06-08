@@ -14,7 +14,13 @@ import GeneralDataStepForm from './GeneralDataStepForm';
       {i18next.t('energyCalculation:generalData.title')}
     </Typography>
     <div class="border-primary flex gap-2 border-2 p-3">
-      <AlertCircle className="text-primary" />
+      <AlertCircle
+        className="text-primary cursor-pointer shrink-0"
+        style={{
+          width: 'clamp(20px, calc(16px + 1vw), 24px)',
+          height: 'clamp(20px, calc(16px + 1vw), 24px)',
+        }}
+      />
       <Typography variant="small">
         {i18next.t('energyCalculation:generalData.dataSourceRemark')}
       </Typography>

@@ -20,7 +20,13 @@ import { Typography } from '../../components/ui/typography';
     <ArrowIcon />
   </button>
   <div class="border-primary flex gap-4 border p-4">
-    <AlertCircle className="text-primary" size={'32'} />
+    <AlertCircle
+      className="text-primary"
+      style={{
+        width: 'clamp(35px, calc(100px - (100vw - 400px) / 12), 100px)',
+        height: 'clamp(35px, calc(100px - (100vw - 400px) / 12), 100px)',
+      }}
+    />
     <div>
       <Typography variant={'h4'}>
         {i18n.t('landingPage:remarkTitle')}

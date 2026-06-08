@@ -175,12 +175,25 @@ export default function BuildingWindow() {
         open={isOpen}
         onOpenChange={(open) => !open && unselectBuilding()}
       >
-        <DrawerContent>
-          <DrawerHeader>
-            <DrawerTitle>{t('buildingWindow.title')}</DrawerTitle>
-            <Typography variant="muted">
-              {t('buildingWindow.subtitle')}
-            </Typography>
+        <DrawerContent
+          overlayClassName="supports-backdrop-filter:backdrop-blur-none"
+          className="data-[vaul-drawer-direction=bottom]:rounded-t-[24px] overflow-hidden"
+        >
+          <DrawerHeader className="flex-row items-start justify-between text-left!">
+            <div>
+              <DrawerTitle>{t('buildingWindow.title')}</DrawerTitle>
+              <Typography variant="muted">
+                {t('buildingWindow.subtitle')}
+              </Typography>
+            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={unselectBuilding}
+              className="-mr-2 -mt-1 shrink-0"
+            >
+              <X />
+            </Button>
           </DrawerHeader>
           {selectedBuilding && (
             <BuildingWindowContent

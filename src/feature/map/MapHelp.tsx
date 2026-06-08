@@ -7,7 +7,6 @@ import {
 import { Hand, MousePointerClick, Move, RotateCcw, ZoomIn } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import useIsMobile from '../../lib/useIsMobile';
 
 const STORAGE_KEY = 'map-help-seen';
 
@@ -93,10 +92,11 @@ export function MapHelp() {
   const { t } = useTranslation('map');
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const isMobile = useIsMobile();
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    setIsMobile(window.matchMedia('(pointer: coarse)').matches);
     if (!localStorage.getItem(STORAGE_KEY)) {
       localStorage.setItem(STORAGE_KEY, '1');
       setOpen(true);
