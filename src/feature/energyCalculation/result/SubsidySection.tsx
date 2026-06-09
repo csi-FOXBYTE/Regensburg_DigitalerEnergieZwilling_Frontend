@@ -1,15 +1,13 @@
 import { Typography } from '@/components/ui/typography';
+import { type Subsidy } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  foerderprogrammToSubsidy,
-  type Foerderprogramm,
-} from '../../../hooks/useActiveConfig';
+import { DUMMY_SUBSIDIES } from '../../../lib/subsidies/dummies';
 import { SubsidyCard } from './SubsidyCard';
 
 export function SubsidySection() {
   const { t } = useTranslation('energyCalculation');
-  const [subsides, setSubsides] = useState<Foerderprogramm[]>([]);
+  const [subsides, setSubsides] = useState<Subsidy[]>([]);
 
   useEffect(() => {
     const fetchSubsides = async () => {
@@ -21,7 +19,7 @@ export function SubsidySection() {
         const data = await response.json();
         setSubsides(JSON.parse(data.subsidies));
       } catch {
-        console.error('fetchSubsides failed:');
+        setSubsides(DUMMY_SUBSIDIES);
       }
     };
     fetchSubsides();
@@ -40,8 +38,7 @@ export function SubsidySection() {
       </div>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {subsides.map((subsidy) => {
-          const s = foerderprogrammToSubsidy(subsidy);
-          return <SubsidyCard key={s.href} {...s} />;
+          return <SubsidyCard key={subsidy.href} {...subsidy} />;
         })}
       </div>
     </div>
