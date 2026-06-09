@@ -21,7 +21,7 @@
     "howCalculated": "Wie werden diese Werte berechnet?"
   },
   "addressSearch": {
-    "placeHolder": "Adresse suche in Regensburg...",
+    "placeHolder": "Adresse suchen in Regensburg...",
     "chooseBuilding": "Gebäude auswählen: ",
     "infoText": "Geben Sie eine Adresse ein oder klicken Sie direkt auf ein Gebäude in der Karte.",
     "ariaFormLabel": "Gebäudeadresse suchen",
