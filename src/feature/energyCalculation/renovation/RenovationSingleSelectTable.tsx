@@ -9,6 +9,7 @@ import { getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { InfoTooltipButton } from '../InfoButton';
 import { RenovationRow } from './RenovationRow';
 
 export type RenovationSingleSelectTableProps = {
@@ -17,6 +18,7 @@ export type RenovationSingleSelectTableProps = {
   onSelectionChange: (selected: Renovation[]) => void;
   baseInput: DETInput;
   config: DETConfig;
+  noMeasureTooltip?: string;
 };
 
 const NONE = '__none__';
@@ -27,6 +29,7 @@ export function RenovationSingleSelectTable({
   onSelectionChange,
   baseInput,
   config,
+  noMeasureTooltip,
 }: RenovationSingleSelectTableProps) {
   const { t } = useTranslation('energyCalculation');
   const selectedId = value.length > 0 ? value[0].id : NONE;
@@ -66,19 +69,24 @@ export function RenovationSingleSelectTable({
           </tr>
         </thead>
         <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <RenovationRow
-              key={row.id}
-              selectionCell={<RadioGroupItem value={row.id} />}
-              label={row.original.label}
-              savings={savingsMap[row.id] ?? 0}
-              recommended={row.original.recommended}
-            />
-          ))}
+          {table.getRowModel().rows.map((row) => {
+            const tooltipText = (t as (key: string, opts: object) => string)(`renovation.tooltips.${row.id}`, { defaultValue: '' });
+            return (
+              <RenovationRow
+                key={row.id}
+                selectionCell={<RadioGroupItem value={row.id} />}
+                label={row.original.label}
+                savings={savingsMap[row.id] ?? 0}
+                recommended={row.original.recommended}
+                info={tooltipText ? <InfoTooltipButton content={tooltipText} /> : undefined}
+              />
+            );
+          })}
           <RenovationRow
             selectionCell={<RadioGroupItem value={NONE} />}
             label={t('renovation.table.noMeasure')}
             savings={0}
+            info={noMeasureTooltip ? <InfoTooltipButton content={noMeasureTooltip} /> : undefined}
           />
         </tbody>
       </table>

@@ -30,10 +30,10 @@ export default function EnergyCalculationField({
   return (
     <Field className={className}>
       {labelKey && (
-        <FieldLabel>
-          {t(labelKey)}
+        <div className="flex w-fit items-center gap-2">
+          <FieldLabel>{t(labelKey)}</FieldLabel>
           {info}
-        </FieldLabel>
+        </div>
       )}
       <div className="flex w-full items-center gap-2">
         {children}
