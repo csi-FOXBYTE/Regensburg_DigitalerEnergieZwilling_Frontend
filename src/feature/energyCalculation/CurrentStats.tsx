@@ -1,6 +1,6 @@
 import { useStore } from '@nanostores/react';
 import type { ParseKeys } from 'i18next';
-import { ChevronDown, Euro, Leaf, TrendingUp, Zap } from 'lucide-react';
+import { Euro, Leaf, TrendingUp, Zap } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Paper } from '../../components/ui/paper';
@@ -70,7 +70,6 @@ function CurrentStatsCard({
       {descriptionKey && (
         <div className="flex items-center justify-between">
           <Typography variant="muted">{t(descriptionKey)}</Typography>
-          <ChevronDown className="text-muted-foreground size-4 shrink-0" />
         </div>
       )}
     </Paper>
