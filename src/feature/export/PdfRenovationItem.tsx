@@ -36,6 +36,10 @@ export function PdfRenovationItem({ label, energySavingPercent, costSaving }: Pr
         label={t('energyCalculation:export.costSavings')}
         value={`${formatDelta(costSaving)} €/a`}
       />
+      <LabeledRow
+        label={t('energyCalculation:export.costSavingsMonthly')}
+        value={`${formatDelta(costSaving / 12)} €/Monat`}
+      />
     </View>
   );
 }

@@ -71,13 +71,19 @@ function StatCard({
   title,
   beforeValue,
   afterValue,
+  beforeMonthlyValue,
+  afterMonthlyValue,
   deltaLabel,
+  deltaMonthlyLabel,
   deltaColor: color,
 }: {
   title: string;
   beforeValue: string;
   afterValue: string;
+  beforeMonthlyValue: string;
+  afterMonthlyValue: string;
   deltaLabel: string;
+  deltaMonthlyLabel: string;
   deltaColor: string;
 }) {
   const t = i18next.t.bind(i18next);
@@ -86,11 +92,14 @@ function StatCard({
       <Text style={styles.cardTitle}>{title}</Text>
       <Text style={styles.beforeLabel}>{t('energyCalculation:stats.beforeRenovation')}</Text>
       <Text style={styles.beforeValue}>{beforeValue}</Text>
+      <Text style={[styles.beforeValue, { fontSize: 9, marginBottom: 4 }]}>{beforeMonthlyValue}</Text>
       <View style={styles.divider} />
       <Text style={styles.afterLabel}>{t('energyCalculation:stats.afterRenovation')}</Text>
       <Text style={styles.afterValue}>{afterValue}</Text>
+      <Text style={[styles.afterValue, { fontSize: 9, fontWeight: 400, marginBottom: 4 }]}>{afterMonthlyValue}</Text>
       <View style={[styles.badge, { backgroundColor: color }]}>
         <Text style={styles.badgeText}>{deltaLabel}</Text>
+        <Text style={[styles.badgeText, { fontSize: 8 }]}>{deltaMonthlyLabel}</Text>
       </View>
     </View>
   );
@@ -111,21 +120,30 @@ export function PdfEnergyStats() {
         title={t('energyCalculation:stats.energyDemand')}
         beforeValue={t('energyCalculation:stats.energyDemandValue', { value: formatValue(before.energyConsumptionPerSquareMeter) })}
         afterValue={t('energyCalculation:stats.energyDemandValue', { value: formatValue(after.energyConsumptionPerSquareMeter) })}
+        beforeMonthlyValue={t('energyCalculation:stats.energyDemandMonthlyValue', { value: formatValue(before.energyConsumptionPerSquareMeter / 12) })}
+        afterMonthlyValue={t('energyCalculation:stats.energyDemandMonthlyValue', { value: formatValue(after.energyConsumptionPerSquareMeter / 12) })}
         deltaLabel={`${formatDelta(energyDelta)} kWh/m²a`}
+        deltaMonthlyLabel={`${formatDelta(energyDelta / 12)} kWh/m²/Monat`}
         deltaColor={deltaColor(energyDelta < 0 ? true : energyDelta > 0 ? false : null)}
       />
       <StatCard
         title={t('energyCalculation:stats.annualCosts')}
         beforeValue={t('energyCalculation:stats.annualCostsValue', { value: formatValue(before.yearlyCost) })}
         afterValue={t('energyCalculation:stats.annualCostsValue', { value: formatValue(after.yearlyCost) })}
+        beforeMonthlyValue={t('energyCalculation:stats.monthlyCostsValue', { value: formatValue(before.yearlyCost / 12) })}
+        afterMonthlyValue={t('energyCalculation:stats.monthlyCostsValue', { value: formatValue(after.yearlyCost / 12) })}
         deltaLabel={`${formatDelta(costDelta)} €/a`}
+        deltaMonthlyLabel={`${formatDelta(costDelta / 12)} €/Monat`}
         deltaColor={deltaColor(costDelta < 0 ? true : costDelta > 0 ? false : null)}
       />
       <StatCard
         title={t('energyCalculation:stats.co2Emissions')}
         beforeValue={t('energyCalculation:stats.co2EmissionsValue', { value: formatValue(before.co2Emissions) })}
         afterValue={t('energyCalculation:stats.co2EmissionsValue', { value: formatValue(after.co2Emissions) })}
+        beforeMonthlyValue={t('energyCalculation:stats.co2EmissionsMonthlyValue', { value: formatValue(before.co2Emissions / 12) })}
+        afterMonthlyValue={t('energyCalculation:stats.co2EmissionsMonthlyValue', { value: formatValue(after.co2Emissions / 12) })}
         deltaLabel={`${formatDelta(co2Delta)} t CO₂/a`}
+        deltaMonthlyLabel={`${formatDelta(co2Delta / 12)} t CO₂/Monat`}
         deltaColor={deltaColor(co2Delta < 0 ? true : co2Delta > 0 ? false : null)}
       />
     </View>
