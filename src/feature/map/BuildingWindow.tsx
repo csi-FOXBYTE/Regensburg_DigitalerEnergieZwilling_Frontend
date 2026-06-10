@@ -82,7 +82,7 @@ function BuildingWindowContent({
           {t('buildingWindow.howCalculated')}
         </button>
       </div>
-      <div className="shrink-0 px-6 py-3">
+      <div className="shrink-0 px-6 py-3 shadow-[0_-4px_6px_-2px_rgba(0,0,0,0.08)]">
         {session ? (
           <>
             <Button
@@ -132,6 +132,7 @@ export default function BuildingWindow() {
   const selectedBuilding = useStore($building);
   const isMobile = useIsMobile();
   const { t } = useTranslation('map');
+  const [snap, setSnap] = useState<number | string | null>(0.4);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [dragBounds, setDragBounds] = useState<
     { left: number; top: number; right: number; bottom: number } | undefined
@@ -169,18 +170,39 @@ export default function BuildingWindow() {
     if (isOpen) recalculate();
   }, [isOpen, recalculate]);
 
+  useEffect(() => {
+    if (isOpen) setSnap(0.4);
+  }, [isOpen]);
+
   if (isMobile) {
     return (
       <Drawer
+        snapPoints={[0.4, 1]}
+        activeSnapPoint={snap}
+        setActiveSnapPoint={setSnap}
+        fadeFromIndex={1}
         open={isOpen}
         onOpenChange={(open) => !open && unselectBuilding()}
       >
-        <DrawerContent>
-          <DrawerHeader>
-            <DrawerTitle>{t('buildingWindow.title')}</DrawerTitle>
-            <Typography variant="muted">
-              {t('buildingWindow.subtitle')}
-            </Typography>
+        <DrawerContent
+          overlayClassName="supports-backdrop-filter:backdrop-blur-none"
+          className="overflow-hidden data-[vaul-drawer-direction=bottom]:rounded-t-[24px] data-[vaul-drawer-direction=bottom]:max-h-[96vh]"
+        >
+          <DrawerHeader className="flex-row items-start justify-between text-left!">
+            <div>
+              <DrawerTitle>{t('buildingWindow.title')}</DrawerTitle>
+              <Typography variant="muted">
+                {t('buildingWindow.subtitle')}
+              </Typography>
+            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={unselectBuilding}
+              className="-mt-1 -mr-2 shrink-0"
+            >
+              <X />
+            </Button>
           </DrawerHeader>
           {selectedBuilding && (
             <BuildingWindowContent

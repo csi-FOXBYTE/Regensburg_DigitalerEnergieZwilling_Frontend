@@ -63,7 +63,7 @@ export default function AddressSearch({
       .join(', ');
 
   return (
-    <div className="absolute top-2 right-2 left-2 z-10 max-w-full transition-all duration-300 md:top-4 md:right-4 md:left-4 md:max-w-md">
+    <div className="absolute top-2 right-24 left-2 z-10 max-w-full transition-all duration-300 md:top-4 md:right-4 md:left-4 md:max-w-md">
       <form
         className="relative"
         role="search"
@@ -89,7 +89,7 @@ export default function AddressSearch({
                 : ''
               : search
           }
-          className="py-3"
+          className="py-2 md:py-3"
           placeholder={`${t('addressSearch.placeHolder')}`}
           aria-label={t('addressSearch.ariaInputLabel')}
         />

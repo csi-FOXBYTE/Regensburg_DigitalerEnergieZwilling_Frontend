@@ -8,6 +8,7 @@ import {
 import { getCoreRowModel, useReactTable, type RowSelectionState } from '@tanstack/react-table';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { InfoTooltipButton } from '../InfoButton';
 import { Checkbox } from '@/components/ui/checkbox';
 import { RenovationRow } from './RenovationRow';
 
@@ -79,21 +80,25 @@ export function RenovationMultiSelectTable({
         </tr>
       </thead>
       <tbody>
-        {table.getRowModel().rows.map((row) => (
-          <RenovationRow
-            key={row.id}
-            selectionCell={
-              <Checkbox
-                checked={row.getIsSelected()}
-                onCheckedChange={() => row.toggleSelected()}
-                className="border-neutral-550"
-              />
-            }
-            label={row.original.label}
-            savings={savingsMap[row.id] ?? 0}
-            recommended={row.original.recommended}
-          />
-        ))}
+        {table.getRowModel().rows.map((row) => {
+          const tooltipText = (t as (key: string, opts: object) => string)(`renovation.tooltips.${row.id}`, { defaultValue: '' });
+          return (
+            <RenovationRow
+              key={row.id}
+              selectionCell={
+                <Checkbox
+                  checked={row.getIsSelected()}
+                  onCheckedChange={() => row.toggleSelected()}
+                  className="border-neutral-550"
+                />
+              }
+              label={row.original.label}
+              savings={savingsMap[row.id] ?? 0}
+              recommended={row.original.recommended}
+              info={tooltipText ? <InfoTooltipButton content={tooltipText} /> : undefined}
+            />
+          );
+        })}
       </tbody>
       {renovations.length > 1 && (
         <tfoot>

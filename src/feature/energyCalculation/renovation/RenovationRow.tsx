@@ -7,6 +7,7 @@ export type RenovationRowProps = {
   label: string;
   savings: number;
   recommended?: boolean;
+  info?: ReactNode;
 };
 
 function formatSavings(savings: number) {
@@ -17,7 +18,7 @@ function formatSavings(savings: number) {
   });
 }
 
-export function RenovationRow({ selectionCell, label, savings, recommended }: RenovationRowProps) {
+export function RenovationRow({ selectionCell, label, savings, recommended, info }: RenovationRowProps) {
   const { t } = useTranslation('energyCalculation');
   const colorClass =
     savings < 0 ? 'text-green-600' : savings > 0 ? 'text-red-600' : 'text-muted-foreground';
@@ -28,6 +29,7 @@ export function RenovationRow({ selectionCell, label, savings, recommended }: Re
       <td className="px-4 py-4">
         <span className="flex items-center gap-2">
           {label}
+          {info}
           {recommended && savings < 0 && (
             <Badge className="border-green-600 bg-green-600/10 text-green-600">
               {t('renovation.recommended')}

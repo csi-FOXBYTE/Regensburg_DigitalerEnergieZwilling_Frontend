@@ -248,7 +248,23 @@
       "total": "Gesamt",
       "noMeasure": "Keine Maßnahme"
     },
-    "recommended": "Empfohlen"
+    "recommended": "Empfohlen",
+    "tooltips": {
+      "envelope_roof": "Eine Dachdämmung reduziert Wärmeverluste über das Dach deutlich und verbessert den Hitzeschutz im Sommer. Besonders bei ausgebauten Dachgeschossen ist die Maßnahme sehr wirkungsvoll. Die Berechnung wird nur berücksichtigt, wenn der Dachraum beheizt ist.",
+      "envelope_topFloor": "Über die oberste Geschossdecke geht oft viel Heizwärme verloren. Eine Dämmung dieser Fläche zählt zu den einfachsten und wirtschaftlichsten Sanierungsmaßnahmen. Die Berechnung wird nur berücksichtigt, wenn der Dachraum unbeheizt ist.",
+      "envelope_bottomFloor": "Eine ungedämmte Kellerdecke kann zu kalten Fußböden und Wärmeverlusten führen. Die Dämmung ist vergleichsweise kostengünstig und meist mit geringem Aufwand umsetzbar.",
+      "envelope_outerWalls": "Die Außenwände machen einen großen Teil der Gebäudehülle aus. Eine Dämmung reduziert Wärmeverluste deutlich und verbessert den Wohnkomfort.",
+      "envelope_outerWindows": "Ältere Fenster verursachen häufig hohe Wärmeverluste und Zugluft. Moderne Wärmeschutzfenster mit 3-fach-Verglasung verbessern die Energieeffizienz und den Wohnkomfort deutlich.",
+      "envelope_roofWindows": "Ältere Dachfenster weisen oft hohe Wärmeverluste auf. Moderne Dachfenster mit Wärmeschutzverglasung reduzieren Zugluft und verbessern den Wohnkomfort im Dachgeschoss. Die Berechnung wird nur berücksichtigt, wenn der Dachraum beheizt ist.",
+      "heat_renew": "Die bestehende Heizung wird durch ein moderneres und effizienteres System ersetzt. Dadurch können Energieverbrauch und Heizkosten reduziert werden.",
+      "heat_none_air_source_heat_pump_lt_40": "Eine Luftwärmepumpe nutzt die Außenluft zum Heizen. Sie arbeitet besonders effizient in gut gedämmten Gebäuden und reduziert den Bedarf an fossilen Brennstoffen.",
+      "heat_none_ground_source_heat_pump_lt_40": "Eine Erdwärmepumpe nutzt die Wärme aus dem Erdreich. Sie arbeitet sehr effizient, benötigt jedoch ausreichend Platz und ist mit höheren Investitionskosten verbunden.",
+      "heat_wood_pellets_standard_boiler_70_55": "Holzpellets sind ein erneuerbarer Brennstoff aus gepresstem Holzabfall. Ein Pelletkessel verbrennt die Pellets effizient und bietet eine günstigere Alternative zu fossil beheizten Systemen.",
+      "heat_natural_gas_improved_condensing_boiler_55_45": "Ein moderner Gasbrennwertkessel nutzt die im Abgas enthaltene Wärme und erreicht dadurch eine deutlich höhere Effizienz als herkömmliche Gasheizungen.",
+      "heat_bio_gas_improved_condensing_boiler_55_45": "Biogas wird aus organischen Materialien gewonnen und ist eine erneuerbare Alternative zu fossilem Erdgas. Ein Biogaskessel reduziert die CO₂-Bilanz der Heizung erheblich.",
+      "heat_district_heating_district_heating_all_temperatures": "Fernwärme versorgt das Gebäude über das bestehende Wärmenetz mit Heizenergie. Eine eigene Heizungsanlage im Gebäude ist dabei meist nicht mehr erforderlich. Sofern ein Anschluss möglich ist, kann das Gebäude über das Fernwärmenetz versorgt werden.",
+      "noMeasureHeating": "Die bestehende Heizungsanlage bleibt unverändert."
+    }
   },
   "subsidy": {
     "sectionTitle": "Förderprogramme",
@@ -291,11 +307,11 @@
     "sectionTitle": "So geht's weiter",
     "step1": {
       "title": "Energieberatung einholen",
-      "description": "Nutzen Sie diesen Bericht als Grundlage für eine professionelle Energieberatung. Die Beratung wird mit bis zu 80 % der Kosten gefördert (max. 1.300 € für Ein-/Zweifamilienhäuser)."
+      "description": "Nutzen Sie diesen Bericht als Grundlage für eine professionelle Energieberatung. Eine kostenlose Erstberatung bietet die Energieagentur Regensburg an. Dort erhalten Sie Unterstützung zu Sanierungsmaßnahmen, Kosten und passenden Fördermöglichkeiten. Weitere Informationen: https://www.regensburg.de/greendeal/mitmachen/energieberatung"
     },
     "step2": {
       "title": "Fördermittel beantragen",
-      "description": "Stellen Sie die Förderanträge vor Beginn der Maßnahmen. Die Energieberatung hilft bei der Auswahl der passenden Programme und der korrekten Antragstellung."
+      "description": "Informieren Sie sich frühzeitig über passende Förderprogramme und die jeweiligen Vorraussetzungen. Förderanträge müssen häufig vor Beginn der Maßnahmen gestellt und bewilligt werden. Wird eine Maßnahme zu früh begonnen, kann die Förderung entfallen."
     },
     "step3": {
       "title": "Angebote vergleichen",

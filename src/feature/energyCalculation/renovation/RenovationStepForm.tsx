@@ -77,6 +77,7 @@ export default function RenovationStepForm() {
             onSelectionChange={(v) => $selectedHeatingRenovations.set(v)}
             baseInput={insulationPatchedInput}
             config={config}
+            noMeasureTooltip={t('renovation.tooltips.noMeasureHeating')}
           />
         </div>
       )}
