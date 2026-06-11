@@ -3,7 +3,7 @@ import EnergyCalculationPage from '@/components/layouts/EnergyCalculationPage.as
 import { Typography } from '@/components/ui/typography';
 import i18next from 'i18next';
 import ButtonBar from '../ButtonBar';
-import CurrentStats from '../CurrentStats';
+import StickyStats from '../StickyStats';
 import ElectricityStepForm from './ElectricityStepForm';
 ---
 
@@ -12,7 +12,7 @@ import ElectricityStepForm from './ElectricityStepForm';
     <Typography variant="h2">
       {i18next.t('energyCalculation:electricity.title')}
     </Typography>
-    <CurrentStats client:load />
+    <StickyStats client:load />
   </div>
   <ElectricityStepForm client:load />
   <ButtonBar backTextKey="backButton" client:load />

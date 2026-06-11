@@ -115,7 +115,7 @@ export default function CurrentStats() {
   const currentStats = useStore($currentEnergyState);
 
   return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-6 p-3 sm:grid-cols-2 lg:grid-cols-4">
       <CurrentStatsCard
         value={currentStats.energyConsumptionPerSquareMeter}
         titleKey="stats.energyDemand"

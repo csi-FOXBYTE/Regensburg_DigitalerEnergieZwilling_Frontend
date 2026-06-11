@@ -9,6 +9,7 @@ import { ChevronUp } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../../../components/ui/button';
+import CurrentStats from '../CurrentStats';
 import BottomFloorPaper from './BottomFloorPaper';
 import OuterWallPaper from './OuterWallPaper';
 import RoofPaper from './RoofPaper';
@@ -45,10 +46,37 @@ export default function OuterPartsStepForm() {
   const [activeSection, setActiveSection] = useState<Section>('roof');
   const [showScrollTop, setShowScrollTop] = useState(false);
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [stuck, setStuck] = useState(false);
+  const [headerHeight, setHeaderHeight] = useState(0);
+  const [box, setBox] = useState({ left: 0, width: 0 });
+
   useEffect(() => {
-    const onScroll = () => setShowScrollTop(window.scrollY > 200);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    const wrapper = wrapperRef.current;
+    const header = headerRef.current;
+    if (!wrapper || !header) return;
+
+    const update = () => {
+      const rect = wrapper.getBoundingClientRect();
+      if (rect.width === 0 && rect.height === 0) return;
+      setHeaderHeight(header.offsetHeight);
+      setBox({ left: rect.left, width: rect.width });
+      setStuck(rect.top <= 0);
+      setShowScrollTop(window.scrollY > 200);
+    };
+    update();
+
+    const observer = new ResizeObserver(update);
+    observer.observe(wrapper);
+    observer.observe(header);
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
   }, []);
 
   const sectionRefs = useRef<Record<Section, HTMLDivElement | null>>({
@@ -77,44 +105,65 @@ export default function OuterPartsStepForm() {
   };
 
   useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-    visibleSections.forEach((section) => {
-      const el = sectionRefs.current[section];
-      if (!el) return;
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveSection(section);
-        },
-        { threshold: 0.3 },
-      );
-      observer.observe(el);
-      observers.push(observer);
-    });
-    return () => observers.forEach((o) => o.disconnect());
-  }, [showTopFloor]);
+    const onScroll = () => {
+      const lineY = headerHeight + 16;
+      let current: Section | undefined;
+      let last: Section | undefined;
+      for (const section of SECTIONS) {
+        const el = sectionRefs.current[section];
+        if (!el) continue;
+        if (current === undefined) current = section;
+        last = section;
+        if (el.getBoundingClientRect().top <= lineY) current = section;
+      }
+      const atBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 2;
+      if (atBottom && last) current = last;
+      if (current) setActiveSection(current);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [showTopFloor, headerHeight]);
 
   return (
     <TooltipProvider>
-      <FieldGroup>
-        <div className="flex gap-2 overflow-x-auto pb-1">
-          {visibleSections.map((section) => (
-            <Button
-              key={section}
-              type="button"
-              variant={activeSection === section ? 'primary' : 'secondary'}
-              onClick={() => scrollTo(section)}
-            >
-              {labels[section]}
-            </Button>
-          ))}
+      <div
+        ref={wrapperRef}
+        style={{ height: stuck ? headerHeight : undefined }}
+      >
+        <div
+          ref={headerRef}
+          className={`bg-background z-40 flex flex-col gap-6 overflow-hidden py-3 ${
+            stuck ? 'fixed top-0 shadow-[0_6px_6px_-4px_rgba(0,0,0,0.08)]' : ''
+          }`}
+          style={stuck ? { left: box.left, width: box.width } : undefined}
+        >
+          <CurrentStats />
+          <div className="hidden min-w-0 gap-2 overflow-x-auto p-3 pb-1 md:flex">
+            {visibleSections.map((section) => (
+              <Button
+                key={section}
+                type="button"
+                variant={activeSection === section ? 'primary' : 'secondary'}
+                onClick={() => scrollTo(section)}
+              >
+                {labels[section]}
+              </Button>
+            ))}
+          </div>
         </div>
-        <div className="mt-4 flex flex-col gap-6">
+      </div>
+      <FieldGroup>
+        <div className="flex flex-col gap-6">
           {visibleSections.map((section) => (
             <div
               key={section}
               ref={(el) => {
                 sectionRefs.current[section] = el;
               }}
+              style={{ scrollMarginTop: headerHeight + 8 }}
             >
               {section === 'roof' && <RoofPaper />}
               {section === 'roofWindows' && <RoofWindowsPaper />}

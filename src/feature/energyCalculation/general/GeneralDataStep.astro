@@ -4,7 +4,7 @@ import { Typography } from '@/components/ui/typography';
 import i18next from 'i18next';
 import { AlertCircle } from 'lucide-react';
 import ButtonBar from '../ButtonBar';
-import CurrentStats from '../CurrentStats';
+import StickyStats from '../StickyStats';
 import GeneralDataStepForm from './GeneralDataStepForm';
 ---
 
@@ -25,7 +25,7 @@ import GeneralDataStepForm from './GeneralDataStepForm';
         {i18next.t('energyCalculation:generalData.dataSourceRemark')}
       </Typography>
     </div>
-    <CurrentStats client:load />
+    <StickyStats client:load />
     <Typography variant="small">
       {i18next.t('energyCalculation:generalData.statsRemark')}
     </Typography>
