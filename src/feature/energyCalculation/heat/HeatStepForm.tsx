@@ -55,7 +55,9 @@ export default function HeatStepForm() {
               field={hasGasSupplyField}
               labelKey="heat.supply.hasGasSupply"
               info={
-                <InfoTooltipButton content={t('heat.supply.tooltips.hasGasSupply')}></InfoTooltipButton>
+                <InfoTooltipButton
+                  content={t('heat.supply.tooltips.hasGasSupply')}
+                ></InfoTooltipButton>
               }
             />
             {showBioGas && (
@@ -63,7 +65,9 @@ export default function HeatStepForm() {
                 field={hasBioGasField}
                 labelKey="heat.supply.hasBioGas"
                 info={
-                  <InfoTooltipButton content={t('heat.supply.tooltips.hasBioGas')}></InfoTooltipButton>
+                  <InfoTooltipButton
+                    content={t('heat.supply.tooltips.hasBioGas')}
+                  ></InfoTooltipButton>
                 }
               />
             )}
@@ -72,7 +76,9 @@ export default function HeatStepForm() {
               labelKey="heat.supply.hasStorage"
               className="lg:col-start-1"
               info={
-                <InfoTooltipButton content={t('heat.supply.tooltips.hasStorage')}></InfoTooltipButton>
+                <InfoTooltipButton
+                  content={t('heat.supply.tooltips.hasStorage')}
+                ></InfoTooltipButton>
               }
             />
           </FieldSet>
@@ -138,7 +144,9 @@ export default function HeatStepForm() {
               decimalScale={0}
               allowNegative={false}
               info={
-                <InfoTooltipButton content={t('heat.bills.tooltips.consumption')}></InfoTooltipButton>
+                <InfoTooltipButton
+                  content={t('heat.bills.tooltips.consumption')}
+                ></InfoTooltipButton>
               }
             />
             <EnergyNumberInput
@@ -159,6 +167,11 @@ export default function HeatStepForm() {
               suffix=" €/a"
               decimalScale={2}
               allowNegative={false}
+              info={
+                <InfoTooltipButton
+                  content={t('heat.bills.tooltips.baseRate')}
+                ></InfoTooltipButton>
+              }
             />
           </FieldSet>
         </Paper>
