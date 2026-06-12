@@ -13,7 +13,11 @@ const ADDRESS_DB_URL =
 export default function AddressSearch({
   onAddressFound,
 }: {
-  onAddressFound: (lat: string, lon: string) => void;
+  onAddressFound: (
+    lat: string,
+    lon: string,
+    address: { street?: string; housenumber?: string },
+  ) => void;
 }) {
   const building = useStore($building);
 
@@ -119,7 +123,10 @@ export default function AddressSearch({
               onClick={() => {
                 setShowSuggestions(false);
                 const [lon, lat] = d.geometry.coordinates;
-                onAddressFound(String(lat), String(lon));
+                onAddressFound(String(lat), String(lon), {
+                  street: d.properties.street,
+                  housenumber: d.properties.housenumber,
+                });
                 setSearch(formatStreet(d.properties));
               }}
             >
