@@ -14,7 +14,9 @@ USER 1000:1000
 
 # Lockfiles + .npmrc zuerst fuer bessere Layer-Caching
 COPY --chown=1000:1000 package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
-RUN --mount=type=secret,id=github_token,env=PACKAGE_TOKEN pnpm install --frozen-lockfile
+RUN --mount=type=secret,id=github_token,env=PACKAGE_TOKEN \
+    pnpm config set "//npm.pkg.github.com/:_authToken" "$PACKAGE_TOKEN" && \
+    pnpm install --frozen-lockfile
 
 # Restlicher Quellcode + Build
 COPY --chown=1000:1000 . .

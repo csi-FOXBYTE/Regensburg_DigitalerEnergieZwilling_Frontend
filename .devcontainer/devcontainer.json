@@ -1,6 +1,9 @@
 {
   "name": "rg-dez-frontend",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "frontend",
+  "runServices": ["frontend"],
+  "workspaceFolder": "/workspace",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {
       "version": "lts",
@@ -19,7 +22,6 @@
       "onAutoForward": "openPreview"
     }
   },
-  "runArgs": ["--env-file", "${localWorkspaceFolder}/.devcontainer/.env"],
   "customizations": {
     "vscode": {
       "extensions": [
@@ -67,6 +69,6 @@
       }
     }
   },
-  "postCreateCommand": "corepack enable && pnpm --version",
+  "postCreateCommand": "echo '//npm.pkg.github.com/:_authToken=${PACKAGE_TOKEN}' >> ~/.npmrc && corepack enable && pnpm --version",
   "waitFor": "postCreateCommand"
 }
