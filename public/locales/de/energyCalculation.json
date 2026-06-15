@@ -74,9 +74,9 @@
       "area": "Wie groß ist die gesamte Dachfensterfläche Ihres Gebäudes?",
       "windowType": "Welche Art von Dachfenstern sind verbaut?",
       "uValue": "Welchen U-Wert (Wärmedurchgangskoeffizenten) haben Ihre Dachfenster?",
-      "year": "Wann wurden Ihre Dachfenster zuletzt eingebaut oder erneuert?",
+      "year": "Wann wurden Ihre Dachfenster zuletzt energetisch verändert?",
       "tooltips": {
-        "year": "Ältere Dachfenster verlieren mehr Wärme als neuere.",
+        "year": "Gemeint ist zum Beispiel der Austausch gegen besser gedämmte Dachfenster oder eine Verbesserung von Verglasung, Rahmen oder Anschluss. Nicht gemeint sind reine Reparaturen, neue Farbe oder der Ausausch einzelner Beschläge.",
         "area": "Geben Sie die gesamte Fläche aller Dachfenster an. Die Gesamtfläche aller Dachfenster beeinflusst den Wärmeverlust.",
         "windowType": "Holz- und Kunststoffrahmen dämmen gut. Aluminium- und Stahlrahmen leiten Kälte stärker und sind weniger energieeffizient.",
         "uValue": "Der U-Wert beschreibt die Wärmedämmung des Fensters. Niedrigere Werte bedeuten bessere Dämmung. Alte Einfachfenster haben etwa 5,0 W/m²K. Moderne Dreifachfenster liegen bei etwa 0,7 W/m²K. Den U-Wert finden Sie in den Unterlagen Ihrer Fenster oder auf dem Typenschild."
@@ -84,16 +84,17 @@
     },
     "topFloor": {
       "topFloor": "Oberste Geschossdecke",
-      "year": "Wann wurde die Decke unter Ihrem Dachraum gebaut oder zuletzt saniert?",
+      "year": "Wann wurde die Decke unter Ihrem Dachraum zuletzt energetisch verändert?",
       "area": "Wie groß ist die Fläche der Decke unter Ihrem Dachraum?",
       "type": "Welche Bauweise hat die Decke zu Ihrem Dachboden?",
       "hasInsulation": "Ist die Decke unter Ihrem Dachraum gedämmt?",
-      "insulationThickness": "Wie dick ist die Dämmung?",
+      "insulationThickness": "Welche Dicke hat die aktuelle Dämmung?",
       "tooltips": {
-        "year": "Geben Sie das Baujahr oder das Jahr der letzten Sanierung an. Das Baujahr der Decke zwischen Wohnbereich und Dachraum hilft, die Dämmqualität einzuschätzen. Ältere Decken sind oft ungedämmt.",
+        "year": "Gemeint ist zum Beispiel eine nachträgliche Dämmmung der Decke zum unbeheizten Dachraum. Nicht gemeint sind reine Bodenbeläge, Reparaturen oder Nutzungsänderungen im Dachraum ohne Dämmung.",
         "area": "Geben Sie die Fläche der Decke zwischen Wohnbereich und Dachraum in m² an. Die Fläche der Decke zum Dachraum bestimmt, wie viel Wärme aus Ihrer Wohnung in den (meist unbeheizten) Dachraum entweichen kann.",
         "type": "Die Bauweise der Decke beeinflusst die Wärmedämmung und Speicherfähigkeit des Gebäudes. Massive Decke: z. B. Beton- oder Ziegeldecke. Holzbalkendecke: Konstruktion aus Holzbalken, häufig in älteren Gebäuden.",
-        "hasInsulation": "Eine Dämmung der Decke unter dem Dachraum verhindert, dass Wärme aus Ihrer Wohnung nach oben entweicht. Das kann bis zu 15 % der Heizkosten sparen."
+        "hasInsulation": "Eine Dämmung der Decke unter dem Dachraum verhindert, dass Wärme aus Ihrer Wohnung nach oben entweicht. Das kann bis zu 15 % der Heizkosten sparen.",
+        "insulationThickness": "Eine dickere Dämmschicht erhöht die energetische Effizienz des Gebäudes. Je nach Alter der Dämmung sind zwischen 10 cm und 24 cm üblich."
       }
     },
     "outerWall": {
@@ -309,7 +310,7 @@
     "sectionTitle": "So geht's weiter",
     "step1": {
       "title": "Energieberatung einholen",
-      "description": "Nutzen Sie diesen Bericht als Grundlage für eine professionelle Energieberatung. Eine kostenlose Erstberatung bietet die Energieagentur Regensburg an. Dort erhalten Sie Unterstützung zu Sanierungsmaßnahmen, Kosten und passenden Fördermöglichkeiten. Weitere Informationen: https://www.regensburg.de/greendeal/mitmachen/energieberatung"
+      "description": "Nutzen Sie diesen Bericht als Grundlage für eine professionelle Energieberatung. Eine kostenlose Erstberatung bietet die Energieagentur Regensburg an. Dort erhalten Sie Unterstützung zu Sanierungsmaßnahmen, Kosten und passenden Fördermöglichkeiten. Weitere Informationen:"
     },
     "step2": {
       "title": "Fördermittel beantragen",

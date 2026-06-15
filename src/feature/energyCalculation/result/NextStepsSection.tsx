@@ -1,14 +1,27 @@
-import { useTranslation } from 'react-i18next';
 import { Typography } from '@/components/ui/typography';
+import { useTranslation } from 'react-i18next';
 
 export function NextStepsSection() {
   const { t } = useTranslation('energyCalculation');
 
   const STEPS = [
-    { title: t('nextSteps.step1.title'), description: t('nextSteps.step1.description') },
-    { title: t('nextSteps.step2.title'), description: t('nextSteps.step2.description') },
-    { title: t('nextSteps.step3.title'), description: t('nextSteps.step3.description') },
-    { title: t('nextSteps.step4.title'), description: t('nextSteps.step4.description') },
+    {
+      title: t('nextSteps.step1.title'),
+      description: t('nextSteps.step1.description'),
+      link: 'https://www.regensburg.de/greendeal/mitmachen/energieberatung',
+    },
+    {
+      title: t('nextSteps.step2.title'),
+      description: t('nextSteps.step2.description'),
+    },
+    {
+      title: t('nextSteps.step3.title'),
+      description: t('nextSteps.step3.description'),
+    },
+    {
+      title: t('nextSteps.step4.title'),
+      description: t('nextSteps.step4.description'),
+    },
   ];
 
   return (
@@ -27,7 +40,22 @@ export function NextStepsSection() {
             </div>
             <div className="flex flex-col gap-1 pb-6">
               <Typography variant="h4">{step.title}</Typography>
-              <Typography variant="muted">{step.description}</Typography>
+              <Typography variant="muted">
+                {step.description}
+                {step.link && (
+                  <>
+                    {' '}
+                    <a
+                      href={step.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary underline"
+                    >
+                      {step.link}
+                    </a>
+                  </>
+                )}
+              </Typography>
             </div>
           </div>
         ))}

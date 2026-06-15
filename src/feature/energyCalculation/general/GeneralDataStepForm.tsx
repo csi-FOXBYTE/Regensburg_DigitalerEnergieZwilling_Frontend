@@ -55,6 +55,13 @@ export default function GeneralDataStepForm() {
               field={buildingTypeField}
               labelKey="generalData.fields.buildingType"
               options={buildingTypeOptions}
+              info={
+                <InfoTooltipButton
+                  content="Für Ein- und Mehrfamilienhäuser werden 
+                  unterschiedliche Annahmen für die Berechnung getroffen, 
+                  etwa bei der Bewertung der Flächennutzung und dem Energiebedarf."
+                ></InfoTooltipButton>
+              }
             />
             <EnergyNumberInput
               className="col-span-1"

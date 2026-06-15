@@ -45,16 +45,16 @@
     "mapControls": "Map Controls",
     "ariaLabelButton": "Show map controls",
     "chooseBuilding": "Select building",
-    "chooseBuildingExplain": "Left-click on a building",
-    "chooseBuildingMobileExplain": "Tap on a building",
+    "chooseBuildingExplain": "Left-click on a building.",
+    "chooseBuildingMobileExplain": "Tap a building with one finger.",
     "moveMap": "Move map",
-    "moveMapExplain": "Hold left mouse button & drag",
-    "moveMapMobileExplain": "Swipe with one finger",
-    "tiltView": "Tilt & rotate view",
-    "tiltViewExplain": "Hold middle mouse button & drag",
-    "tiltViewMobileExplain": "Drag with two fingers",
+    "moveMapExplain": "Move the map by holding the left mouse button and dragging.",
+    "moveMapMobileExplain": "Move the map with one finger.",
+    "tiltView": "Rotate and tilt view",
+    "tiltViewExplain": "Rotate and tilt the view by holding the middle mouse button and dragging.",
+    "tiltViewMobileExplain": "Rotate or tilt the view with two fingers.",
     "zoom": "Zoom",
-    "zoomExplain": "Scroll wheel or +/– buttons",
-    "zoomMobileExplain": "Pinch or spread two fingers"
+    "zoomExplain": "Zoom with the scroll wheel or the +/- buttons.",
+    "zoomMobileExplain": "Zoom with two fingers."
   }
 }

@@ -45,16 +45,16 @@
     "mapControls": "Kartenbedienung",
     "ariaLabelButton": "Kartenbedienung anzeigen",
     "chooseBuilding": "Gebäude auswählen",
-    "chooseBuildingExplain": "Linksklick auf ein Gebäude",
-    "chooseBuildingMobileExplain": "Auf ein Gebäude tippen",
+    "chooseBuildingExplain": "Klicken Sie mit der linken Maustaste auf ein Gebäude.",
+    "chooseBuildingMobileExplain": "Tippen Sie das Gebäude mit einem Finger an.",
     "moveMap": "Karte bewegen",
-    "moveMapExplain": "Linke Maustaste halten & ziehen",
-    "moveMapMobileExplain": "Mit einem Finger wischen",
-    "tiltView": "Ansicht neigen & drehen",
-    "tiltViewExplain": "Mittlere Maustaste halten & ziehen",
-    "tiltViewMobileExplain": "Mit zwei Fingern ziehen",
+    "moveMapExplain": "Verschieben Sie die Karte, indem Sie die linke Maustaste halten und ziehen.",
+    "moveMapMobileExplain": "Verschieben Sie die Karte mit einem Finger.",
+    "tiltView": "Ansicht drehen und neigen",
+    "tiltViewExplain": "Drehen und neigen Sie die Ansicht, indem Sie die mittlere Maustaste halten und ziehen.",
+    "tiltViewMobileExplain": "Drehen oder neigen Sie die Ansicht mit zwei Fingern.",
     "zoom": "Zoom",
-    "zoomExplain": "Mausrad oder +/- Schaltflächen",
-    "zoomMobileExplain": "Zwei Finger spreizen oder zusammenziehen"
+    "zoomExplain": "Zoomen Sie mit dem Mausrad oder den +/- Schaltflächen.",
+    "zoomMobileExplain": "Zoomen Sie mit zwei Fingern."
   }
 }
