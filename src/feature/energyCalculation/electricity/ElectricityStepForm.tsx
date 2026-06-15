@@ -66,6 +66,11 @@ export default function ElectricityStepForm() {
               suffix=" €/kWh"
               decimalScale={2}
               allowNegative={false}
+              info={
+                <InfoTooltipButton
+                  content={t('electricity.tooltips.baseRate')}
+                ></InfoTooltipButton>
+              }
             />
           </FieldSet>
         </Paper>

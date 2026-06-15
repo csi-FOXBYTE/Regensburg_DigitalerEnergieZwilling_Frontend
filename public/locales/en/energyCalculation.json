@@ -1,4 +1,7 @@
 {
+  "common": {
+    "resetTooltip": "Resets this value to the automatically derived initial value"
+  },
   "stats": {
     "energyDemand": "Energy Demand",
     "energyEfficiency": "Energy Efficiency",
@@ -38,11 +41,18 @@
     "buildingType": {
       "singleFamily": "Single-family house",
       "multiFamily": "Multi-family house"
+    },
+    "tooltips": {
+      "constructionYear": "Enter the original year of construction of the building. Major renovations can be added later. Older buildings are often less well insulated and consume more heating energy.",
+      "buildingType": "Different assumptions are made for single-family and multi-family houses in the calculation, for example regarding floor usage and energy demand.",
+      "numberOfFloors": "Count only floors excluding the basement and unfinished attic spaces. A house with a ground floor and an upper floor has, for example, 2 floors.",
+      "livingArea": "The living area is the heated floor area of your building."
     }
   },
   "outerParts": {
     "title": "Building Envelope",
     "insulation": "Insulation",
+    "scrollToTop": "Scroll to top",
     "roof": {
       "roof": "Roof",
       "area": "How large is your roof area?",
@@ -108,7 +118,8 @@
         "year": "Enter the year the wall was built or last major facade renovation. Older walls without insulation lose a lot of heat to the outside.",
         "area": "Enter the total area of all outer walls, without deducting window areas. The total area of all outer walls affects heat loss. Larger wall areas mean more heat loss.",
         "constructionType": "Solid walls (e.g. brick or concrete) store heat well.",
-        "hasInsulation": "Up to 40% of heating energy is lost through uninsulated outer walls. Insulation significantly reduces heating costs."
+        "hasInsulation": "Up to 40% of heating energy is lost through uninsulated outer walls. Insulation significantly reduces heating costs.",
+        "adjacentWallArea": "Wall area that is directly adjacent to neighbouring buildings and therefore does not lose heat to the outside."
       }
     },
     "windows": {
@@ -269,6 +280,7 @@
   },
   "subsidy": {
     "sectionTitle": "Funding Programmes",
+    "disclaimer": "The funding programmes shown are sample data and make no claim to completeness or currentness.",
     "benefitUpTo": "Up to",
     "moreInfo": "Show more"
   },

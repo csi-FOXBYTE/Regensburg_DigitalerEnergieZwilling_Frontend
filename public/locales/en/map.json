@@ -11,6 +11,10 @@
     "confirmButton": "Yes, start over",
     "cancelButton": "Cancel"
   },
+  "howCalculatedDialog": {
+    "title": "How are these values calculated?",
+    "description": "The aim of the calculation is to create a reasonable approximation of the recognized technical standard DIN 18599, incorporating sufficient simplifications to model it with appropriate effort."
+  },
   "buildingWindow": {
     "title": "Initial Energy Assessment",
     "subtitle": "These results were automatically calculated from public data and model assumptions. In the next step, you can review, supplement, or modify the building data.",

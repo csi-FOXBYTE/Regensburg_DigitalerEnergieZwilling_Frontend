@@ -1,4 +1,7 @@
 {
+  "common": {
+    "resetTooltip": "Setzt diese Angabe auf den automatisch abgeleiteten Ausgangswert zurück"
+  },
   "stats": {
     "energyDemand": "Energiebedarf",
     "energyEfficiency": "Energieeffizienz",
@@ -38,33 +41,41 @@
     "buildingType": {
       "singleFamily": "Einfamilienhaus",
       "multiFamily": "Mehrfamilienhaus"
+    },
+    "tooltips": {
+      "constructionYear": "Geben Sie das ursprüngliche Baujahr des Gebäudes an. Größere Sanierungen können später ergänzt werden. Ältere Gebäude sind oft schlechter gedämmt und verbrauchen mehr Heizenergie.",
+      "buildingType": "Die Gebäudeart beeinflusst die Berechnung. Für ein- und Mehrfamilienhäuser werden unterschiedliche Standartwerte verwendet, zum Beispiel für die Flächennutzung und den Energiebedarf.",
+      "numberOfFloors": "Zählen Sie nur Stockwerke ohne Keller und nicht ausgebaute Dachräume. Ein Haus mit Erdgeschoss und Obergeschoss hat zum Beispiel 2 Stockwerke.",
+      "livingArea": "Die Wohnfläche ist die beheizte Fläche in Ihrem Gebäude."
     }
   },
   "outerParts": {
     "title": "Außenbauteile des Gebäudes",
     "insulation": "Dämmung",
+    "scrollToTop": "Nach oben scrollen",
     "roof": {
       "roof": "Dach",
       "area": "Wie groß ist die gesamte Dachfläche Ihres Gebäudes?",
-      "constructionType": "Welche Dachform hat Ihr Dach?",
+      "constructionType": "Welche Bauweise hat Ihr Dach?",
       "hasAttic": "Hat Ihr Gebäude einen Dachraum?",
       "hasInsulation": "Ist Ihr Dach gedämmt?",
-      "insulationThickness": "Wie dick ist die Dämmung?",
+      "insulationThickness": "Welche Dicke hat die aktuelle Dämmung?",
       "insulationType": "Welche Art der Dämmung wurde verbaut?",
       "insulationTypes": {
         "betweenRafter": "Zwischensparren",
         "aboveRafter": "Aufdachdämmung"
       },
       "isAtticHeated": "Wird Ihr Dachraum beheizt?",
-      "year": "Wann wurde Ihr Dach gebaut oder zuletzt saniert?",
+      "year": "Wann wurde Ihr Dach zuletzt energetisch verändert?",
       "tooltips": {
-        "year": "Geben Sie das Baujahr oder das Jahr der letzten Dachsanierung an. Ältere Dächer sind oft schlechter gedämmt und verlieren mehr Wärme nach außen.",
+        "year": "Gemeint sind Änderungen mam Aufbau oder an der Dämmung, zum Beispiel eine Dachdämmung oder ein neuer Dachaufbau. Nicht gemeint sind reine Reperaturen, neue Farbe oder eine neue Dacheindeckung ohne Dämmung.",
         "area": "Geben Sie die gesamte Fläche Ihres Dachs an, ohne Abzug von Fensterflächen. Je größer die Fläche, desto wichtiger ist eine gute Dämmung.",
         "constructionTypeTitle": "Dachformen",
         "constructionTypeContent": "Ein Flachdach ist nahezu eben oder nur leicht geneigt. Ein Schrägdach besitzt eine deutlich sichtbare Dachneigung, z. B. ein Satteldach oder Walmdach. Die Dachform beeinflusst sowohl die Dachfläche als auch den Wärmeverlust eines Gebäudes: Flachdächer (typisch massive Bauweise) haben bei gleicher Grundfläche eine geringere Fläche als Schrägdächer (typisch Holzbauweise) und damit andere energetische Eigenschaften.",
         "hasAttic": "Geben Sie an, ob Ihr Gebäude einen zugänglichen Dachraum (Dachboden) hat. Ein vorhandener Dachraum beeinflusst die Dämmung der obersten Geschossdecke und damit den Wärmeverlust des Gebäudes nach oben.",
         "isAtticHeated": "Geben Sie an, ob der Raum direkt unter dem Dach beheizt wird.",
         "hasInsulation": "Eine vorhandene Dämmung reduziert den Wärmeverlust erheblich. Ohne Dämmung gehen über das Dach bis zu 30 % der Heizwärme verloren.",
+        "insulationThickness": "Eine dickere Dämmschicht erhöht die energetische Effizienz des Gebäudes. Je nach Alter der Dämmung sind zwischen 6 cm und 20 cm üblich.",
         "insulationTypeTitle": "Art der Dachdämmung",
         "insulationTypeContent": "Bei der Aufdachdämmung wird die Dämmung oberhalb der Dachsparren angebracht. Sie bietet den besten Wärmeschutz, da keine Wärmebrücken durch die Sparren entstehen. Bei der Zwischensparrendämmung wird der Dämmstoff zwischen den Sparren eingebracht. Diese Variante ist kostengünstiger, bietet aber durch die Sparren als Wärmebrücken einen etwas geringeren Schutz."
       }
@@ -92,7 +103,7 @@
       "tooltips": {
         "year": "Gemeint ist zum Beispiel eine nachträgliche Dämmmung der Decke zum unbeheizten Dachraum. Nicht gemeint sind reine Bodenbeläge, Reparaturen oder Nutzungsänderungen im Dachraum ohne Dämmung.",
         "area": "Geben Sie die Fläche der Decke zwischen Wohnbereich und Dachraum in m² an. Die Fläche der Decke zum Dachraum bestimmt, wie viel Wärme aus Ihrer Wohnung in den (meist unbeheizten) Dachraum entweichen kann.",
-        "type": "Die Bauweise der Decke beeinflusst die Wärmedämmung und Speicherfähigkeit des Gebäudes. Massive Decke: z. B. Beton- oder Ziegeldecke. Holzbalkendecke: Konstruktion aus Holzbalken, häufig in älteren Gebäuden.",
+        "type": "In älteren Gebäuden (vor etwas 1965) sind häufig Holzbalkendecken verbaut, in neueren Gebäuden (ab etwa 1965) sind zumeist massive Decken verbaut.",
         "hasInsulation": "Eine Dämmung der Decke unter dem Dachraum verhindert, dass Wärme aus Ihrer Wohnung nach oben entweicht. Das kann bis zu 15 % der Heizkosten sparen.",
         "insulationThickness": "Eine dickere Dämmschicht erhöht die energetische Effizienz des Gebäudes. Je nach Alter der Dämmung sind zwischen 10 cm und 24 cm üblich."
       }
@@ -103,13 +114,15 @@
       "area": "Wie groß ist die Fläche Ihrer Außenwände?",
       "constructionType": "Welche Bauweise haben Ihre Außenwände?",
       "hasInsulation": "Sind Ihre Außenwände gedämmt?",
-      "insulationThickness": "Wie dick ist die Dämmung?",
+      "insulationThickness": "Welche Dicke hat die aktuelle Dämmung?",
       "adjacentWallArea": "Wie groß ist die Wandfläche, die direkt an benachbarte Gebäude grenzt?",
       "tooltips": {
-        "year": "Geben Sie das Baujahr oder das Jahr der letzten größeren Fassadensanierung an. Ältere Wände ohne Dämmung verlieren viel Heizwärme nach außen.",
+        "year": "Gemeint sind Änderungen, die den Wärmescutz verbessern oder den Wandaufbau verändern, zum Beispiel eine nachträgliche Dämmung. Nicht gemeint sind neue Farbe, neuer Putz oder reine Reparaturen ohne Dämmung.",
         "area": "Geben Sie die gesamte Fläche aller Außenwände an, ohne Abzug von Fensterflächen. Die Gesamtfläche aller Außenwände beeinflusst den Wärmeverlust. Größere Wandflächen bedeuten mehr Wärmeverlust.",
         "constructionType": "Massivwände (z. B. Ziegel oder Beton) speichern Wärme gut.",
-        "hasInsulation": "Durch ungedämmte Außenwände gehen bis zu 40 % der Heizwärme verloren. Eine Dämmung senkt die Heizkosten erheblich."
+        "hasInsulation": "Durch ungedämmte Außenwände gehen bis zu 40 % der Heizwärme verloren. Eine Dämmung senkt die Heizkosten erheblich.",
+        "insulationThickness": "Eine dickere Dämmschicht erhöht die energetische Effizienz des Gebäudes. Je nach Alter der Dämmung sind zwischen 4 cm und 14 cm üblich.",
+        "adjacentWallArea": "Gemeint ist die Wandfläche, die direkt an ein benachbartes Gebäde anschließt, zum Beispiel bei Reihenhäusern oder Doppelhaushälften. Diese Fläche wird anders berechnet, weil dort meist weniger Wärme verloren geht als über frei stehende Außenwände."
       }
     },
     "windows": {
@@ -117,8 +130,9 @@
       "area": "Wie groß ist die gesamte Fläche Ihrer Außenwandfenster?",
       "windowType": "Welche Art von Fenstern sind verbaut?",
       "uValue": "Welchen U-Wert (Wärmedurchgangskoeffizenten) haben Ihre Fenster?",
-      "year": "Wann wurden Ihre Fenster eingebaut oder zuletzt erneuert?",
+      "year": "Wann wurden Ihre Fenster zuletzt energetisch verändert?",
       "tooltips": {
+        "year": "Gemeint ist zum Beispiel der Austausch gegen besser gedämmte Fenster oder eine Verbesserung von Verglasung, Rahmen oder Einbauanschluss. Nicht gemeint sind neue Farbe, neue Griffe, Reparaturen oder der Asutausch einzelner Beschläge.",
         "area": "Geben Sie die Gesamtfläche aller Fenster an. Die Gesamtfläche aller Fenster beeinflusst den Wärmeverlust durch die Gebäudehülle.",
         "windowType": "Holz- und Kunststoffrahmen dämmen gut. Aluminium- und Stahlrahmen leiten Kälte stärker und sind weniger energieeffizient.",
         "uValue": "Der U-Wert beschreibt die Wärmedämmung des Fensters. Niedrigere Werte bedeuten bessere Dämmung. Alte Einfachfenster haben etwa 5,0 W/m²K. Moderne Dreifachfenster liegen bei etwa 0,7 W/m²K. Den U-Wert finden Sie in den Unterlagen Ihrer Fenster oder auf dem Typenschild."
@@ -218,12 +232,13 @@
     "electricity": "Strom",
     "type": "Welche Stromart beziehen Sie?",
     "consumption": "Wie hoch ist Ihr jährlicher Stromverbrauch?",
-    "unitRate": "Wie hoch ist Ihr Strompreis?",
-    "baseRate": "Wie hoch ist die Basisrate Ihrer Stromkosten?",
+    "unitRate": "Wie hoch ist der Arbeitspreis Ihrer Stromversorgung?",
+    "baseRate": "Wie hoch ist der jährliche Grundpreis Ihrer Stromversorgung?",
     "tooltips": {
       "type": "Mix-Strom enthält Strom aus verschiedenen Quellen, auch aus fossiler Energie. Erneuerbarer Strom stammt aus Wind, Sonne oder Wasser und hat eine deutlich bessere CO₂-Bilanz.",
       "consumption": "Tragen Sie Ihren jährlichen Stromverbrauch in kWh ein. Den Wert finden Sie auf Ihrer Jahresabrechnung. Bei einem Durchschnittshaushalt sind es ca. 2.500–4.000 kWh pro Jahr.",
-      "unitRate": "Der Preis, den Sie pro Kilowattstunde (kWh) Strom zahlen. Diesen Wert finden Sie auf Ihrer Stromrechnung. Der Durchschnittspreis liegt bei ca. 30–40 Cent pro kWh."
+      "unitRate": "Der Arbeitspreis gibt an, wie viel Sie pro Kilowattstunde (kWh) Strom zahlen. Sie finden ihn in Ihrer Jahresabrechnung oder Ihrem Energieliefervertrag. Der Durchschnittspreis liegt bei ca. 30–40 Cent pro kWh.",
+      "baseRate": "Der Grundpreis ist der feste Betrag, den Sie unabhängig vom tatsächlichen Energieverbrauch bezahlen. Sie finden ihn in Ihrer Jahresabrechnung oder Ihrem Energieliefervertrag."
     }
   },
   "renovation": {
@@ -270,6 +285,7 @@
   },
   "subsidy": {
     "sectionTitle": "Förderprogramme",
+    "disclaimer": "Die angezeigten Förderprogramme sind Beispieldaten und erheben keinen Anspruch auf Vollständigkeit oder Aktualität.",
     "benefitUpTo": "Bis zu",
     "moreInfo": "Mehr anzeigen"
   },

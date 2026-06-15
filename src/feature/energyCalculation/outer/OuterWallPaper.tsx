@@ -67,7 +67,7 @@ export default function OuterWallPaper() {
           decimalScale={1}
           allowNegative={false}
           info={
-            <InfoTooltipButton content="Wandfläche, die direkt an Nachbargebäude grenzt und daher keine Wärme nach außen verliert." />
+            <InfoTooltipButton content={t('outerParts.outerWall.tooltips.adjacentWallArea')} />
           }
         />
         <EnergySelectInput
@@ -106,6 +106,11 @@ export default function OuterWallPaper() {
             decimalScale={2}
             allowNegative={false}
             className="col-start-1"
+            info={
+              <InfoTooltipButton
+                content={t('outerParts.outerWall.tooltips.insulationThickness')}
+              ></InfoTooltipButton>
+            }
           />
         )}
       </FieldSet>

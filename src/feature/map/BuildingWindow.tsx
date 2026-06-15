@@ -30,6 +30,7 @@ import { navigateToStep, Step } from '../../lib/state/ui/progress';
 import useIsMobile from '../../lib/useIsMobile';
 import { cn } from '../../lib/utils';
 import { CurrentStatsReduced } from '../energyCalculation/CurrentStats';
+import HowCalculatedDialog from './HowCalculatedDialog';
 import StartOverConfirmDialog from './StartOverConfirmDialog';
 
 function BuildingWindowContent({
@@ -41,6 +42,7 @@ function BuildingWindowContent({
 }) {
   const { t } = useTranslation('map');
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [howCalculatedOpen, setHowCalculatedOpen] = useState(false);
   const session = getSession(building.id);
 
   const handleStartOver = () => {
@@ -76,6 +78,7 @@ function BuildingWindowContent({
         <CurrentStatsReduced />
         <button
           type="button"
+          onClick={() => setHowCalculatedOpen(true)}
           className="text-primary hover:text-primary-hover mt-3 flex items-center gap-1.5 text-sm underline underline-offset-2"
         >
           <HelpCircle className="size-3.5 shrink-0" />
@@ -122,6 +125,10 @@ function BuildingWindowContent({
         open={confirmOpen}
         onOpenChange={setConfirmOpen}
         onConfirm={handleStartOver}
+      />
+      <HowCalculatedDialog
+        open={howCalculatedOpen}
+        onOpenChange={setHowCalculatedOpen}
       />
     </>
   );

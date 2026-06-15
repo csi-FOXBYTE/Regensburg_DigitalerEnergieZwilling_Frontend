@@ -58,8 +58,7 @@ export default function EnergyCalculationField({
                 hideArrow
                 className="bg-background text-foreground border shadow-sm"
               >
-                Setzt diese Angabe auf den automatisch abgeleiteten Ausgangswert
-                zurück
+                {t('common.resetTooltip')}
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>

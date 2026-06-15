@@ -181,7 +181,7 @@ export default function OuterPartsStepForm() {
         size="icon"
         className={`text-primary hover:text-primary-hover fixed right-6 bottom-6 z-50 h-15 w-15 rounded-full shadow-[0_4px_12px_0px_rgba(0,0,0,0.22)] transition-all duration-300 hover:bg-white hover:shadow-[0_0_12px_4px_rgba(0,0,0,0.15)] ${showScrollTop ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-4 opacity-0'}`}
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        aria-label="Nach oben scrollen"
+        aria-label={t('outerParts.scrollToTop')}
       >
         <ChevronUp aria-hidden="true" strokeWidth={3} />
       </Button>

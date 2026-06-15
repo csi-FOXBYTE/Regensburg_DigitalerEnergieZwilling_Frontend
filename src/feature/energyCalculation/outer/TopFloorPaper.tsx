@@ -111,6 +111,11 @@ export default function TopFloorPaper() {
             decimalScale={2}
             allowNegative={false}
             className="col-start-1"
+            info={
+              <InfoTooltipButton
+                content={t('outerParts.topFloor.tooltips.insulationThickness')}
+              ></InfoTooltipButton>
+            }
           />
         )}
       </FieldSet>

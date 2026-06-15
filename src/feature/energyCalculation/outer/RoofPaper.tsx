@@ -142,6 +142,9 @@ export default function RoofPaper() {
               decimalScale={2}
               allowNegative={false}
               className="col-start-1"
+              info={
+                <InfoTooltipButton content={t('outerParts.roof.tooltips.insulationThickness')} />
+              }
             />
             <EnergySelectInput
               field={roofInsulationTypeField}

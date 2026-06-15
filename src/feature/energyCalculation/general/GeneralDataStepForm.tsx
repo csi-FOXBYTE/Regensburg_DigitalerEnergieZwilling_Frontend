@@ -44,11 +44,7 @@ export default function GeneralDataStepForm() {
               labelKey="generalData.fields.constructionYear"
               rangeBandStore={buildingYearOptions}
               info={
-                <InfoTooltipButton
-                  content="Geben Sie das ursprüngliche Baujahr des Gebäudes an. 
-                  Größere Sanierungen können später ergänzt werden. 
-                  Ältere Gebäude sind oft schlechter gedämmt und verbrauchen mehr Heizenergie."
-                ></InfoTooltipButton>
+                <InfoTooltipButton content={t('generalData.tooltips.constructionYear')} />
               }
             />
             <EnergySelectInput
@@ -56,11 +52,7 @@ export default function GeneralDataStepForm() {
               labelKey="generalData.fields.buildingType"
               options={buildingTypeOptions}
               info={
-                <InfoTooltipButton
-                  content="Für Ein- und Mehrfamilienhäuser werden 
-                  unterschiedliche Annahmen für die Berechnung getroffen, 
-                  etwa bei der Bewertung der Flächennutzung und dem Energiebedarf."
-                ></InfoTooltipButton>
+                <InfoTooltipButton content={t('generalData.tooltips.buildingType')} />
               }
             />
             <EnergyNumberInput
@@ -70,10 +62,7 @@ export default function GeneralDataStepForm() {
               decimalScale={0}
               allowNegative={false}
               info={
-                <InfoTooltipButton
-                  content="Zählen Sie nur Stockwerke ohne Keller und nicht ausgebaute Dachräume. 
-                  Ein Haus mit Erdgeschoss und Obergeschoss hat zum Beispiel 2 Stockwerke."
-                ></InfoTooltipButton>
+                <InfoTooltipButton content={t('generalData.tooltips.numberOfFloors')} />
               }
             />
             <EnergyNumberInput
@@ -84,7 +73,7 @@ export default function GeneralDataStepForm() {
               decimalScale={1}
               allowNegative={false}
               info={
-                <InfoTooltipButton content="Die Wohnfläche ist die beheizte Fläche in Ihrem Gebäude."></InfoTooltipButton>
+                <InfoTooltipButton content={t('generalData.tooltips.livingArea')} />
               }
             />
           </FieldSet>

@@ -11,6 +11,10 @@
     "confirmButton": "Ja, neu starten",
     "cancelButton": "Abbrechen"
   },
+  "howCalculatedDialog": {
+    "title": "Wie werden diese Werte berechnet?",
+    "description": "Zielsetzung der Berechnung ist es eine sinnvolle Annäherung an die anerkannte Regel der Technik DIN 18599 zu schaffen, die ausreichend Vereinfachungen schafft, um diese mit geeignetem Aufwand abzubilden."
+  },
   "buildingWindow": {
     "title": "Ihr Gebäude",
     "subtitle": "Energetische Ersteinschätzung auf Basis öffentlicher Daten und Modellannahmen. Im nächsten Schritt können Sie die Gebäudedaten prüfen, ergänzen oder ändern.",
