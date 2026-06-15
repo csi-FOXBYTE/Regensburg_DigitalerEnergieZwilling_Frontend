@@ -302,7 +302,8 @@
     "categoryInsulation": "Insulation",
     "categoryHeating": "Heating",
     "categoryHeatingSurface": "Heating Surface",
-    "categoryLabel": "Category"
+    "categoryLabel": "Category",
+    "submissionError": "Data could not be submitted. The PDF report will be downloaded anyway."
   },
   "nextSteps": {
     "sectionTitle": "What's Next",

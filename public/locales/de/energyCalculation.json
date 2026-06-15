@@ -302,7 +302,8 @@
     "categoryInsulation": "Dämmung",
     "categoryHeating": "Heizung",
     "categoryHeatingSurface": "Heizungsfläche",
-    "categoryLabel": "Kategorie"
+    "categoryLabel": "Kategorie",
+    "submissionError": "Daten konnten nicht übermittelt werden. Der PDF-Bericht wird trotzdem heruntergeladen."
   },
   "nextSteps": {
     "sectionTitle": "So geht's weiter",

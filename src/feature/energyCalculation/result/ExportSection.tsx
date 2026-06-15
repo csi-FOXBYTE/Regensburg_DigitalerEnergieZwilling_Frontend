@@ -3,17 +3,70 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Paper } from '@/components/ui/paper';
 import { Typography } from '@/components/ui/typography';
 import { EnergyReportDocument } from '@/feature/export/EnergyReportDocument';
+import { submitEnergyData } from '@/lib/api/public';
+import { $building } from '@/lib/state/building';
+import { $versionName } from '@/lib/state/calculation-config';
+import { $calculationInput } from '@/lib/state/computed/calculation-input';
+import { $cameraPosition } from '@/lib/state/session';
+import { downloadJson } from '@/lib/downloadJson';
 import { downloadPdf } from '@/lib/downloadPdf';
+import { useStore } from '@nanostores/react';
 import { Download, HeartHandshake, ShieldCheck } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 
 export function ExportSection() {
   const { t } = useTranslation('energyCalculation');
   const [consent, setConsent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const building = useStore($building);
+  const calculationInput = useStore($calculationInput);
+  const cameraPosition = useStore($cameraPosition);
+  const versionName = useStore($versionName);
 
   async function handleDownload() {
-    await downloadPdf(<EnergyReportDocument />, t('export.reportTitle'));
+    setLoading(true);
+    try {
+      if (consent && building) {
+        const address = building.properties.address
+          ? [
+              building.properties.address.street,
+              [
+                building.properties.address.postcode,
+                building.properties.address.city,
+              ]
+                .filter(Boolean)
+                .join(' '),
+            ]
+              .filter(Boolean)
+              .join(', ')
+          : '';
+
+        try {
+          const result = await submitEnergyData({
+            input: calculationInput,
+            configName: versionName,
+            buildingId: building.id,
+            address,
+            longitude: (cameraPosition?.lon ?? 0) * (180 / Math.PI),
+            latitude: (cameraPosition?.lat ?? 0) * (180 / Math.PI),
+          });
+          downloadJson(result, t('export.reportTitle'));
+          await downloadPdf(
+            <EnergyReportDocument deletionLink={result.deletionLink} />,
+            t('export.reportTitle'),
+          );
+          return;
+        } catch {
+          toast.error(t('export.submissionError'));
+        }
+      }
+
+      await downloadPdf(<EnergyReportDocument />, t('export.reportTitle'));
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -50,7 +103,7 @@ export function ExportSection() {
           </div>
         </div>
 
-        <Button className="flex w-full gap-1" onClick={handleDownload}>
+        <Button className="flex w-full gap-1" onClick={handleDownload} disabled={loading}>
           <Download /> {t('export.downloadButton')}
         </Button>
       </Paper>

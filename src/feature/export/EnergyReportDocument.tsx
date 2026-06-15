@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export function EnergyReportDocument() {
+export function EnergyReportDocument(_props: { deletionLink?: string }) {
   const building = $building.get();
   const addr = building?.properties.address;
   const address = addr ? `${addr.street}\n${addr.city}` : '–';
