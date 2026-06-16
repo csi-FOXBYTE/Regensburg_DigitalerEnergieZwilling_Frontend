@@ -21,8 +21,10 @@ export const getStaticPaths = (() => {
 <script>
   import '@/lib/state/session/auto-save';
   import { $step, setStep, navigateToStep, Step } from '@/lib/state/ui/progress';
-  document.querySelector('[data-next-step]')?.addEventListener('click', () => {
-    navigateToStep($step.get() + 1);
+  document.addEventListener('click', (e) => {
+    if ((e.target as Element).closest('[data-next-step]')) {
+      navigateToStep($step.get() + 1);
+    }
   });
   window.addEventListener('popstate', (e) => {
     const prevStep = $step.get();

@@ -3,5 +3,27 @@
   "aboutText": "Free, non-binding, and based on municipal data",
   "startButton": "Get started",
   "remarkTitle": "Important note",
-  "remarkContent": "The results are not energy consultancy, but a calculation-based orientation. All calculations are based on simplified assumptions and publicly available data."
+  "remarkContent": "The results are not energy consultancy, but a calculation-based orientation. All calculations are based on simplified assumptions and publicly available data.",
+  "features": [
+    {
+      "icon": "MapPin",
+      "title": "Select building",
+      "description": "Select your building on the map, check the existing information and add what you know."
+    },
+    {
+      "icon": "Calculator",
+      "title": "Energy calculation",
+      "description": "The Digital Energy Twin calculates a first estimate of energy requirements, costs and CO₂ emissions transparently and without waiting time."
+    },
+    {
+      "icon": "Wrench",
+      "title": "Plan renovation measures",
+      "description": "Select proposals for suitable renovation measures and understand their impact on the energy efficiency of your building."
+    },
+    {
+      "icon": "FileText",
+      "title": "PDF report and next steps",
+      "description": "No registration required: Get a clear overview and specific recommendations as a basis for your next steps."
+    }
+  ]
 }

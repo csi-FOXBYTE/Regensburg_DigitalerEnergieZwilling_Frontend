@@ -53,6 +53,7 @@ export default function ElectricityStepForm() {
               labelKey="electricity.unitRate"
               suffix=" €/kWh"
               decimalScale={2}
+              fixedDecimalScale
               allowNegative={false}
               info={
                 <InfoTooltipButton
@@ -65,6 +66,7 @@ export default function ElectricityStepForm() {
               labelKey="electricity.baseRate"
               suffix=" €/kWh"
               decimalScale={2}
+              fixedDecimalScale
               allowNegative={false}
               info={
                 <InfoTooltipButton

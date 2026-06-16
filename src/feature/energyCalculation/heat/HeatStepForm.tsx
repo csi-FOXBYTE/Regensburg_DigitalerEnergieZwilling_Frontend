@@ -141,7 +141,8 @@ export default function HeatStepForm() {
               field={userThermalTotalCostField}
               labelKey="heat.bills.consumption"
               suffix=" €/a"
-              decimalScale={0}
+              decimalScale={2}
+              fixedDecimalScale
               allowNegative={false}
               info={
                 <InfoTooltipButton
@@ -154,6 +155,7 @@ export default function HeatStepForm() {
               labelKey="heat.bills.unitRate"
               suffix={thermalUnit ? ` €/${thermalUnit}` : ' €'}
               decimalScale={2}
+              fixedDecimalScale
               allowNegative={false}
               info={
                 <InfoTooltipButton
@@ -166,6 +168,7 @@ export default function HeatStepForm() {
               labelKey="heat.bills.baseRate"
               suffix=" €/a"
               decimalScale={2}
+              fixedDecimalScale
               allowNegative={false}
               info={
                 <InfoTooltipButton
