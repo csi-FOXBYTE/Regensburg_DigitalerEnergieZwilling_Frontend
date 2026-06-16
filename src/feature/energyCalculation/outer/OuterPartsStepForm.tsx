@@ -5,7 +5,6 @@ import {
   isAtticHeatedField,
 } from '@/lib/state/inputs/top-floor';
 import { useStore } from '@nanostores/react';
-import { ChevronUp } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../../../components/ui/button';
@@ -44,7 +43,6 @@ export default function OuterPartsStepForm() {
   });
 
   const [activeSection, setActiveSection] = useState<Section>('roof');
-  const [showScrollTop, setShowScrollTop] = useState(false);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
@@ -63,7 +61,6 @@ export default function OuterPartsStepForm() {
       setHeaderHeight(header.offsetHeight);
       setBox({ left: rect.left, width: rect.width });
       setStuck(rect.top <= 0);
-      setShowScrollTop(window.scrollY > 200);
     };
     update();
 
@@ -175,16 +172,6 @@ export default function OuterPartsStepForm() {
           ))}
         </div>
       </FieldGroup>
-      <Button
-        type="button"
-        variant="elevated"
-        size="icon"
-        className={`text-primary hover:text-primary-hover fixed right-6 bottom-6 z-50 h-15 w-15 rounded-full shadow-[0_4px_12px_0px_rgba(0,0,0,0.22)] transition-all duration-300 hover:bg-white hover:shadow-[0_0_12px_4px_rgba(0,0,0,0.15)] ${showScrollTop ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-4 opacity-0'}`}
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        aria-label={t('outerParts.scrollToTop')}
-      >
-        <ChevronUp aria-hidden="true" strokeWidth={3} />
-      </Button>
     </TooltipProvider>
   );
 }

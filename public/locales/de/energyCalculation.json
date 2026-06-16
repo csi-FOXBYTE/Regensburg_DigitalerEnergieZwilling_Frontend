@@ -1,4 +1,5 @@
 {
+  "scrollToTop": "Nach oben scrollen",
   "common": {
     "resetTooltip": "Setzt diese Angabe auf den automatisch abgeleiteten Ausgangswert zurück"
   },
@@ -52,7 +53,6 @@
   "outerParts": {
     "title": "Außenbauteile des Gebäudes",
     "insulation": "Dämmung",
-    "scrollToTop": "Nach oben scrollen",
     "roof": {
       "roof": "Dach",
       "area": "Wie groß ist die gesamte Dachfläche Ihres Gebäudes?",
