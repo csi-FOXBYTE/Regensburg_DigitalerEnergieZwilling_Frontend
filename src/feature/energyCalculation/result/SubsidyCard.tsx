@@ -1,11 +1,12 @@
-import { ExternalLink } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import { useTranslation } from 'react-i18next';
 import { Badge } from '@/components/ui/badge';
 import { Paper } from '@/components/ui/paper';
 import { Typography } from '@/components/ui/typography';
 import type { Subsidy, SubsidyBenefit } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+import { ChevronDown, ExternalLink } from 'lucide-react';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 function formatBenefit(benefit: SubsidyBenefit, upToLabel: string): string {
   const num = (n: number) => n.toLocaleString('de-DE');
@@ -24,27 +25,44 @@ function formatBenefit(benefit: SubsidyBenefit, upToLabel: string): string {
 
 export function SubsidyCard({ title, content, href, benefits }: Subsidy) {
   const { t } = useTranslation('energyCalculation');
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <Paper className="flex flex-col gap-3 p-4">
-      <div className="flex items-start justify-between gap-3">
-        <Typography variant="h4">{title}</Typography>
-        <Badge className="shrink-0 border-green-600 bg-green-600/10 text-green-600">
-          {formatBenefit(benefits, t('subsidy.benefitUpTo'))}
-        </Badge>
+    <Paper
+      className="flex cursor-pointer flex-col gap-3 p-4"
+      onClick={() => setIsOpen((prev) => !prev)}
+    >
+      <Badge className="h-auto whitespace-normal border-green-600 bg-green-600/10 text-green-600">
+        {formatBenefit(benefits, t('subsidy.benefitUpTo'))}
+      </Badge>
+      <Typography variant="h4">{title}</Typography>
+      <div className="relative">
+        <div
+          className={`overflow-hidden text-sm text-foreground transition-[max-height] duration-300 ease-in-out [&_a]:underline [&_li]:ml-4 [&_li]:list-disc [&_ol]:my-1 [&_p]:my-1 [&_strong]:font-semibold [&_ul]:my-1 ${
+            isOpen ? 'max-h-[600px]' : 'max-h-[4.5rem]'
+          }`}
+        >
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+        </div>
+        {!isOpen && (
+          <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-card to-transparent" />
+        )}
       </div>
-      <div className="text-sm text-foreground [&_a]:underline [&_li]:ml-4 [&_li]:list-disc [&_ol]:my-1 [&_p]:my-1 [&_strong]:font-semibold [&_ul]:my-1">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+      <div className="mt-auto flex items-center justify-between">
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex w-fit items-center gap-1 text-sm text-primary underline-offset-4 hover:underline"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {t('subsidy.moreInfo')}
+          <ExternalLink className="size-3.5" />
+        </a>
+        <ChevronDown
+          className={`size-4 shrink-0 text-muted-foreground transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+        />
       </div>
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-auto flex w-fit items-center gap-1 text-sm text-primary underline-offset-4 hover:underline"
-      >
-        {t('subsidy.moreInfo')}
-        <ExternalLink className="size-3.5" />
-      </a>
     </Paper>
   );
 }

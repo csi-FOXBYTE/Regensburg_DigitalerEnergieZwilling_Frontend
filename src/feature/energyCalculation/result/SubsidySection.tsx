@@ -12,9 +12,9 @@ export function SubsidySection() {
         <Typography variant="h3">{t('subsidy.sectionTitle')}</Typography>
         <Typography variant="muted">{t('subsidy.disclaimer')}</Typography>
       </div>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {DUMMY_SUBSIDIES.map((subsidy) => {
-          return <SubsidyCard key={subsidy.href} {...subsidy} />;
+          return <SubsidyCard key={subsidy.title} {...subsidy} />;
         })}
       </div>
     </div>
