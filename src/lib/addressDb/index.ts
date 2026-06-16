@@ -60,6 +60,10 @@ type ParsedQuery =
   | { type: 'streetOnly'; street: string }
   | { type: 'streetAndHouseNumber'; street: string; houseNumber: string };
 
+function normalizeStreet(street: string): string {
+  return street.replace(/str\./gi, 'straße');
+}
+
 function parseQuery(query: string): ParsedQuery {
   const tokens = query.trim().split(/\s+/);
   const lastToken = tokens[tokens.length - 1];
@@ -71,43 +75,41 @@ function parseQuery(query: string): ParsedQuery {
   if (tokens.length > 1 && lastIsNumber)
     return {
       type: 'streetAndHouseNumber',
-      street: tokens.slice(0, -1).join(' '),
+      street: normalizeStreet(tokens.slice(0, -1).join(' ')),
       houseNumber: lastToken,
     };
 
-  return { type: 'streetOnly', street: tokens.join(' ') };
+  return { type: 'streetOnly', street: normalizeStreet(tokens.join(' ')) };
 }
 
 function queryByHouseNumber(db: Database, houseNumber: string): QueryExecResult[] {
-  // "12" → all buildings with that house number, across every street
   return db.exec(
     `SELECT s.name, ba.house_number, ba.cx, ba.cy
      FROM streets s JOIN building_addresses ba ON ba.street_id = s.id
-     WHERE ba.house_number = ?
-     ORDER BY s.name
+     WHERE ba.house_number LIKE ?
+     ORDER BY s.name, CAST(ba.house_number AS INTEGER), ba.house_number
      LIMIT 10`,
-    [houseNumber],
+    [`${houseNumber}%`],
   );
 }
 
 function queryByStreetAndHouseNumber(db: Database, street: string, houseNumber: string): QueryExecResult[] {
-  // "Ludwigstraße 12" → buildings where street name matches AND house number matches
   return db.exec(
     `SELECT s.name, ba.house_number, ba.cx, ba.cy
      FROM streets s JOIN building_addresses ba ON ba.street_id = s.id
-     WHERE s.name LIKE ? AND ba.house_number = ?
+     WHERE s.name LIKE ? AND ba.house_number LIKE ?
+     ORDER BY CAST(ba.house_number AS INTEGER), ba.house_number
      LIMIT 10`,
-    [`%${street}%`, houseNumber],
+    [`%${street}%`, `${houseNumber}%`],
   );
 }
 
 function queryByStreet(db: Database, street: string): QueryExecResult[] {
-  // "Ludwigstraße" → 10 buildings on the matching street, sorted by house number
   return db.exec(
     `SELECT s.name, ba.house_number, ba.cx, ba.cy
      FROM streets s JOIN building_addresses ba ON ba.street_id = s.id
      WHERE s.name LIKE ?
-     ORDER BY CAST(ba.house_number AS INTEGER)
+     ORDER BY CAST(ba.house_number AS INTEGER), ba.house_number
      LIMIT 10`,
     [`%${street}%`],
   );
@@ -148,6 +150,6 @@ export function useAddressSearch(query: string) {
     queryKey: ['address-search', query],
     queryFn: () => searchAddresses(db!, query),
     enabled: !!db && query.trim().length >= 2,
-    staleTime: Infinity,
+    staleTime: 0,
   });
 }

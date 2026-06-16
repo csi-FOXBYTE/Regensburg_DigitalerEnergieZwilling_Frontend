@@ -38,6 +38,7 @@ export default function AddressSearch({
     <div className="absolute top-2 right-24 left-2 z-10 max-w-full transition-all duration-300 md:top-4 md:right-4 md:left-4 md:max-w-md">
       <Command
         shouldFilter={false}
+        loop
         aria-label={t('addressSearch.ariaFormLabel')}
       >
         <div className="relative flex items-center border border-gray-300 bg-white shadow-lg">
@@ -48,6 +49,9 @@ export default function AddressSearch({
               if ($building.get() !== null) unselectBuilding();
               setSearch(val);
               setOpen(true);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Home' || e.key === 'End') e.stopPropagation();
             }}
             placeholder={t('addressSearch.placeHolder')}
             aria-label={t('addressSearch.ariaInputLabel')}

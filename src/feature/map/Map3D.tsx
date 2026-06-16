@@ -182,15 +182,43 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
               groundHeight,
             );
 
+            const flyRange = 300;
+            const pitch = Cesium.Math.toRadians(-40);
+            const heading = viewerRef.camera.heading;
+
+            // On mobile the drawer covers ~40% of the screen from the bottom.
+            // Offset the fly target so the building lands in the center of the
+            // visible area above the drawer — all in one smooth animation.
+            let flyTarget = position;
+            if (window.innerWidth < 768) {
+              const frustum = viewerRef.camera.frustum as Cesium.PerspectiveFrustum;
+              const vfov = frustum.fov ?? Cesium.Math.toRadians(60);
+              const worldShift = 0.3 * flyRange * Math.tan(vfov / 2);
+              // Camera up in ENU: (-sin(H)·sin(P), -cos(H)·sin(P), cos(P))
+              // Shift the bounding sphere center in the -up direction so the
+              // building appears above the viewport center by exactly that amount.
+              const sinP = Math.sin(pitch);
+              const cosP = Math.cos(pitch);
+              const enuToEcef = Cesium.Transforms.eastNorthUpToFixedFrame(position);
+              const shiftEnu = new Cesium.Cartesian4(
+                Math.sin(heading) * sinP * worldShift,
+                Math.cos(heading) * sinP * worldShift,
+                -cosP * worldShift,
+                0,
+              );
+              const shiftEcef4 = Cesium.Matrix4.multiplyByVector(enuToEcef, shiftEnu, new Cesium.Cartesian4());
+              flyTarget = Cesium.Cartesian3.add(
+                position,
+                new Cesium.Cartesian3(shiftEcef4.x, shiftEcef4.y, shiftEcef4.z),
+                new Cesium.Cartesian3(),
+              );
+            }
+
             viewerRef.camera.flyToBoundingSphere(
-              new Cesium.BoundingSphere(position, 50),
+              new Cesium.BoundingSphere(flyTarget, 50),
               {
                 duration: 1.5,
-                offset: new Cesium.HeadingPitchRange(
-                  viewerRef.camera.heading,
-                  Cesium.Math.toRadians(-40),
-                  300,
-                ),
+                offset: new Cesium.HeadingPitchRange(heading, pitch, flyRange),
                 complete: () => {
                   viewerRef.scene.requestRender();
                 },
