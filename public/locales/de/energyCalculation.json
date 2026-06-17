@@ -320,7 +320,14 @@
     "categoryHeating": "Heizung",
     "categoryHeatingSurface": "Heizungsfläche",
     "categoryLabel": "Kategorie",
-    "submissionError": "Daten konnten nicht übermittelt werden. Der PDF-Bericht wird trotzdem heruntergeladen."
+    "submissionError": "Daten konnten nicht übermittelt werden. Der PDF-Bericht wird trotzdem heruntergeladen.",
+    "dataLinksTitle": "Ihre Datenverwaltung",
+    "recoveryLinkLabel": "Wiederherstellungslink – Gebäudedaten in der App erneut laden",
+    "recoveryLinkText": "Sitzung wiederherstellen →",
+    "deletionLinkLabel": "Löschlink – eingereichte Daten beim Stadtserver löschen",
+    "deletionLinkText": "Eingereichte Daten löschen →",
+    "jsonLinkLabel": "JSON-Download – Rohdaten für eigene Einreichung herunterladen",
+    "jsonLinkText": "JSON-Datei herunterladen →"
   },
   "nextSteps": {
     "sectionTitle": "So geht's weiter",

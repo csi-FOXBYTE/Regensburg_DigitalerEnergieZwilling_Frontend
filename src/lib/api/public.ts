@@ -3,7 +3,13 @@ export type SubmissionResult = {
   ngsiData: Record<string, unknown>;
   raw: Record<string, unknown>;
   deletionLink: string;
+  downloadLink?: string;
 };
+
+export async function deleteSubmission(deletionUrl: string): Promise<void> {
+  const res = await fetch(deletionUrl, { method: 'DELETE' });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+}
 
 export async function submitEnergyData(params: {
   input: unknown;

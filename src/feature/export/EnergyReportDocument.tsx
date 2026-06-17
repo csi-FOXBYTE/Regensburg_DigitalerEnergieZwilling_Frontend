@@ -3,6 +3,7 @@ import { Document, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
 import i18next from 'i18next';
 import './registerPdfFonts';
 import { LabeledRow } from './LabeledRow';
+import { PdfDataLinks } from './PdfDataLinks';
 import { PdfEnergyClassBars } from './PdfEnergyClassBars';
 import { PdfEnergyStats } from './PdfEnergyStats';
 import { PdfFooter } from './PdfFooter';
@@ -32,7 +33,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export function EnergyReportDocument(_props: { deletionLink?: string }) {
+type Props = {
+  recoveryLink?: string;
+  deletionLink?: string;
+  jsonLink?: string;
+};
+
+export function EnergyReportDocument({ recoveryLink, deletionLink, jsonLink }: Props) {
   const building = $building.get();
   const addr = building?.properties.address;
   const address = addr ? `${addr.street}\n${addr.city}` : '–';
@@ -70,6 +77,11 @@ export function EnergyReportDocument(_props: { deletionLink?: string }) {
             <PdfEnergyClassBars />
           </View>
         </View>
+        <PdfDataLinks
+          recoveryLink={recoveryLink}
+          deletionLink={deletionLink}
+          jsonLink={jsonLink}
+        />
         <PdfFooter />
       </Page>
       <Page size="A4" style={pdf.page}>

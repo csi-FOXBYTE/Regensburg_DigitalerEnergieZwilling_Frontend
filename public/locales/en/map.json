@@ -1,4 +1,12 @@
 {
+  "deleteConfirmationDialog": {
+    "title": "Really delete data?",
+    "description": "This will permanently delete your submitted building data from the city server. Your local session and the downloaded PDF report will be kept.",
+    "confirmButton": "Yes, delete data",
+    "cancelButton": "Cancel",
+    "successMessage": "Your data has been successfully deleted.",
+    "errorMessage": "Deletion failed. Please try again."
+  },
   "sessionResumeDialog": {
     "title": "Open Session",
     "description": "You have an open session. Would you like to continue?",

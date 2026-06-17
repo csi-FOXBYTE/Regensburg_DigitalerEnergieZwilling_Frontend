@@ -11,6 +11,7 @@ import ElectricityStep from '@/feature/energyCalculation/electricity/Electricity
 import RenovationStep from '@/feature/energyCalculation/renovation/RenovationStep.astro';
 import Result from '@/feature/energyCalculation/result/Result.astro';
 import DevPanel from '@/dev/DevPanel';
+import DeleteConfirmationDialog from '@/feature/map/DeleteConfirmationDialog';
 import SessionResumeDialog from '@/feature/map/SessionResumeDialog';
 
 export const getStaticPaths = (() => {
@@ -21,6 +22,44 @@ export const getStaticPaths = (() => {
 <script>
   import '@/lib/state/session/auto-save';
   import { $step, setStep, navigateToStep, Step } from '@/lib/state/ui/progress';
+  import { loadSession } from '@/lib/state/session';
+
+  const _params = new URLSearchParams(window.location.search);
+
+  const _restoreParam = _params.get('restore');
+  if (_restoreParam) {
+    loadSession(_restoreParam);
+    _params.delete('restore');
+    history.replaceState(null, '', _params.toString() ? `?${_params}` : window.location.pathname);
+  }
+
+  const _downloadJsonUrl = _params.get('download-json');
+  if (_downloadJsonUrl) {
+    const _filename = _params.get('filename') ?? 'download.json';
+    _params.delete('download-json');
+    _params.delete('filename');
+    history.replaceState(null, '', _params.toString() ? `?${_params}` : window.location.pathname);
+
+    (async () => {
+      let _fetchUrl = decodeURIComponent(_downloadJsonUrl);
+      if (!/^https?:\/\//i.test(_fetchUrl)) {
+        _fetchUrl = `${window.location.protocol}//${_fetchUrl}`;
+      }
+      try {
+        const _res = await fetch(_fetchUrl);
+        const _blob = await _res.blob();
+        const _objectUrl = URL.createObjectURL(_blob);
+        const _a = document.createElement('a');
+        _a.href = _objectUrl;
+        _a.download = decodeURIComponent(_filename);
+        document.body.appendChild(_a);
+        _a.click();
+        _a.remove();
+        URL.revokeObjectURL(_objectUrl);
+      } catch {}
+    })();
+  }
+
   document.addEventListener('click', (e) => {
     if ((e.target as Element).closest('[data-next-step]')) {
       navigateToStep($step.get() + 1);
@@ -46,5 +85,6 @@ export const getStaticPaths = (() => {
   <RenovationStep />
   <Result />
   <SessionResumeDialog client:only="react" />
+  <DeleteConfirmationDialog client:only="react" />
   {import.meta.env.DEV && <DevPanel client:load />}
 </DETLayout>

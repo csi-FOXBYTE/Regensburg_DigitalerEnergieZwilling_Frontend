@@ -1,4 +1,12 @@
 {
+  "deleteConfirmationDialog": {
+    "title": "Daten wirklich löschen?",
+    "description": "Dieser Vorgang löscht Ihre eingereichten Gebäudedaten unwiderruflich vom Stadtserver. Ihre lokale Sitzung und der heruntergeladene PDF-Bericht bleiben erhalten.",
+    "confirmButton": "Ja, Daten löschen",
+    "cancelButton": "Abbrechen",
+    "successMessage": "Ihre Daten wurden erfolgreich gelöscht.",
+    "errorMessage": "Löschen fehlgeschlagen. Bitte versuchen Sie es erneut."
+  },
   "sessionResumeDialog": {
     "title": "Offene Sitzung",
     "description": "Du hast eine offene Sitzung. Möchtest du weitermachen?",
