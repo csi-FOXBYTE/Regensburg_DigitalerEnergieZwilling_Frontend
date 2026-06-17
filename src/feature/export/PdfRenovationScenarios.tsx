@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 });
 
 function renderCategory(
-  titleKey: ParseKeys<'energyCalculation'>,
+  titleKey: `energyCalculation:${ParseKeys<'energyCalculation'>}`,
   renovations: Renovation[],
   categoryBase: DETInput,
   baseEnergy: number,

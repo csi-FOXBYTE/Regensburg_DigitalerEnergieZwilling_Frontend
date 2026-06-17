@@ -51,7 +51,7 @@ export function EnergyReportDocument({ recoveryLink, deletionLink, jsonLink }: P
   });
 
   return (
-    <Document title="Energiebericht" hyphenationCallback={(word) => [word]}>
+    <Document title="Energiebericht">
       <Page size="A4" style={pdf.page}>
         <PdfHeader title={i18next.t('energyCalculation:export.reportTitle')} />
         <View style={styles.titleSection}>
