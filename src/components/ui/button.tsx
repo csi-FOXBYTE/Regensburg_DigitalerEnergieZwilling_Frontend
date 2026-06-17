@@ -10,7 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          'border-transparent bg-primary text-primary-foreground hover:bg-primary-hover focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-offset-2',
+          'border-primary bg-primary text-primary-foreground hover:border-primary-hover hover:bg-primary-hover focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-offset-2',
         secondary:
           'border-primary bg-background text-primary hover:border-primary-hover hover:text-primary-hover focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-offset-2',
         elevated:
