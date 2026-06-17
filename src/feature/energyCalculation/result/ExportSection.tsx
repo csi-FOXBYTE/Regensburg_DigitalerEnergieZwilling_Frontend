@@ -4,11 +4,10 @@ import { Paper } from '@/components/ui/paper';
 import { Typography } from '@/components/ui/typography';
 import { EnergyReportDocument } from '@/feature/export/EnergyReportDocument';
 import { submitEnergyData } from '@/lib/api/public';
+import { downloadPdf } from '@/lib/downloadPdf';
 import { $building } from '@/lib/state/building';
 import { $versionName } from '@/lib/state/calculation-config';
 import { $calculationInput } from '@/lib/state/computed/calculation-input';
-import { $cameraPosition } from '@/lib/state/session';
-import { downloadPdf } from '@/lib/downloadPdf';
 import { useStore } from '@nanostores/react';
 import { Download, HeartHandshake, ShieldCheck } from 'lucide-react';
 import { useState } from 'react';
@@ -21,7 +20,6 @@ export function ExportSection() {
   const [loading, setLoading] = useState(false);
   const building = useStore($building);
   const calculationInput = useStore($calculationInput);
-  const cameraPosition = useStore($cameraPosition);
   const versionName = useStore($versionName);
 
   const recoveryLink = building
@@ -52,8 +50,8 @@ export function ExportSection() {
             configName: versionName,
             buildingId: building.id,
             address,
-            longitude: (cameraPosition?.lon ?? 0) * (180 / Math.PI),
-            latitude: (cameraPosition?.lat ?? 0) * (180 / Math.PI),
+            longitude: building.coordinates.lon,
+            latitude: building.coordinates.lat,
           });
           const deletionLink = `${window.location.origin}${window.location.pathname}?delete=${encodeURIComponent(result.deletionLink)}`;
           const jsonDownloadUrl = result.downloadLink ?? result.deletionLink.replace(/\/delete$/, '');

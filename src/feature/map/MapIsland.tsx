@@ -115,7 +115,7 @@ function MapWithControls() {
                 const matched =
                   drilled.find((f) => matchesAddress(f, address)) ?? drilled[0];
 
-                setBuilding(matched);
+                setBuilding(matched, { lon: lonF, lat: latF });
               },
             },
           );

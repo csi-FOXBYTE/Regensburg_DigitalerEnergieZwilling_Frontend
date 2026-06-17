@@ -29,9 +29,15 @@ export type BuildingProperties = {
   address: BuildingAddress | undefined;
 };
 
+export type BuildingCoordinates = {
+  lon: number;
+  lat: number;
+};
+
 export type BuildingState = {
   id: string;
   properties: BuildingProperties;
+  coordinates: BuildingCoordinates;
 };
 
 export const $building = atom<BuildingState | null>(null);
@@ -75,7 +81,10 @@ function parseAddress(
   };
 }
 
-export function setBuilding(feature: Cesium3DTileFeature) {
+export function setBuilding(
+  feature: Cesium3DTileFeature,
+  coordinates: BuildingCoordinates,
+) {
   // DEBUG: remove when done
   console.log(Object.fromEntries(feature.getPropertyIds([]).map(k => [k, feature.getProperty(k)])));
 
@@ -85,6 +94,7 @@ export function setBuilding(feature: Cesium3DTileFeature) {
 
   $building.set({
     id: String(id),
+    coordinates,
     properties: {
       measuredHeight: numProp(feature, 'measuredHeight'),
       lowestEave: numProp(feature, 'NiedrigsteTraufeDesGebaeudes'),
