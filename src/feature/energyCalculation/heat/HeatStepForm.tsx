@@ -5,6 +5,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { $config } from '@/lib/state/calculation-config';
 import { buildingYearOptions } from '@/lib/state/inputs/general';
 import {
+  $isSystemOnlyElectrical,
   hasBioGasField,
   hasGasSupplyField,
   hasStorageField,
@@ -33,6 +34,7 @@ export default function HeatStepForm() {
   const hasGasSupplyPlaceholder = useStore(hasGasSupplyField.$placeholder);
   const showBioGas = hasGasSupplyValue ?? hasGasSupplyPlaceholder;
 
+  const isSystemOnlyElectrical = useStore($isSystemOnlyElectrical);
   const config = useStore($config);
   const carrierValue = useStore(primaryEnergyCarrierField.$store);
   const carrierPlaceholder = useStore(primaryEnergyCarrierField.$placeholder);
@@ -131,53 +133,55 @@ export default function HeatStepForm() {
             />
           </FieldSet>
         </Paper>
-        <Paper variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
-          <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <FieldLegend className="col-span-full">
-              <Typography variant="h4">{t('heat.bills.title')}</Typography>
-            </FieldLegend>
-            <Separator className="col-span-full" />
-            <EnergyNumberInput
-              field={userThermalTotalCostField}
-              labelKey="heat.bills.consumption"
-              suffix=" €/a"
-              decimalScale={2}
-              fixedDecimalScale
-              allowNegative={false}
-              info={
-                <InfoTooltipButton
-                  content={t('heat.bills.tooltips.consumption')}
-                ></InfoTooltipButton>
-              }
-            />
-            <EnergyNumberInput
-              field={userThermalUnitRateField}
-              labelKey="heat.bills.unitRate"
-              suffix={thermalUnit ? ` €/${thermalUnit}` : ' €'}
-              decimalScale={2}
-              fixedDecimalScale
-              allowNegative={false}
-              info={
-                <InfoTooltipButton
-                  content={t('heat.bills.tooltips.unitRate')}
-                ></InfoTooltipButton>
-              }
-            />
-            <EnergyNumberInput
-              field={userThermalBaseRateField}
-              labelKey="heat.bills.baseRate"
-              suffix=" €/a"
-              decimalScale={2}
-              fixedDecimalScale
-              allowNegative={false}
-              info={
-                <InfoTooltipButton
-                  content={t('heat.bills.tooltips.baseRate')}
-                ></InfoTooltipButton>
-              }
-            />
-          </FieldSet>
-        </Paper>
+        {!isSystemOnlyElectrical && (
+          <Paper variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
+            <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+              <FieldLegend className="col-span-full">
+                <Typography variant="h4">{t('heat.bills.title')}</Typography>
+              </FieldLegend>
+              <Separator className="col-span-full" />
+              <EnergyNumberInput
+                field={userThermalTotalCostField}
+                labelKey="heat.bills.consumption"
+                suffix=" €/a"
+                decimalScale={2}
+                fixedDecimalScale
+                allowNegative={false}
+                info={
+                  <InfoTooltipButton
+                    content={t('heat.bills.tooltips.consumption')}
+                  ></InfoTooltipButton>
+                }
+              />
+              <EnergyNumberInput
+                field={userThermalUnitRateField}
+                labelKey="heat.bills.unitRate"
+                suffix={thermalUnit ? ` €/${thermalUnit}` : ' €'}
+                decimalScale={2}
+                fixedDecimalScale
+                allowNegative={false}
+                info={
+                  <InfoTooltipButton
+                    content={t('heat.bills.tooltips.unitRate')}
+                  ></InfoTooltipButton>
+                }
+              />
+              <EnergyNumberInput
+                field={userThermalBaseRateField}
+                labelKey="heat.bills.baseRate"
+                suffix=" €/a"
+                decimalScale={2}
+                fixedDecimalScale
+                allowNegative={false}
+                info={
+                  <InfoTooltipButton
+                    content={t('heat.bills.tooltips.baseRate')}
+                  ></InfoTooltipButton>
+                }
+              />
+            </FieldSet>
+          </Paper>
+        )}
       </FieldGroup>
     </TooltipProvider>
   );

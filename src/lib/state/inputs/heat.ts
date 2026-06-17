@@ -1,4 +1,6 @@
 import { type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+import { computed } from 'nanostores';
+import { $config } from '../calculation-config';
 import makeFieldStore from '../../field-store';
 import { makeSelectionStore } from '../../selection-store';
 import { $resolvedInputState } from '../computed/resolved-input';
@@ -120,4 +122,21 @@ export const userThermalBaseRateField = makeFieldStore({
   },
   placeholderStore: $resolvedInputState,
   resettable: true,
+});
+
+export const $isSystemOnlyElectrical = computed(
+  [$resolvedInputState, $config],
+  (state, config) => {
+    const type = state.heat.heatingSystemType;
+    if (!type) return false;
+    return (config.heat.electricalRatio.find((r) => r.key === type)?.value ?? 0) >= 1;
+  },
+);
+
+$isSystemOnlyElectrical.listen((onlyElectrical) => {
+  if (onlyElectrical) {
+    userThermalTotalCostField.setValue(undefined);
+    userThermalUnitRateField.setValue(undefined);
+    userThermalBaseRateField.setValue(undefined);
+  }
 });
