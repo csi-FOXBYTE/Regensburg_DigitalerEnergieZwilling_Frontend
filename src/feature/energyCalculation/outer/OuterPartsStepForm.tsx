@@ -30,7 +30,7 @@ export default function OuterPartsStepForm() {
 
   return (
     <TooltipProvider>
-      <FieldGroup>
+      <FieldGroup style={{marginTop: "-20px"}}>
         <div className="flex flex-col gap-6">
           {visibleSections.map((section) => (
             <div
