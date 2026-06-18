@@ -180,6 +180,15 @@
   --container-content: var(--content-width);
 }
 
+/* When Radix locks body scroll (react-remove-scroll), it adds a margin-right to
+   compensate for the scrollbar it removes. Combined with `scrollbar-gutter: stable`
+   on <html> that gutter is already reserved, so cancel the extra compensation to
+   avoid a layout shift. Unlayered + high specificity so it wins over the lib's
+   injected `!important` rule. */
+html body[data-scroll-locked] {
+  margin-right: 0 !important;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -191,5 +200,8 @@
   }
   html {
     @apply font-sans;
+    /* Reserve scrollbar space so opening modals (Radix scroll-lock) doesn't
+       hide the scrollbar / shift the layout. */
+    scrollbar-gutter: stable;
   }
 }

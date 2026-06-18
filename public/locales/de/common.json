@@ -12,5 +12,33 @@
     "privacy": "Datenschutz",
     "cookieSettings": "Cookie-Einstellungen",
     "feedback": "Feedback"
+  },
+  "feedback": {
+    "title": "Feedback geben",
+    "subtitle": "Helfen Sie uns, das Tool zu verbessern",
+    "category": {
+      "label": "Kategorie",
+      "options": {
+        "bug": "Fehler melden",
+        "improvement": "Verbesserungsvorschlag",
+        "general": "Allgemeines Feedback"
+      }
+    },
+    "message": {
+      "label": "Ihre Nachricht",
+      "placeholder": "Beschreiben Sie Ihr Anliegen..."
+    },
+    "email": {
+      "label": "E-Mail-Adresse",
+      "optional": "(optional)",
+      "placeholder": "ihre.email@beispiel.de",
+      "hint": "Falls Sie eine Rückmeldung wünschen"
+    },
+    "privacyNotice": "Ihr Feedback wird vertraulich behandelt und nur zur Verbesserung des Tools verwendet. Weitere Informationen finden Sie in unserer Datenschutzerklärung.",
+    "submit": "Feedback senden",
+    "success": {
+      "title": "Vielen Dank!",
+      "message": "Ihr Feedback wurde erfolgreich übermittelt und hilft uns, das Tool zu verbessern."
+    }
   }
 }

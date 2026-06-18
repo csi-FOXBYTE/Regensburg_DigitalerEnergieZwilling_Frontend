@@ -12,5 +12,33 @@
     "privacy": "Privacy Policy",
     "cookieSettings": "Cookie Settings",
     "feedback": "Feedback"
+  },
+  "feedback": {
+    "title": "Give feedback",
+    "subtitle": "Help us improve the tool",
+    "category": {
+      "label": "Category",
+      "options": {
+        "bug": "Report a bug",
+        "improvement": "Suggest an improvement",
+        "general": "General feedback"
+      }
+    },
+    "message": {
+      "label": "Your message",
+      "placeholder": "Describe your request..."
+    },
+    "email": {
+      "label": "Email address",
+      "optional": "(optional)",
+      "placeholder": "your.email@example.com",
+      "hint": "If you would like a response"
+    },
+    "privacyNotice": "Your feedback is treated confidentially and used only to improve the tool. You can find more information in our privacy policy.",
+    "submit": "Send feedback",
+    "success": {
+      "title": "Thank you!",
+      "message": "Your feedback has been submitted successfully and helps us improve the tool."
+    }
   }
 }
