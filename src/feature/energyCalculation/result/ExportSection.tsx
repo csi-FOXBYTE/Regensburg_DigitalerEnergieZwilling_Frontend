@@ -8,6 +8,7 @@ import { downloadPdf } from '@/lib/downloadPdf';
 import { $building } from '@/lib/state/building';
 import { $versionName } from '@/lib/state/calculation-config';
 import { $calculationInput } from '@/lib/state/computed/calculation-input';
+import { getSession } from '@/lib/state/session';
 import { useStore } from '@nanostores/react';
 import { Download, HeartHandshake, ShieldCheck } from 'lucide-react';
 import { useState } from 'react';
@@ -22,9 +23,17 @@ export function ExportSection() {
   const calculationInput = useStore($calculationInput);
   const versionName = useStore($versionName);
 
-  const recoveryLink = building
-    ? `${window.location.origin}${window.location.pathname}?restore=${building.id}`
-    : undefined;
+  function buildRecoveryLink(): string | undefined {
+    if (!building) return undefined;
+    const session = getSession(building.id);
+    if (session) {
+      try {
+        const encoded = btoa(encodeURIComponent(JSON.stringify(session)));
+        return `${window.location.origin}${window.location.pathname}?restore=${encoded}`;
+      } catch {}
+    }
+    return `${window.location.origin}${window.location.pathname}?restore=${building.id}`;
+  }
 
   async function handleDownload() {
     setLoading(true);
@@ -53,9 +62,11 @@ export function ExportSection() {
             longitude: building.coordinates.lon,
             latitude: building.coordinates.lat,
           });
-          const deletionLink = `${window.location.origin}${window.location.pathname}?delete=${encodeURIComponent(result.deletionLink)}`;
-          const jsonDownloadUrl = result.downloadLink ?? result.deletionLink.replace(/\/delete$/, '');
-          const jsonLink = `${window.location.origin}${window.location.pathname}?download-json=${encodeURIComponent(jsonDownloadUrl)}&filename=${encodeURIComponent(`${t('export.reportTitle')}.json`)}`;
+          const deletionLink = `${window.location.origin}${window.location.pathname}/delete?token=${encodeURIComponent(result.deletionLink)}`;
+          // No backend to fetch the JSON later, so embed the data in the link itself.
+          const jsonPayload = btoa(encodeURIComponent(JSON.stringify(result)));
+          const jsonLink = `${window.location.origin}${window.location.pathname}/delete?download-json=${encodeURIComponent(jsonPayload)}&filename=${encodeURIComponent(`${t('export.reportTitle')}.json`)}`;
+          const recoveryLink = buildRecoveryLink();
           await downloadPdf(
             <EnergyReportDocument
               recoveryLink={recoveryLink}
@@ -71,7 +82,7 @@ export function ExportSection() {
       }
 
       await downloadPdf(
-        <EnergyReportDocument recoveryLink={recoveryLink} />,
+        <EnergyReportDocument recoveryLink={buildRecoveryLink()} />,
         t('export.reportTitle'),
       );
     } finally {

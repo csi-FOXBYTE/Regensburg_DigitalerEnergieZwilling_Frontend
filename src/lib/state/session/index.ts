@@ -7,13 +7,23 @@ import {
   $selectedInsulationRenovations,
 } from '../inputs/atoms';
 import { $step, navigateToStep, setStep, Step } from '../ui/progress';
-import { getMeta, getSession, saveRawSession, setMeta } from './storage';
+import { getMeta, getSession, saveRawSession, setMeta, type SavedSession } from './storage';
 
 export { clearSession, getSession } from './storage';
 export type { DetMeta, SavedSession } from './storage';
 
 export const $cameraPosition = atom<{ lon: number; lat: number } | null>(null);
 export const $pendingFlyTo = atom<{ lon: number; lat: number } | null>(null);
+
+// Set when a session was injected via a recovery link (?restore=…) so the
+// resume dialog doesn't additionally prompt for the very session we just loaded.
+let restoredFromLink = false;
+export function markRestoredFromLink(): void {
+  restoredFromLink = true;
+}
+export function wasRestoredFromLink(): boolean {
+  return restoredFromLink;
+}
 
 export function saveSession(): void {
   const building = $building.get();
@@ -51,8 +61,14 @@ export function loadSession(buildingId: string): void {
     console.log('[session] loadSession — no session found');
     return;
   }
-  console.log('[session] loadSession — restoring step:', session.step);
-  $building.set(session.building); // triggers atoms.ts subscriber → restores inputState + renovations
+  loadSessionFromData(session);
+}
+
+export function loadSessionFromData(session: SavedSession): void {
+  console.log('[session] loadSessionFromData — step:', session.step);
+  saveRawSession(session.building.id, session);
+  setMeta({ lastActiveBuildingId: session.building.id, step: session.step });
+  $building.set(session.building);
   navigateToStep(session.step);
   $pendingFlyTo.set({ lon: session.cameraLon, lat: session.cameraLat });
 }
