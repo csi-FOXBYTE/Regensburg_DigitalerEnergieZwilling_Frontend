@@ -3,11 +3,17 @@ export type SubmissionResult = {
   ngsiData: Record<string, unknown>;
   raw: Record<string, unknown>;
   deletionLink: string;
-  downloadLink?: string;
 };
 
+function normalizeUrl(url: string): string {
+  if (!/^https?:\/\//i.test(url)) {
+    return `${window.location.protocol}//${url}`;
+  }
+  return url;
+}
+
 export async function deleteSubmission(deletionUrl: string): Promise<void> {
-  const res = await fetch(deletionUrl, { method: 'DELETE' });
+  const res = await fetch(normalizeUrl(deletionUrl), { method: 'GET' });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
 }
 
@@ -25,5 +31,7 @@ export async function submitEnergyData(params: {
     body: JSON.stringify(params),
   });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return (await res.json()) as SubmissionResult;
+  const result = (await res.json()) as SubmissionResult;
+  result.deletionLink = normalizeUrl(result.deletionLink);
+  return result;
 }

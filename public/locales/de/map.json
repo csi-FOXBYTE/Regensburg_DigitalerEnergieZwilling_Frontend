@@ -5,7 +5,9 @@
     "confirmButton": "Ja, Daten löschen",
     "cancelButton": "Abbrechen",
     "successMessage": "Ihre Daten wurden erfolgreich gelöscht.",
-    "errorMessage": "Löschen fehlgeschlagen. Bitte versuchen Sie es erneut."
+    "errorMessage": "Löschen fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "downloadStarted": "Ihre JSON-Datei wird heruntergeladen…",
+    "backButton": "Zurück"
   },
   "sessionResumeDialog": {
     "title": "Offene Sitzung",

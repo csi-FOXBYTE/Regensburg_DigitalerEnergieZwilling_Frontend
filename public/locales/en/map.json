@@ -5,7 +5,9 @@
     "confirmButton": "Yes, delete data",
     "cancelButton": "Cancel",
     "successMessage": "Your data has been successfully deleted.",
-    "errorMessage": "Deletion failed. Please try again."
+    "errorMessage": "Deletion failed. Please try again.",
+    "downloadStarted": "Your JSON file is being downloaded…",
+    "backButton": "Go back"
   },
   "sessionResumeDialog": {
     "title": "Open Session",
