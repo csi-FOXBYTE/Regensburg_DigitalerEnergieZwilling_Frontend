@@ -164,12 +164,15 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
           onClick={(movement, feature) => {
             if (!feature || !viewerRef || !movement.position) return;
             const tileFeature = feature as Cesium.Cesium3DTileFeature;
-            setBuilding(tileFeature);
 
             const picked = viewerRef.scene.pickPosition(movement.position);
             if (!Cesium.defined(picked)) return;
 
             const cartographic = Cesium.Cartographic.fromCartesian(picked);
+            setBuilding(tileFeature, {
+              lon: Cesium.Math.toDegrees(cartographic.longitude),
+              lat: Cesium.Math.toDegrees(cartographic.latitude),
+            });
             $cameraPosition.set({
               lon: cartographic.longitude,
               lat: cartographic.latitude,

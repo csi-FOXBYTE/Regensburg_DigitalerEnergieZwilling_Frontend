@@ -10,10 +10,10 @@ const stepGate = Array.isArray(step) ? step.join(',') : String(step);
 <section
   data-step-gate={stepGate}
   style="display:none"
-  class={`bg-background flex min-h-full flex-col items-center z-20 overflow-x-hidden ${className} px-gutter`}
+  class={`bg-background z-20 flex min-h-full flex-col px-gutter ${className}`}
 >
   <div
-    class={`w-content flex max-w-full flex-col  ${step === 7 ? 'gap-12' : 'gap-8'} py-6`}
+    class={`mx-auto flex w-full max-w-content flex-col ${step === 7 ? 'gap-12' : 'gap-8'} py-6`}
   >
     <slot />
   </div>

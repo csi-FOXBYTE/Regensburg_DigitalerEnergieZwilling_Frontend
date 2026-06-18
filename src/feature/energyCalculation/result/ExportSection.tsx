@@ -4,12 +4,10 @@ import { Paper } from '@/components/ui/paper';
 import { Typography } from '@/components/ui/typography';
 import { EnergyReportDocument } from '@/feature/export/EnergyReportDocument';
 import { submitEnergyData } from '@/lib/api/public';
+import { downloadPdf } from '@/lib/downloadPdf';
 import { $building } from '@/lib/state/building';
 import { $versionName } from '@/lib/state/calculation-config';
 import { $calculationInput } from '@/lib/state/computed/calculation-input';
-import { $cameraPosition } from '@/lib/state/session';
-import { downloadJson } from '@/lib/downloadJson';
-import { downloadPdf } from '@/lib/downloadPdf';
 import { useStore } from '@nanostores/react';
 import { Download, HeartHandshake, ShieldCheck } from 'lucide-react';
 import { useState } from 'react';
@@ -22,8 +20,11 @@ export function ExportSection() {
   const [loading, setLoading] = useState(false);
   const building = useStore($building);
   const calculationInput = useStore($calculationInput);
-  const cameraPosition = useStore($cameraPosition);
   const versionName = useStore($versionName);
+
+  const recoveryLink = building
+    ? `${window.location.origin}${window.location.pathname}?restore=${building.id}`
+    : undefined;
 
   async function handleDownload() {
     setLoading(true);
@@ -49,12 +50,18 @@ export function ExportSection() {
             configName: versionName,
             buildingId: building.id,
             address,
-            longitude: (cameraPosition?.lon ?? 0) * (180 / Math.PI),
-            latitude: (cameraPosition?.lat ?? 0) * (180 / Math.PI),
+            longitude: building.coordinates.lon,
+            latitude: building.coordinates.lat,
           });
-          downloadJson(result, t('export.reportTitle'));
+          const deletionLink = `${window.location.origin}${window.location.pathname}?delete=${encodeURIComponent(result.deletionLink)}`;
+          const jsonDownloadUrl = result.downloadLink ?? result.deletionLink.replace(/\/delete$/, '');
+          const jsonLink = `${window.location.origin}${window.location.pathname}?download-json=${encodeURIComponent(jsonDownloadUrl)}&filename=${encodeURIComponent(`${t('export.reportTitle')}.json`)}`;
           await downloadPdf(
-            <EnergyReportDocument deletionLink={result.deletionLink} />,
+            <EnergyReportDocument
+              recoveryLink={recoveryLink}
+              deletionLink={deletionLink}
+              jsonLink={jsonLink}
+            />,
             t('export.reportTitle'),
           );
           return;
@@ -63,7 +70,10 @@ export function ExportSection() {
         }
       }
 
-      await downloadPdf(<EnergyReportDocument />, t('export.reportTitle'));
+      await downloadPdf(
+        <EnergyReportDocument recoveryLink={recoveryLink} />,
+        t('export.reportTitle'),
+      );
     } finally {
       setLoading(false);
     }

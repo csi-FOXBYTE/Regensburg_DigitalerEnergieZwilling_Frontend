@@ -315,7 +315,14 @@
     "categoryHeating": "Heating",
     "categoryHeatingSurface": "Heating Surface",
     "categoryLabel": "Category",
-    "submissionError": "Data could not be submitted. The PDF report will be downloaded anyway."
+    "submissionError": "Data could not be submitted. The PDF report will be downloaded anyway.",
+    "dataLinksTitle": "Your Data Management",
+    "recoveryLinkLabel": "Recovery link – reload your building data in the app",
+    "recoveryLinkText": "Restore session →",
+    "deletionLinkLabel": "Deletion link – delete your submitted data from the city server",
+    "deletionLinkText": "Delete submitted data →",
+    "jsonLinkLabel": "JSON download – download raw data for own submission",
+    "jsonLinkText": "Download JSON file →"
   },
   "nextSteps": {
     "sectionTitle": "What's Next",
