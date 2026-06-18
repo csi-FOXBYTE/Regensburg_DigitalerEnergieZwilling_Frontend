@@ -1,12 +1,16 @@
 import { StyleSheet, Text, View } from '@react-pdf/renderer';
-import i18next from 'i18next';
-import { LabeledRow } from './LabeledRow';
-import { pdf } from './pdfStyles';
 
 const styles = StyleSheet.create({
-  container: {
-    gap: 6,
+  row: {
+    flexDirection: 'row',
+    paddingVertical: 3,
+    borderBottomWidth: 0.5,
+    borderColor: '#e5e5e5',
   },
+  measure: { width: '40%', fontSize: 11, color: '#191919', paddingRight: 8 },
+  energy:  { width: '20%', fontSize: 11, color: '#191919', fontWeight: 700 },
+  year:    { width: '20%', fontSize: 11, color: '#191919', fontWeight: 700 },
+  month:   { width: '20%', fontSize: 11, color: '#191919', fontWeight: 700 },
 });
 
 function formatDelta(value: number) {
@@ -24,18 +28,12 @@ type Props = {
 };
 
 export function PdfRenovationItem({ label, energySavingPercent, costSaving }: Props) {
-  const t = i18next.t.bind(i18next);
   return (
-    <View wrap={false} style={styles.container}>
-      <Text style={pdf.h4}>{label}</Text>
-      <LabeledRow
-        label={t('energyCalculation:export.energySavings')}
-        value={`${formatDelta(energySavingPercent)} %`}
-      />
-      <LabeledRow
-        label={t('energyCalculation:export.costSavings')}
-        value={`${formatDelta(costSaving)} €/a`}
-      />
+    <View style={styles.row}>
+      <Text style={styles.measure}>{label}</Text>
+      <Text style={styles.energy}>{formatDelta(energySavingPercent)} %</Text>
+      <Text style={styles.year}>{formatDelta(costSaving)} €/a</Text>
+      <Text style={styles.month}>{formatDelta(costSaving / 12)} €/Mon.</Text>
     </View>
   );
 }

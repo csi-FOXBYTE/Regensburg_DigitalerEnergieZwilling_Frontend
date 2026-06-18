@@ -4,6 +4,7 @@ import i18next from 'i18next';
 import './registerPdfFonts';
 import { LabeledRow } from './LabeledRow';
 import { PdfDataLinks } from './PdfDataLinks';
+import { PdfInputSummary } from './PdfInputSummary';
 import { PdfEnergyClassBars } from './PdfEnergyClassBars';
 import { PdfEnergyStats } from './PdfEnergyStats';
 import { PdfFooter } from './PdfFooter';
@@ -63,8 +64,8 @@ export function EnergyReportDocument({ recoveryLink, deletionLink, jsonLink }: P
           </Text>
         </View>
         <View style={styles.section}>
-          <LabeledRow label={i18next.t('energyCalculation:export.building')} value={address} />
-          <LabeledRow label={i18next.t('energyCalculation:export.reportDate')} value={reportDate} />
+          <LabeledRow label={i18next.t('energyCalculation:export.building')} value={address} fontSize={12} />
+          <LabeledRow label={i18next.t('energyCalculation:export.reportDate')} value={reportDate} fontSize={12} />
         </View>
         <View style={styles.sectionGap}>
           <Text style={pdf.sectionHeader}>
@@ -82,6 +83,11 @@ export function EnergyReportDocument({ recoveryLink, deletionLink, jsonLink }: P
           deletionLink={deletionLink}
           jsonLink={jsonLink}
         />
+        <PdfFooter />
+      </Page>
+      <Page size="A4" style={pdf.page}>
+        <PdfHeader title={i18next.t('energyCalculation:export.reportTitle')} />
+        <PdfInputSummary />
         <PdfFooter />
       </Page>
       <Page size="A4" style={pdf.page}>

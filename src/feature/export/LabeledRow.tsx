@@ -6,14 +6,10 @@ const styles = StyleSheet.create({
   },
   label: {
     width: '60%',
-    fontSize: 12,
-    lineHeight: 18 / 12,
     color: '#191919',
   },
   value: {
     width: '40%',
-    fontSize: 12,
-    lineHeight: 18 / 12,
     color: '#191919',
     fontWeight: 700,
   },
@@ -22,13 +18,15 @@ const styles = StyleSheet.create({
 type Props = {
   label: string;
   value: string;
+  fontSize?: number;
 };
 
-export function LabeledRow({ label, value }: Props) {
+export function LabeledRow({ label, value, fontSize = 11 }: Props) {
+  const textStyle = { fontSize, lineHeight: (fontSize + 6) / fontSize };
   return (
     <View style={styles.row}>
-      <Text style={styles.label}>{label}</Text>
-      <Text style={styles.value}>{value}</Text>
+      <Text style={[styles.label, textStyle]}>{label}</Text>
+      <Text style={[styles.value, textStyle]}>{value}</Text>
     </View>
   );
 }

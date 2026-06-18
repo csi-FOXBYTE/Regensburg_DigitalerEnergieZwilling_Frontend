@@ -15,17 +15,36 @@ import {
   $selectedHeatingSurfaceRenovations,
   $selectedInsulationRenovations,
 } from '@/lib/state/inputs/renovation';
-import { PdfRenovationItem } from './PdfRenovationItem';
 import { pdf } from './pdfStyles';
+import { PdfRenovationItem } from './PdfRenovationItem';
 
 const styles = StyleSheet.create({
-  content: {
-    gap: 16,
+  content: { gap: 16 },
+  category: { gap: 0 },
+  categoryTitle: { marginBottom: 6 },
+  tableHeader: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderColor: '#e5e5e5',
+    paddingBottom: 4,
   },
-  category: {
-    gap: 8,
-  },
+  hMeasure: { width: '40%', fontSize: 9, color: '#5f6061', fontWeight: 700, paddingRight: 8 },
+  hEnergy:  { width: '20%', fontSize: 9, color: '#5f6061', fontWeight: 700 },
+  hYear:    { width: '20%', fontSize: 9, color: '#5f6061', fontWeight: 700 },
+  hMonth:   { width: '20%', fontSize: 9, color: '#5f6061', fontWeight: 700 },
 });
+
+function TableHeader() {
+  const t = i18next.t.bind(i18next);
+  return (
+    <View style={styles.tableHeader}>
+      <Text style={styles.hMeasure}>{t('energyCalculation:renovation.table.measure')}</Text>
+      <Text style={styles.hEnergy}>{t('energyCalculation:export.energySavings')}</Text>
+      <Text style={styles.hYear}>{t('energyCalculation:export.savingsYear')}</Text>
+      <Text style={styles.hMonth}>{t('energyCalculation:export.savingsMonth')}</Text>
+    </View>
+  );
+}
 
 function renderCategory(
   titleKey: `energyCalculation:${ParseKeys<'energyCalculation'>}`,
@@ -39,9 +58,10 @@ function renderCategory(
   if (renovations.length === 0) return null;
   return (
     <View style={styles.category}>
-      <Text style={pdf.h3}>
+      <Text style={[pdf.h3, styles.categoryTitle]}>
         {i18next.t('energyCalculation:export.categoryLabel')}: {i18next.t(titleKey)}
       </Text>
+      <TableHeader />
       {renovations.map((r) => {
         const result = calculate(config, applyRenovation(categoryBase, r));
         const energyDelta = result.energyConsumptionPerSquareMeter - baseEnergy;
@@ -70,7 +90,6 @@ export function PdfRenovationScenarios() {
   const selectedHeating = $selectedHeatingRenovations.get();
   const selectedHeatingSurface = $selectedHeatingSurfaceRenovations.get();
 
-  // Chain: each category applies the previous category's selections to the base
   const insulationPatchedInput = selectedInsulation.length > 0
     ? applyRenovation(baseInput, selectedInsulation)
     : baseInput;
@@ -79,7 +98,6 @@ export function PdfRenovationScenarios() {
     ? applyRenovation(insulationPatchedInput, selectedHeating)
     : insulationPatchedInput;
 
-  // Base results for each category's savings (reuse currentState for Dämmung)
   const insulationBaseResult = currentState;
   const heatingBaseResult = calculate(config, insulationPatchedInput);
   const heatingSurfaceBaseResult = calculate(config, heatingPatchedInput);

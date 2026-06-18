@@ -307,10 +307,104 @@
     "building": "Building",
     "reportDate": "Report Date",
     "pageOf": "Page {{page}} of {{total}}",
+    "inputSummaryTitle": "Your Building Data",
+    "sectionGeneral": "General Data",
+    "sectionOuterParts": "Building Envelope",
+    "heatBillsTitle": "Costs and Consumption",
+    "labels": {
+      "general": {
+        "constructionYear": "Year of Construction",
+        "buildingType": "Building Type",
+        "numberOfFloors": "Floors",
+        "livingArea": "Living Area"
+      },
+      "roof": {
+        "year": "Last Major Renovation",
+        "area": "Roof Area",
+        "constructionType": "Construction Type",
+        "hasAttic": "Attic Present",
+        "isAtticHeated": "Attic Heated",
+        "hasInsulation": "Additional Insulation Present",
+        "insulationThickness": "Insulation Thickness",
+        "insulationType": "Insulation Type"
+      },
+      "topFloor": {
+        "year": "Last Major Renovation",
+        "area": "Ceiling Area",
+        "type": "Construction Type",
+        "hasInsulation": "Additional Insulation Present",
+        "insulationThickness": "Insulation Thickness"
+      },
+      "roofWindows": {
+        "year": "Last Major Renovation",
+        "area": "Roof Window Area",
+        "windowType": "Window Type",
+        "uValue": "U-Value"
+      },
+      "outerWall": {
+        "year": "Last Major Renovation",
+        "area": "Wall Area",
+        "adjacentWallArea": "Adjacent Wall Area",
+        "constructionType": "Construction Type",
+        "hasInsulation": "Additional Insulation Present",
+        "insulationThickness": "Insulation Thickness"
+      },
+      "windows": {
+        "year": "Last Major Renovation",
+        "area": "Window Area",
+        "windowType": "Window Type",
+        "uValue": "U-Value"
+      },
+      "bottomFloor": {
+        "hasBasement": "Basement Present",
+        "isBasementHeated": "Basement Heated",
+        "constructionType": "Construction Type",
+        "hasInsulation": "Additional Insulation Present",
+        "insulationThickness": "Insulation Thickness",
+        "year": {
+          "default": "Basement Ceiling – Last Major Renovation",
+          "heated": "Basement Floor – Last Major Renovation",
+          "noBasement": "Floor – Last Major Renovation"
+        },
+        "area": {
+          "default": "Basement Ceiling Area",
+          "heated": "Basement Floor Area",
+          "noBasement": "Floor Area"
+        }
+      },
+      "heat": {
+        "hasGasSupply": "Gas Connection",
+        "hasBioGas": "Biogas Available",
+        "hasStorage": "Fuel Storage Present",
+        "constructionYear": "Heating System Year",
+        "primaryEnergyCarrier": "Energy Carrier",
+        "heatingSystemType": "Heating System Type",
+        "heatingSurfaceType": "Heat Distribution",
+        "heatingDemand": "Heating Demand",
+        "carrierDemand": "Fuel Demand",
+        "totalCost": "Annual Heating Costs",
+        "unitRate": "Unit Rate",
+        "baseRate": "Base Rate"
+      },
+      "electricity": {
+        "type": "Electricity Type",
+        "consumption": "Annual Consumption",
+        "unitRate": "Unit Rate",
+        "baseRate": "Base Rate",
+        "totalDemand": "Total Electrical Demand",
+        "householdDemand": "Household Electricity",
+        "heatingDemand": "Heating Electricity",
+        "householdCost": "Household Electricity Cost"
+      }
+    },
     "sectionEnergyEfficiency": "Energy Efficiency Analysis Summary",
-    "renovationScenariosTitle": "Renovation Scenarios – Results",
+    "renovationScenariosTitle": "Renovation Scenarios",
     "energySavings": "Energy savings",
     "costSavings": "Cost savings",
+    "columnYear": "Year",
+    "columnMonth": "Month",
+    "savingsYear": "Year Savings",
+    "savingsMonth": "Month Savings",
     "categoryInsulation": "Insulation",
     "categoryHeating": "Heating",
     "categoryHeatingSurface": "Heating Surface",
@@ -318,11 +412,11 @@
     "submissionError": "Data could not be submitted. The PDF report will be downloaded anyway.",
     "dataLinksTitle": "Your Data Management",
     "recoveryLinkLabel": "Recovery link – reload your building data in the app",
-    "recoveryLinkText": "Restore session →",
+    "recoveryLinkText": "Restore session",
     "deletionLinkLabel": "Deletion link – delete your submitted data from the city server",
-    "deletionLinkText": "Delete submitted data →",
+    "deletionLinkText": "Delete submitted data",
     "jsonLinkLabel": "JSON download – download raw data for own submission",
-    "jsonLinkText": "Download JSON file →"
+    "jsonLinkText": "Download JSON file"
   },
   "nextSteps": {
     "sectionTitle": "What's Next",

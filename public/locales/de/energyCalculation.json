@@ -312,10 +312,104 @@
     "building": "Gebäude",
     "reportDate": "Berichtsdatum",
     "pageOf": "Seite {{page}} von {{total}}",
+    "inputSummaryTitle": "Ihre Gebäudedaten",
+    "sectionGeneral": "Allgemeine Daten",
+    "sectionOuterParts": "Außenbauteile",
+    "heatBillsTitle": "Kosten und Verbrauch",
+    "labels": {
+      "general": {
+        "constructionYear": "Baujahr",
+        "buildingType": "Gebäudetyp",
+        "numberOfFloors": "Stockwerke",
+        "livingArea": "Wohnfläche"
+      },
+      "roof": {
+        "year": "Letzte wesentliche Erneuerung",
+        "area": "Dachfläche",
+        "constructionType": "Bauweise",
+        "hasAttic": "Dachraum vorhanden",
+        "isAtticHeated": "Dachraum beheizt",
+        "hasInsulation": "Zusätzliche Dämmung vorhanden",
+        "insulationThickness": "Dämmstärke",
+        "insulationType": "Dämmungsart"
+      },
+      "topFloor": {
+        "year": "Letzte wesentliche Erneuerung",
+        "area": "Deckenfläche",
+        "type": "Bauweise",
+        "hasInsulation": "Zusätzliche Dämmung vorhanden",
+        "insulationThickness": "Dämmstärke"
+      },
+      "roofWindows": {
+        "year": "Letzte wesentliche Erneuerung",
+        "area": "Dachfensterfläche",
+        "windowType": "Fensterart",
+        "uValue": "U-Wert"
+      },
+      "outerWall": {
+        "year": "Letzte wesentliche Erneuerung",
+        "area": "Wandfläche",
+        "adjacentWallArea": "Angrenzende Wandfläche",
+        "constructionType": "Bauweise",
+        "hasInsulation": "Zusätzliche Dämmung vorhanden",
+        "insulationThickness": "Dämmstärke"
+      },
+      "windows": {
+        "year": "Letzte wesentliche Erneuerung",
+        "area": "Fensterfläche",
+        "windowType": "Fensterart",
+        "uValue": "U-Wert"
+      },
+      "bottomFloor": {
+        "hasBasement": "Keller vorhanden",
+        "isBasementHeated": "Keller beheizt",
+        "constructionType": "Bauweise",
+        "hasInsulation": "Zusätzliche Dämmung vorhanden",
+        "insulationThickness": "Dämmstärke",
+        "year": {
+          "default": "Kellerdecke – letzte wesentliche Erneuerung",
+          "heated": "Kellerboden – letzte wesentliche Erneuerung",
+          "noBasement": "Boden – letzte wesentliche Erneuerung"
+        },
+        "area": {
+          "default": "Kellerdeckenfläche",
+          "heated": "Kellerbodenläche",
+          "noBasement": "Bodenfläche"
+        }
+      },
+      "heat": {
+        "hasGasSupply": "Gasanschluss",
+        "hasBioGas": "Biogasbezug",
+        "hasStorage": "Lagerfläche vorhanden",
+        "constructionYear": "Einbaujahr Heizung",
+        "primaryEnergyCarrier": "Energieträger",
+        "heatingSystemType": "Heizungsart",
+        "heatingSurfaceType": "Wärmeverteilung",
+        "heatingDemand": "Wärmebedarf",
+        "carrierDemand": "Brennstoffbedarf",
+        "totalCost": "Jährliche Heizkosten",
+        "unitRate": "Arbeitspreis",
+        "baseRate": "Grundpreis"
+      },
+      "electricity": {
+        "type": "Stromart",
+        "consumption": "Jahresstromverbrauch",
+        "unitRate": "Arbeitspreis",
+        "baseRate": "Grundpreis",
+        "totalDemand": "Gesamter Strombedarf",
+        "householdDemand": "Haushaltsstrom",
+        "heatingDemand": "Heizstrom",
+        "householdCost": "Haushaltsstromkosten"
+      }
+    },
     "sectionEnergyEfficiency": "Zusammenfassung der Energieeffizienz-Analyse",
-    "renovationScenariosTitle": "Sanierungsszenarien – Ergebnisse",
+    "renovationScenariosTitle": "Sanierungsszenarien",
     "energySavings": "Energieeinsparung",
     "costSavings": "Kostenersparnis",
+    "columnYear": "Jahr",
+    "columnMonth": "Monat",
+    "savingsYear": "Ersparnis Jahr",
+    "savingsMonth": "Ersparnis Monat",
     "categoryInsulation": "Dämmung",
     "categoryHeating": "Heizung",
     "categoryHeatingSurface": "Heizungsfläche",
@@ -323,11 +417,11 @@
     "submissionError": "Daten konnten nicht übermittelt werden. Der PDF-Bericht wird trotzdem heruntergeladen.",
     "dataLinksTitle": "Ihre Datenverwaltung",
     "recoveryLinkLabel": "Wiederherstellungslink – Gebäudedaten in der App erneut laden",
-    "recoveryLinkText": "Sitzung wiederherstellen →",
+    "recoveryLinkText": "Sitzung wiederherstellen",
     "deletionLinkLabel": "Löschlink – eingereichte Daten beim Stadtserver löschen",
-    "deletionLinkText": "Eingereichte Daten löschen →",
+    "deletionLinkText": "Eingereichte Daten löschen",
     "jsonLinkLabel": "JSON-Download – Rohdaten für eigene Einreichung herunterladen",
-    "jsonLinkText": "JSON-Datei herunterladen →"
+    "jsonLinkText": "JSON-Datei herunterladen"
   },
   "nextSteps": {
     "sectionTitle": "So geht's weiter",

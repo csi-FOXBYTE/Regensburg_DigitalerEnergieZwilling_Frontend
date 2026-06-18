@@ -3,7 +3,7 @@ import i18next from 'i18next';
 import { pdf } from './pdfStyles';
 
 const styles = StyleSheet.create({
-  section: { marginTop: 20 },
+  section: { marginTop: 0 },
   item: { marginBottom: 10 },
   label: { ...pdf.muted, marginBottom: 3 },
   link: { fontSize: 10, color: '#e30613' },
