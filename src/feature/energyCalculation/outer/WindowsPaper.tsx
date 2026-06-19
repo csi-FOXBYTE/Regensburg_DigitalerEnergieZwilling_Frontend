@@ -18,7 +18,7 @@ import { InfoTooltipButton } from '../InfoButton';
 export default function WindowsPaper() {
   const { t } = useTranslation('energyCalculation');
   return (
-    <Paper variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
+    <Paper id="windows" variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <FieldLegend className="col-span-full">
           <Typography variant="h4">{t('outerParts.windows.windows')}</Typography>

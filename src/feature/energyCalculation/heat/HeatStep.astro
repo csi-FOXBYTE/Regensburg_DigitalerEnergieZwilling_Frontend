@@ -1,19 +1,25 @@
 ---
+import ContentContainer from '@/components/layouts/ContentContainer.astro';
 import EnergyCalculationPage from '@/components/layouts/EnergyCalculationPage.astro';
+import StickyContainer from '@/components/layouts/StickyContainer.astro';
 import { Typography } from '@/components/ui/typography';
 import i18next from 'i18next';
 import ButtonBar from '../ButtonBar';
-import StickyStats from '../StickyStats';
+import CurrentStats from '../CurrentStats';
 import HeatStepForm from './HeatStepForm';
 ---
 
 <EnergyCalculationPage step={4}>
-  <div class="flex flex-col gap-3">
+  <ContentContainer>
     <Typography variant="h2">
       {i18next.t('energyCalculation:heat.title')}
     </Typography>
-    <StickyStats client:load />
-  </div>
-  <HeatStepForm client:load />
-  <ButtonBar client:load />
+  </ContentContainer>
+  <StickyContainer>
+    <CurrentStats client:load />
+  </StickyContainer>
+  <ContentContainer>
+    <HeatStepForm client:load />
+    <ButtonBar className="mt-8" client:load />
+  </ContentContainer>
 </EnergyCalculationPage>

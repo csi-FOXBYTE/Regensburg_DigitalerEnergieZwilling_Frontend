@@ -1,5 +1,7 @@
 ---
+import ContentContainer from '@/components/layouts/ContentContainer.astro';
 import EnergyCalculationPage from '@/components/layouts/EnergyCalculationPage.astro';
+import StickyContainer from '@/components/layouts/StickyContainer.astro';
 import { Typography } from '@/components/ui/typography';
 import i18next from 'i18next';
 import ButtonBar from '../ButtonBar';
@@ -11,20 +13,22 @@ import { SubsidySection } from './SubsidySection';
 ---
 
 <EnergyCalculationPage step={7}>
-  <div class="flex flex-col gap-3">
+  <ContentContainer>
     <Typography variant="h2">
       {i18next.t('energyCalculation:result.title')}
     </Typography>
+  </ContentContainer>
+  <StickyContainer>
     <RenovationStats client:load />
-  </div>
-  <div class="flex flex-col gap-3">
-    <Typography variant="h3">
+  </StickyContainer>
+  <ContentContainer>
+    <Typography variant="h3" className="mt-2">
       {i18next.t('energyCalculation:result.energyEfficiencyClass')}
     </Typography>
-    <EnergyClassDisplay client:load />
-  </div>
-  <SubsidySection client:load />
-  <ExportSection client:load />
-  <NextStepsSection client:load />
-  <ButtonBar backTextKey="backFromResults" client:load />
+    <div class="mt-4"><EnergyClassDisplay client:load /></div>
+    <SubsidySection client:load />
+    <ExportSection client:load />
+    <NextStepsSection client:load />
+    <ButtonBar backTextKey="backFromResults" className="mt-8" client:load />
+  </ContentContainer>
 </EnergyCalculationPage>

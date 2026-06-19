@@ -30,7 +30,7 @@ export function RenovationRow({ selectionCell, label, savings, recommended, info
         <span className="flex items-center gap-2">
           {label}
           {info}
-          {recommended && savings < 0 && (
+          {recommended && (
             <Badge className="border-green-600 bg-green-600/10 text-green-600">
               {t('renovation.recommended')}
             </Badge>

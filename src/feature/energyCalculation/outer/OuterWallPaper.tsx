@@ -32,6 +32,7 @@ export default function OuterWallPaper() {
 
   return (
     <Paper
+      id="outerWall"
       variant="outlined"
       className="flex flex-col gap-6 pt-4 pr-5 pb-5 pl-5"
     >

@@ -25,7 +25,7 @@ export function NextStepsSection() {
   ];
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="mt-8 flex flex-col gap-4">
       <Typography variant="h3">{t('nextSteps.sectionTitle')}</Typography>
       <div className="mt-1.5 flex flex-col">
         {STEPS.map((step, index) => (

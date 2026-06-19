@@ -7,7 +7,7 @@ export function SubsidySection() {
   const { t } = useTranslation('energyCalculation');
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="mt-8 flex flex-col gap-4">
       <div>
         <Typography variant="h3">{t('subsidy.sectionTitle')}</Typography>
         <Typography variant="muted">{t('subsidy.disclaimer')}</Typography>

@@ -1,10 +1,11 @@
 import { Typography } from '@/components/ui/typography';
 import { $config } from '@/lib/state/calculation-config';
-import { $calculationInput } from '@/lib/state/computed/calculation-input';
-import { $currentEnergyState } from '@/lib/state/computed/current-energy-state';
 import {
+  $baseInputForCost,
+  $heatingPatchedInputForCost,
   $heatingRenovations,
   $heatingSurfaceRenovations,
+  $insulationPatchedInputForCost,
   $insulationRenovations,
 } from '@/lib/state/computed/renovation-options';
 import {
@@ -12,9 +13,7 @@ import {
   $selectedHeatingSurfaceRenovations,
   $selectedInsulationRenovations,
 } from '@/lib/state/inputs/renovation';
-import { applyRenovation } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import { useStore } from '@nanostores/react';
-import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RenovationMultiSelectTable } from './RenovationMultiSelectTable';
 import { RenovationSingleSelectTable } from './RenovationSingleSelectTable';
@@ -22,15 +21,10 @@ import { RenovationSingleSelectTable } from './RenovationSingleSelectTable';
 export default function RenovationStepForm() {
   const { t } = useTranslation('energyCalculation');
   const config = useStore($config);
-  const rawBaseInput = useStore($calculationInput);
-  const currentState = useStore($currentEnergyState);
-  const baseInput = useMemo(
-    () => ({
-      ...rawBaseInput,
-      preRenovationValues: currentState.preRenovationValues,
-    }),
-    [rawBaseInput, currentState.preRenovationValues],
-  );
+
+  const baseInput = useStore($baseInputForCost);
+  const insulationPatchedInput = useStore($insulationPatchedInputForCost);
+  const heatingPatchedInput = useStore($heatingPatchedInputForCost);
 
   const insulationRenovations = useStore($insulationRenovations);
   const heatingSurfaceRenovations = useStore($heatingSurfaceRenovations);
@@ -39,22 +33,6 @@ export default function RenovationStepForm() {
   const selectedInsulation = useStore($selectedInsulationRenovations);
   const selectedHeatingSurface = useStore($selectedHeatingSurfaceRenovations);
   const selectedHeating = useStore($selectedHeatingRenovations);
-
-  const insulationPatchedInput = useMemo(
-    () =>
-      selectedInsulation.length > 0
-        ? applyRenovation(baseInput, selectedInsulation)
-        : baseInput,
-    [baseInput, selectedInsulation],
-  );
-
-  const heatingPatchedInput = useMemo(
-    () =>
-      selectedHeating.length > 0
-        ? applyRenovation(insulationPatchedInput, selectedHeating)
-        : insulationPatchedInput,
-    [insulationPatchedInput, selectedHeating],
-  );
 
   return (
     <div className="flex flex-col gap-4">

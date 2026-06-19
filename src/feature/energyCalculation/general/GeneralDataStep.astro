@@ -1,21 +1,23 @@
 ---
+import ContentContainer from '@/components/layouts/ContentContainer.astro';
 import EnergyCalculationPage from '@/components/layouts/EnergyCalculationPage.astro';
+import StickyContainer from '@/components/layouts/StickyContainer.astro';
 import { Typography } from '@/components/ui/typography';
 import i18next from 'i18next';
 import { AlertCircle } from 'lucide-react';
 import ButtonBar from '../ButtonBar';
-import StickyStats from '../StickyStats';
+import CurrentStats from '../CurrentStats';
 import GeneralDataStepForm from './GeneralDataStepForm';
 ---
 
 <EnergyCalculationPage step={2}>
-  <div class="flex flex-col gap-6">
+  <ContentContainer>
     <Typography variant="h2">
       {i18next.t('energyCalculation:generalData.title')}
     </Typography>
-    <div class="border-primary flex gap-2 border-2 p-3">
+    <div class="border-primary mt-4 flex gap-2 border-2 p-3">
       <AlertCircle
-        className="text-primary cursor-pointer shrink-0"
+        className="text-primary shrink-0 cursor-pointer"
         style={{
           width: 'clamp(20px, calc(16px + 1vw), 24px)',
           height: 'clamp(20px, calc(16px + 1vw), 24px)',
@@ -25,11 +27,17 @@ import GeneralDataStepForm from './GeneralDataStepForm';
         {i18next.t('energyCalculation:generalData.dataSourceRemark')}
       </Typography>
     </div>
-    <StickyStats client:load />
-    <Typography variant="small">
-      {i18next.t('energyCalculation:generalData.statsRemark')}
-    </Typography>
-  </div>
-  <GeneralDataStepForm client:load />
-  <ButtonBar client:load />
+  </ContentContainer>
+  <StickyContainer>
+    <CurrentStats client:load />
+    <div class="mt-4">
+      <Typography variant="small">
+        {i18next.t('energyCalculation:generalData.statsRemark')}
+      </Typography>
+    </div>
+  </StickyContainer>
+  <ContentContainer>
+    <GeneralDataStepForm client:load />
+    <ButtonBar className="mt-8" client:load />
+  </ContentContainer>
 </EnergyCalculationPage>

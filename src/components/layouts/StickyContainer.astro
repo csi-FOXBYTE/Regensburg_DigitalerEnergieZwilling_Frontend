@@ -1,0 +1,34 @@
+---
+import ContentContainer from './ContentContainer.astro';
+
+interface Props {
+  class?: string;
+  padding?: string;
+}
+const { class: className = '', padding = 'pt-4 pb-10' } = Astro.props;
+const pbMatch =
+  padding.match(/\bpb-(\d+(?:\.\d+)?)\b/) ??
+  padding.match(/\bpy-(\d+(?:\.\d+)?)\b/);
+const paddingRem = pbMatch ? `${parseFloat(pbMatch[1]) * 0.25}rem` : '1.5rem';
+---
+
+<div
+  data-sticky-container
+  style={`--sticky-padding: ${paddingRem}`}
+  class={`sticky-fade bg-background md:sticky top-0 z-40 w-full ${padding} ${className}`}
+>
+  <ContentContainer>
+    <slot />
+  </ContentContainer>
+</div>
+
+<style>
+  .sticky-fade {
+    mask-image: linear-gradient(
+      to bottom,
+      black,
+      black calc(100% - var(--sticky-padding)),
+      transparent
+    );
+  }
+</style>

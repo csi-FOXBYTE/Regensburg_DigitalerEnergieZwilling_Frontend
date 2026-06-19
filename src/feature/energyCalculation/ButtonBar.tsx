@@ -9,11 +9,13 @@ import { $step, navigateToStep, Step } from '../../lib/state/ui/progress';
 export type ButtonBarProps = {
   backTextKey?: ParseKeys<'energyCalculation'>;
   continueTextKey?: ParseKeys<'energyCalculation'>;
+  className?: string;
 };
 
 export default function ButtonBar({
   continueTextKey,
   backTextKey,
+  className,
 }: ButtonBarProps) {
   const { t } = useTranslation('energyCalculation');
 
@@ -29,7 +31,7 @@ export default function ButtonBar({
   }, [step]);
 
   return (
-    <div className="grid w-full grid-cols-1 gap-2 md:grid-cols-2">
+    <div className={`grid w-full grid-cols-1 gap-2 md:grid-cols-2 ${className ?? ''}`}>
       <Button
         onClick={previousStep}
         className={`w-full ${!hasNextStep ? 'col-span-full' : 'col-span-1'}`}

@@ -91,7 +91,7 @@ export function ExportSection() {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="mt-8 flex flex-col gap-4">
       <Typography variant="h3">{t('export.sectionTitle')}</Typography>
       <Paper className="flex flex-col gap-4 p-4">
         <Typography>{t('export.description')}</Typography>

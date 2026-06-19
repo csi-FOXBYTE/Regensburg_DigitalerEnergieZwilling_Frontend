@@ -49,6 +49,7 @@ export default function BottomFloorPaper() {
 
   return (
     <Paper
+      id="bottomFloor"
       variant="outlined"
       className="flex flex-col gap-6 pt-4 pr-5 pb-5 pl-5"
     >
