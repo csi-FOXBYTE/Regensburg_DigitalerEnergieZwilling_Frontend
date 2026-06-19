@@ -8,7 +8,8 @@ export function NextStepsSection() {
     {
       title: t('nextSteps.step1.title'),
       description: t('nextSteps.step1.description'),
-      link: 'https://www.regensburg.de/greendeal/mitmachen/energieberatung',
+      link: 'https://www.energieagentur-regensburg.de/buergerinnen/energieberatung-anmeldung',
+      contect: 'Energieagentur Regensburg e. V.\nRudolf-Vogt-Straße 18\n93053 Regensburg\nTel. 0941 2984491-0\nkontakt@energieagentur-regensburg.de'
     },
     {
       title: t('nextSteps.step2.title'),
@@ -40,20 +41,20 @@ export function NextStepsSection() {
             </div>
             <div className="flex flex-col gap-1 pb-6">
               <Typography variant="h4">{step.title}</Typography>
-              <Typography variant="muted">
-                {step.description}
+              <Typography variant="muted" className="flex flex-col gap-4">
+                <span className="whitespace-pre-line">{step.description}</span>
                 {step.link && (
-                  <>
-                    {' '}
-                    <a
-                      href={step.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary underline"
-                    >
-                      {step.link}
-                    </a>
-                  </>
+                  <a
+                    href={step.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary break-all underline"
+                  >
+                    {step.link}
+                  </a>
+                )}
+                {step.contect && (
+                  <span className="whitespace-pre-line">{step.contect}</span>
                 )}
               </Typography>
             </div>

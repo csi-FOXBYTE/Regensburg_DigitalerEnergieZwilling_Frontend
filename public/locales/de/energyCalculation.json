@@ -47,7 +47,7 @@
       "constructionYear": "Geben Sie das ursprüngliche Baujahr des Gebäudes an. Größere Sanierungen können später ergänzt werden. Ältere Gebäude sind oft schlechter gedämmt und verbrauchen mehr Heizenergie.",
       "buildingType": "Die Gebäudeart beeinflusst die Berechnung. Für ein- und Mehrfamilienhäuser werden unterschiedliche Standartwerte verwendet, zum Beispiel für die Flächennutzung und den Energiebedarf.",
       "numberOfFloors": "Zählen Sie nur Stockwerke ohne Keller und nicht ausgebaute Dachräume. Ein Haus mit Erdgeschoss und Obergeschoss hat zum Beispiel 2 Stockwerke.",
-      "livingArea": "Die Wohnfläche ist die beheizte Fläche in Ihrem Gebäude."
+      "livingArea": "Die Wohnfläche ist die beheizte Fläche in Ihrem Gebäude. Bei Mehrparteienhäuser geben Sie bitte die gesamte Wohnfläche aller Parteien an."
     }
   },
   "outerParts": {
@@ -66,9 +66,9 @@
         "aboveRafter": "Aufdachdämmung"
       },
       "isAtticHeated": "Wird Ihr Dachraum beheizt?",
-      "year": "Wann wurde Ihr Dach zuletzt energetisch verändert?",
+      "year": "Wann wurde Ihr Dach zuletzt wesentlich neu aufgebaut oder konstruktiv verändert?",
       "tooltips": {
-        "year": "Gemeint sind Änderungen mam Aufbau oder an der Dämmung, zum Beispiel eine Dachdämmung oder ein neuer Dachaufbau. Nicht gemeint sind reine Reperaturen, neue Farbe oder eine neue Dacheindeckung ohne Dämmung.",
+        "year": "Gemeint ist, ob das Dach neu aufgebaut oder mit anderen Materialien erneuert wurde, zum Beispiel durch eine nneue Dachkonstruktion oder einen Austausch wichtiger Schichten. Eine nachträgliche Dämmung wird seperat abgefragt und soll hier nicht berücksichtigt werden.",
         "area": "Geben Sie die gesamte Fläche Ihres Dachs an, ohne Abzug von Fensterflächen. Je größer die Fläche, desto wichtiger ist eine gute Dämmung.",
         "constructionTypeTitle": "Dachformen",
         "constructionTypeContent": "Ein Flachdach ist nahezu eben oder nur leicht geneigt. Ein Schrägdach besitzt eine deutlich sichtbare Dachneigung, z. B. ein Satteldach oder Walmdach. Die Dachform beeinflusst sowohl die Dachfläche als auch den Wärmeverlust eines Gebäudes: Flachdächer (typisch massive Bauweise) haben bei gleicher Grundfläche eine geringere Fläche als Schrägdächer (typisch Holzbauweise) und damit andere energetische Eigenschaften.",
@@ -90,12 +90,12 @@
         "year": "Gemeint ist zum Beispiel der Austausch gegen besser gedämmte Dachfenster oder eine Verbesserung von Verglasung, Rahmen oder Anschluss. Nicht gemeint sind reine Reparaturen, neue Farbe oder der Ausausch einzelner Beschläge.",
         "area": "Geben Sie die gesamte Fläche aller Dachfenster an. Die Gesamtfläche aller Dachfenster beeinflusst den Wärmeverlust.",
         "windowType": "Holz- und Kunststoffrahmen dämmen gut. Aluminium- und Stahlrahmen leiten Kälte stärker und sind weniger energieeffizient.",
-        "uValue": "Der U-Wert beschreibt die Wärmedämmung des Fensters. Niedrigere Werte bedeuten bessere Dämmung. Alte Einfachfenster haben etwa 5,0 W/m²K. Moderne Dreifachfenster liegen bei etwa 0,7 W/m²K. Den U-Wert finden Sie in den Unterlagen Ihrer Fenster oder auf dem Typenschild."
+        "uValue": "Der U-Wert gibt Auskunft darüber, wie gut ein Bauteil dämmt. Niedrigere Werte bedeuten bessere Dämmung. Alte Einfachfenster haben etwa 5,0 W/m²K. Moderne Dreifachfenster liegen bei etwas 0.7 W/m²K. Den U-Wert finden Sie in den Unterlagen Ihrer Fenster oder auf dem Typenschild."
       }
     },
     "topFloor": {
       "topFloor": "Oberste Geschossdecke",
-      "year": "Wann wurde die Decke unter Ihrem Dachraum zuletzt energetisch verändert?",
+      "year": "Wann wurde Ihre oberste Geschossdecke zuletzt wesentlich neu aufgebaut oder konstruktiv verändert?",
       "area": "Wie groß ist die Fläche der Decke unter Ihrem Dachraum?",
       "type": "Welche Bauweise hat die Decke zu Ihrem Dachboden?",
       "hasInsulation": "Ist die Decke unter Ihrem Dachraum gedämmt?",
@@ -110,7 +110,7 @@
     },
     "outerWall": {
       "outerWall": "Außenwand",
-      "year": "Wann wurde Ihre Außenwand gebaut oder zuletzt saniert?",
+      "year": "Wann wurde Ihre Außenwand zuletzt wesentlich neu aufgebaut oder konstruktiv verändert?",
       "area": "Wie groß ist die Fläche Ihrer Außenwände?",
       "constructionType": "Welche Bauweise haben Ihre Außenwände?",
       "hasInsulation": "Sind Ihre Außenwände gedämmt?",
@@ -132,10 +132,10 @@
       "uValue": "Welchen U-Wert (Wärmedurchgangskoeffizenten) haben Ihre Fenster?",
       "year": "Wann wurden Ihre Fenster zuletzt energetisch verändert?",
       "tooltips": {
-        "year": "Gemeint ist zum Beispiel der Austausch gegen besser gedämmte Fenster oder eine Verbesserung von Verglasung, Rahmen oder Einbauanschluss. Nicht gemeint sind neue Farbe, neue Griffe, Reparaturen oder der Asutausch einzelner Beschläge.",
+        "year": "Gemeint ist, ob die Wand selbst konstruktiv verändert oder mit anderen Materialien neu aufgebaut wurde, zum Beispiel durch einen neue Wandkonstruktion. Neue Farbe, neuer Putz oder eine nachträgliche Dämmung zählen hier nicht dazu.",
         "area": "Geben Sie die Gesamtfläche aller Fenster an. Die Gesamtfläche aller Fenster beeinflusst den Wärmeverlust durch die Gebäudehülle.",
         "windowType": "Holz- und Kunststoffrahmen dämmen gut. Aluminium- und Stahlrahmen leiten Kälte stärker und sind weniger energieeffizient.",
-        "uValue": "Der U-Wert beschreibt die Wärmedämmung des Fensters. Niedrigere Werte bedeuten bessere Dämmung. Alte Einfachfenster haben etwa 5,0 W/m²K. Moderne Dreifachfenster liegen bei etwa 0,7 W/m²K. Den U-Wert finden Sie in den Unterlagen Ihrer Fenster oder auf dem Typenschild."
+        "uValue": "Der U-Wert gibt Auskunft darüber, wie gut ein Bauteil dämmt. Niedrigere Werte bedeuten bessere Dämmung. Alte einfachfenster haben etwas 5,0W/m²K. Moderne Dreifachfenster liegen bei etwa 0,7 W/m²K. Den U-Wert finden Sie in den Unterlagen Ihrer Fenster oder auf dem Typenschild."
       }
     },
     "bottomFloor": {
@@ -149,9 +149,9 @@
           "noBasement": "Geben Sie die Fläche des Bodens an. Die Fläche beeinflusst, wie viel Wärme über den unteren Gebäudeabschluss verloren gehen kann."
         },
         "year": {
-          "default": "Geben Sie das Baujahr oder das Jahr der letzten Sanierung an. Ältere, ungedämmte Kellerdecken lassen Kälte in die Wohnräume aufsteigen.",
-          "heated": "Geben Sie das Baujahr oder das Jahr der letzten Sanierung an. Ältere, ungedämmte Kellerböden lassen Kälte in die Wohnräume aufsteigen.",
-          "noBasement": "Geben Sie das Baujahr oder das Jahr der letzten Sanierung an. Ältere, ungedämmte Böden lassen Kälte in die Wohnräume aufsteigen."
+          "default": "Gemeint ist, ob die Decke zum Keller, Erdreich oder zu unbeheizten Bereichen konstruktiv erneuert oder mit anderen Materialien neu aufgebaut wurde. Neue Bodenbeläge oder eine zusätzliche Dämmung werden hier nicht berücksichtigt.",
+          "heated": "Gemeint ist, ob die Decke zum Keller, Erdreich oder zu unbeheizten Bereichen konstruktiv erneuert oder mit anderen Materialien neu aufgebaut wurde. Neue Bodenbeläge oder eine zusätzliche Dämmung werden hier nicht berücksichtigt.",
+          "noBasement": "Gemeint ist, ob die Decke zum Keller, Erdreich oder zu unbeheizten Bereichen konstruktiv erneuert oder mit anderen Materialien neu aufgebaut wurde. Neue Bodenbeläge oder eine zusätzliche Dämmung werden hier nicht berücksichtigt."
         },
         "constructionType": {
           "default": "Massive Betondecken lassen sich gut dämmen und speichern Wärme besser. Holzbalkendecken haben andere Dämmeigenschaften.",
@@ -170,9 +170,9 @@
         "noBasement": "Wie groß ist die Fläche Ihres Bodens?"
       },
       "year": {
-        "default": "Wann wurde Ihre Kellerdecke gebaut oder zuletzt saniert?",
-        "heated": "Wann wurde Ihr Kellerboden gebaut oder zuletzt saniert?",
-        "noBasement": "Wann wurde der unterste Boden in Ihrem Gebäude gebaut oder zuletzt saniert?"
+        "default": "Wann wurde Ihre Kellerdecke zuletzt wesentlich neu aufgebaut oder konstruktiv verändert?",
+        "heated": "Wann wurde Ihr Kellerboden zuletzt wesentlich neu aufgebaut oder konstruktiv verändert?",
+        "noBasement": "Wann wurde der unterste Boden in Ihrem Gebäude zuletzt wesentlich neu aufgebaut oder konstruktiv verändert?"
       },
       "hasBasement": "Hat Ihr Gebäude einen Keller?",
       "isBasementHeated": "Wird Ihr Keller beheizt?",
@@ -236,8 +236,8 @@
     "baseRate": "Wie hoch ist der jährliche Grundpreis Ihrer Stromversorgung?",
     "tooltips": {
       "type": "Mix-Strom enthält Strom aus verschiedenen Quellen, auch aus fossiler Energie. Erneuerbarer Strom stammt aus Wind, Sonne oder Wasser und hat eine deutlich bessere CO₂-Bilanz.",
-      "consumption": "Tragen Sie Ihren jährlichen Stromverbrauch in kWh ein. Den Wert finden Sie auf Ihrer Jahresabrechnung. Bei einem Durchschnittshaushalt sind es ca. 2.500–4.000 kWh pro Jahr.",
-      "unitRate": "Der Arbeitspreis gibt an, wie viel Sie pro Kilowattstunde (kWh) Strom zahlen. Sie finden ihn in Ihrer Jahresabrechnung oder Ihrem Energieliefervertrag. Der Durchschnittspreis liegt bei ca. 30–40 Cent pro kWh.",
+      "consumption": "Tragen Sie Ihren jährlichen Stromverbrauch in kWh ein. Den Wert finden Sie auf Ihrer Jahresabrechnung. Bei Mehrparteienhäusern geben Sie bitte den insgesamten Verbrauch aller Parteien an.",
+      "unitRate": "Der Arbeitspreis gibt an, wie viel Sie pro Kilowattstunde (kWh) Strom zahlen. Sie finden ihn in Ihrer Jahresabrechnung oder Ihrem Energieliefervertrag.",
       "baseRate": "Der Grundpreis ist der feste Betrag, den Sie unabhängig vom tatsächlichen Energieverbrauch bezahlen. Sie finden ihn in Ihrer Jahresabrechnung oder Ihrem Energieliefervertrag."
     }
   },
@@ -427,7 +427,7 @@
     "sectionTitle": "So geht's weiter",
     "step1": {
       "title": "Energieberatung einholen",
-      "description": "Nutzen Sie diesen Bericht als Grundlage für eine professionelle Energieberatung. Eine kostenlose Erstberatung bietet die Energieagentur Regensburg an. Dort erhalten Sie Unterstützung zu Sanierungsmaßnahmen, Kosten und passenden Fördermöglichkeiten. Weitere Informationen:"
+      "description": "Nutzen Sie diesen Bericht als Grundlage für eine professionelle Energieberatung. Eine kostenlose Erstberatung bietet die Energieagentur Regensburg an. Dort erhalten Sie Unterstützung zu Sanierungsmaßnahmen, Kosten und passenden Fördermöglichkeiten.\nWeitere Informationen:"
     },
     "step2": {
       "title": "Fördermittel beantragen",
