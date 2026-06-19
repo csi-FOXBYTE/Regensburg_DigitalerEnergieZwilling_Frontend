@@ -30,7 +30,7 @@ import FeedbackButton from './FeedbackButton';
     <hr class="border-footer-foreground/20 my-4 w-full md:hidden" />
     <div class="flex w-full flex-col items-center gap-4 md:grow md:items-end">
       <FeedbackButton client:load />
-      <span class="text-[11px] opacity-60">{getVersionString()}</span>
     </div>
   </div>
+  <span class="absolute right-5 bottom-2 text-[11px] opacity-60 md:right-7">{getVersionString()}</span>
 </footer>
