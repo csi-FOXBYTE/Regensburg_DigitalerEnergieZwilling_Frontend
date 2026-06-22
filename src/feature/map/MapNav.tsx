@@ -77,15 +77,17 @@ export function MapNav({ viewer }: MapNavProps) {
     <div className="absolute top-2 right-2 z-10 max-w-20 md:top-4 md:right-4">
       <div className="flex flex-col overflow-hidden border border-neutral-200 bg-white shadow-lg">
         {/* Help */}
-        <div className="flex flex-col items-center gap-1 px-3 pt-3 pb-2">
+        <div className="flex flex-col items-center gap-1 md:px-3 md:pt-3 md:pb-2">
           <MapHelp />
-          <span className="text-xs font-medium">{t('mapNav.help')}</span>
+          <span className="hidden text-xs font-medium md:block">
+            {t('mapNav.help')}
+          </span>
         </div>
 
         <hr className="border-neutral-200" />
 
         {/* Compass */}
-        <div className="flex flex-col items-center gap-1 px-3 pt-2 pb-2">
+        <div className="flex flex-col items-center gap-1 md:px-3 md:pt-2 md:pb-2">
           <Button
             variant="ghost"
             size="icon"
@@ -106,15 +108,15 @@ export function MapNav({ viewer }: MapNavProps) {
               />
             </svg>
           </Button>
-          <span className="text-center text-xs font-medium">
+          <span className="hidden text-center text-xs font-medium md:block">
             {t('mapNav.alighToNorth')}
           </span>
         </div>
 
-        <hr className="border-neutral-200" />
+        <hr className="hidden border-neutral-200 md:block" />
 
         {/* Pan */}
-        <div className="flex flex-col items-center gap-1 px-1 pt-2 pb-2">
+        <div className="hidden flex-col items-center gap-1 px-1 pt-2 pb-2 md:flex">
           <div
             className="grid"
             style={{
@@ -165,7 +167,7 @@ export function MapNav({ viewer }: MapNavProps) {
         <hr className="border-neutral-200" />
 
         {/* Zoom */}
-        <div className="flex flex-col items-center gap-1 px-3 pt-2 pb-3">
+        <div className="flex flex-col items-center gap-1 md:px-3 md:pt-2 md:pb-3">
           <div className="flex flex-col">
             <Button
               variant="ghost"
@@ -184,7 +186,9 @@ export function MapNav({ viewer }: MapNavProps) {
               <Minus aria-hidden="true" />
             </Button>
           </div>
-          <span className="text-xs font-medium">{t('mapNav.zoom')}</span>
+          <span className="hidden text-xs font-medium md:block">
+            {t('mapNav.zoom')}
+          </span>
         </div>
       </div>
     </div>
