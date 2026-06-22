@@ -55,7 +55,7 @@ export interface AddressResult {
   label: string;
 }
 
-type ParsedQuery =
+export type ParsedQuery =
   | { type: 'houseNumberOnly'; houseNumber: string }
   | { type: 'streetOnly'; street: string }
   | { type: 'streetAndHouseNumber'; street: string; houseNumber: string };
@@ -64,7 +64,7 @@ function normalizeStreet(street: string): string {
   return street.replace(/str\./gi, 'straße');
 }
 
-function parseQuery(query: string): ParsedQuery {
+export function parseQuery(query: string): ParsedQuery {
   const tokens = query.trim().split(/\s+/);
   const lastToken = tokens[tokens.length - 1];
   const lastIsNumber = /^\d/.test(lastToken);

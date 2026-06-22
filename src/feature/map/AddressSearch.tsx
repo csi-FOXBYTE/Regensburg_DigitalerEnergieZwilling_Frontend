@@ -2,10 +2,33 @@ import { useStore } from '@nanostores/react';
 import { useDebounce } from '@uidotdev/usehooks';
 import { Command } from 'cmdk';
 import { Info, Search, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAddressSearch } from '../../lib/addressDb';
+import { parseQuery, useAddressSearch } from '../../lib/addressDb';
 import { $building, unselectBuilding } from '../../lib/state/building';
+
+function highlight(
+  text: string,
+  needle: string,
+  prefixOnly = false,
+): ReactNode {
+  if (!needle) return text;
+  const idx = prefixOnly
+    ? text.toLowerCase().startsWith(needle.toLowerCase())
+      ? 0
+      : -1
+    : text.toLowerCase().indexOf(needle.toLowerCase());
+  if (idx === -1) return text;
+  return (
+    <>
+      {text.slice(0, idx)}
+      <strong className="font-semibold">
+        {text.slice(idx, idx + needle.length)}
+      </strong>
+      {text.slice(idx + needle.length)}
+    </>
+  );
+}
 
 export default function AddressSearch({
   onAddressFound,
@@ -33,6 +56,10 @@ export default function AddressSearch({
     search === '' ? (building?.properties.address?.street ?? '') : search;
 
   const showList = open && search.length >= 2 && data.length > 0;
+
+  const parsed = parseQuery(debouncedSearch);
+  const streetNeedle = parsed.type === 'houseNumberOnly' ? '' : parsed.street;
+  const houseNeedle = parsed.type === 'streetOnly' ? '' : parsed.houseNumber;
 
   return (
     <div className="absolute top-2 right-24 left-2 z-10 max-w-full transition-all duration-300 md:top-4 md:right-4 md:left-4 md:max-w-md">
@@ -89,7 +116,8 @@ export default function AddressSearch({
                 }}
                 className="cursor-pointer py-2.5 pr-4 pl-9 text-sm aria-selected:bg-gray-100 md:py-3 md:text-base"
               >
-                {d.label}
+                {highlight(d.street, streetNeedle)}{' '}
+                {highlight(d.houseNumber, houseNeedle, true)}, Regensburg
               </Command.Item>
             ))}
           </Command.List>

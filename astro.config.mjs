@@ -31,6 +31,10 @@ export default defineConfig({
   vite: {
     plugins: [cesium({}), tailwindcss()],
     define: {
+      // react-draggable >=4.6.0 references process.env.DRAGGABLE_DEBUG at
+      // runtime; without this define `process` is undefined in the browser
+      // and dragging throws "process is not defined".
+      'process.env.DRAGGABLE_DEBUG': 'false',
       __FRONTEND_VERSION__: JSON.stringify(pkg.version),
       __CORE_VERSION__: JSON.stringify(
         pkg.dependencies[
