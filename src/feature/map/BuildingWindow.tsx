@@ -140,6 +140,7 @@ export default function BuildingWindow() {
   const isMobile = useIsMobile();
   const { t } = useTranslation('map');
   const [snap, setSnap] = useState<number | string | null>(0.4);
+  const snapPoints = [0.25, 0.4, 1];
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [dragBounds, setDragBounds] = useState<
     { left: number; top: number; right: number; bottom: number } | undefined
@@ -184,16 +185,17 @@ export default function BuildingWindow() {
   if (isMobile) {
     return (
       <Drawer
-        snapPoints={[0.4, 1]}
+        snapPoints={snapPoints}
         activeSnapPoint={snap}
         setActiveSnapPoint={setSnap}
-        fadeFromIndex={1}
+        fadeFromIndex={snapPoints.length - 1}
+        modal={false}
         open={isOpen}
         onOpenChange={(open) => !open && unselectBuilding()}
       >
         <DrawerContent
           overlayClassName="supports-backdrop-filter:backdrop-blur-none"
-          className="overflow-hidden data-[vaul-drawer-direction=bottom]:rounded-t-[24px] data-[vaul-drawer-direction=bottom]:max-h-[96vh]"
+          className="overflow-hidden data-[vaul-drawer-direction=bottom]:max-h-[96vh] data-[vaul-drawer-direction=bottom]:rounded-t-[24px]"
         >
           <DrawerHeader className="flex-row items-start justify-between text-left!">
             <div>
