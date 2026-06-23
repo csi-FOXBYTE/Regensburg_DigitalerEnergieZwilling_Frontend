@@ -50,7 +50,7 @@ function EnergyClassRow({
           className={`group flex items-stretch gap-4 p-2 ring-2 ${ringClass}`}
         >
           <div
-            className="flex aspect-[3/2] shrink-0 items-center justify-center p-1 text-sm font-bold text-white"
+            className="flex aspect-[3/2] w-10 shrink-0 items-center justify-center p-1 text-sm font-bold text-white"
             style={{ backgroundColor: color }}
           >
             {cls}
