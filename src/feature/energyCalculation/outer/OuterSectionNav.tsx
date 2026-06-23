@@ -3,7 +3,7 @@ import {
   isAtticHeatedField,
 } from '@/lib/state/inputs/top-floor';
 import { useStore } from '@nanostores/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../../../components/ui/button';
 
@@ -20,6 +20,7 @@ type SectionId = (typeof SECTION_IDS)[number];
 
 export default function OuterSectionNav() {
   const [active, setActive] = useState<SectionId | null>(null);
+  const navRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation('energyCalculation');
 
   const hasAtticValue = useStore(hasAtticField.$store);
@@ -32,26 +33,53 @@ export default function OuterSectionNav() {
     !(isAtticHeatedValue ?? isAtticHeatedPlaceholder);
 
   useEffect(() => {
-    const visible = new Set<string>();
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) visible.add(entry.target.id);
-          else visible.delete(entry.target.id);
-        }
-        const last = [...SECTION_IDS].reverse().find((s) => visible.has(s));
-        if (last) setActive(last);
-      },
-      { threshold: 0, rootMargin: '0px 0px -50% 0px' },
+    const sticky = navRef.current?.closest<HTMLElement>(
+      '[data-sticky-container]',
     );
 
-    SECTION_IDS.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
+    const update = () => {
+      // Detection line sits just below the sticky container — the same
+      // position scrollTo aligns a section's top to.
+      const line = (sticky?.getBoundingClientRect().height ?? 0) + 8;
 
-    return () => observer.disconnect();
+      // At the very bottom of the page the last sections can never push their
+      // top up to the line (not enough content below them to scroll). In that
+      // case fall back to the section whose top is closest to the line.
+      const atBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 2;
+
+      let current: SectionId | null = null;
+
+      if (atBottom) {
+        let bestDist = Infinity;
+        for (const id of SECTION_IDS) {
+          const el = document.getElementById(id);
+          if (!el) continue;
+          const dist = Math.abs(el.getBoundingClientRect().top - line);
+          if (dist < bestDist) {
+            bestDist = dist;
+            current = id;
+          }
+        }
+      } else {
+        for (const id of SECTION_IDS) {
+          const el = document.getElementById(id);
+          // The last section whose top has crossed the line is the active one.
+          if (el && el.getBoundingClientRect().top <= line + 2) current = id;
+        }
+      }
+
+      setActive(current ?? SECTION_IDS[0]);
+    };
+
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
   }, [
     hasAtticValue,
     hasAtticPlaceholder,
@@ -59,10 +87,20 @@ export default function OuterSectionNav() {
     isAtticHeatedPlaceholder,
   ]);
 
-  const scrollTo = (id: SectionId) =>
-    document
-      .getElementById(id)
-      ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const scrollTo = (id: SectionId) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const sticky = navRef.current?.closest<HTMLElement>(
+      '[data-sticky-container]',
+    );
+    const stickyHeight = sticky?.getBoundingClientRect().height ?? 0;
+
+    const top =
+      el.getBoundingClientRect().top + window.scrollY - stickyHeight - 8;
+
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
 
   const isActive = (id: SectionId) => active === id;
   // Draw the border using box-shadow, because using "border" leads to render issues where the borders don't survive repaint
@@ -71,7 +109,10 @@ export default function OuterSectionNav() {
     'border-transparent hover:border-transparent shadow-[inset_0_0_0_1px_var(--color-primary)] hover:shadow-[inset_0_0_0_1px_var(--color-primary-hover)]';
 
   return (
-    <div className="hidden min-w-0 transform-gpu gap-2 overflow-x-auto backface-hidden md:flex">
+    <div
+      ref={navRef}
+      className="hidden min-w-0 transform-gpu gap-2 overflow-x-auto backface-hidden md:flex"
+    >
       <Button
         type="button"
         className={borderFix}
