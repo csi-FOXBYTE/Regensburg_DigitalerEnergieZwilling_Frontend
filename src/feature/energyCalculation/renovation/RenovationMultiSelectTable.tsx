@@ -71,12 +71,17 @@ export function RenovationMultiSelectTable({
         : 'text-muted-foreground';
 
   return (
-    <table className="w-full border-collapse border border-neutral-200 text-sm">
+    <div className="w-full overflow-x-auto">
+      <table className="w-full border-collapse border border-neutral-200 text-sm">
       <thead>
         <tr className="bg-neutral-150">
           <th className="w-8" />
-          <th className="px-4 py-3 text-left font-medium">{t('renovation.table.measure')}</th>
-          <th className="w-px whitespace-nowrap px-4 py-3 text-right font-medium">{t('renovation.table.savings')}</th>
+          <th className="px-4 py-3 font-medium">
+            <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+              <span className="text-left">{t('renovation.table.measure')}</span>
+              <span className="text-left whitespace-nowrap sm:text-right">{t('renovation.table.savings')}</span>
+            </div>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -104,18 +109,23 @@ export function RenovationMultiSelectTable({
         <tfoot>
           <tr className="border-t border-neutral-200 bg-neutral-150 text-base">
             <td />
-            <td className="px-4 py-4 font-medium">{t('renovation.table.total')}</td>
-            <td className={`whitespace-nowrap px-4 py-4 text-right font-medium ${savingsColorClass}`}>
-              {selectedSavings.toLocaleString('de-DE', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-                signDisplay: 'always',
-              })}{' '}
-              €/a
+            <td className="px-4 py-4 font-medium">
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                <span>{t('renovation.table.total')}</span>
+                <span className={`whitespace-nowrap sm:text-right ${savingsColorClass}`}>
+                  {selectedSavings.toLocaleString('de-DE', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                    signDisplay: 'always',
+                  })}{' '}
+                  €/a
+                </span>
+              </div>
             </td>
           </tr>
         </tfoot>
       )}
-    </table>
+      </table>
+    </div>
   );
 }

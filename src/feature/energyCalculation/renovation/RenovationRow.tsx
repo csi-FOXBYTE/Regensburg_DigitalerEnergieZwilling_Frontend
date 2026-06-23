@@ -25,20 +25,22 @@ export function RenovationRow({ selectionCell, label, savings, recommended, info
 
   return (
     <tr className="border-t border-neutral-200 text-base">
-      <td className="w-8 px-4 py-4">{selectionCell}</td>
+      <td className="w-8 px-4 py-4 align-top">{selectionCell}</td>
       <td className="px-4 py-4">
-        <span className="flex items-center gap-2">
-          {label}
-          {info}
-          {recommended && (
-            <Badge className="border-green-600 bg-green-600/10 text-green-600">
-              {t('renovation.recommended')}
-            </Badge>
-          )}
-        </span>
-      </td>
-      <td className={`whitespace-nowrap px-4 py-4 text-right ${colorClass}`}>
-        {formatSavings(savings)} €/a
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+          <span className="flex flex-wrap items-center gap-2">
+            {label}
+            {info}
+            {recommended && (
+              <Badge className="border-green-600 bg-green-600/10 text-green-600">
+                {t('renovation.recommended')}
+              </Badge>
+            )}
+          </span>
+          <span className={`whitespace-nowrap sm:text-right ${colorClass}`}>
+            {formatSavings(savings)} €/a
+          </span>
+        </div>
       </td>
     </tr>
   );

@@ -60,12 +60,17 @@ export function RenovationSingleSelectTable({
 
   return (
     <RadioGroup value={selectedId} onValueChange={handleChange}>
+      <div className="w-full overflow-x-auto">
       <table className="w-full border-collapse border border-neutral-200 text-sm">
         <thead>
           <tr className="bg-neutral-150">
             <th className="w-8" />
-            <th className="px-4 py-3 text-left font-medium">{t('renovation.table.measure')}</th>
-            <th className="w-px whitespace-nowrap px-4 py-3 text-right font-medium">{t('renovation.table.savings')}</th>
+            <th className="px-4 py-3 font-medium">
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                <span className="text-left">{t('renovation.table.measure')}</span>
+                <span className="text-left whitespace-nowrap sm:text-right">{t('renovation.table.savings')}</span>
+              </div>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -90,6 +95,7 @@ export function RenovationSingleSelectTable({
           />
         </tbody>
       </table>
+      </div>
     </RadioGroup>
   );
 }
