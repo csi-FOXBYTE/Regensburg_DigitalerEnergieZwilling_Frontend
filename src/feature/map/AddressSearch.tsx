@@ -82,7 +82,7 @@ export default function AddressSearch({
             }}
             placeholder={t('addressSearch.placeHolder')}
             aria-label={t('addressSearch.ariaInputLabel')}
-            className="w-full py-2 pr-9 pl-9 text-sm outline-none md:py-3 md:text-base"
+            className="w-full py-2 pr-9 pl-9 text-base outline-none md:py-3"
           />
           {search && (
             <button
