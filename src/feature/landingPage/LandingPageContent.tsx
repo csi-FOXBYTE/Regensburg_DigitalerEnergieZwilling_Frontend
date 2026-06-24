@@ -1,6 +1,12 @@
 import ArrowIcon from '@/components/ArrowIcon';
 import { Typography } from '@/components/ui/typography';
-import { AlertCircle, Calculator, FileText, MapPin, Wrench } from 'lucide-react';
+import {
+  AlertCircle,
+  Calculator,
+  FileText,
+  MapPin,
+  Wrench,
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const ICON_MAP = { MapPin, Calculator, Wrench, FileText } as const;
@@ -9,16 +15,8 @@ type IconName = keyof typeof ICON_MAP;
 export default function LandingPageContent() {
   const { t } = useTranslation('landingPage');
   const features = t('features', { returnObjects: true });
-
   return (
     <>
-      <div className="flex flex-col gap-2">
-        <Typography as="h1" variant="h1">
-          {t('title')}
-        </Typography>
-        <Typography variant="lead">{t('aboutText')}</Typography>
-      </div>
-
       <div className="flex flex-col gap-4">
         {features.map(({ icon, title, description }) => {
           const Icon = ICON_MAP[icon as IconName];

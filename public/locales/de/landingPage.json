@@ -1,5 +1,15 @@
 {
-  "title": "Wie energieeffizient ist Ihr Gebäude?",
+  "titleVariations": [
+    "Wie energieeffizient ist Ihr Gebäude?",
+    "Wieviel können Sie mit einer Sanierung einsparen?",
+    "In welcher Effizienz-Liga spielt Ihre Immobilie wirklich?",
+    "Wie viel Potenzial versteckt sich hinter Ihrem Baujahr?",
+    "Wissen Sie, welche Sanierung bei Ihrem Haustyp den größten Hebel hat?",
+    "Wie unabhängig kann Ihr Haus von der nächsten Energiekrise werden?",
+    "Wie können Sie die nächste Energiekrise mit mehr Gelassenheit erwarten?",
+    "Kennen Sie die Hebel, mit denen Sie die nächste Energiekrise entschärfen?",
+    "Wissen Sie, welche Sanierung Sie am besten vor der nächsten Energiekrise schützt?"
+  ],
   "aboutText": "Kostenlos, unverbindlich und auf Basis geprüfter Fachdaten.",
   "startButton": "Jetzt starten",
   "remarkTitle": "Wichtiger Hinweis",

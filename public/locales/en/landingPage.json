@@ -1,5 +1,15 @@
 {
-  "title": "How energy efficient is your building?",
+  "titleVariations": [
+    "How energy efficient is your building?",
+    "How much can you save with a renovation?",
+    "Which efficiency league is your property really in?",
+    "How much potential is hidden behind your year of construction?",
+    "Do you know which renovation has the biggest leverage for your house type?",
+    "How independent can your house become from the next energy crisis?",
+    "How can you face the next energy crisis with more peace of mind?",
+    "Do you know the levers to defuse the next energy crisis?",
+    "Do you know which renovation best protects you from the next energy crisis?"
+  ],
   "aboutText": "Free, non-binding, and based on municipal data",
   "startButton": "Get started",
   "remarkTitle": "Important note",
