@@ -6,7 +6,7 @@ import FeedbackButton from './FeedbackButton';
 
 <footer class="bg-footer text-footer-foreground relative shrink-0 px-5 md:px-7">
   <div
-    class="max-w-content mx-auto flex flex-col-reverse items-center gap-4 py-15 md:flex-row md:py-5"
+    class="max-w-content mx-auto flex flex-col-reverse items-center gap-4 py-15 md:mb-3.5 md:flex-row md:py-5"
   >
     <ul
       class="flex flex-col items-center gap-2 md:shrink-0 md:flex-row md:gap-6"
@@ -32,5 +32,7 @@ import FeedbackButton from './FeedbackButton';
       <FeedbackButton client:load />
     </div>
   </div>
-  <span class="absolute right-5 bottom-2 text-[11px] opacity-60 md:right-7">{getVersionString()}</span>
+  <span class="absolute right-5 bottom-2 text-[11px] opacity-60 md:right-7"
+    >{getVersionString()}</span
+  >
 </footer>
