@@ -4,6 +4,7 @@ import EnergyCalculationPage from '@/components/layouts/EnergyCalculationPage.as
 import StickyContainer from '@/components/layouts/StickyContainer.astro';
 import { Typography } from '@/components/ui/typography';
 import i18next from 'i18next';
+import BuildingAddress from '../BuildingAddress';
 import ButtonBar from '../ButtonBar';
 import RenovationStats from './RenovationStats';
 import RenovationStepForm from './RenovationStepForm';
@@ -14,6 +15,7 @@ import RenovationStepForm from './RenovationStepForm';
     <Typography variant="h2">
       {i18next.t('energyCalculation:renovation.title')}
     </Typography>
+    <BuildingAddress client:load />
   </ContentContainer>
   <StickyContainer>
     <RenovationStats client:load />
