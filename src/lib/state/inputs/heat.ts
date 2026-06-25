@@ -124,6 +124,22 @@ export const userThermalBaseRateField = makeFieldStore({
   resettable: true,
 });
 
+/**
+ * The annual base price cannot exceed the annual heating costs. Compares the
+ * effective values (entered value, otherwise the resolved placeholder) so it
+ * matches what is shown in the fields.
+ */
+export const $isThermalBaseRateInvalid = computed(
+  [$inputState, $resolvedInputState],
+  (input, resolved) => {
+    const total =
+      input.heat.userThermalTotalCost ?? resolved.heat.userThermalTotalCost;
+    const base =
+      input.heat.userThermalBaseRate ?? resolved.heat.userThermalBaseRate;
+    return total != null && base != null && base > total;
+  },
+);
+
 export const $isSystemOnlyElectrical = computed(
   [$resolvedInputState, $config],
   (state, config) => {

@@ -1,4 +1,4 @@
-import { Field, FieldLabel } from '@/components/ui/field';
+import { Field, FieldError, FieldLabel } from '@/components/ui/field';
 import {
   Tooltip,
   TooltipContent,
@@ -14,6 +14,7 @@ export default function EnergyCalculationField({
   children,
   labelKey,
   info,
+  error,
   onReset,
   resetDisabled,
   className,
@@ -21,6 +22,7 @@ export default function EnergyCalculationField({
   children?: ReactNode;
   labelKey?: ParseKeys<'energyCalculation'>;
   info?: ReactNode;
+  error?: ReactNode;
   onReset?: () => void;
   resetDisabled?: boolean;
   className?: string;
@@ -66,6 +68,7 @@ export default function EnergyCalculationField({
           <div className="size-4 shrink-0" />
         )}
       </div>
+      {error && <FieldError>{error}</FieldError>}
     </Field>
   );
 }

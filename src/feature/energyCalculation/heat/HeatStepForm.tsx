@@ -6,6 +6,7 @@ import { $config } from '@/lib/state/calculation-config';
 import { buildingYearOptions } from '@/lib/state/inputs/general';
 import {
   $isSystemOnlyElectrical,
+  $isThermalBaseRateInvalid,
   hasBioGasField,
   hasGasSupplyField,
   hasStorageField,
@@ -43,6 +44,8 @@ export default function HeatStepForm() {
     ? (config.heat.primaryEnergyCarrierData.find((d) => d.key === carrier)
         ?.value.unit ?? '')
     : '';
+
+  const baseRateExceedsTotal = useStore($isThermalBaseRateInvalid);
 
   return (
     <TooltipProvider>
@@ -173,6 +176,11 @@ export default function HeatStepForm() {
                 decimalScale={2}
                 fixedDecimalScale
                 allowNegative={false}
+                error={
+                  baseRateExceedsTotal
+                    ? t('heat.bills.errors.baseRateExceedsTotal')
+                    : undefined
+                }
                 info={
                   <InfoTooltipButton
                     content={t('heat.bills.tooltips.baseRate')}

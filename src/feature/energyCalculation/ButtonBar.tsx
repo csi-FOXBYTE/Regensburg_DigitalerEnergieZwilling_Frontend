@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import ArrowIcon from '../../components/ArrowIcon';
 import { Button } from '../../components/ui/button';
 import { $step, navigateToStep, Step } from '../../lib/state/ui/progress';
+import { $isNextBlocked } from '../../lib/state/ui/validation';
 
 export type ButtonBarProps = {
   backTextKey?: ParseKeys<'energyCalculation'>;
@@ -20,6 +21,7 @@ export default function ButtonBar({
   const { t } = useTranslation('energyCalculation');
 
   const step = useStore($step);
+  const isNextBlocked = useStore($isNextBlocked);
 
   const hasNextStep = step < Step.Result;
 
@@ -42,6 +44,7 @@ export default function ButtonBar({
       {hasNextStep && (
         <Button
           onClick={nextStep}
+          disabled={isNextBlocked}
           className="col-span-1 flex w-full gap-2"
           variant="primary"
         >

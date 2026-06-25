@@ -17,6 +17,7 @@ type EnergyNumberInputProps = Omit<
   };
   labelKey?: ParseKeys<'energyCalculation'>;
   info?: ReactNode;
+  error?: ReactNode;
   className?: string;
 };
 
@@ -24,6 +25,7 @@ export default function EnergyNumberInput({
   field,
   labelKey,
   info,
+  error,
   className,
   ...props
 }: EnergyNumberInputProps) {
@@ -41,6 +43,7 @@ export default function EnergyNumberInput({
     <EnergyCalculationField
       labelKey={labelKey}
       info={info}
+      error={error}
       onReset={field.resettable ? () => field.setValue(undefined) : undefined}
       resetDisabled={value == null}
       className={className}
@@ -49,6 +52,7 @@ export default function EnergyNumberInput({
         value={value ?? ''}
         onValueChange={(values) => field.setValue(values.floatValue)}
         placeholder={placeholderStr}
+        aria-invalid={error ? true : undefined}
         {...props}
       />
     </EnergyCalculationField>

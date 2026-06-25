@@ -224,6 +224,9 @@
         "consumption": "Geben Sie die gesamten Heizkosten an, die Ihnen pro Jahr entstehen. Dazu zählen in der Regel Grundpreis und Verbrauchskosten. Den Wert finden Sie in Ihrer letzten Jahresabrechnung.",
         "unitRate": "Der Arbeitspreis gibt an, wie viel Sie pro verbrauchter Einheit Energie bezahlen (z. B. €/kWh, €/L oder €/kg). Sie finden ihn in Ihrer Jahresabrechnung oder Ihrem Energieliefervertrag.",
         "baseRate": "Der Grundpreis ist der feste Betrag, den Sie unabhängig vom tatsächlichen Energieverbrauch bezahlen. Sie finden ihn in Ihrer Jahresabrechnung oder Ihrem Energieliefervertrag."
+      },
+      "errors": {
+        "baseRateExceedsTotal": "Der jährliche Grundpreis kann nicht höher sein als Ihre jährlichen Heizkosten."
       }
     }
   },

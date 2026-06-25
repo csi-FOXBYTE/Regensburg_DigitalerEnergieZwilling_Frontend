@@ -220,6 +220,9 @@
         "consumption": "Enter the total heating costs you incur per year. These usually include the base price and consumption costs. You can find this value on your most recent annual bill.",
         "unitRate": "The unit rate indicates how much you pay per unit of energy consumed (e.g. €/kWh, €/L or €/kg). You can find it on your annual bill or in your energy supply contract.",
         "baseRate": "The base price is the fixed amount you pay regardless of your actual energy consumption. You can find it on your annual bill or in your energy supply contract."
+      },
+      "errors": {
+        "baseRateExceedsTotal": "The annual base price cannot be higher than your annual heating costs."
       }
     }
   },
