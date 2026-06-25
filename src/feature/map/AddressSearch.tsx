@@ -50,12 +50,18 @@ export default function AddressSearch({
   }, [building]);
 
   const debouncedSearch = useDebounce(search, 500) ?? '';
-  const { data = [] } = useAddressSearch(debouncedSearch);
+  const { data = [], isFetching, isSuccess } = useAddressSearch(debouncedSearch);
 
   const inputValue =
     search === '' ? (building?.properties.address?.street ?? '') : search;
 
   const showList = open && search.length >= 2 && data.length > 0;
+  const showNoResults =
+    open &&
+    debouncedSearch.trim().length >= 2 &&
+    !isFetching &&
+    isSuccess &&
+    data.length === 0;
 
   const parsed = parseQuery(debouncedSearch);
   const streetNeedle = parsed.type === 'houseNumberOnly' ? '' : parsed.street;
@@ -121,6 +127,12 @@ export default function AddressSearch({
               </Command.Item>
             ))}
           </Command.List>
+        )}
+
+        {showNoResults && (
+          <div className="border border-t-0 border-gray-300 bg-white px-9 py-2.5 text-sm text-gray-600 shadow-lg md:py-3 md:text-base">
+            {t('addressSearch.noResults')}
+          </div>
         )}
       </Command>
 

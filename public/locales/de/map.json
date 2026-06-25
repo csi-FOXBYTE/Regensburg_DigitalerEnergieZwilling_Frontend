@@ -36,6 +36,7 @@
   },
   "addressSearch": {
     "placeHolder": "Adresse suchen in Regensburg...",
+    "noResults": "Adresse nicht gefunden",
     "chooseBuilding": "Gebäude auswählen: ",
     "infoText": "Geben Sie eine Adresse ein oder klicken Sie direkt auf ein Gebäude in der Karte.",
     "ariaFormLabel": "Gebäudeadresse suchen",

@@ -36,6 +36,7 @@
   },
   "addressSearch": {
     "placeHolder": "Search address in Regensburg...",
+    "noResults": "Address not found",
     "chooseBuilding": "Select building: ",
     "infoText": "Enter an address or click directly on a building on the map.",
     "ariaFormLabel": "Search building address",
