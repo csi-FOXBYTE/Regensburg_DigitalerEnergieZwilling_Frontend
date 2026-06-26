@@ -28,9 +28,11 @@ export function RenovationRow({ selectionCell, label, savings, recommended, info
       <td className="w-8 px-4 py-4 align-top">{selectionCell}</td>
       <td className="px-4 py-4">
         <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-          <span className="flex flex-wrap items-center gap-2">
-            {label}
-            {info}
+          <span className="flex flex-col items-start gap-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-2">
+            <span className="flex items-center gap-2">
+              {label}
+              {info}
+            </span>
             {recommended && (
               <Badge className="border-green-600 bg-green-600/10 text-green-600">
                 {t('renovation.recommended')}
