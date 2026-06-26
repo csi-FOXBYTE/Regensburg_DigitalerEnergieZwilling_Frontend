@@ -1,7 +1,10 @@
 ---
 import { getVersionString } from '@/lib/version';
 import i18n from 'i18next';
+import { getLocalizedPathname } from 'astro-react-i18next/utils';
 import FeedbackButton from './FeedbackButton';
+
+const imprintHref = getLocalizedPathname('/imprint', i18n.language);
 ---
 
 <footer class="bg-footer text-footer-foreground relative shrink-0 px-5 md:px-7">
@@ -12,7 +15,7 @@ import FeedbackButton from './FeedbackButton';
       class="flex flex-col items-center gap-2 md:shrink-0 md:flex-row md:gap-6"
     >
       <li>
-        <a href="#" class="hover:text-primary transition-colors"
+        <a href={imprintHref} class="hover:text-primary transition-colors"
           >{i18n.t('common:footer.imprint')}</a
         >
       </li>
