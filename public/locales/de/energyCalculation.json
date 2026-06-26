@@ -418,6 +418,7 @@
     "categoryHeatingSurface": "Heizungsfläche",
     "categoryLabel": "Kategorie",
     "submissionError": "Daten konnten nicht übermittelt werden. Der PDF-Bericht wird trotzdem heruntergeladen.",
+    "downloadError": "Der PDF-Bericht konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
     "dataLinksTitle": "Ihre Datenverwaltung",
     "recoveryLinkLabel": "Wiederherstellungslink – Gebäudedaten in der App erneut laden",
     "recoveryLinkText": "Sitzung wiederherstellen",

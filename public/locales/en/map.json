@@ -34,9 +34,16 @@
     "processingTime": "Processing takes approximately 5 minutes to complete",
     "howCalculated": "How are these values calculated?"
   },
+  "map": {
+    "loading": "Loading application...",
+    "loadErrorTitle": "Map could not be loaded",
+    "loadErrorMessage": "The map data is unreachable. Please check your internet connection.",
+    "retry": "Try again"
+  },
   "addressSearch": {
     "placeHolder": "Search address in Regensburg...",
     "noResults": "Address not found",
+    "loadError": "Address search is currently unavailable. Please check your internet connection and reload the page.",
     "chooseBuilding": "Select building: ",
     "infoText": "Enter an address or click directly on a building on the map.",
     "ariaFormLabel": "Search building address",

@@ -63,7 +63,6 @@ export function ExportSection() {
             latitude: building.coordinates.lat,
           });
           const deletionLink = `${window.location.origin}${window.location.pathname}/delete?token=${encodeURIComponent(result.deletionLink)}`;
-          // No backend to fetch the JSON later, so embed the data in the link itself.
           const jsonPayload = btoa(encodeURIComponent(JSON.stringify(result)));
           const jsonLink = `${window.location.origin}${window.location.pathname}/delete?download-json=${encodeURIComponent(jsonPayload)}&filename=${encodeURIComponent(`${t('export.reportTitle')}.json`)}`;
           const recoveryLink = buildRecoveryLink();
@@ -85,6 +84,8 @@ export function ExportSection() {
         <EnergyReportDocument recoveryLink={buildRecoveryLink()} />,
         t('export.reportTitle'),
       );
+    } catch {
+      toast.error(t('export.downloadError'));
     } finally {
       setLoading(false);
     }
@@ -124,7 +125,11 @@ export function ExportSection() {
           </div>
         </div>
 
-        <Button className="flex w-full gap-1" onClick={handleDownload} disabled={loading}>
+        <Button
+          className="flex w-full gap-1"
+          onClick={handleDownload}
+          disabled={loading}
+        >
           <Download /> {t('export.downloadButton')}
         </Button>
       </Paper>

@@ -413,6 +413,7 @@
     "categoryHeatingSurface": "Heating Surface",
     "categoryLabel": "Category",
     "submissionError": "Data could not be submitted. The PDF report will be downloaded anyway.",
+    "downloadError": "The PDF report could not be generated. Please try again.",
     "dataLinksTitle": "Your Data Management",
     "recoveryLinkLabel": "Recovery link – reload your building data in the app",
     "recoveryLinkText": "Restore session",

@@ -82,7 +82,10 @@ export function parseQuery(query: string): ParsedQuery {
   return { type: 'streetOnly', street: normalizeStreet(tokens.join(' ')) };
 }
 
-function queryByHouseNumber(db: Database, houseNumber: string): QueryExecResult[] {
+function queryByHouseNumber(
+  db: Database,
+  houseNumber: string,
+): QueryExecResult[] {
   return db.exec(
     `SELECT s.name, ba.house_number, ba.cx, ba.cy
      FROM streets s JOIN building_addresses ba ON ba.street_id = s.id
@@ -93,7 +96,11 @@ function queryByHouseNumber(db: Database, houseNumber: string): QueryExecResult[
   );
 }
 
-function queryByStreetAndHouseNumber(db: Database, street: string, houseNumber: string): QueryExecResult[] {
+function queryByStreetAndHouseNumber(
+  db: Database,
+  street: string,
+  houseNumber: string,
+): QueryExecResult[] {
   return db.exec(
     `SELECT s.name, ba.house_number, ba.cx, ba.cy
      FROM streets s JOIN building_addresses ba ON ba.street_id = s.id
@@ -134,22 +141,36 @@ function searchAddresses(db: Database, query: string): AddressResult[] {
   if (parsed.type === 'houseNumberOnly')
     return rowsToAddressResults(queryByHouseNumber(db, parsed.houseNumber));
   if (parsed.type === 'streetAndHouseNumber')
-    return rowsToAddressResults(queryByStreetAndHouseNumber(db, parsed.street, parsed.houseNumber));
+    return rowsToAddressResults(
+      queryByStreetAndHouseNumber(db, parsed.street, parsed.houseNumber),
+    );
   return rowsToAddressResults(queryByStreet(db, parsed.street));
 }
 
 export function useAddressSearch(query: string) {
-  const { data: db } = useQuery({
+  const {
+    data: db,
+    isError: isDbError,
+    isLoading: isDbLoading,
+  } = useQuery({
     queryKey: ['address-db'],
     queryFn: getDb,
     staleTime: Infinity,
     gcTime: Infinity,
+    retry: 2,
   });
 
-  return useQuery<AddressResult[]>({
+  const search = useQuery<AddressResult[]>({
     queryKey: ['address-search', query],
     queryFn: () => searchAddresses(db!, query),
     enabled: !!db && query.trim().length >= 2,
     staleTime: 0,
   });
+
+  return {
+    ...search,
+    isError: isDbError || search.isError,
+    isDbError,
+    isDbLoading,
+  };
 }

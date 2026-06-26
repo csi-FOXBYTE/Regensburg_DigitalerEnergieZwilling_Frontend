@@ -50,16 +50,22 @@ export default function AddressSearch({
   }, [building]);
 
   const debouncedSearch = useDebounce(search, 500) ?? '';
-  const { data = [], isFetching, isSuccess } = useAddressSearch(debouncedSearch);
+  const {
+    data = [],
+    isFetching,
+    isSuccess,
+    isError,
+  } = useAddressSearch(debouncedSearch);
 
   const inputValue =
     search === '' ? (building?.properties.address?.street ?? '') : search;
 
-  const showList = open && search.length >= 2 && data.length > 0;
+  const showList = open && search.length >= 2 && !isError && data.length > 0;
   const showNoResults =
     open &&
     debouncedSearch.trim().length >= 2 &&
     !isFetching &&
+    !isError &&
     isSuccess &&
     data.length === 0;
 
@@ -132,6 +138,16 @@ export default function AddressSearch({
         {showNoResults && (
           <div className="border border-t-0 border-gray-300 bg-white px-9 py-2.5 text-sm text-gray-600 shadow-lg md:py-3 md:text-base">
             {t('addressSearch.noResults')}
+          </div>
+        )}
+
+        {isError && (
+          <div
+            role="alert"
+            className="flex items-start gap-2 border border-t-0 border-[#e30613] bg-white px-3 py-2.5 text-sm text-[#e30613] shadow-lg md:py-3 md:text-base"
+          >
+            <Info className="mt-0.5 size-4 shrink-0" />
+            <span>{t('addressSearch.loadError')}</span>
           </div>
         )}
       </Command>

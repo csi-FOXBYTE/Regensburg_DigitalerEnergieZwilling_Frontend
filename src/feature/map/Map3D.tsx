@@ -3,6 +3,7 @@ import * as Cesium from 'cesium';
 import 'cesium/Build/Cesium/Widgets/widgets.css';
 import { AnimatePresence, motion } from 'motion/react';
 import { type ReactNode, useEffect, useLayoutEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Cesium3DTileset, ImageryLayer, Viewer } from 'resium';
 import {
   $building,
@@ -17,7 +18,10 @@ import { $step, Step } from '../../lib/state/ui/progress';
 const terrainProvider = Cesium.CesiumTerrainProvider.fromUrl(
   'https://fhhvrshare.blob.core.windows.net/regensburg/terrain',
   {},
-);
+).catch((error) => {
+  console.error('Terrain konnte nicht geladen werden:', error);
+  return new Cesium.EllipsoidTerrainProvider();
+});
 
 const openStreetMapImagerProvider = new Cesium.UrlTemplateImageryProvider({
   url: 'https://intergeo38.bayernwolke.de/betty/g_topopluslight/{z}/{x}/{y}',
@@ -47,7 +51,10 @@ type Map3DProps = {
   onViewerReady?: (viewer: Cesium.Viewer) => void;
 };
 
+const LOAD_TIMEOUT_MS = 20000;
+
 export function Map3D({ children, onViewerReady }: Map3DProps) {
+  const { t } = useTranslation('map');
   const currentStep = useStore($step);
   const building = useStore($building);
   const currentStats = useStore($currentEnergyState);
@@ -56,6 +63,13 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
     null,
   );
   const [loading, setLoading] = useState(true);
+  const [loadFailed, setLoadFailed] = useState(false);
+
+  useEffect(() => {
+    if (!loading) return;
+    const timer = setTimeout(() => setLoadFailed(true), LOAD_TIMEOUT_MS);
+    return () => clearTimeout(timer);
+  }, [loading]);
 
   const effClasses = useStore($energyEfficiencyClasses);
   const selectedBuildingId = building ? building.id : null;
@@ -152,7 +166,10 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
         {isInteractiveStep && children}
         <ImageryLayer imageryProvider={openStreetMapImagerProvider} />
         <Cesium3DTileset
-          onAllTilesLoad={() => setLoading(false)}
+          onAllTilesLoad={() => {
+            setLoading(false);
+            setLoadFailed(false);
+          }}
           onReady={(tileset) => {
             setTilesetRef(tileset);
             tileset.colorBlendMode = Cesium.Cesium3DTileColorBlendMode.REPLACE;
@@ -189,27 +206,28 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
             const pitch = Cesium.Math.toRadians(-40);
             const heading = viewerRef.camera.heading;
 
-            // On mobile the drawer covers ~40% of the screen from the bottom.
-            // Offset the fly target so the building lands in the center of the
-            // visible area above the drawer — all in one smooth animation.
             let flyTarget = position;
             if (window.innerWidth < 768) {
-              const frustum = viewerRef.camera.frustum as Cesium.PerspectiveFrustum;
+              const frustum = viewerRef.camera
+                .frustum as Cesium.PerspectiveFrustum;
               const vfov = frustum.fov ?? Cesium.Math.toRadians(60);
               const worldShift = 0.3 * flyRange * Math.tan(vfov / 2);
-              // Camera up in ENU: (-sin(H)·sin(P), -cos(H)·sin(P), cos(P))
-              // Shift the bounding sphere center in the -up direction so the
-              // building appears above the viewport center by exactly that amount.
+
               const sinP = Math.sin(pitch);
               const cosP = Math.cos(pitch);
-              const enuToEcef = Cesium.Transforms.eastNorthUpToFixedFrame(position);
+              const enuToEcef =
+                Cesium.Transforms.eastNorthUpToFixedFrame(position);
               const shiftEnu = new Cesium.Cartesian4(
                 Math.sin(heading) * sinP * worldShift,
                 Math.cos(heading) * sinP * worldShift,
                 -cosP * worldShift,
                 0,
               );
-              const shiftEcef4 = Cesium.Matrix4.multiplyByVector(enuToEcef, shiftEnu, new Cesium.Cartesian4());
+              const shiftEcef4 = Cesium.Matrix4.multiplyByVector(
+                enuToEcef,
+                shiftEnu,
+                new Cesium.Cartesian4(),
+              );
               flyTarget = Cesium.Cartesian3.add(
                 position,
                 new Cesium.Cartesian3(shiftEcef4.x, shiftEcef4.y, shiftEcef4.z),
@@ -240,7 +258,25 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
               transition={{ duration: 0.8, ease: 'easeInOut' }}
               className="absolute inset-0 z-10 flex items-center justify-center bg-white/95 backdrop-blur-md"
             >
-              <div>Lade Anwendung...</div>
+              {loadFailed ? (
+                <div className="flex max-w-sm flex-col items-center gap-3 px-6 text-center">
+                  <p className="text-lg font-semibold">
+                    {t('map.loadErrorTitle')}
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    {t('map.loadErrorMessage')}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => window.location.reload()}
+                    className="mt-1 bg-[#e30613] px-4 py-2 text-sm font-semibold text-white hover:bg-[#8b2412]"
+                  >
+                    {t('map.retry')}
+                  </button>
+                </div>
+              ) : (
+                <div>{t('map.loading')}</div>
+              )}
             </motion.div>
           )}
         </AnimatePresence>
