@@ -90,6 +90,30 @@ export default function RoofPaper() {
             <InfoDialogButton
               title={t('outerParts.roof.tooltips.constructionTypeTitle')}
               content={t('outerParts.roof.tooltips.constructionTypeContent')}
+              media={
+                <div className="flex gap-4">
+                  <figure className="flex flex-1 flex-col items-center gap-2">
+                    <img
+                      src="/outerpartsRoof/Satteldach.png"
+                      alt={t('outerParts.roof.tooltips.constructionTypeGabledRoof')}
+                      className="w-full rounded-md object-contain"
+                    />
+                    <figcaption className="text-sm font-medium">
+                      {t('outerParts.roof.tooltips.constructionTypeGabledRoof')}
+                    </figcaption>
+                  </figure>
+                  <figure className="flex flex-1 flex-col items-center gap-2">
+                    <img
+                      src="/outerpartsRoof/Flachdach.png"
+                      alt={t('outerParts.roof.tooltips.constructionTypeFlatRoof')}
+                      className="w-full rounded-md object-contain"
+                    />
+                    <figcaption className="text-sm font-medium">
+                      {t('outerParts.roof.tooltips.constructionTypeFlatRoof')}
+                    </figcaption>
+                  </figure>
+                </div>
+              }
             />
           }
         />
@@ -155,6 +179,30 @@ export default function RoofPaper() {
                 <InfoDialogButton
                   title={t('outerParts.roof.tooltips.insulationTypeTitle')}
                   content={t('outerParts.roof.tooltips.insulationTypeContent')}
+                  media={
+                    <div className="flex gap-4">
+                      <figure className="flex flex-1 flex-col items-center gap-2">
+                        <img
+                          src="/outerpartsRoof/zwischensparrendaemmung.png"
+                          alt={t('outerParts.roof.insulationTypes.betweenRafter')}
+                          className="w-full rounded-md object-contain"
+                        />
+                        <figcaption className="text-sm font-medium">
+                          {t('outerParts.roof.insulationTypes.betweenRafter')}
+                        </figcaption>
+                      </figure>
+                      <figure className="flex flex-1 flex-col items-center gap-2">
+                        <img
+                          src="/outerpartsRoof/aufdachdaemmung.png"
+                          alt={t('outerParts.roof.insulationTypes.aboveRafter')}
+                          className="w-full rounded-md object-contain"
+                        />
+                        <figcaption className="text-sm font-medium">
+                          {t('outerParts.roof.insulationTypes.aboveRafter')}
+                        </figcaption>
+                      </figure>
+                    </div>
+                  }
                 />
               }
             />

@@ -65,9 +65,11 @@ export function InfoTooltipButton({ content }: { content: ReactNode }) {
 export function InfoDialogButton({
   title,
   content,
+  media,
 }: {
   title: ReactNode;
   content: ReactNode;
+  media?: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
   return (
@@ -77,6 +79,7 @@ export function InfoDialogButton({
         <DialogContent>
           <DialogHeader>
             <DialogTitle>{title}</DialogTitle>
+            {media}
             <DialogDescription>{content}</DialogDescription>
           </DialogHeader>
         </DialogContent>

@@ -72,6 +72,8 @@
         "area": "Enter the total area of your roof, excluding window areas. The larger the area, the more important good insulation is.",
         "constructionTypeTitle": "Roof Types",
         "constructionTypeContent": "A flat roof is nearly level or only slightly sloped. A pitched roof has a clearly visible slope, e.g. a gable or hip roof. The roof type affects both the roof area and the heat loss of a building: flat roofs (typically solid construction) have a smaller area than pitched roofs (typically timber construction) for the same floor area, and thus different energy properties.",
+        "constructionTypeGabledRoof": "Gable roof",
+        "constructionTypeFlatRoof": "Flat roof",
         "hasAttic": "Indicate whether your building has an accessible attic space. An existing attic influences the insulation of the top floor ceiling and thus the heat loss through the top of the building.",
         "isAtticHeated": "Indicate whether the space directly below the roof is heated.",
         "hasInsulation": "Existing insulation significantly reduces heat loss. Without insulation, up to 30% of heating energy is lost through the roof.",

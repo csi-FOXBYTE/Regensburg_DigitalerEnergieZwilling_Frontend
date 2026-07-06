@@ -72,6 +72,8 @@
         "area": "Geben Sie die gesamte Fläche Ihres Dachs an, ohne Abzug von Fensterflächen. Je größer die Fläche, desto wichtiger ist eine gute Dämmung.",
         "constructionTypeTitle": "Dachformen",
         "constructionTypeContent": "Ein Flachdach ist nahezu eben oder nur leicht geneigt. Ein Schrägdach besitzt eine deutlich sichtbare Dachneigung, z. B. ein Satteldach oder Walmdach. Die Dachform beeinflusst sowohl die Dachfläche als auch den Wärmeverlust eines Gebäudes: Flachdächer (typisch massive Bauweise) haben bei gleicher Grundfläche eine geringere Fläche als Schrägdächer (typisch Holzbauweise) und damit andere energetische Eigenschaften.",
+        "constructionTypeGabledRoof": "Satteldach",
+        "constructionTypeFlatRoof": "Flachdach",
         "hasAttic": "Geben Sie an, ob Ihr Gebäude einen zugänglichen Dachraum (Dachboden) hat. Ein vorhandener Dachraum beeinflusst die Dämmung der obersten Geschossdecke und damit den Wärmeverlust des Gebäudes nach oben.",
         "isAtticHeated": "Geben Sie an, ob der Raum direkt unter dem Dach beheizt wird.",
         "hasInsulation": "Eine vorhandene Dämmung reduziert den Wärmeverlust erheblich. Ohne Dämmung gehen über das Dach bis zu 30 % der Heizwärme verloren.",
