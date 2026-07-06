@@ -21,13 +21,20 @@ export default function WindowsPaper() {
     <Paper id="windows" variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <FieldLegend className="col-span-full">
-          <Typography variant="h4">{t('outerParts.windows.windows')}</Typography>
+          <Typography variant="h4">
+            {t('outerParts.windows.windows')}
+          </Typography>
         </FieldLegend>
         <Separator className="col-span-full" />
         <EnergySelectInput
           field={exteriorWallWindowsYearField}
           labelKey="outerParts.windows.year"
           rangeBandStore={buildingYearOptions}
+          info={
+            <InfoTooltipButton
+              content={t('outerParts.windows.tooltips.year')}
+            ></InfoTooltipButton>
+          }
         />
         <EnergyNumberInput
           field={exteriorWallWindowsAreaField}

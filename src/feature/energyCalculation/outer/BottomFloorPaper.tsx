@@ -55,7 +55,9 @@ export default function BottomFloorPaper() {
     >
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <FieldLegend className="col-span-full">
-          <Typography variant="h4">{t('outerParts.bottomFloor.bottomFloor')}</Typography>
+          <Typography variant="h4">
+            {t('outerParts.bottomFloor.bottomFloor')}
+          </Typography>
         </FieldLegend>
         <Separator className="col-span-full" />
         <EnergyBooleanInput
@@ -112,7 +114,9 @@ export default function BottomFloorPaper() {
           selectionStore={bottomFloorConstructionTypeOptions}
           info={
             <InfoTooltipButton
-              content={t(`outerParts.bottomFloor.tooltips.constructionType.${context}`)}
+              content={t(
+                `outerParts.bottomFloor.tooltips.constructionType.${context}`,
+              )}
             ></InfoTooltipButton>
           }
         />
@@ -132,7 +136,9 @@ export default function BottomFloorPaper() {
           }}
           info={
             <InfoTooltipButton
-              content={t(`outerParts.bottomFloor.tooltips.hasInsulation.${context}`)}
+              content={t(
+                `outerParts.bottomFloor.tooltips.hasInsulation.${context}`,
+              )}
             ></InfoTooltipButton>
           }
         />
@@ -144,6 +150,13 @@ export default function BottomFloorPaper() {
             decimalScale={2}
             allowNegative={false}
             className="col-start-1"
+            info={
+              <InfoTooltipButton
+                content={t(
+                  `outerParts.bottomFloor.tooltips.insulationThickness`,
+                )}
+              ></InfoTooltipButton>
+            }
           />
         )}
       </FieldSet>

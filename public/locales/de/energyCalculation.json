@@ -84,7 +84,7 @@
       "roofWindows": "Dachfenster",
       "area": "Wie groß ist die gesamte Dachfensterfläche Ihres Gebäudes?",
       "windowType": "Welche Art von Dachfenstern sind verbaut?",
-      "uValue": "Welchen U-Wert (Wärmedurchgangskoeffizenten) haben Ihre Dachfenster?",
+      "uValue": "Welchen U-Wert (Wärmedurchgangskoeffizienten) haben Ihre Dachfenster?",
       "year": "Wann wurden Ihre Dachfenster zuletzt energetisch verändert?",
       "tooltips": {
         "year": "Gemeint ist zum Beispiel der Austausch gegen besser gedämmte Dachfenster oder eine Verbesserung von Verglasung, Rahmen oder Anschluss. Nicht gemeint sind reine Reparaturen, neue Farbe oder der Ausausch einzelner Beschläge.",
@@ -118,7 +118,7 @@
       "adjacentWallArea": "Wie groß ist die Wandfläche, die direkt an benachbarte Gebäude grenzt?",
       "tooltips": {
         "year": "Gemeint sind Änderungen, die den Wärmescutz verbessern oder den Wandaufbau verändern, zum Beispiel eine nachträgliche Dämmung. Nicht gemeint sind neue Farbe, neuer Putz oder reine Reparaturen ohne Dämmung.",
-        "area": "Geben Sie die gesamte Fläche aller Außenwände an, ohne Abzug von Fensterflächen. Die Gesamtfläche aller Außenwände beeinflusst den Wärmeverlust. Größere Wandflächen bedeuten mehr Wärmeverlust.",
+        "area": "Geben Sie die gesamte Fläche aller freistehenden Außenwände an, ohne Abzug von Fensterflächen. Größere Wandflächen bedeuten mehr Wärmeverlust.",
         "constructionType": "Massivwände (z. B. Ziegel oder Beton) speichern Wärme gut.",
         "hasInsulation": "Durch ungedämmte Außenwände gehen bis zu 40 % der Heizwärme verloren. Eine Dämmung senkt die Heizkosten erheblich.",
         "insulationThickness": "Eine dickere Dämmschicht erhöht die energetische Effizienz des Gebäudes. Je nach Alter der Dämmung sind zwischen 4 cm und 14 cm üblich.",
@@ -129,7 +129,7 @@
       "windows": "Fenster",
       "area": "Wie groß ist die gesamte Fläche Ihrer Außenwandfenster?",
       "windowType": "Welche Art von Fenstern sind verbaut?",
-      "uValue": "Welchen U-Wert (Wärmedurchgangskoeffizenten) haben Ihre Fenster?",
+      "uValue": "Welchen U-Wert (Wärmedurchgangskoeffizienten) haben Ihre Fenster?",
       "year": "Wann wurden Ihre Fenster zuletzt energetisch verändert?",
       "tooltips": {
         "year": "Gemeint ist, ob die Wand selbst konstruktiv verändert oder mit anderen Materialien neu aufgebaut wurde, zum Beispiel durch einen neue Wandkonstruktion. Neue Farbe, neuer Putz oder eine nachträgliche Dämmung zählen hier nicht dazu.",
@@ -162,7 +162,8 @@
           "default": "Eine Dämmung der Kellerdecke hilft, Wärme im Gebäude zu halten. Dadurch bleiben Fußböden wärmer und Heizkosten können reduziert werden.",
           "heated": "Eine Dämmung des Kellerbodens hilft, Wärme im Gebäude zu halten. Dadurch bleiben Fußböden wärmer und Heizkosten können reduziert werden.",
           "noBasement": "Eine Dämmung des Bodens hilft, Wärme im Gebäude zu halten. Dadurch bleiben Fußböden wärmer und Heizkosten können reduziert werden."
-        }
+        },
+        "insulationThickness": "Eine dickere Dämmschicht erhöht die energetische Effizienz des Gebäudes. Je nach Alter der Dämmung sind zwischen 4 cm und 12 cm üblich."
       },
       "area": {
         "default": "Wie groß ist die Fläche Ihrer Kellerdecke?",
@@ -186,7 +187,7 @@
         "heated": "Ist Ihr Kellerboden gedämmt?",
         "noBasement": "Ist Ihr Boden gedämmt?"
       },
-      "insulationThickness": "Wie dick ist die Dämmung?"
+      "insulationThickness": "Welche Dicke hat die aktuelle Dämmung?"
     }
   },
   "heat": {
@@ -209,9 +210,9 @@
       "heatingSystemType": "Welche Art von Heizung nutzen Sie?",
       "heatingSurfaceType": "Wie wird die Wärme im Raum verteilt?",
       "tooltips": {
-        "constructionYear": "Das Jahr, in dem Ihre aktuelle Heizungsanlage eingebaut wurde. Ältere Anlagen arbeiten oft weniger effizient und verbrauchen mehr Energie.",
+        "constructionYear": "Geben Sie das Jahr an, in dem Ihre aktuelle Heizungsanlage eingebaut wurde. Ältere Anlagen arbeiten oft weniger effizient und verbrauchen mehr Energie.",
         "primaryEnergyCarrier": "Wählen Sie den Brennstoff Ihrer Heizung – zum Beispiel Erdgas, Heizöl oder Strom für eine Wärmepumpe.",
-        "heatingSystemType": "Das ist das Gerät, das die Wärme erzeugt, zum Beispiel ein Brennwertkessel oder eine Wärmepumpe. Modernere Geräte verbrauchen in der Regel weniger Energie.",
+        "heatingSystemType": "Gemeint ist das Gerät, das die Wärme erzeugt, zum Beispiel ein Brennwertkessel oder eine Wärmepumpe. Modernere Geräte verbrauchen in der Regel weniger Energie.",
         "heatingSurfaceType": "Heizkörper sind die klassischen Radiatoren an der Wand. Eine Flächenheizung verteilt die Wärme über Boden, Wand oder Decke und arbeitet besonders effizient bei niedrigen Temperaturen."
       }
     },
@@ -283,6 +284,7 @@
       "heat_natural_gas_improved_condensing_boiler_55_45": "Ein moderner Gasbrennwertkessel nutzt die im Abgas enthaltene Wärme und erreicht dadurch eine deutlich höhere Effizienz als herkömmliche Gasheizungen.",
       "heat_bio_gas_improved_condensing_boiler_55_45": "Biogas wird aus organischen Materialien gewonnen und ist eine erneuerbare Alternative zu fossilem Erdgas. Ein Biogaskessel reduziert die CO₂-Bilanz der Heizung erheblich.",
       "heat_district_heating_district_heating_all_temperatures": "Fernwärme versorgt das Gebäude über das bestehende Wärmenetz mit Heizenergie. Eine eigene Heizungsanlage im Gebäude ist dabei meist nicht mehr erforderlich. Sofern ein Anschluss möglich ist, kann das Gebäude über das Fernwärmenetz versorgt werden.",
+      "surface_radiant_surface_heating": "Statt einzelner Heizkörper erwärmt eine Flächenheizung Boden, Wand oder Decke gleichmäßiger. Dadurch kann die Heizung oft mit niedrigeren Temperaturen arbeiten und verbraucht meist weniger Energie.",
       "noMeasureHeating": "Die bestehende Heizungsanlage bleibt unverändert."
     }
   },

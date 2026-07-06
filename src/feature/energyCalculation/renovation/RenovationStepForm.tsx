@@ -37,7 +37,9 @@ export default function RenovationStepForm() {
   return (
     <div className="flex flex-col gap-4">
       <div>
-        <Typography variant="h4" className="mb-2">{t('renovation.insulation.title')}</Typography>
+        <Typography variant="h4" className="mb-2">
+          {t('renovation.insulation.title')}
+        </Typography>
         <RenovationMultiSelectTable
           renovations={insulationRenovations}
           value={selectedInsulation}
@@ -48,7 +50,9 @@ export default function RenovationStepForm() {
       </div>
       {heatingRenovations.length > 0 && (
         <div>
-          <Typography variant="h4" className="mb-2">{t('renovation.heating.title')}</Typography>
+          <Typography variant="h4" className="mb-2">
+            {t('renovation.heating.title')}
+          </Typography>
           <RenovationSingleSelectTable
             renovations={heatingRenovations}
             value={selectedHeating}
@@ -61,13 +65,16 @@ export default function RenovationStepForm() {
       )}
       {heatingSurfaceRenovations.length > 0 && (
         <div>
-          <Typography variant="h4" className="mb-2">{t('renovation.heatingSurface.title')}</Typography>
+          <Typography variant="h4" className="mb-2">
+            {t('renovation.heatingSurface.title')}
+          </Typography>
           <RenovationSingleSelectTable
             renovations={heatingSurfaceRenovations}
             value={selectedHeatingSurface}
             onSelectionChange={(v) => $selectedHeatingSurfaceRenovations.set(v)}
             baseInput={heatingPatchedInput}
             config={config}
+            noMeasureTooltip={t('renovation.tooltips.noMeasureHeating')}
           />
         </div>
       )}

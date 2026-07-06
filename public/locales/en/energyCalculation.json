@@ -75,6 +75,7 @@
         "hasAttic": "Indicate whether your building has an accessible attic space. An existing attic influences the insulation of the top floor ceiling and thus the heat loss through the top of the building.",
         "isAtticHeated": "Indicate whether the space directly below the roof is heated.",
         "hasInsulation": "Existing insulation significantly reduces heat loss. Without insulation, up to 30% of heating energy is lost through the roof.",
+        "insulationThickness": "A thicker insulation layer increases the building's energy efficiency. Depending on the age of the insulation, between 6 cm and 20 cm is common.",
         "insulationTypeTitle": "Roof Insulation Type",
         "insulationTypeContent": "With above-rafter insulation, the insulation is fitted above the roof rafters. It provides the best thermal protection as no thermal bridges are created by the rafters. With between-rafter insulation, the insulation material is placed between the rafters. This option is more cost-effective but provides slightly less protection due to the rafters acting as thermal bridges."
       }
@@ -103,7 +104,8 @@
         "year": "Enter the year the ceiling was built or last renovated. The construction year of the ceiling between the living area and the attic helps assess insulation quality. Older ceilings are often uninsulated.",
         "area": "Enter the area of the ceiling between the living area and the attic in m². The area of the ceiling to the attic determines how much heat can escape from your home into the (usually unheated) attic.",
         "type": "The construction type of the ceiling affects the thermal insulation and heat storage capacity of the building. Solid ceiling: e.g. concrete or brick. Timber beam ceiling: construction of wooden beams, common in older buildings.",
-        "hasInsulation": "Insulating the ceiling below the attic prevents heat from escaping upwards from your home. This can save up to 15% in heating costs."
+        "hasInsulation": "Insulating the ceiling below the attic prevents heat from escaping upwards from your home. This can save up to 15% in heating costs.",
+        "insulationThickness": "A thicker insulation layer increases the building's energy efficiency. Depending on the age of the insulation, between 10 cm and 24 cm is common."
       }
     },
     "outerWall": {
@@ -116,10 +118,11 @@
       "adjacentWallArea": "What is the wall area adjacent to neighbouring buildings?",
       "tooltips": {
         "year": "Enter the year the wall was built or last major facade renovation. Older walls without insulation lose a lot of heat to the outside.",
-        "area": "Enter the total area of all outer walls, without deducting window areas. The total area of all outer walls affects heat loss. Larger wall areas mean more heat loss.",
+        "area": "Enter the total area of all free-standing outer walls, without deducting window areas. Larger wall areas mean more heat loss.",
         "constructionType": "Solid walls (e.g. brick or concrete) store heat well.",
         "hasInsulation": "Up to 40% of heating energy is lost through uninsulated outer walls. Insulation significantly reduces heating costs.",
-        "adjacentWallArea": "Wall area that is directly adjacent to neighbouring buildings and therefore does not lose heat to the outside."
+        "adjacentWallArea": "Wall area that is directly adjacent to neighbouring buildings and therefore does not lose heat to the outside.",
+        "insulationThickness": "A thicker insulation layer increases the building's energy efficiency. Depending on the age of the insulation, between 4 cm and 14 cm is common."
       }
     },
     "windows": {
@@ -129,6 +132,7 @@
       "uValue": "Do you know the U-value of your windows?",
       "year": "When were your windows installed or last replaced?",
       "tooltips": {
+        "year": "This refers to whether the windows were replaced with better-insulated ones or improved in terms of glazing, frame or connection. Pure repairs, new paint or replacing individual fittings do not count.",
         "area": "Enter the total area of all windows. The total area of all windows affects heat loss through the building envelope.",
         "windowType": "Wood and plastic frames provide good insulation. Aluminium and steel frames conduct cold more strongly and are less energy-efficient.",
         "uValue": "The U-value describes the thermal insulation of the window. Lower values mean better insulation. Old single-pane windows have approximately 5.0 W/m²K. Modern triple-glazed windows are around 0.7 W/m²K. You can find the U-value in your window documentation or on the type plate."
@@ -158,7 +162,8 @@
           "default": "Insulating the basement ceiling helps retain heat in the building. This keeps floors warmer and can reduce heating costs.",
           "heated": "Insulating the basement floor helps retain heat in the building. This keeps floors warmer and can reduce heating costs.",
           "noBasement": "Insulating the floor helps retain heat in the building. This keeps floors warmer and can reduce heating costs."
-        }
+        },
+        "insulationThickness": "A thicker insulation layer increases the building's energy efficiency. Depending on the age of the insulation, between 4 cm and 12 cm is common."
       },
       "area": {
         "default": "What is the area of your basement ceiling?",
@@ -182,7 +187,7 @@
         "heated": "Is your basement floor insulated?",
         "noBasement": "Is your floor insulated?"
       },
-      "insulationThickness": "How thick is the insulation?"
+      "insulationThickness": "What is the thickness of the current insulation?"
     }
   },
   "heat": {
@@ -205,9 +210,9 @@
       "heatingSystemType": "What type of heating system do you use?",
       "heatingSurfaceType": "How is heat distributed in the room?",
       "tooltips": {
-        "constructionYear": "The year your current heating system was installed. Older systems often work less efficiently and consume more energy.",
+        "constructionYear": "Enter the year your current heating system was installed. Older systems often work less efficiently and consume more energy.",
         "primaryEnergyCarrier": "Select the fuel for your heating system – for example natural gas, heating oil or electricity for a heat pump.",
-        "heatingSystemType": "This is the device that generates the heat, for example a condensing boiler or a heat pump. More modern devices generally consume less energy.",
+        "heatingSystemType": "This refers to the device that generates the heat, for example a condensing boiler or a heat pump. More modern devices generally consume less energy.",
         "heatingSurfaceType": "Radiators are the classic wall-mounted heaters. A surface heating system distributes heat through the floor, wall or ceiling and works particularly efficiently at low temperatures."
       }
     },
@@ -236,7 +241,8 @@
     "tooltips": {
       "type": "Mixed electricity contains power from various sources, including fossil fuels. Renewable electricity comes from wind, sun or water and has a significantly better CO₂ footprint.",
       "consumption": "Enter your annual electricity consumption in kWh. You can find this value on your annual bill. An average household uses approximately 2,500–4,000 kWh per year.",
-      "unitRate": "The price you pay per kilowatt hour (kWh) of electricity. You can find this value on your electricity bill. The average price is around 30–40 cents per kWh."
+      "unitRate": "The price you pay per kilowatt hour (kWh) of electricity. You can find this value on your electricity bill. The average price is around 30–40 cents per kWh.",
+      "baseRate": "The base rate is the fixed amount you pay regardless of your actual energy consumption. You can find it on your annual bill or in your energy supply contract."
     }
   },
   "renovation": {
@@ -278,6 +284,7 @@
       "heat_natural_gas_improved_condensing_boiler_55_45": "A modern condensing gas boiler recovers heat from the exhaust gas and therefore achieves significantly higher efficiency than conventional gas heating systems.",
       "heat_bio_gas_improved_condensing_boiler_55_45": "Biogas is produced from organic materials and is a renewable alternative to fossil natural gas. A biogas boiler significantly reduces the CO₂ footprint of your heating.",
       "heat_district_heating_district_heating_all_temperatures": "District heating supplies the building with heat energy via the existing heat network. A separate heating system in the building is usually no longer required. If a connection is possible, the building can be supplied via the district heating network.",
+      "surface_radiant_surface_heating": "Instead of individual radiators, a surface heating system warms the floor, wall or ceiling more evenly. This allows the heating to often work with lower temperatures and usually consume less energy.",
       "noMeasureHeating": "The existing heating system remains unchanged."
     }
   },
