@@ -2,9 +2,14 @@ import { type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_
 import { computed } from 'nanostores';
 import { $config } from '../calculation-config';
 import makeFieldStore from '../../field-store';
-import { makeSelectionStore } from '../../selection-store';
+import {
+  bindFieldToOptions,
+  makeSelectionStore,
+} from '../../selection-store';
+import { rangeKeyEquals } from '../../yearHelper/rangeBandOptions';
 import { $resolvedInputState } from '../computed/resolved-input';
 import { $inputState } from './atoms';
+import { buildingYearOptions } from './general';
 
 export const heatingSystemConstructionYearField = makeFieldStore({
   store: $inputState,
@@ -16,6 +21,12 @@ export const heatingSystemConstructionYearField = makeFieldStore({
   placeholderStore: $resolvedInputState,
   resettable: true,
 });
+
+bindFieldToOptions(
+  heatingSystemConstructionYearField,
+  buildingYearOptions,
+  rangeKeyEquals,
+);
 
 export const primaryEnergyCarrierField = makeFieldStore({
   store: $inputState,
@@ -30,6 +41,8 @@ export const primaryEnergyCarrierField = makeFieldStore({
 export const primaryEnergyCarrierOptions = makeSelectionStore(
   (config) => config.heat.primaryEnergyCarriers,
 );
+
+bindFieldToOptions(primaryEnergyCarrierField, primaryEnergyCarrierOptions);
 
 export const heatingSystemTypeOptions = makeSelectionStore(
   (config) => config.heat.heatingSystemTypes,
@@ -50,6 +63,8 @@ export const heatingSystemTypeField = makeFieldStore({
   resettable: true,
 });
 
+bindFieldToOptions(heatingSystemTypeField, heatingSystemTypeOptions);
+
 export const heatingSurfaceTypeOptions = makeSelectionStore(
   (config) => config.heat.heatingSurfaceTypes,
 );
@@ -63,6 +78,8 @@ export const heatingSurfaceTypeField = makeFieldStore({
   placeholderStore: $resolvedInputState,
   resettable: true,
 });
+
+bindFieldToOptions(heatingSurfaceTypeField, heatingSurfaceTypeOptions);
 
 export const hasGasSupplyField = makeFieldStore({
   store: $inputState,
@@ -138,6 +155,26 @@ export const $isThermalBaseRateInvalid = computed(
       input.heat.userThermalBaseRate ?? resolved.heat.userThermalBaseRate;
     return total != null && base != null && base > total;
   },
+);
+
+/**
+ * A supplied thermal bill can only be converted to consumption with a
+ * positive effective unit rate.
+ */
+export const $isThermalUnitRateInvalid = computed(
+  [$inputState, $resolvedInputState],
+  (input, resolved) => {
+    const total = input.heat.userThermalTotalCost;
+    const unitRate =
+      input.heat.userThermalUnitRate ?? resolved.heat.userThermalUnitRate;
+    return total != null && (unitRate == null || unitRate <= 0);
+  },
+);
+
+export const $canProgressHeatStep = computed(
+  [$isThermalBaseRateInvalid, $isThermalUnitRateInvalid],
+  (baseRateInvalid, unitRateInvalid) =>
+    !baseRateInvalid && !unitRateInvalid,
 );
 
 export const $isSystemOnlyElectrical = computed(

@@ -2,10 +2,12 @@ import { FieldGroup, FieldSet } from '@/components/ui/field';
 import { Paper } from '@/components/ui/paper';
 import type { SelectOption } from '@/components/ui/select';
 import { BuildingType } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+import { useStore } from '@nanostores/react';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TooltipProvider } from '../../../components/ui/tooltip';
 import {
+  $isLivingAreaInvalid,
   buildingTypeField,
   buildingYearField,
   buildingYearOptions,
@@ -19,6 +21,7 @@ import { InfoTooltipButton } from '../InfoButton';
 
 export default function GeneralDataStepForm() {
   const { t } = useTranslation('energyCalculation');
+  const livingAreaInvalid = useStore($isLivingAreaInvalid);
 
   const buildingTypeOptions = useMemo<SelectOption<BuildingType>[]>(
     () => [
@@ -61,6 +64,9 @@ export default function GeneralDataStepForm() {
               labelKey="generalData.fields.numberOfFloors"
               decimalScale={0}
               allowNegative={false}
+              isAllowed={({ floatValue }) =>
+                floatValue == null || floatValue >= 1
+              }
               info={
                 <InfoTooltipButton content={t('generalData.tooltips.numberOfFloors')} />
               }
@@ -72,6 +78,11 @@ export default function GeneralDataStepForm() {
               suffix=" m²"
               decimalScale={1}
               allowNegative={false}
+              error={
+                livingAreaInvalid
+                  ? t('generalData.errors.livingAreaMustBePositive')
+                  : undefined
+              }
               info={
                 <InfoTooltipButton content={t('generalData.tooltips.livingArea')} />
               }

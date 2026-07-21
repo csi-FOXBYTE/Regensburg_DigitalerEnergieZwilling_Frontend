@@ -1,5 +1,8 @@
 import makeFieldStore from '../../field-store';
-import { makeSelectionStore } from '../../selection-store';
+import {
+  bindFieldToOptions,
+  makeSelectionStore,
+} from '../../selection-store';
 import { $resolvedInputState } from '../computed/resolved-input';
 import { $inputState } from './atoms';
 
@@ -16,6 +19,8 @@ export const electricityTypeField = makeFieldStore({
   placeholderStore: $resolvedInputState,
   resettable: true,
 });
+
+bindFieldToOptions(electricityTypeField, electricityTypeOptions);
 
 export const userElectricityConsumptionField = makeFieldStore({
   store: $inputState,

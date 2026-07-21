@@ -5,8 +5,8 @@ import StickyContainer from '@/components/layouts/StickyContainer.astro';
 import { Typography } from '@/components/ui/typography';
 import i18next from 'i18next';
 import BuildingAddress from '../BuildingAddress';
-import ButtonBar from '../ButtonBar';
 import CurrentStats from '../CurrentStats';
+import OuterPartsButtonBar from './OuterPartsButtonBar';
 import OuterPartsStepForm from './OuterPartsStepForm';
 import OuterSectionNav from './OuterSectionNav';
 ---
@@ -26,6 +26,6 @@ import OuterSectionNav from './OuterSectionNav';
   </StickyContainer>
   <ContentContainer>
     <OuterPartsStepForm client:load />
-    <ButtonBar className="mt-8" client:load />
+    <OuterPartsButtonBar className="mt-8" client:load />
   </ContentContainer>
 </EnergyCalculationPage>

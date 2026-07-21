@@ -1,27 +1,31 @@
 import { useStore } from '@nanostores/react';
+import { atom, type ReadableAtom } from 'nanostores';
 import type { ParseKeys } from 'i18next';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import ArrowIcon from '../../components/ArrowIcon';
 import { Button } from '../../components/ui/button';
 import { $step, navigateToStep, Step } from '../../lib/state/ui/progress';
-import { $isNextBlocked } from '../../lib/state/ui/validation';
+
+const $alwaysCanProgress = atom(true);
 
 export type ButtonBarProps = {
   backTextKey?: ParseKeys<'energyCalculation'>;
   continueTextKey?: ParseKeys<'energyCalculation'>;
+  canProgress?: ReadableAtom<boolean>;
   className?: string;
 };
 
 export default function ButtonBar({
   continueTextKey,
   backTextKey,
+  canProgress: canProgressStore,
   className,
 }: ButtonBarProps) {
   const { t } = useTranslation('energyCalculation');
 
   const step = useStore($step);
-  const isNextBlocked = useStore($isNextBlocked);
+  const canProgress = useStore(canProgressStore ?? $alwaysCanProgress);
 
   const hasNextStep = step < Step.Result;
 
@@ -44,7 +48,7 @@ export default function ButtonBar({
       {hasNextStep && (
         <Button
           onClick={nextStep}
-          disabled={isNextBlocked}
+          disabled={!canProgress}
           className="col-span-1 flex w-full gap-2"
           variant="primary"
         >

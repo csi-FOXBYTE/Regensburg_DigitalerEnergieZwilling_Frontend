@@ -5,6 +5,7 @@ export * from './electricity';
 export * from './exterior-wall-windows';
 export * from './general';
 export * from './heat';
+export * from './outer-parts';
 export * from './outer-wall';
 export * from './roof';
 export * from './roof-windows';

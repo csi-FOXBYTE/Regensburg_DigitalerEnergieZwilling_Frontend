@@ -7,6 +7,7 @@ import { buildingYearOptions } from '@/lib/state/inputs/general';
 import {
   $isSystemOnlyElectrical,
   $isThermalBaseRateInvalid,
+  $isThermalUnitRateInvalid,
   hasBioGasField,
   hasGasSupplyField,
   hasStorageField,
@@ -46,6 +47,7 @@ export default function HeatStepForm() {
     : '';
 
   const baseRateExceedsTotal = useStore($isThermalBaseRateInvalid);
+  const unitRateInvalid = useStore($isThermalUnitRateInvalid);
 
   return (
     <TooltipProvider>
@@ -163,6 +165,11 @@ export default function HeatStepForm() {
                 decimalScale={2}
                 fixedDecimalScale
                 allowNegative={false}
+                error={
+                  unitRateInvalid
+                    ? t('heat.bills.errors.unitRateMustBePositive')
+                    : undefined
+                }
                 info={
                   <InfoTooltipButton
                     content={t('heat.bills.tooltips.unitRate')}

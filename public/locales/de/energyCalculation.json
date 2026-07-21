@@ -48,6 +48,9 @@
       "buildingType": "Die Gebäudeart beeinflusst die Berechnung. Für ein- und Mehrfamilienhäuser werden unterschiedliche Standartwerte verwendet, zum Beispiel für die Flächennutzung und den Energiebedarf.",
       "numberOfFloors": "Zählen Sie nur Stockwerke ohne Keller und nicht ausgebaute Dachräume. Ein Haus mit Erdgeschoss und Obergeschoss hat zum Beispiel 2 Stockwerke.",
       "livingArea": "Die Wohnfläche ist die beheizte Fläche in Ihrem Gebäude. Bei Mehrparteienhäuser geben Sie bitte die gesamte Wohnfläche aller Parteien an."
+    },
+    "errors": {
+      "livingAreaMustBePositive": "Die Wohnfläche muss größer als 0 sein."
     }
   },
   "outerParts": {
@@ -93,6 +96,9 @@
         "area": "Geben Sie die gesamte Fläche aller Dachfenster an. Die Gesamtfläche aller Dachfenster beeinflusst den Wärmeverlust.",
         "windowType": "Holz- und Kunststoffrahmen dämmen gut. Aluminium- und Stahlrahmen leiten Kälte stärker und sind weniger energieeffizient.",
         "uValue": "Der U-Wert gibt Auskunft darüber, wie gut ein Bauteil dämmt. Niedrigere Werte bedeuten bessere Dämmung. Alte Einfachfenster haben etwa 5,0 W/m²K. Moderne Dreifachfenster liegen bei etwas 0.7 W/m²K. Den U-Wert finden Sie in den Unterlagen Ihrer Fenster oder auf dem Typenschild."
+      },
+      "errors": {
+        "areaExceedsRoofArea": "Die Dachfensterfläche darf nicht größer als die Dachfläche sein."
       }
     },
     "topFloor": {
@@ -108,6 +114,9 @@
         "type": "In älteren Gebäuden (vor etwas 1965) sind häufig Holzbalkendecken verbaut, in neueren Gebäuden (ab etwa 1965) sind zumeist massive Decken verbaut.",
         "hasInsulation": "Eine Dämmung der Decke unter dem Dachraum verhindert, dass Wärme aus Ihrer Wohnung nach oben entweicht. Das kann bis zu 15 % der Heizkosten sparen.",
         "insulationThickness": "Eine dickere Dämmschicht erhöht die energetische Effizienz des Gebäudes. Je nach Alter der Dämmung sind zwischen 10 cm und 24 cm üblich."
+      },
+      "errors": {
+        "areaExceedsRoofArea": "Die Fläche der obersten Geschossdecke darf nicht größer als die Dachfläche sein."
       }
     },
     "outerWall": {
@@ -229,7 +238,8 @@
         "baseRate": "Der Grundpreis ist der feste Betrag, den Sie unabhängig vom tatsächlichen Energieverbrauch bezahlen. Sie finden ihn in Ihrer Jahresabrechnung oder Ihrem Energieliefervertrag."
       },
       "errors": {
-        "baseRateExceedsTotal": "Der jährliche Grundpreis kann nicht höher sein als Ihre jährlichen Heizkosten."
+        "baseRateExceedsTotal": "Der jährliche Grundpreis kann nicht höher sein als Ihre jährlichen Heizkosten.",
+        "unitRateMustBePositive": "Der Arbeitspreis muss größer als 0 sein, wenn Sie jährliche Heizkosten angeben."
       }
     }
   },

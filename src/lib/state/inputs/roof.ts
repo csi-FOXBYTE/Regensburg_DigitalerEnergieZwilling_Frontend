@@ -1,8 +1,13 @@
 import { RoofInsulationType, type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import makeFieldStore from '../../field-store';
-import { makeSelectionStore } from '../../selection-store';
+import {
+  bindFieldToOptions,
+  makeSelectionStore,
+} from '../../selection-store';
+import { rangeKeyEquals } from '../../yearHelper/rangeBandOptions';
 import { $resolvedInputState } from '../computed/resolved-input';
 import { $inputState } from './atoms';
+import { buildingYearOptions } from './general';
 
 export { RoofInsulationType };
 
@@ -29,6 +34,8 @@ export const roofConstructionTypeField = makeFieldStore({
   placeholderStore: $resolvedInputState,
   resettable: true,
 });
+
+bindFieldToOptions(roofConstructionTypeField, roofConstructionTypeOptions);
 
 export const roofHasInsulationField = makeFieldStore({
   store: $inputState,
@@ -69,3 +76,5 @@ export const roofYearField = makeFieldStore({
   placeholderStore: $resolvedInputState,
   resettable: true,
 });
+
+bindFieldToOptions(roofYearField, buildingYearOptions, rangeKeyEquals);

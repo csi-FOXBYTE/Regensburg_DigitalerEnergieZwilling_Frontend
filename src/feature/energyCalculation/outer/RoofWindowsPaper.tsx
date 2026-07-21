@@ -3,6 +3,7 @@ import { Paper } from '@/components/ui/paper';
 import { Separator } from '@/components/ui/separator';
 import { buildingYearOptions } from '@/lib/state/inputs/general';
 import {
+  $isRoofWindowsAreaInvalid,
   roofWindowsAreaField,
   roofWindowsUValueField,
   roofWindowsWindowTypeField,
@@ -22,6 +23,7 @@ import { InfoTooltipButton } from '../InfoButton';
 
 export default function RoofWindowsPaper() {
   const { t } = useTranslation('energyCalculation');
+  const roofWindowsAreaInvalid = useStore($isRoofWindowsAreaInvalid);
   const hasAtticValue = useStore(hasAtticField.$store);
   const hasAtticPlaceholder = useStore(hasAtticField.$placeholder);
   const hasAttic = hasAtticValue ?? hasAtticPlaceholder;
@@ -53,6 +55,11 @@ export default function RoofWindowsPaper() {
           suffix=" m²"
           decimalScale={1}
           allowNegative={false}
+          error={
+            roofWindowsAreaInvalid
+              ? t('outerParts.roofWindows.errors.areaExceedsRoofArea')
+              : undefined
+          }
           info={
             <InfoTooltipButton
               content={t('outerParts.roofWindows.tooltips.area')}

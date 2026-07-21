@@ -1,8 +1,13 @@
 import { type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import makeFieldStore from '../../field-store';
-import { makeSelectionStore } from '../../selection-store';
+import {
+  bindFieldToOptions,
+  makeSelectionStore,
+} from '../../selection-store';
+import { rangeKeyEquals } from '../../yearHelper/rangeBandOptions';
 import { $resolvedInputState } from '../computed/resolved-input';
 import { $inputState } from './atoms';
+import { buildingYearOptions } from './general';
 
 export const outerWallYearField = makeFieldStore({
   store: $inputState,
@@ -13,6 +18,8 @@ export const outerWallYearField = makeFieldStore({
   placeholderStore: $resolvedInputState,
   resettable: true,
 });
+
+bindFieldToOptions(outerWallYearField, buildingYearOptions, rangeKeyEquals);
 
 export const outerWallAreaField = makeFieldStore({
   store: $inputState,
@@ -47,6 +54,11 @@ export const outerWallConstructionTypeField = makeFieldStore({
   placeholderStore: $resolvedInputState,
   resettable: true,
 });
+
+bindFieldToOptions(
+  outerWallConstructionTypeField,
+  outerWallConstructionTypeOptions,
+);
 
 export const outerWallHasInsulationField = makeFieldStore({
   store: $inputState,

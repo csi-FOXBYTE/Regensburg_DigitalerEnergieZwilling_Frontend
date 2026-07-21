@@ -1,8 +1,14 @@
 import { type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+import { computed } from 'nanostores';
 import makeFieldStore from '../../field-store';
-import { makeSelectionStore } from '../../selection-store';
+import {
+  bindFieldToOptions,
+  makeSelectionStore,
+} from '../../selection-store';
+import { rangeKeyEquals } from '../../yearHelper/rangeBandOptions';
 import { $resolvedInputState } from '../computed/resolved-input';
 import { $inputState } from './atoms';
+import { buildingYearOptions } from './general';
 
 export const roofWindowsAreaField = makeFieldStore({
   store: $inputState,
@@ -28,6 +34,11 @@ export const roofWindowsWindowTypeField = makeFieldStore({
   resettable: true,
 });
 
+bindFieldToOptions(
+  roofWindowsWindowTypeField,
+  roofWindowsWindowTypeOptions,
+);
+
 export const roofWindowsUValueField = makeFieldStore({
   store: $inputState,
   getValue: (obj) => obj.roofWindows.uValue,
@@ -47,3 +58,21 @@ export const roofWindowsYearField = makeFieldStore({
   placeholderStore: $resolvedInputState,
   resettable: true,
 });
+
+bindFieldToOptions(roofWindowsYearField, buildingYearOptions, rangeKeyEquals);
+
+export const $isRoofWindowsAreaInvalid = computed(
+  [$inputState, $resolvedInputState],
+  (input, resolved) => {
+    const hasAttic = input.topFloor.hasAttic ?? resolved.topFloor.hasAttic;
+    const isAtticHeated =
+      input.topFloor.isAtticHeated ?? resolved.topFloor.isAtticHeated;
+    if (hasAttic && !isAtticHeated) return false;
+
+    const roofArea = input.roof.area ?? resolved.roof.area;
+    const roofWindowsArea = input.roofWindows.area ?? resolved.roofWindows.area;
+    return (
+      roofArea != null && roofWindowsArea != null && roofWindowsArea > roofArea
+    );
+  },
+);

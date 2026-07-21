@@ -3,6 +3,7 @@ import { Paper } from '@/components/ui/paper';
 import { Separator } from '@/components/ui/separator';
 import { buildingYearOptions } from '@/lib/state/inputs/general';
 import {
+  $isTopFloorAreaInvalid,
   hasAtticField,
   isAtticHeatedField,
   topFloorAreaField,
@@ -22,6 +23,7 @@ import { InfoTooltipButton } from '../InfoButton';
 
 export default function TopFloorPaper() {
   const { t } = useTranslation('energyCalculation');
+  const topFloorAreaInvalid = useStore($isTopFloorAreaInvalid);
   const hasAtticValue = useStore(hasAtticField.$store);
   const hasAtticPlaceholder = useStore(hasAtticField.$placeholder);
   const hasAttic = hasAtticValue ?? hasAtticPlaceholder;
@@ -68,6 +70,11 @@ export default function TopFloorPaper() {
           suffix=" m²"
           decimalScale={1}
           allowNegative={false}
+          error={
+            topFloorAreaInvalid
+              ? t('outerParts.topFloor.errors.areaExceedsRoofArea')
+              : undefined
+          }
           info={
             <InfoTooltipButton
               content={t('outerParts.topFloor.tooltips.area')}

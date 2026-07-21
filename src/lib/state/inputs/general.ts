@@ -2,8 +2,13 @@ import {
   type DETConfig,
   type RangeKey,
 } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+import { computed } from 'nanostores';
 import makeFieldStore from '../../field-store';
-import { makeRangeBandStore } from '../../selection-store';
+import {
+  bindFieldToOptions,
+  makeRangeBandStore,
+} from '../../selection-store';
+import { rangeKeyEquals } from '../../yearHelper/rangeBandOptions';
 import { $resolvedInputState } from '../computed/resolved-input';
 import { $inputState } from './atoms';
 
@@ -22,6 +27,8 @@ export const buildingYearOptions = makeRangeBandStore({
     return config.general.generalYearBands;
   },
 });
+
+bindFieldToOptions(buildingYearField, buildingYearOptions, rangeKeyEquals);
 
 export const buildingTypeField = makeFieldStore({
   store: $inputState,
@@ -70,3 +77,17 @@ export const livingAreaField = makeFieldStore({
   placeholderStore: $resolvedInputState,
   resettable: true,
 });
+
+export const $isLivingAreaInvalid = computed(
+  [$inputState, $resolvedInputState],
+  (input, resolved) => {
+    const livingArea =
+      input.general.livingArea ?? resolved.general.livingArea;
+    return livingArea != null && livingArea <= 0;
+  },
+);
+
+export const $canProgressGeneralDataStep = computed(
+  $isLivingAreaInvalid,
+  (livingAreaInvalid) => !livingAreaInvalid,
+);

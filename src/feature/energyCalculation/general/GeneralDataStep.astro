@@ -6,8 +6,8 @@ import { Typography } from '@/components/ui/typography';
 import i18next from 'i18next';
 import { AlertCircle } from 'lucide-react';
 import BuildingAddress from '../BuildingAddress';
-import ButtonBar from '../ButtonBar';
 import CurrentStats from '../CurrentStats';
+import GeneralDataButtonBar from './GeneralDataButtonBar';
 import GeneralDataStepForm from './GeneralDataStepForm';
 ---
 
@@ -40,6 +40,6 @@ import GeneralDataStepForm from './GeneralDataStepForm';
   </StickyContainer>
   <ContentContainer>
     <GeneralDataStepForm client:load />
-    <ButtonBar className="mt-8" client:load />
+    <GeneralDataButtonBar className="mt-8" client:load />
   </ContentContainer>
 </EnergyCalculationPage>

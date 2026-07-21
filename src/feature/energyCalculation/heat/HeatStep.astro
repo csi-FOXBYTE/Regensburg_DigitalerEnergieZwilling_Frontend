@@ -5,8 +5,8 @@ import StickyContainer from '@/components/layouts/StickyContainer.astro';
 import { Typography } from '@/components/ui/typography';
 import i18next from 'i18next';
 import BuildingAddress from '../BuildingAddress';
-import ButtonBar from '../ButtonBar';
 import CurrentStats from '../CurrentStats';
+import HeatButtonBar from './HeatButtonBar';
 import HeatStepForm from './HeatStepForm';
 ---
 
@@ -22,6 +22,6 @@ import HeatStepForm from './HeatStepForm';
   </StickyContainer>
   <ContentContainer>
     <HeatStepForm client:load />
-    <ButtonBar className="mt-8" client:load />
+    <HeatButtonBar className="mt-8" client:load />
   </ContentContainer>
 </EnergyCalculationPage>

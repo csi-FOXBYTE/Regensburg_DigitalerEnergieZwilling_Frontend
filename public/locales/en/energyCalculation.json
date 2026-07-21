@@ -48,6 +48,9 @@
       "buildingType": "Different assumptions are made for single-family and multi-family houses in the calculation, for example regarding floor usage and energy demand.",
       "numberOfFloors": "Count only floors excluding the basement and unfinished attic spaces. A house with a ground floor and an upper floor has, for example, 2 floors.",
       "livingArea": "The living area is the heated floor area of your building."
+    },
+    "errors": {
+      "livingAreaMustBePositive": "The living area must be greater than 0."
     }
   },
   "outerParts": {
@@ -93,6 +96,9 @@
         "area": "Enter the total area of all roof windows. The total area of all roof windows affects heat loss.",
         "windowType": "Wood and plastic frames provide good insulation. Aluminium and steel frames conduct cold more strongly and are less energy-efficient.",
         "uValue": "The U-value describes the thermal insulation of the window. Lower values mean better insulation. Old single-pane windows have approximately 5.0 W/m²K. Modern triple-glazed windows are around 0.7 W/m²K. You can find the U-value in your window documentation or on the type plate."
+      },
+      "errors": {
+        "areaExceedsRoofArea": "The roof-window area must not be greater than the roof area."
       }
     },
     "topFloor": {
@@ -108,6 +114,9 @@
         "type": "The construction type of the ceiling affects the thermal insulation and heat storage capacity of the building. Solid ceiling: e.g. concrete or brick. Timber beam ceiling: construction of wooden beams, common in older buildings.",
         "hasInsulation": "Insulating the ceiling below the attic prevents heat from escaping upwards from your home. This can save up to 15% in heating costs.",
         "insulationThickness": "A thicker insulation layer increases the building's energy efficiency. Depending on the age of the insulation, between 10 cm and 24 cm is common."
+      },
+      "errors": {
+        "areaExceedsRoofArea": "The top-floor ceiling area must not be greater than the roof area."
       }
     },
     "outerWall": {
@@ -229,7 +238,8 @@
         "baseRate": "The base price is the fixed amount you pay regardless of your actual energy consumption. You can find it on your annual bill or in your energy supply contract."
       },
       "errors": {
-        "baseRateExceedsTotal": "The annual base price cannot be higher than your annual heating costs."
+        "baseRateExceedsTotal": "The annual base price cannot be higher than your annual heating costs.",
+        "unitRateMustBePositive": "The unit rate must be greater than 0 when annual heating costs are provided."
       }
     }
   },

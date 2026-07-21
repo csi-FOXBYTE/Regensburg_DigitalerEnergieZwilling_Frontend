@@ -18,7 +18,7 @@ import type {
 import { useStore } from '@nanostores/react';
 import type { ParseKeys } from 'i18next';
 import type { ReadableAtom } from 'nanostores';
-import { useEffect, type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import EnergyCalculationField from './EnergyCalculationField';
 
@@ -86,19 +86,10 @@ function EnergySelectInputSelectionPreprocessor<T extends string>({
 }) {
   const { i18n } = useTranslation();
   const selections = useStore(selectionStore);
-  const value = useStore(baseProps.field.$store);
   const options = selections.map((s) => ({
     value: s.value as T,
     label: s.localization[i18n.language] ?? s.localization['en'] ?? s.value,
   }));
-
-  useEffect(() => {
-    if (selections.length === 1) {
-      baseProps.field.setValue(selections[0].value as T);
-    } else if (value != null && !selections.some((s) => s.value === value)) {
-      baseProps.field.setValue(undefined);
-    }
-  }, [selections]);
 
   return (
     <EnergySelectInputBase
@@ -118,15 +109,6 @@ function EnergySelectInputRangeBandPreprocessor({
   const { t } = useTranslation('common');
   const rawOptions = useStore(rangeBandStore);
   const options = rawOptions.map((o) => ({ ...o, label: formatRangeLabel(o.value, t) }));
-  const value = useStore(baseProps.field.$store);
-
-  useEffect(() => {
-    if (options.length === 1) {
-      baseProps.field.setValue(options[0].value);
-    } else if (value != null && !options.some((o) => rangeKeyEquals(o.value, value))) {
-      baseProps.field.setValue(undefined);
-    }
-  }, [options]);
 
   return (
     <EnergySelectInputBase
