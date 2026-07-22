@@ -8,7 +8,6 @@ import {
   $isSystemOnlyElectrical,
   $isThermalBaseRateInvalid,
   $isThermalUnitRateInvalid,
-  hasBioGasField,
   hasGasSupplyField,
   hasStorageField,
   heatingSurfaceTypeField,
@@ -32,10 +31,6 @@ import { InfoTooltipButton } from '../InfoButton';
 
 export default function HeatStepForm() {
   const { t } = useTranslation('energyCalculation');
-  const hasGasSupplyValue = useStore(hasGasSupplyField.$store);
-  const hasGasSupplyPlaceholder = useStore(hasGasSupplyField.$placeholder);
-  const showBioGas = hasGasSupplyValue ?? hasGasSupplyPlaceholder;
-
   const isSystemOnlyElectrical = useStore($isSystemOnlyElectrical);
   const config = useStore($config);
   const carrierValue = useStore(primaryEnergyCarrierField.$store);
@@ -67,21 +62,9 @@ export default function HeatStepForm() {
                 ></InfoTooltipButton>
               }
             />
-            {showBioGas && (
-              <EnergyBooleanInput
-                field={hasBioGasField}
-                labelKey="heat.supply.hasBioGas"
-                info={
-                  <InfoTooltipButton
-                    content={t('heat.supply.tooltips.hasBioGas')}
-                  ></InfoTooltipButton>
-                }
-              />
-            )}
             <EnergyBooleanInput
               field={hasStorageField}
               labelKey="heat.supply.hasStorage"
-              className="lg:col-start-1"
               info={
                 <InfoTooltipButton
                   content={t('heat.supply.tooltips.hasStorage')}

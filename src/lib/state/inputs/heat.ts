@@ -91,16 +91,6 @@ export const hasGasSupplyField = makeFieldStore({
   resettable: true,
 });
 
-export const hasBioGasField = makeFieldStore({
-  store: $inputState,
-  getValue: (obj) => obj.heat.hasBioGas ?? undefined,
-  setValue: (draft, value) => {
-    draft.heat.hasBioGas = value;
-  },
-  placeholderStore: $resolvedInputState,
-  resettable: true,
-});
-
 export const hasStorageField = makeFieldStore({
   store: $inputState,
   getValue: (obj) => obj.heat.hasStorage ?? undefined,

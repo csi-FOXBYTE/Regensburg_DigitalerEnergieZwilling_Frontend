@@ -309,19 +309,23 @@ export function PdfInputSummary() {
                 outerWall.constructionType,
               )}
             />
-            <PdfLabeledValue
-              label={ec('export.labels.outerWall.hasInsulation')}
-              value={fmtBool(
-                outerWall.hasInsulation,
-                'energyCalculation:booleanLabels.insulated',
-                'energyCalculation:booleanLabels.notInsulated',
-              )}
-            />
-            {outerWall.hasInsulation && (
-              <PdfLabeledValue
-                label={ec('export.labels.outerWall.insulationThickness')}
-                value={fmt(outerWall.insulationThickness, 2, 'm')}
-              />
+            {result.resolvedInput.outerWall.allowsAdditionalInsulation && (
+              <>
+                <PdfLabeledValue
+                  label={ec('export.labels.outerWall.hasInsulation')}
+                  value={fmtBool(
+                    outerWall.hasInsulation,
+                    'energyCalculation:booleanLabels.insulated',
+                    'energyCalculation:booleanLabels.notInsulated',
+                  )}
+                />
+                {outerWall.hasInsulation && (
+                  <PdfLabeledValue
+                    label={ec('export.labels.outerWall.insulationThickness')}
+                    value={fmt(outerWall.insulationThickness, 2, 'm')}
+                  />
+                )}
+              </>
             )}
           </View>
         </View>
@@ -414,12 +418,6 @@ export function PdfInputSummary() {
                 label={ec('export.labels.heat.hasGasSupply')}
                 value={fmtBool(heat.hasGasSupply, 'common:yes', 'common:no')}
               />
-              {heat.hasGasSupply && (
-                <PdfLabeledValue
-                  label={ec('export.labels.heat.hasBioGas')}
-                  value={fmtBool(heat.hasBioGas, 'common:yes', 'common:no')}
-                />
-              )}
               <PdfLabeledValue
                 label={ec('export.labels.heat.hasStorage')}
                 value={fmtBool(heat.hasStorage, 'common:yes', 'common:no')}

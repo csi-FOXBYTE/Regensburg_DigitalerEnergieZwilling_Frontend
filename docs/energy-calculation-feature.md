@@ -296,9 +296,8 @@ Two sections:
 
 | Field | Type | Notes |
 |---|---|---|
-| `hasGasSupplyField` | Boolean | resettable: false |
-| `hasBioGasField` | Boolean | only rendered when `hasGasSupply` is true; resettable: false |
-| `hasStorageField` | Boolean | always starts on col 1 (`lg:col-start-1`); resettable: false |
+| `hasGasSupplyField` | Boolean | resettable |
+| `hasStorageField` | Boolean | resettable; rendered beside gas supply on large screens |
 
 **Heizung** (main fields, second Paper):
 
@@ -356,11 +355,14 @@ Composed of 6 "Paper" sub-sections stacked vertically:
 1. **RoofPaper** — year, area, constructionType; hasAttic, isAtticHeated; insulation fields
 2. **RoofWindowsPaper** — year, area, windowType, uValue
 3. **TopFloorPaper** — rendered only when `hasAttic && !isAtticHeated`; year, area, topFloorType + insulation
-4. **OuterWallPaper** — year, area, constructionType + insulation
+4. **OuterWallPaper** — year, area, constructionType + optional additional insulation
 5. **WindowsPaper** — year, area, windowType, uValue (exterior wall windows)
 6. **BottomFloorPaper** — context-aware labels based on `hasBasement` + `isBasementHeated`
 
 Conditional visibility inside papers follows the pattern: render the field only if the controlling boolean field store value (or its placeholder) is truthy.
+For outer walls, the additional-insulation fields are only shown when the resolved
+`allowsAdditionalInsulation` value is true. Both user overrides are cleared when it
+becomes false.
 
 ### Result
 
@@ -427,4 +429,3 @@ The calculation engine is `@csi-foxbyte/regensburg_digitalerenergiezwilling_ener
 - Type definitions: `DETInput`, `DETConfig`, `DETResult`, `Renovation`, `EnergyEfficiencyClass`, and sub-types per section
 
 `$config` is loaded once and stored in `src/lib/state/calculation-config/index.ts`. It drives all dropdown option lists and renovation generation.
-

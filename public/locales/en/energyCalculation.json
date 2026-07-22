@@ -206,11 +206,9 @@
     "supply": {
       "title": "Supply",
       "hasGasSupply": "Does your building have a gas connection?",
-      "hasBioGas": "Can you obtain biogas?",
       "hasStorage": "Can fuels such as oil or pellets be stored at your property?",
       "tooltips": {
         "hasGasSupply": "A gas connection enables the use of gas-powered heating systems.",
-        "hasBioGas": "Biogas causes lower CO₂ emissions.",
         "hasStorage": "Sufficient storage space is required for oil or pellet heating systems."
       }
     },
@@ -396,7 +394,6 @@
       },
       "heat": {
         "hasGasSupply": "Gas Connection",
-        "hasBioGas": "Biogas Available",
         "hasStorage": "Fuel Storage Present",
         "constructionYear": "Heating System Year",
         "primaryEnergyCarrier": "Energy Carrier",

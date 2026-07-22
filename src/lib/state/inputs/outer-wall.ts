@@ -1,11 +1,16 @@
 import { type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+import { produce } from 'immer';
+import { computed } from 'nanostores';
 import makeFieldStore from '../../field-store';
 import {
   bindFieldToOptions,
   makeSelectionStore,
 } from '../../selection-store';
 import { rangeKeyEquals } from '../../yearHelper/rangeBandOptions';
-import { $resolvedInputState } from '../computed/resolved-input';
+import {
+  $resolvedInput,
+  $resolvedInputState,
+} from '../computed/resolved-input';
 import { $inputState } from './atoms';
 import { buildingYearOptions } from './general';
 
@@ -78,4 +83,28 @@ export const outerWallInsulationThicknessField = makeFieldStore({
   },
   placeholderStore: $resolvedInputState,
   resettable: true,
+});
+
+export const $allowsAdditionalOuterWallInsulation = computed(
+  $resolvedInput,
+  (input) => input.outerWall.allowsAdditionalInsulation,
+);
+
+$allowsAdditionalOuterWallInsulation.subscribe((allowsAdditionalInsulation) => {
+  if (allowsAdditionalInsulation !== false) return;
+
+  const input = $inputState.get();
+  if (
+    input.outerWall.hasInsulation === undefined &&
+    input.outerWall.insulationThickness === undefined
+  ) {
+    return;
+  }
+
+  $inputState.set(
+    produce(input, (draft) => {
+      draft.outerWall.hasInsulation = undefined;
+      draft.outerWall.insulationThickness = undefined;
+    }),
+  );
 });

@@ -206,11 +206,9 @@
     "supply": {
       "title": "Versorgung",
       "hasGasSupply": "Gibt es einen Gasanschluss in Ihrem Gebäude?",
-      "hasBioGas": "Können Sie Biogas beziehen?",
       "hasStorage": "Ist eine Lagerfläche für Brennstoffe, wie Öl oder Pellets vorhanden?",
       "tooltips": {
         "hasGasSupply": "Ein Gasanschluss ermöglicht die Nutzung gasbetriebener Heizsysteme.",
-        "hasBioGas": "Biogas verursacht geringere CO₂-Emissionen.",
         "hasStorage": "Für Öl- oder Pelletheizungen wird ausreichend Lagerfläche benötigt."
       }
     },
@@ -396,7 +394,6 @@
       },
       "heat": {
         "hasGasSupply": "Gasanschluss",
-        "hasBioGas": "Biogasbezug",
         "hasStorage": "Lagerfläche vorhanden",
         "constructionYear": "Einbaujahr Heizung",
         "primaryEnergyCarrier": "Energieträger",

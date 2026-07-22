@@ -3,6 +3,7 @@ import { Paper } from '@/components/ui/paper';
 import { Separator } from '@/components/ui/separator';
 import { buildingYearOptions } from '@/lib/state/inputs/general';
 import {
+  $allowsAdditionalOuterWallInsulation,
   outerWallAdjacentWallAreaField,
   outerWallAreaField,
   outerWallConstructionTypeField,
@@ -21,6 +22,9 @@ import { InfoTooltipButton } from '../InfoButton';
 
 export default function OuterWallPaper() {
   const { t } = useTranslation('energyCalculation');
+  const allowsAdditionalInsulation = useStore(
+    $allowsAdditionalOuterWallInsulation,
+  );
   const outerWallHasInsulationValue = useStore(
     outerWallHasInsulationField.$store,
   );
@@ -76,45 +80,56 @@ export default function OuterWallPaper() {
           labelKey="outerParts.outerWall.constructionType"
           selectionStore={outerWallConstructionTypeOptions}
           info={
-            <InfoTooltipButton content={t('outerParts.outerWall.tooltips.constructionType')}></InfoTooltipButton>
-          }
-        />
-      </FieldSet>
-      <FieldSeparator />
-      <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <FieldLegend variant="label" className="col-span-full font-bold">
-          {t('outerParts.insulation')}
-        </FieldLegend>
-        <EnergyBooleanInput
-          field={outerWallHasInsulationField}
-          labelKey="outerParts.outerWall.hasInsulation"
-          trueKey={{ ns: 'energyCalculation', key: 'booleanLabels.insulated' }}
-          falseKey={{
-            ns: 'energyCalculation',
-            key: 'booleanLabels.notInsulated',
-          }}
-          info={
             <InfoTooltipButton
-              content={t('outerParts.outerWall.tooltips.hasInsulation')}
+              content={t('outerParts.outerWall.tooltips.constructionType')}
             ></InfoTooltipButton>
           }
         />
-        {outerWallHasInsulation && (
-          <EnergyNumberInput
-            field={outerWallInsulationThicknessField}
-            labelKey="outerParts.outerWall.insulationThickness"
-            suffix=" m"
-            decimalScale={2}
-            allowNegative={false}
-            className="col-start-1"
-            info={
-              <InfoTooltipButton
-                content={t('outerParts.outerWall.tooltips.insulationThickness')}
-              ></InfoTooltipButton>
-            }
-          />
-        )}
       </FieldSet>
+      {allowsAdditionalInsulation && (
+        <>
+          <FieldSeparator />
+          <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <FieldLegend variant="label" className="col-span-full font-bold">
+              {t('outerParts.insulation')}
+            </FieldLegend>
+            <EnergyBooleanInput
+              field={outerWallHasInsulationField}
+              labelKey="outerParts.outerWall.hasInsulation"
+              trueKey={{
+                ns: 'energyCalculation',
+                key: 'booleanLabels.insulated',
+              }}
+              falseKey={{
+                ns: 'energyCalculation',
+                key: 'booleanLabels.notInsulated',
+              }}
+              info={
+                <InfoTooltipButton
+                  content={t('outerParts.outerWall.tooltips.hasInsulation')}
+                ></InfoTooltipButton>
+              }
+            />
+            {outerWallHasInsulation && (
+              <EnergyNumberInput
+                field={outerWallInsulationThicknessField}
+                labelKey="outerParts.outerWall.insulationThickness"
+                suffix=" m"
+                decimalScale={2}
+                allowNegative={false}
+                className="col-start-1"
+                info={
+                  <InfoTooltipButton
+                    content={t(
+                      'outerParts.outerWall.tooltips.insulationThickness',
+                    )}
+                  ></InfoTooltipButton>
+                }
+              />
+            )}
+          </FieldSet>
+        </>
+      )}
     </Paper>
   );
 }
