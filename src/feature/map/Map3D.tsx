@@ -35,16 +35,28 @@ const openStreetMapImagerProvider = new Cesium.UrlTemplateImageryProvider({
 });
 
 const CESIUM_3D_TILES_URL = 'https://s3.rg.foxbyte.de/det-rg-main/tileset.json';
+const NON_BUILDING_COLOR = '#e5e5e5';
+const UNSELECTED_OPACITY = 0.1;
+const IS_NON_BUILDING = "!regExp('^31001_').test(${function})";
 
 function createTilesetStyle(selectedBuildingId: string | null, color: string) {
+  const selectedCondition = `\${id} === '${selectedBuildingId}'`;
+
   return new Cesium.Cesium3DTileStyle({
     color: {
       conditions: selectedBuildingId
         ? [
-            [`\${id} === '${selectedBuildingId}'`, `color('${color}')`],
-            ['true', "color('white')"],
+            [selectedCondition, `color('${color}')`],
+            [
+              IS_NON_BUILDING,
+              `color('${NON_BUILDING_COLOR}', ${UNSELECTED_OPACITY})`,
+            ],
+            ['true', `color('white', ${UNSELECTED_OPACITY})`],
           ]
-        : [['true', "color('white')"]],
+        : [
+            [IS_NON_BUILDING, `color('${NON_BUILDING_COLOR}')`],
+            ['true', "color('white')"],
+          ],
     },
     edgeColor: "color('black')",
     edgeWidth: selectedBuildingId ? 1.0 : 0.0,
