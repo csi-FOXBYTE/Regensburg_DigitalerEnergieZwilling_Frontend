@@ -21,11 +21,18 @@ RUN --mount=type=secret,id=github_token,env=PACKAGE_TOKEN \
 # Restlicher Quellcode + Build
 COPY --chown=1000:1000 . .
 RUN pnpm run build
+RUN mkdir -p /app/dist/licenses && \
+    cp LICENSE COPYING COPYING.LESSER NOTICE /app/dist/ && \
+    cp node_modules/@fontsource-variable/geist/LICENSE /app/dist/licenses/Geist-OFL-1.1.txt && \
+    cp node_modules/@fontsource/open-sans/LICENSE /app/dist/licenses/Open-Sans-OFL-1.1.txt
 
 # ==========================================
 # Stage 2: Produktions-Umgebung (Nginx non-root)
 # ==========================================
 FROM nginxinc/nginx-unprivileged:alpine
+
+LABEL org.opencontainers.image.licenses="LGPL-3.0-or-later" \
+      org.opencontainers.image.source="https://github.com/csi-FOXBYTE/Regensburg_DigitalerEnergieZwilling_Frontend"
 
 # Wichtig: In nginx.conf muss "listen 8080;" stehen (nicht 80)
 COPY --chown=101:101 nginx.conf /etc/nginx/conf.d/default.conf
