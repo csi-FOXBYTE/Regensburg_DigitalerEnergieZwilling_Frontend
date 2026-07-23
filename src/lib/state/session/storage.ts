@@ -1,4 +1,5 @@
 import type { Renovation } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+import type { CameraTarget } from '../../camera-state';
 import type { BuildingState } from '../building';
 import type { InputState } from '../inputs/atoms';
 import type { Step } from '../ui/progress';
@@ -6,7 +7,10 @@ import type { Step } from '../ui/progress';
 export type SavedSession = {
   step: Step;
   building: BuildingState;
+  cameraTarget?: CameraTarget;
+  /** @deprecated Legacy radians retained for recovery-link compatibility. */
   cameraLon: number;
+  /** @deprecated Legacy radians retained for recovery-link compatibility. */
   cameraLat: number;
   inputState: InputState;
   insulationRenovations: Renovation[];
@@ -47,7 +51,10 @@ export function getSession(buildingId: string): SavedSession | null {
   }
 }
 
-export function saveRawSession(buildingId: string, session: SavedSession): void {
+export function saveRawSession(
+  buildingId: string,
+  session: SavedSession,
+): void {
   localStorage.setItem(buildingKey(buildingId), JSON.stringify(session));
 }
 

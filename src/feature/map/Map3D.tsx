@@ -10,9 +10,14 @@ import {
   setBuilding,
   unselectBuilding,
 } from '../../lib/state/building';
+import { CameraController } from '../../lib/camera';
+import {
+  type FocusCameraIntent,
+  registerCameraOwner,
+  requestCamera,
+} from '../../lib/camera-state';
 import { $energyEfficiencyClasses } from '../../lib/state/calculation-config';
 import { $currentEnergyState } from '../../lib/state/computed/current-energy-state';
-import { $cameraPosition } from '../../lib/state/session';
 import { $step, Step } from '../../lib/state/ui/progress';
 
 const terrainProvider = Cesium.CesiumTerrainProvider.fromUrl(
@@ -48,12 +53,63 @@ function createTilesetStyle(selectedBuildingId: string | null, color: string) {
 
 type Map3DProps = {
   children?: ReactNode;
-  onViewerReady?: (viewer: Cesium.Viewer) => void;
 };
 
 const LOAD_TIMEOUT_MS = 20000;
 
-export function Map3D({ children, onViewerReady }: Map3DProps) {
+function matchesAddress(
+  feature: Cesium.Cesium3DTileFeature,
+  address: { street?: string; housenumber?: string },
+): boolean {
+  if (!address.street && !address.housenumber) return false;
+  const featureStreet = feature.getProperty('addresses.0.ThoroughfareName');
+  return (
+    featureStreet != null &&
+    `${address.street ?? ''} ${address.housenumber ?? ''}`.trim() ===
+      featureStreet
+  );
+}
+
+function selectAddressFeature(
+  viewer: Cesium.Viewer,
+  intent: FocusCameraIntent,
+) {
+  if (intent.reason.type !== 'address') return;
+  const address = intent.reason.address;
+
+  const cartographic = Cesium.Cartographic.fromDegrees(
+    intent.target.longitudeDegrees,
+    intent.target.latitudeDegrees,
+  );
+  const groundHeight = viewer.scene.globe.getHeight(cartographic) ?? 350;
+  const position = Cesium.Cartesian3.fromDegrees(
+    intent.target.longitudeDegrees,
+    intent.target.latitudeDegrees,
+    groundHeight,
+  );
+
+  viewer.scene.requestRender();
+  const screenPosition = viewer.scene.cartesianToCanvasCoordinates(position);
+  if (!screenPosition) return;
+
+  const drilled = viewer.scene
+    .drillPick(screenPosition)
+    .filter(
+      (picked): picked is Cesium.Cesium3DTileFeature =>
+        picked instanceof Cesium.Cesium3DTileFeature,
+    );
+  if (drilled.length === 0) return;
+
+  const matched =
+    drilled.find((feature) => matchesAddress(feature, address)) ?? drilled[0];
+
+  setBuilding(matched, {
+    lon: intent.target.longitudeDegrees,
+    lat: intent.target.latitudeDegrees,
+  });
+}
+
+export function Map3D({ children }: Map3DProps) {
   const { t } = useTranslation('map');
   const currentStep = useStore($step);
   const building = useStore($building);
@@ -84,8 +140,7 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
 
   useEffect(() => {
     if (!viewerRef || building) return;
-    viewerRef.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
-    viewerRef.scene.requestRender();
+    requestCamera({ type: 'resetTransform' });
   }, [building, viewerRef]);
 
   useEffect(() => {
@@ -105,22 +160,9 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
     if (!viewerRef) return;
 
     viewerRef.scene.globe.depthTestAgainstTerrain = true;
-    viewerRef.scene.camera.setView({
-      destination: new Cesium.Cartesian3(
-        4097950.7166549894,
-        878003.5980000327,
-        4792511.434740864,
-      ),
-      orientation: new Cesium.HeadingPitchRoll(
-        2.1531010795079872,
-        -0.32218730172914567,
-        6.283182266155325,
-      ),
-    });
 
     const ambientOcclusion = viewerRef.scene.postProcessStages.ambientOcclusion;
     ambientOcclusion.enabled = true;
-    viewerRef.camera.frustum.near = 1.0;
     ambientOcclusion.uniforms.intensity = 3.0;
     ambientOcclusion.uniforms.bias = 0.1;
     ambientOcclusion.uniforms.lengthCap = 0.26;
@@ -129,11 +171,11 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
 
     viewerRef.scene.globe.baseColor = Cesium.Color.WHITE;
     viewerRef.scene.globe.showGroundAtmosphere = false;
-    viewerRef.scene.screenSpaceCameraController.zoomEventTypes = [
-      Cesium.CameraEventType.WHEEL,
-      Cesium.CameraEventType.PINCH,
-    ];
-    viewerRef.scene.screenSpaceCameraController.zoomFactor = 3;
+
+    const cameraController = new CameraController(viewerRef, {
+      onFocusComplete: (intent) => selectAddressFeature(viewerRef, intent),
+    });
+    return registerCameraOwner(cameraController);
   }, [viewerRef]);
 
   const isInteractiveStep = currentStep === Step.Building;
@@ -145,7 +187,6 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
         ref={(ref) => {
           if (!ref?.cesiumElement) return;
           setViewerRef(ref.cesiumElement);
-          onViewerReady?.(ref.cesiumElement);
         }}
         className="h-full"
         geocoder={false}
@@ -186,66 +227,22 @@ export function Map3D({ children, onViewerReady }: Map3DProps) {
             if (!Cesium.defined(picked)) return;
 
             const cartographic = Cesium.Cartographic.fromCartesian(picked);
+            const target = {
+              longitudeDegrees: Cesium.Math.toDegrees(cartographic.longitude),
+              latitudeDegrees: Cesium.Math.toDegrees(cartographic.latitude),
+            };
+            const result = requestCamera({
+              type: 'focus',
+              target,
+              reason: { type: 'building' },
+              accommodateMobileOverlay: true,
+            });
+            if (result === 'ignored') return;
+
             setBuilding(tileFeature, {
-              lon: Cesium.Math.toDegrees(cartographic.longitude),
-              lat: Cesium.Math.toDegrees(cartographic.latitude),
+              lon: target.longitudeDegrees,
+              lat: target.latitudeDegrees,
             });
-            $cameraPosition.set({
-              lon: cartographic.longitude,
-              lat: cartographic.latitude,
-            });
-            const groundHeight =
-              viewerRef.scene.globe.getHeight(cartographic) ?? 0;
-            const position = Cesium.Cartesian3.fromRadians(
-              cartographic.longitude,
-              cartographic.latitude,
-              groundHeight,
-            );
-
-            const flyRange = 300;
-            const pitch = Cesium.Math.toRadians(-40);
-            const heading = viewerRef.camera.heading;
-
-            let flyTarget = position;
-            if (window.innerWidth < 768) {
-              const frustum = viewerRef.camera
-                .frustum as Cesium.PerspectiveFrustum;
-              const vfov = frustum.fov ?? Cesium.Math.toRadians(60);
-              const worldShift = 0.3 * flyRange * Math.tan(vfov / 2);
-
-              const sinP = Math.sin(pitch);
-              const cosP = Math.cos(pitch);
-              const enuToEcef =
-                Cesium.Transforms.eastNorthUpToFixedFrame(position);
-              const shiftEnu = new Cesium.Cartesian4(
-                Math.sin(heading) * sinP * worldShift,
-                Math.cos(heading) * sinP * worldShift,
-                -cosP * worldShift,
-                0,
-              );
-              const shiftEcef4 = Cesium.Matrix4.multiplyByVector(
-                enuToEcef,
-                shiftEnu,
-                new Cesium.Cartesian4(),
-              );
-              flyTarget = Cesium.Cartesian3.add(
-                position,
-                new Cesium.Cartesian3(shiftEcef4.x, shiftEcef4.y, shiftEcef4.z),
-                new Cesium.Cartesian3(),
-              );
-            }
-
-            viewerRef.camera.flyToBoundingSphere(
-              new Cesium.BoundingSphere(flyTarget, 50),
-              {
-                duration: 1.5,
-                offset: new Cesium.HeadingPitchRange(heading, pitch, flyRange),
-                complete: () => {
-                  viewerRef.scene.requestRender();
-                },
-              },
-            );
-            feature.primitive.boundingSphere;
           }}
           url={CESIUM_3D_TILES_URL}
         />

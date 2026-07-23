@@ -4,7 +4,18 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { Hand, MousePointerClick, Move, RotateCcw, ZoomIn } from 'lucide-react';
+import { $cameraStatus, type CameraMode } from '@/lib/camera-state';
+import { useStore } from '@nanostores/react';
+import type { TFunction } from 'i18next';
+import {
+  Box,
+  Hand,
+  Map as MapIcon,
+  MousePointerClick,
+  Move,
+  RotateCcw,
+  ZoomIn,
+} from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -30,9 +41,27 @@ function HelpRows({
   );
 }
 
-function DesktopHelpContent() {
+function modeHelpRow(mode: CameraMode, t: TFunction<'map'>) {
+  return {
+    icon:
+      mode === 'perspective' ? (
+        <Box className="size-5 shrink-0" />
+      ) : (
+        <MapIcon className="size-5 shrink-0" />
+      ),
+    label: t('mapHelp.viewMode'),
+    action: t(
+      mode === 'perspective'
+        ? 'mapHelp.viewModePerspectiveExplain'
+        : 'mapHelp.viewModeTopDownExplain',
+    ),
+  };
+}
+
+function DesktopHelpContent({ mode }: { mode: CameraMode }) {
   const { t } = useTranslation('map');
   const rows = [
+    modeHelpRow(mode, t),
     {
       icon: <MousePointerClick className="size-5 shrink-0" />,
       label: t('mapHelp.chooseBuilding'),
@@ -43,11 +72,15 @@ function DesktopHelpContent() {
       label: t('mapHelp.moveMap'),
       action: t('mapHelp.moveMapExplain'),
     },
-    {
-      icon: <RotateCcw className="size-5 shrink-0" />,
-      label: t('mapHelp.tiltView'),
-      action: t('mapHelp.tiltViewExplain'),
-    },
+    ...(mode === 'perspective'
+      ? [
+          {
+            icon: <RotateCcw className="size-5 shrink-0" />,
+            label: t('mapHelp.tiltView'),
+            action: t('mapHelp.tiltViewExplain'),
+          },
+        ]
+      : []),
     {
       icon: <ZoomIn className="size-5 shrink-0" />,
       label: t('mapHelp.zoom'),
@@ -57,9 +90,10 @@ function DesktopHelpContent() {
   return <HelpRows rows={rows} />;
 }
 
-function MobileHelpContent() {
+function MobileHelpContent({ mode }: { mode: CameraMode }) {
   const { t } = useTranslation('map');
   const rows = [
+    modeHelpRow(mode, t),
     {
       icon: <Hand className="size-5 shrink-0" />,
       label: t('mapHelp.chooseBuilding'),
@@ -70,11 +104,15 @@ function MobileHelpContent() {
       label: t('mapHelp.moveMap'),
       action: t('mapHelp.moveMapMobileExplain'),
     },
-    {
-      icon: <RotateCcw className="size-5 shrink-0" />,
-      label: t('mapHelp.tiltView'),
-      action: t('mapHelp.tiltViewMobileExplain'),
-    },
+    ...(mode === 'perspective'
+      ? [
+          {
+            icon: <RotateCcw className="size-5 shrink-0" />,
+            label: t('mapHelp.tiltView'),
+            action: t('mapHelp.tiltViewMobileExplain'),
+          },
+        ]
+      : []),
     {
       icon: <ZoomIn className="size-5 shrink-0" />,
       label: t('mapHelp.zoom'),
@@ -84,8 +122,18 @@ function MobileHelpContent() {
   return <HelpRows rows={rows} />;
 }
 
-function HelpContent({ isMobile }: { isMobile: boolean }) {
-  return isMobile ? <MobileHelpContent /> : <DesktopHelpContent />;
+function HelpContent({
+  isMobile,
+  mode,
+}: {
+  isMobile: boolean;
+  mode: CameraMode;
+}) {
+  return isMobile ? (
+    <MobileHelpContent mode={mode} />
+  ) : (
+    <DesktopHelpContent mode={mode} />
+  );
 }
 
 export function MapHelp() {
@@ -93,6 +141,7 @@ export function MapHelp() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const cameraStatus = useStore($cameraStatus);
 
   useEffect(() => {
     setMounted(true);
@@ -120,7 +169,7 @@ export function MapHelp() {
           <DialogHeader>
             <DialogTitle>{t('mapHelp.mapControls')}</DialogTitle>
           </DialogHeader>
-          <HelpContent isMobile={isMobile} />
+          <HelpContent isMobile={isMobile} mode={cameraStatus.mode} />
         </DialogContent>
       </Dialog>
     </>

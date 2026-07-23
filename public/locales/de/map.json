@@ -52,9 +52,12 @@
   },
   "mapNav": {
     "help": "Hilfe",
+    "viewMode": "Ansicht",
     "alighToNorth": "Nord ausrichten",
     "navigation": "Navigation",
     "zoom": "Zoom",
+    "ariaLabelSwitchToPerspective": "Zur perspektivischen Ansicht wechseln",
+    "ariaLabelSwitchToTopDown": "Zur Draufsicht wechseln",
     "ariaLabelNorth": "Nach Norden ausrichten",
     "ariaLabelPanUp": "Nach oben bewegen",
     "ariaLabelPanLeft": "Nach links bewegen",
@@ -66,6 +69,9 @@
   "mapHelp": {
     "mapControls": "Kartenbedienung",
     "ariaLabelButton": "Kartenbedienung anzeigen",
+    "viewMode": "Ansicht wechseln",
+    "viewModePerspectiveExplain": "Die perspektivische Ansicht ist aktiv. Über die Ansichtsschaltfläche wechseln Sie zur Draufsicht.",
+    "viewModeTopDownExplain": "Die Draufsicht ist aktiv. Über die Ansichtsschaltfläche wechseln Sie zur perspektivischen Ansicht.",
     "chooseBuilding": "Gebäude auswählen",
     "chooseBuildingExplain": "Klicken Sie mit der linken Maustaste auf ein Gebäude.",
     "chooseBuildingMobileExplain": "Tippen Sie das Gebäude mit einem Finger an.",
