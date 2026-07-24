@@ -26,3 +26,5 @@ pnpm-debug.log*
 
 public/cesium/
 .vscode/
+
+/docs/local
