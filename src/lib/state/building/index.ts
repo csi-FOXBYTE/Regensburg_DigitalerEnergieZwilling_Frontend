@@ -49,9 +49,12 @@ function sharedWallAreaSum(feature: Cesium3DTileFeature): number | undefined {
     const parsed = JSON.parse(raw) as unknown;
     if (!Array.isArray(parsed)) return undefined;
     return parsed.reduce((sum, b) => {
-      const area = typeof b === 'object' && b !== null && typeof (b as Record<string, unknown>).sharedWallArea === 'number'
-        ? (b as Record<string, unknown>).sharedWallArea as number
-        : 0;
+      const area =
+        typeof b === 'object' &&
+        b !== null &&
+        typeof (b as Record<string, unknown>).sharedWallArea === 'number'
+          ? ((b as Record<string, unknown>).sharedWallArea as number)
+          : 0;
       return sum + area;
     }, 0);
   } catch {
@@ -85,9 +88,6 @@ export function setBuilding(
   feature: Cesium3DTileFeature,
   coordinates: BuildingCoordinates,
 ) {
-  // DEBUG: remove when done
-  console.log(Object.fromEntries(feature.getPropertyIds([]).map(k => [k, feature.getProperty(k)])));
-
   const id = feature.getProperty('id');
 
   if (id == null) return;
@@ -117,7 +117,10 @@ export function setBuilding(
         height: numProp(feature, 'digitalEnergyTwin.height'),
         envelopeArea: numProp(feature, 'digitalEnergyTwin.envelopeArea'),
         adjacentWallArea: sharedWallAreaSum(feature),
-        constructionYear: numProp(feature, 'digitalEnergyTwin.constructionYear'),
+        constructionYear: numProp(
+          feature,
+          'digitalEnergyTwin.constructionYear',
+        ),
       },
     },
   });

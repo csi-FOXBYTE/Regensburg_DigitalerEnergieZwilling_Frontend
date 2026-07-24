@@ -37,7 +37,7 @@ export default function AddressSearch({
     lat: string,
     lon: string,
     address: { street?: string; housenumber?: string },
-  ) => void;
+  ) => boolean;
 }) {
   const building = useStore($building);
   const [search, setSearch] = useState('');
@@ -119,10 +119,15 @@ export default function AddressSearch({
                 key={`${d.street}-${d.houseNumber}`}
                 value={d.label}
                 onSelect={() => {
-                  onAddressFound(String(d.lat), String(d.lon), {
-                    street: d.street,
-                    housenumber: d.houseNumber,
-                  });
+                  const accepted = onAddressFound(
+                    String(d.lat),
+                    String(d.lon),
+                    {
+                      street: d.street,
+                      housenumber: d.houseNumber,
+                    },
+                  );
+                  if (!accepted) return;
                   setSearch(`${d.street} ${d.houseNumber}`);
                   setOpen(false);
                 }}

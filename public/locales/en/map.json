@@ -52,9 +52,12 @@
   },
   "mapNav": {
     "help": "Help",
+    "viewMode": "View",
     "alighToNorth": "Align North",
     "navigation": "Navigation",
     "zoom": "Zoom",
+    "ariaLabelSwitchToPerspective": "Switch to perspective view",
+    "ariaLabelSwitchToTopDown": "Switch to top-down view",
     "ariaLabelNorth": "Align to north",
     "ariaLabelPanUp": "Move up",
     "ariaLabelPanLeft": "Move left",
@@ -66,6 +69,9 @@
   "mapHelp": {
     "mapControls": "Map Controls",
     "ariaLabelButton": "Show map controls",
+    "viewMode": "Change view",
+    "viewModePerspectiveExplain": "Perspective view is active. Use the view button to switch to a top-down map.",
+    "viewModeTopDownExplain": "Top-down view is active. Use the view button to switch to perspective.",
     "chooseBuilding": "Select building",
     "chooseBuildingExplain": "Left-click on a building.",
     "chooseBuildingMobileExplain": "Tap a building with one finger.",
