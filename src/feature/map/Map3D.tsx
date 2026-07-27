@@ -64,17 +64,22 @@ type Map3DProps = {
 
 const LOAD_TIMEOUT_MS = 20000;
 
+function formatAddress(address: {
+  street?: string;
+  housenumber?: string;
+}): string {
+  return `${address.street ?? ''} ${address.housenumber ?? ''}`.trim();
+}
+
 function matchesAddress(
   feature: Cesium.Cesium3DTileFeature,
   address: { street?: string; housenumber?: string },
 ): boolean {
   if (!address.street && !address.housenumber) return false;
   const featureStreet = feature.getProperty('addresses.0.ThoroughfareName');
-  return (
-    featureStreet != null &&
-    `${address.street ?? ''} ${address.housenumber ?? ''}`.trim() ===
-      featureStreet
-  );
+  if (typeof featureStreet !== 'string') return false;
+  // Corner buildings list several addresses, so compare against each of them.
+  return addressEntries(featureStreet).includes(formatAddress(address));
 }
 
 function selectAddressFeature(
@@ -111,10 +116,15 @@ function selectAddressFeature(
   const matched =
     drilled.find((feature) => matchesAddress(feature, address)) ?? drilled[0];
 
-  setBuilding(matched, {
-    lon: intent.target.longitudeDegrees,
-    lat: intent.target.latitudeDegrees,
-  });
+  setBuilding(
+    matched,
+    {
+      lon: intent.target.longitudeDegrees,
+      lat: intent.target.latitudeDegrees,
+    },
+    // Keep exactly the picked address, even if the building carries several.
+    formatAddress(address) || undefined,
+  );
 }
 
 export function Map3D({ children }: Map3DProps) {

@@ -81,15 +81,31 @@ function numProp(
   return typeof value === 'string' ? Number(value) : (value ?? undefined);
 }
 
+/** Splits "Berliner Straße 7a,9;Zwickauer Straße 10" into one entry per address. */
+export function addressEntries(raw: string): string[] {
+  return raw
+    .split(';')
+    .flatMap((segment) => {
+      const trimmed = segment.trim();
+      const match = /^(.*)\s+(\d[^\s]*(?:,[^\s]*)*)$/.exec(trimmed);
+      if (!match) return trimmed;
+      const [, street, houseNumbers] = match;
+      return houseNumbers.split(',').map((number) => `${street} ${number}`);
+    })
+    .filter((entry) => entry.length > 0);
+}
+
 function parseAddress(
   feature: Cesium3DTileFeature,
+  streetOverride?: string,
 ): BuildingAddress | undefined {
   const street = feature.getProperty('addresses.0.ThoroughfareName');
   const city = feature.getProperty('addresses.0.Locality');
   if (typeof street !== 'string' || typeof city !== 'string') return undefined;
   const postcode = feature.getProperty('addresses.0.PostalCode');
   return {
-    street,
+    // Never a whole address list: the searched address, else the first entry.
+    street: streetOverride ?? addressEntries(street)[0] ?? street,
     postcode: typeof postcode === 'string' ? postcode : undefined,
     city,
   };
@@ -98,6 +114,7 @@ function parseAddress(
 export function setBuilding(
   feature: Cesium3DTileFeature,
   coordinates: BuildingCoordinates,
+  streetOverride?: string,
 ) {
   if (!isSelectableBuilding(feature)) return;
 
@@ -113,7 +130,7 @@ export function setBuilding(
       lowestEave: numProp(feature, 'NiedrigsteTraufeDesGebaeudes'),
       groundHeight: numProp(feature, 'HoeheGrund'),
       roofHeight: numProp(feature, 'HoeheDach'),
-      address: parseAddress(feature),
+      address: parseAddress(feature, streetOverride),
       digitalEnergyTwin: {
         volume: numProp(feature, 'digitalEnergyTwin.volume'),
         groundArea: numProp(feature, 'digitalEnergyTwin.groundArea'),
