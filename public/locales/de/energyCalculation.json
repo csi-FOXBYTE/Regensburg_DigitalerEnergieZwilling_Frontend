@@ -45,9 +45,9 @@
     },
     "tooltips": {
       "constructionYear": "Geben Sie das ursprüngliche Baujahr des Gebäudes an. Größere Sanierungen können später ergänzt werden. Ältere Gebäude sind oft schlechter gedämmt und verbrauchen mehr Heizenergie.",
-      "buildingType": "Die Gebäudeart beeinflusst die Berechnung. Für ein- und Mehrfamilienhäuser werden unterschiedliche Standartwerte verwendet, zum Beispiel für die Flächennutzung und den Energiebedarf.",
+      "buildingType": "Die Gebäudeart beeinflusst die Berechnung. Für Ein- und Mehrfamilienhäuser werden unterschiedliche Standardwerte verwendet, zum Beispiel für die Flächennutzung und den Energiebedarf.",
       "numberOfFloors": "Zählen Sie nur Stockwerke ohne Keller und nicht ausgebaute Dachräume. Ein Haus mit Erdgeschoss und Obergeschoss hat zum Beispiel 2 Stockwerke.",
-      "livingArea": "Die Wohnfläche ist die beheizte Fläche in Ihrem Gebäude. Bei Mehrparteienhäuser geben Sie bitte die gesamte Wohnfläche aller Parteien an."
+      "livingArea": "Die Wohnfläche ist die beheizte Fläche in Ihrem Gebäude. Bei Mehrparteienhäusern geben Sie bitte die gesamte Wohnfläche aller Parteien an."
     },
     "errors": {
       "livingAreaMustBePositive": "Die Wohnfläche muss größer als 0 sein."
@@ -71,7 +71,7 @@
       "isAtticHeated": "Wird Ihr Dachraum beheizt?",
       "year": "Wann wurde Ihr Dach zuletzt wesentlich neu aufgebaut oder konstruktiv verändert?",
       "tooltips": {
-        "year": "Gemeint ist, ob das Dach neu aufgebaut oder mit anderen Materialien erneuert wurde, zum Beispiel durch eine nneue Dachkonstruktion oder einen Austausch wichtiger Schichten. Eine nachträgliche Dämmung wird seperat abgefragt und soll hier nicht berücksichtigt werden.",
+        "year": "Gemeint ist, ob das Dach neu aufgebaut oder mit anderen Materialien erneuert wurde, zum Beispiel durch eine neue Dachkonstruktion oder einen Austausch wichtiger Schichten. Eine nachträgliche Dämmung wird separat abgefragt und soll hier nicht berücksichtigt werden.",
         "area": "Geben Sie die gesamte Fläche Ihres Dachs an, ohne Abzug von Fensterflächen. Je größer die Fläche, desto wichtiger ist eine gute Dämmung.",
         "constructionTypeTitle": "Dachformen",
         "constructionTypeContent": "Ein Flachdach ist nahezu eben oder nur leicht geneigt. Ein Schrägdach besitzt eine deutlich sichtbare Dachneigung, z. B. ein Satteldach oder Walmdach. Die Dachform beeinflusst sowohl die Dachfläche als auch den Wärmeverlust eines Gebäudes: Flachdächer (typisch massive Bauweise) haben bei gleicher Grundfläche eine geringere Fläche als Schrägdächer (typisch Holzbauweise) und damit andere energetische Eigenschaften.",
@@ -92,10 +92,10 @@
       "uValue": "Welchen U-Wert (Wärmedurchgangskoeffizienten) haben Ihre Dachfenster?",
       "year": "Wann wurden Ihre Dachfenster zuletzt energetisch verändert?",
       "tooltips": {
-        "year": "Gemeint ist zum Beispiel der Austausch gegen besser gedämmte Dachfenster oder eine Verbesserung von Verglasung, Rahmen oder Anschluss. Nicht gemeint sind reine Reparaturen, neue Farbe oder der Ausausch einzelner Beschläge.",
+        "year": "Gemeint ist zum Beispiel der Austausch gegen besser gedämmte Dachfenster oder eine Verbesserung von Verglasung, Rahmen oder Anschluss. Nicht gemeint sind reine Reparaturen, neue Farbe oder der Austausch einzelner Beschläge.",
         "area": "Geben Sie die gesamte Fläche aller Dachfenster an. Die Gesamtfläche aller Dachfenster beeinflusst den Wärmeverlust.",
         "windowType": "Holz- und Kunststoffrahmen dämmen gut. Aluminium- und Stahlrahmen leiten Kälte stärker und sind weniger energieeffizient.",
-        "uValue": "Der U-Wert gibt Auskunft darüber, wie gut ein Bauteil dämmt. Niedrigere Werte bedeuten bessere Dämmung. Alte Einfachfenster haben etwa 5,0 W/m²K. Moderne Dreifachfenster liegen bei etwas 0.7 W/m²K. Den U-Wert finden Sie in den Unterlagen Ihrer Fenster oder auf dem Typenschild."
+        "uValue": "Der U-Wert gibt Auskunft darüber, wie gut ein Bauteil dämmt. Niedrigere Werte bedeuten bessere Dämmung. Alte Einfachfenster haben etwa 5,0 W/m²K. Moderne Dreifachfenster liegen bei etwa 0,7 W/m²K. Den U-Wert finden Sie in den Unterlagen Ihrer Fenster oder auf dem Typenschild."
       },
       "errors": {
         "areaExceedsRoofArea": "Die Dachfensterfläche darf nicht größer als die Dachfläche sein."
@@ -109,9 +109,9 @@
       "hasInsulation": "Ist die Decke unter Ihrem Dachraum gedämmt?",
       "insulationThickness": "Welche Dicke hat die aktuelle Dämmung?",
       "tooltips": {
-        "year": "Gemeint ist zum Beispiel eine nachträgliche Dämmmung der Decke zum unbeheizten Dachraum. Nicht gemeint sind reine Bodenbeläge, Reparaturen oder Nutzungsänderungen im Dachraum ohne Dämmung.",
+        "year": "Gemeint ist zum Beispiel eine nachträgliche Dämmung der Decke zum unbeheizten Dachraum. Nicht gemeint sind reine Bodenbeläge, Reparaturen oder Nutzungsänderungen im Dachraum ohne Dämmung.",
         "area": "Geben Sie die Fläche der Decke zwischen Wohnbereich und Dachraum in m² an. Die Fläche der Decke zum Dachraum bestimmt, wie viel Wärme aus Ihrer Wohnung in den (meist unbeheizten) Dachraum entweichen kann.",
-        "type": "In älteren Gebäuden (vor etwas 1965) sind häufig Holzbalkendecken verbaut, in neueren Gebäuden (ab etwa 1965) sind zumeist massive Decken verbaut.",
+        "type": "In älteren Gebäuden (vor etwa 1965) sind häufig Holzbalkendecken verbaut, in neueren Gebäuden (ab etwa 1965) sind zumeist massive Decken verbaut.",
         "hasInsulation": "Eine Dämmung der Decke unter dem Dachraum verhindert, dass Wärme aus Ihrer Wohnung nach oben entweicht. Das kann bis zu 15 % der Heizkosten sparen.",
         "insulationThickness": "Eine dickere Dämmschicht erhöht die energetische Effizienz des Gebäudes. Je nach Alter der Dämmung sind zwischen 10 cm und 24 cm üblich."
       },
@@ -128,12 +128,12 @@
       "insulationThickness": "Welche Dicke hat die aktuelle Dämmung?",
       "adjacentWallArea": "Wie groß ist die Wandfläche, die direkt an benachbarte Gebäude grenzt?",
       "tooltips": {
-        "year": "Gemeint sind Änderungen, die den Wärmescutz verbessern oder den Wandaufbau verändern, zum Beispiel eine nachträgliche Dämmung. Nicht gemeint sind neue Farbe, neuer Putz oder reine Reparaturen ohne Dämmung.",
+        "year": "Gemeint ist, ob die Wand selbst konstruktiv verändert oder mit anderen Materialien neu aufgebaut wurde, zum Beispiel durch eine neue Wandkonstruktion. Neue Farbe, neuer Putz oder eine nachträgliche Dämmung zählen hier nicht dazu.",
         "area": "Geben Sie die gesamte Fläche aller freistehenden Außenwände an, ohne Abzug von Fensterflächen. Größere Wandflächen bedeuten mehr Wärmeverlust.",
         "constructionType": "Massivwände (z. B. Ziegel oder Beton) speichern Wärme gut.",
         "hasInsulation": "Durch ungedämmte Außenwände gehen bis zu 40 % der Heizwärme verloren. Eine Dämmung senkt die Heizkosten erheblich.",
         "insulationThickness": "Eine dickere Dämmschicht erhöht die energetische Effizienz des Gebäudes. Je nach Alter der Dämmung sind zwischen 4 cm und 14 cm üblich.",
-        "adjacentWallArea": "Gemeint ist die Wandfläche, die direkt an ein benachbartes Gebäde anschließt, zum Beispiel bei Reihenhäusern oder Doppelhaushälften. Diese Fläche wird anders berechnet, weil dort meist weniger Wärme verloren geht als über frei stehende Außenwände."
+        "adjacentWallArea": "Gemeint ist die Wandfläche, die direkt an ein benachbartes Gebäude anschließt, zum Beispiel bei Reihenhäusern oder Doppelhaushälften. Diese Fläche wird anders berechnet, weil dort meist weniger Wärme verloren geht als über frei stehende Außenwände."
       }
     },
     "windows": {
@@ -143,10 +143,10 @@
       "uValue": "Welchen U-Wert (Wärmedurchgangskoeffizienten) haben Ihre Fenster?",
       "year": "Wann wurden Ihre Fenster zuletzt energetisch verändert?",
       "tooltips": {
-        "year": "Gemeint ist, ob die Wand selbst konstruktiv verändert oder mit anderen Materialien neu aufgebaut wurde, zum Beispiel durch einen neue Wandkonstruktion. Neue Farbe, neuer Putz oder eine nachträgliche Dämmung zählen hier nicht dazu.",
+        "year": "Gemeint ist zum Beispiel der Austausch gegen besser gedämmte Fenster oder eine Verbesserung von Verglasung, Rahmen oder Einbauanschluss. Nicht gemeint sind neue Farbe, neue Griffe, Reparaturen oder der Austausch einzelner Beschläge.",
         "area": "Geben Sie die Gesamtfläche aller Fenster an. Die Gesamtfläche aller Fenster beeinflusst den Wärmeverlust durch die Gebäudehülle.",
         "windowType": "Holz- und Kunststoffrahmen dämmen gut. Aluminium- und Stahlrahmen leiten Kälte stärker und sind weniger energieeffizient.",
-        "uValue": "Der U-Wert gibt Auskunft darüber, wie gut ein Bauteil dämmt. Niedrigere Werte bedeuten bessere Dämmung. Alte einfachfenster haben etwas 5,0W/m²K. Moderne Dreifachfenster liegen bei etwa 0,7 W/m²K. Den U-Wert finden Sie in den Unterlagen Ihrer Fenster oder auf dem Typenschild."
+        "uValue": "Der U-Wert gibt Auskunft darüber, wie gut ein Bauteil dämmt. Niedrigere Werte bedeuten bessere Dämmung. Alte Einfachfenster haben etwa 5,0 W/m²K. Moderne Dreifachfenster liegen bei etwa 0,7 W/m²K. Den U-Wert finden Sie in den Unterlagen Ihrer Fenster oder auf dem Typenschild."
       }
     },
     "bottomFloor": {
@@ -206,7 +206,7 @@
     "supply": {
       "title": "Versorgung",
       "hasGasSupply": "Gibt es einen Gasanschluss in Ihrem Gebäude?",
-      "hasStorage": "Ist eine Lagerfläche für Brennstoffe, wie Öl oder Pellets vorhanden?",
+      "hasStorage": "Ist eine Lagerfläche für Brennstoffe wie Öl oder Pellets vorhanden?",
       "tooltips": {
         "hasGasSupply": "Ein Gasanschluss ermöglicht die Nutzung gasbetriebener Heizsysteme.",
         "hasStorage": "Für Öl- oder Pelletheizungen wird ausreichend Lagerfläche benötigt."
@@ -250,13 +250,13 @@
     "baseRate": "Wie hoch ist der jährliche Grundpreis Ihrer Stromversorgung?",
     "tooltips": {
       "type": "Mix-Strom enthält Strom aus verschiedenen Quellen, auch aus fossiler Energie. Erneuerbarer Strom stammt aus Wind, Sonne oder Wasser und hat eine deutlich bessere CO₂-Bilanz.",
-      "consumption": "Tragen Sie Ihren jährlichen Stromverbrauch in kWh ein. Den Wert finden Sie auf Ihrer Jahresabrechnung. Bei Mehrparteienhäusern geben Sie bitte den insgesamten Verbrauch aller Parteien an.",
+      "consumption": "Tragen Sie Ihren jährlichen Stromverbrauch in kWh ein. Den Wert finden Sie auf Ihrer Jahresabrechnung. Bei Mehrparteienhäusern geben Sie bitte den gesamten Verbrauch aller Parteien an.",
       "unitRate": "Der Arbeitspreis gibt an, wie viel Sie pro Kilowattstunde (kWh) Strom zahlen. Sie finden ihn in Ihrer Jahresabrechnung oder Ihrem Energieliefervertrag.",
       "baseRate": "Der Grundpreis ist der feste Betrag, den Sie unabhängig vom tatsächlichen Energieverbrauch bezahlen. Sie finden ihn in Ihrer Jahresabrechnung oder Ihrem Energieliefervertrag."
     }
   },
   "renovation": {
-    "title": "Sanierungsmaßnamen",
+    "title": "Sanierungsmaßnahmen",
     "insulation": {
       "title": "Dämmung",
       "roof": "Dachdämmung",
@@ -388,7 +388,7 @@
         },
         "area": {
           "default": "Kellerdeckenfläche",
-          "heated": "Kellerbodenläche",
+          "heated": "Kellerbodenfläche",
           "noBasement": "Bodenfläche"
         }
       },
@@ -446,7 +446,7 @@
     },
     "step2": {
       "title": "Fördermittel beantragen",
-      "description": "Informieren Sie sich frühzeitig über passende Förderprogramme und die jeweiligen Vorraussetzungen. Förderanträge müssen häufig vor Beginn der Maßnahmen gestellt und bewilligt werden. Wird eine Maßnahme zu früh begonnen, kann die Förderung entfallen."
+      "description": "Informieren Sie sich frühzeitig über passende Förderprogramme und die jeweiligen Voraussetzungen. Förderanträge müssen häufig vor Beginn der Maßnahmen gestellt und bewilligt werden. Wird eine Maßnahme zu früh begonnen, kann die Förderung entfallen."
     },
     "step3": {
       "title": "Angebote vergleichen",
