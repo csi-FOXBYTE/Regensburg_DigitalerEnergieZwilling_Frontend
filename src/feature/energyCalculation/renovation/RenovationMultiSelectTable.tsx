@@ -118,7 +118,7 @@ export function RenovationMultiSelectTable({
                     maximumFractionDigits: 2,
                     signDisplay: 'always',
                   })}{' '}
-                  €/a
+                  €/Jahr
                 </span>
               </div>
             </td>

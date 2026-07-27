@@ -53,9 +53,9 @@ const styles = StyleSheet.create({
 });
 
 function formatRange(from: number | undefined, to: number | undefined): string {
-  if (from == null) return `< ${to} kWh/m²a`;
-  if (to == null) return `> ${from} kWh/m²a`;
-  return `${from} – ${to} kWh/m²a`;
+  if (from == null) return `< ${to} kWh/(m²·Jahr)`;
+  if (to == null) return `> ${from} kWh/(m²·Jahr)`;
+  return `${from} – ${to} kWh/(m²·Jahr)`;
 }
 
 export function PdfEnergyClassBars() {

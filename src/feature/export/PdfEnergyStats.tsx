@@ -111,21 +111,21 @@ export function PdfEnergyStats() {
         title={t('energyCalculation:stats.energyDemand')}
         beforeValue={t('energyCalculation:stats.energyDemandValue', { value: formatValue(before.energyConsumptionPerSquareMeter) })}
         afterValue={t('energyCalculation:stats.energyDemandValue', { value: formatValue(after.energyConsumptionPerSquareMeter) })}
-        deltaLabel={`${formatDelta(energyDelta)} kWh/m²a`}
+        deltaLabel={`${formatDelta(energyDelta)} kWh/(m²·Jahr)`}
         deltaColor={deltaColor(energyDelta < 0 ? true : energyDelta > 0 ? false : null)}
       />
       <StatCard
         title={t('energyCalculation:stats.annualCosts')}
         beforeValue={t('energyCalculation:stats.annualCostsValue', { value: formatValue(before.yearlyCost) })}
         afterValue={t('energyCalculation:stats.annualCostsValue', { value: formatValue(after.yearlyCost) })}
-        deltaLabel={`${formatDelta(costDelta)} €/a`}
+        deltaLabel={`${formatDelta(costDelta)} €/Jahr`}
         deltaColor={deltaColor(costDelta < 0 ? true : costDelta > 0 ? false : null)}
       />
       <StatCard
         title={t('energyCalculation:stats.co2Emissions')}
         beforeValue={t('energyCalculation:stats.co2EmissionsValue', { value: formatValue(before.co2Emissions) })}
         afterValue={t('energyCalculation:stats.co2EmissionsValue', { value: formatValue(after.co2Emissions) })}
-        deltaLabel={`${formatDelta(co2Delta)} t CO₂/a`}
+        deltaLabel={`${formatDelta(co2Delta)} t CO₂/Jahr`}
         deltaColor={deltaColor(co2Delta < 0 ? true : co2Delta > 0 ? false : null)}
       />
     </View>

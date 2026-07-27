@@ -32,7 +32,7 @@ export function PdfRenovationItem({ label, energySavingPercent, costSaving }: Pr
     <View style={styles.row}>
       <Text style={styles.measure}>{label}</Text>
       <Text style={styles.energy}>{formatDelta(energySavingPercent)} %</Text>
-      <Text style={styles.year}>{formatDelta(costSaving)} €/a</Text>
+      <Text style={styles.year}>{formatDelta(costSaving)} €/Jahr</Text>
       <Text style={styles.month}>{formatDelta(costSaving / 12)} €/Mon.</Text>
     </View>
   );

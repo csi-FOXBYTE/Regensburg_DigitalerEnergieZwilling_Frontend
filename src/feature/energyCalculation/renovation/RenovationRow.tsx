@@ -50,7 +50,7 @@ export function RenovationRow({
             )}
           </span>
           <span className={`whitespace-nowrap sm:text-right ${colorClass}`}>
-            {formatSavings(savings)} €/a
+            {formatSavings(savings)} €/Jahr
           </span>
         </div>
       </td>
