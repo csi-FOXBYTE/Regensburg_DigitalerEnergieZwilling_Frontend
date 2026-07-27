@@ -16,8 +16,14 @@ type ActiveConfig = {
 
 const $activeConfig = atom<ActiveConfig | null>(null);
 
-export const $versionName = computed($activeConfig, (c) => c?.versionName ?? 'default');
-export const $config = computed($activeConfig, (c) => c?.calculationConfig ?? DEFAULT_CONFIG);
+export const $versionName = computed(
+  $activeConfig,
+  (c) => c?.versionName ?? 'DEFAULT',
+);
+export const $config = computed(
+  $activeConfig,
+  (c) => c?.calculationConfig ?? DEFAULT_CONFIG,
+);
 export const $subsidies = computed($activeConfig, (c) => c?.subsidies ?? []);
 
 (async () => {
