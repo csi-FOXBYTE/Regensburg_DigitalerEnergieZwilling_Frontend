@@ -90,6 +90,22 @@ export default function AddressSearch({
               setOpen(true);
             }}
             onKeyDown={(e) => {
+              if (e.key === 'Enter' && data.length === 1) {
+                e.preventDefault();
+                e.stopPropagation();
+                const d = data[0];
+                const accepted = onAddressFound(String(d.lat), String(d.lon), {
+                  street: d.street,
+                  housenumber: d.houseNumber,
+                });
+                if (!accepted) return;
+                setSearch(`${d.street} ${d.houseNumber}`);
+                setOpen(false);
+              }
+              if (e.key === 'Escape') {
+                setOpen(false);
+                e.stopPropagation();
+              }
               if (e.key === 'Home' || e.key === 'End') e.stopPropagation();
             }}
             placeholder={t('addressSearch.placeHolder')}
@@ -113,7 +129,7 @@ export default function AddressSearch({
         </div>
 
         {showList && (
-          <Command.List className="border border-t-0 border-gray-300 bg-white shadow-lg">
+          <Command.List className="max-h-72 overflow-y-auto border border-t-0 border-gray-300 bg-white shadow-lg md:max-h-96">
             {data.map((d) => (
               <Command.Item
                 key={`${d.street}-${d.houseNumber}`}
