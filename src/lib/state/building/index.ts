@@ -42,6 +42,17 @@ export type BuildingState = {
 
 export const $building = atom<BuildingState | null>(null);
 
+const SELECTABLE_BUILDING_FUNCTION_PREFIX = '31001_1000';
+
+export function isSelectableBuilding(
+  feature: Cesium3DTileFeature,
+): boolean {
+  const featureFunction = feature.getProperty('function');
+  return String(featureFunction ?? '').startsWith(
+    SELECTABLE_BUILDING_FUNCTION_PREFIX,
+  );
+}
+
 function sharedWallAreaSum(feature: Cesium3DTileFeature): number | undefined {
   const raw = feature.getProperty('digitalEnergyTwin.adjacentBuildings');
   if (typeof raw !== 'string') return undefined;
@@ -88,6 +99,8 @@ export function setBuilding(
   feature: Cesium3DTileFeature,
   coordinates: BuildingCoordinates,
 ) {
+  if (!isSelectableBuilding(feature)) return;
+
   const id = feature.getProperty('id');
 
   if (id == null) return;
