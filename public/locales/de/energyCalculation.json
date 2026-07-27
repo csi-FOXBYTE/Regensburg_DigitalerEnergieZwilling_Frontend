@@ -300,9 +300,10 @@
   },
   "subsidy": {
     "sectionTitle": "Förderprogramme",
-    "disclaimer": "Die angezeigten Förderprogramme sind Beispieldaten und erheben keinen Anspruch auf Vollständigkeit oder Aktualität.",
+    "disclaimer": "Die angezeigten Förderprogramme erheben keinen Anspruch auf Vollständigkeit oder Aktualität. Nicht alle Förderprogramme sind kombinierbar oder dauerhaft verfügbar.",
     "benefitUpTo": "Bis zu",
-    "moreInfo": "Mehr anzeigen"
+    "moreInfo": "Mehr anzeigen",
+    "loadError": "Die Förderprogramme konnten nicht geladen werden. Bitte laden Sie die Seite neu."
   },
   "result": {
     "title": "Ihre Ergebnisse im Überblick",
