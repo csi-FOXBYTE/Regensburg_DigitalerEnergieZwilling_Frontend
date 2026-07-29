@@ -20,7 +20,7 @@ import {
 import { $step, Step } from '../../lib/state/ui/progress';
 
 const terrainProvider = Cesium.CesiumTerrainProvider.fromUrl(
-  'https://fhhvrshare.blob.core.windows.net/regensburg/terrain',
+  'https://s3.rg.foxbyte.de/det-rg-terrain',
   {},
 ).catch((error) => {
   console.error('Terrain konnte nicht geladen werden:', error);

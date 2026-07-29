@@ -12,6 +12,7 @@ export type DigitalEnergyTwin = {
   envelopeArea: number | undefined;
   adjacentWallArea: number | undefined;
   constructionYear: number | undefined;
+  geothermalEnergyAvailable: boolean | undefined;
 };
 
 export type BuildingAddress = {
@@ -44,9 +45,7 @@ export const $building = atom<BuildingState | null>(null);
 
 const SELECTABLE_BUILDING_FUNCTION_PREFIX = '31001_1000';
 
-export function isSelectableBuilding(
-  feature: Cesium3DTileFeature,
-): boolean {
+export function isSelectableBuilding(feature: Cesium3DTileFeature): boolean {
   const featureFunction = feature.getProperty('function');
   return String(featureFunction ?? '').startsWith(
     SELECTABLE_BUILDING_FUNCTION_PREFIX,
@@ -81,6 +80,20 @@ function numProp(
   return typeof value === 'string' ? Number(value) : (value ?? undefined);
 }
 
+function boolProp(
+  feature: Cesium3DTileFeature,
+  name: string,
+): boolean | undefined {
+  const value = feature.getProperty(name);
+  if (typeof value === 'boolean') return value;
+  if (typeof value !== 'string') return undefined;
+
+  const normalized = value.trim().toLowerCase();
+  if (normalized === 'true') return true;
+  if (normalized === 'false') return false;
+  return undefined;
+}
+
 function parseAddress(
   feature: Cesium3DTileFeature,
 ): BuildingAddress | undefined {
@@ -100,6 +113,13 @@ export function setBuilding(
   coordinates: BuildingCoordinates,
 ) {
   if (!isSelectableBuilding(feature)) return;
+
+  console.log(
+    '[map] selected feature properties:',
+    Object.fromEntries(
+      feature.getPropertyIds([]).map((key) => [key, feature.getProperty(key)]),
+    ),
+  );
 
   const id = feature.getProperty('id');
 
@@ -133,6 +153,10 @@ export function setBuilding(
         constructionYear: numProp(
           feature,
           'digitalEnergyTwin.constructionYear',
+        ),
+        geothermalEnergyAvailable: boolProp(
+          feature,
+          'digitalEnergyTwin.geothermalEnergyAvailable',
         ),
       },
     },

@@ -1,13 +1,16 @@
-import { type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+import {
+  isHeatingSystemCompatible,
+  type RangeKey,
+} from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import { computed } from 'nanostores';
 import { $config } from '../calculation-config';
 import makeFieldStore from '../../field-store';
-import {
-  bindFieldToOptions,
-  makeSelectionStore,
-} from '../../selection-store';
+import { bindFieldToOptions, makeSelectionStore } from '../../selection-store';
 import { rangeKeyEquals } from '../../yearHelper/rangeBandOptions';
-import { $resolvedInputState } from '../computed/resolved-input';
+import {
+  $resolvedInput,
+  $resolvedInputState,
+} from '../computed/resolved-input';
 import { $inputState } from './atoms';
 import { buildingYearOptions } from './general';
 
@@ -44,12 +47,18 @@ export const primaryEnergyCarrierOptions = makeSelectionStore(
 
 bindFieldToOptions(primaryEnergyCarrierField, primaryEnergyCarrierOptions);
 
-export const heatingSystemTypeOptions = makeSelectionStore(
-  (config) => config.heat.heatingSystemTypes,
-  {
-    $store: $resolvedInputState,
-    getKey: (state) => state.heat.primaryEnergyCarrier,
-    getFilter: (config) => config.heat.allowedHeatingSystemTypesByCarrier,
+export const heatingSystemTypeOptions = computed(
+  [$config, $resolvedInput],
+  (config, state) => {
+    const carrierFilter = config.heat.allowedHeatingSystemTypesByCarrier.find(
+      ({ key }) => key === state.heat.primaryEnergyCarrier,
+    );
+
+    return config.heat.heatingSystemTypes.filter(
+      (system) =>
+        isHeatingSystemCompatible(system, state) &&
+        (!carrierFilter || carrierFilter.allowedValues.includes(system.value)),
+    );
   },
 );
 
@@ -163,8 +172,7 @@ export const $isThermalUnitRateInvalid = computed(
 
 export const $canProgressHeatStep = computed(
   [$isThermalBaseRateInvalid, $isThermalUnitRateInvalid],
-  (baseRateInvalid, unitRateInvalid) =>
-    !baseRateInvalid && !unitRateInvalid,
+  (baseRateInvalid, unitRateInvalid) => !baseRateInvalid && !unitRateInvalid,
 );
 
 export const $isSystemOnlyElectrical = computed(
@@ -172,7 +180,9 @@ export const $isSystemOnlyElectrical = computed(
   (state, config) => {
     const type = state.heat.heatingSystemType;
     if (!type) return false;
-    return (config.heat.electricalRatio.find((r) => r.key === type)?.value ?? 0) >= 1;
+    return (
+      (config.heat.electricalRatio.find((r) => r.key === type)?.value ?? 0) >= 1
+    );
   },
 );
 

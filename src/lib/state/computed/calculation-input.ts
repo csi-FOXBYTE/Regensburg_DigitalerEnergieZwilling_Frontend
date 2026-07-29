@@ -47,7 +47,11 @@ export const $calculationInput = computed(
         ...lod2.general,
         ...defined(inputs.general),
       },
-      heat: { ...placeholderHeat, ...defined(inputs.heat) },
+      heat: {
+        ...placeholderHeat,
+        ...lod2.heat,
+        ...defined(inputs.heat),
+      },
       electricity: {
         ...placeholderElectricity,
         ...defined(inputs.electricity),
