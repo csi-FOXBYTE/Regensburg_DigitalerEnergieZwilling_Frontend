@@ -317,12 +317,20 @@
     "classTooltipCurrentState": "Class {{cls}}: {{range}} (Your Current State)"
   },
   "export": {
-    "sectionTitle": "Export Report",
-    "description": "Download a clear PDF report with all calculation results, economic calculations and funding programmes.",
     "consentTitle": "Help Regensburg with Heat Planning",
-    "consentDescription": "If you consent, your calculation results will be transmitted to the city administration in fully anonymised form. This data helps the city to better align climate projects and municipal heat planning with the actual needs of building owners – without any reference to your identity.",
+    "consentDescription": "If you consent, your calculation results will be transmitted to the city administration in anonymised form. This data helps the city to better align climate projects and municipal heat planning with the actual needs of building owners – without any reference to your identity.\n\nSubmission is linked to downloading the PDF report. This lets you share information about your building with the City of Regensburg without registration or providing contact details. If you have agreed to the data donation, your submission takes place as soon as you request the PDF report. The report also includes a deletion link in case you want to withdraw your consent later.",
     "consentLabel": "Yes, I would like to voluntarily share my anonymised results and contribute to climate protection in Regensburg.",
     "privacyNote": "Data protection in accordance with GDPR Art. 6(1)(a): Your consent is voluntary and can be withdrawn at any time. No personal data is transmitted – only aggregated building and energy metrics.",
+    "downloadTitle": "Download PDF Report",
+    "downloadIntro": "Download your results as a convenient PDF summary. It includes:",
+    "downloadItems": {
+      "recoveryLink": "A recovery link to your building configuration",
+      "dataDonation": "If you have shared your building data with the City of Regensburg: your dataset as a machine-readable file (JSON), plus your deletion link",
+      "buildingData": "Your building's existing data",
+      "scenario": "Your selected renovation scenario",
+      "nextSteps": "Tips for next steps",
+      "subsidyLinks": "Links to funding programmes"
+    },
     "downloadButton": "Download PDF Report",
     "reportTitle": "Energy Report",
     "documentTitle": "Your Renovation Proposal",

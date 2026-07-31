@@ -317,12 +317,20 @@
     "classTooltipCurrentState": "Klasse {{cls}}: {{range}} (Ihr aktueller Stand)"
   },
   "export": {
-    "sectionTitle": "Bericht exportieren",
-    "description": "Laden Sie einen übersichtlichen PDF-Bericht mit allen Berechnungsergebnissen, Wirtschaftlichkeitsberechnungen und Förderprogrammen herunter.",
     "consentTitle": "Helfen Sie Regensburg bei der Wärmeplanung",
-    "consentDescription": "Wenn Sie zustimmen, werden Ihre Berechnungsergebnisse vollständig anonymisiert an die Stadtverwaltung übermittelt. Diese Daten helfen der Stadt, Klimaprojekte und die kommunale Wärmeplanung besser auf die tatsächlichen Bedürfnisse der Gebäudeeigentümer auszurichten – ohne Rückschluss auf Ihre Person.",
+    "consentDescription": "Wenn Sie zustimmen, werden Ihre Berechnungsergebnisse anonymisiert an die Stadtverwaltung übermittelt. Diese Daten helfen der Stadt, Klimaprojekte und die kommunale Wärmeplanung besser auf die tatsächlichen Bedürfnisse der Gebäudeeigentümer auszurichten – ohne Rückschluss auf Ihre Person.\n\nDie Einreichung ist mit dem Download des PDF-Berichts verbunden. Dadurch können Sie Informationen zu Ihrem Gebäude ohne Registrierung oder Angabe von Kontaktdaten mit der Stadt Regensburg teilen. Wenn Sie der Datenspende zugestimmt haben, findet Ihre Einreichung statt, sobald Sie den PDF-Bericht anfordern. Darin finden Sie auch einen Löschlink, wenn Sie später Ihre Einwilligung zurückziehen möchten.",
     "consentLabel": "Ja, ich möchte meine anonymisierten Ergebnisse freiwillig zur Verfügung stellen und damit einen Beitrag zum Klimaschutz in Regensburg leisten.",
     "privacyNote": "Datenschutz gemäß DSGVO Art. 6 Abs. 1 lit. a: Ihre Einwilligung ist freiwillig und jederzeit widerrufbar. Es werden keine personenbezogenen Daten übertragen – nur aggregierte Gebäude- und Energiekennwerte.",
+    "downloadTitle": "PDF-Bericht herunterladen",
+    "downloadIntro": "Laden Sie Ihre Ergebnisse als praktische PDF-Zusammenfassung herunter. Darin enthalten sind:",
+    "downloadItems": {
+      "recoveryLink": "Wiederherstellungslink zu Ihrer Gebäudekonfiguration",
+      "dataDonation": "Wenn Sie Ihre Gebäudedaten der Stadt Regensburg zur Verfügung gestellt haben: Ihr Datensatz als maschinenlesbare Datei (JSON), sowie Ihr Löschlink",
+      "buildingData": "Die Bestandsdaten zu Ihrem Gebäude",
+      "scenario": "Ihr gewähltes Sanierungsszenario",
+      "nextSteps": "Tipps zu den nächsten Schritten",
+      "subsidyLinks": "Links zu Förderprogrammen"
+    },
     "downloadButton": "PDF-Bericht herunterladen",
     "reportTitle": "Energiebericht",
     "documentTitle": "Ihr Sanierungsvorschlag",
