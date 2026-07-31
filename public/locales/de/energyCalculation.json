@@ -439,6 +439,8 @@
     "categoryHeating": "Heizung",
     "categoryHeatingSurface": "Heizungsfläche",
     "categoryLabel": "Kategorie",
+    "subsidyColumnTitle": "Titel",
+    "subsidyColumnLink": "Link",
     "submissionError": "Daten konnten nicht übermittelt werden. Der PDF-Bericht wird trotzdem heruntergeladen.",
     "downloadError": "Der PDF-Bericht konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
     "dataLinksTitle": "Ihre Datenverwaltung",

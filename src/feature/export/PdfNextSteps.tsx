@@ -1,28 +1,11 @@
-import { StyleSheet, Text, View } from '@react-pdf/renderer';
+import { Link, StyleSheet, Text, View } from '@react-pdf/renderer';
+import i18next from 'i18next';
 import { pdf } from './pdfStyles';
 
-const STEPS = [
-  {
-    title: 'Energieberatung einholen',
-    description:
-      'Nutzen Sie diesen Bericht als Grundlage für eine professionelle Energieberatung. Die Beratung wird mit bis zu 80 % der Kosten gefördert (max. 1.300 € für Ein-/Zweifamilienhäuser).',
-  },
-  {
-    title: 'Fördermittel beantragen',
-    description:
-      'Stellen Sie die Förderanträge vor Beginn der Maßnahmen. Die Energieberatung hilft bei der Auswahl der passenden Programme und der korrekten Antragstellung.',
-  },
-  {
-    title: 'Angebote vergleichen',
-    description:
-      'Holen Sie mindestens drei Angebote von qualifizierten Fachbetrieben ein. Achten Sie auf Referenzen, Gewährleistung und die Einhaltung der Förderauflagen.',
-  },
-  {
-    title: 'Sanierung umsetzen',
-    description:
-      'Planen Sie die Reihenfolge der Maßnahmen sinnvoll – idealerweise zuerst die Gebäudehülle, dann die Anlagentechnik. So dimensionieren Sie die neue Heizung optimal.',
-  },
-];
+const ENERGY_AGENCY_LINK =
+  'https://www.energieagentur-regensburg.de/buergerinnen/energieberatung-anmeldung';
+const ENERGY_AGENCY_CONTACT =
+  'Energieagentur Regensburg e. V.\nRudolf-Vogt-Straße 18\n93053 Regensburg\nTel. 0941 2984491-0\nkontakt@energieagentur-regensburg.de';
 
 const styles = StyleSheet.create({
   content: {
@@ -34,18 +17,53 @@ const styles = StyleSheet.create({
   stepDescription: {
     lineHeight: 1,
   },
+  link: {
+    fontSize: 10,
+    color: '#e30613',
+  },
 });
 
 export function PdfNextSteps() {
+  const STEPS = [
+    {
+      title: i18next.t('energyCalculation:nextSteps.step1.title'),
+      description: i18next.t('energyCalculation:nextSteps.step1.description'),
+      link: ENERGY_AGENCY_LINK,
+      contact: ENERGY_AGENCY_CONTACT,
+    },
+    {
+      title: i18next.t('energyCalculation:nextSteps.step2.title'),
+      description: i18next.t('energyCalculation:nextSteps.step2.description'),
+    },
+    {
+      title: i18next.t('energyCalculation:nextSteps.step3.title'),
+      description: i18next.t('energyCalculation:nextSteps.step3.description'),
+    },
+    {
+      title: i18next.t('energyCalculation:nextSteps.step4.title'),
+      description: i18next.t('energyCalculation:nextSteps.step4.description'),
+    },
+  ];
+
   return (
     <View style={styles.content}>
-      <Text style={pdf.sectionHeader}>So geht's weiter</Text>
+      <Text style={pdf.sectionHeader}>
+        {i18next.t('energyCalculation:nextSteps.sectionTitle')}
+      </Text>
       {STEPS.map((step, index) => (
         <View key={index} wrap={false} style={styles.step}>
           <Text style={pdf.h3}>
             {index + 1}. {step.title}
           </Text>
           <Text style={styles.stepDescription}>{step.description}</Text>
+          {step.link && (
+            <Link src={step.link} style={styles.link}>
+              {step.link}
+            </Link>
+          )}
+          {step.contact && (
+            <Text style={styles.stepDescription}>{step.contact}</Text>
+          )}
         </View>
       ))}
     </View>
