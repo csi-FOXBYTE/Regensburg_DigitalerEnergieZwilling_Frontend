@@ -257,6 +257,7 @@
   },
   "renovation": {
     "title": "Sanierungsmaßnahmen",
+    "subtitle": "Wählen Sie die Maßnahmen aus, die Sie vergleichen möchten:",
     "insulation": {
       "title": "Dämmung",
       "roof": "Dachdämmung",

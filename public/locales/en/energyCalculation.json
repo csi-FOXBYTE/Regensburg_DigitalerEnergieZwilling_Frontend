@@ -257,6 +257,7 @@
   },
   "renovation": {
     "title": "Renovation Measures",
+    "subtitle": "Select the measures you want to compare:",
     "insulation": {
       "title": "Insulation",
       "roof": "Roof insulation",
