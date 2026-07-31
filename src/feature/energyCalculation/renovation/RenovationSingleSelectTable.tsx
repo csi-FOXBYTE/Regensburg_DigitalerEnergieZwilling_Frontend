@@ -47,10 +47,12 @@ export function RenovationSingleSelectTable({
     );
   };
 
-  const baseCost = useMemo(
-    () => calculate(config, baseInput).yearlyCost,
+  const baseResult = useMemo(
+    () => calculate(config, baseInput),
     [config, baseInput],
   );
+  const baseCost = baseResult.yearlyCost;
+  const baseEnergy = baseResult.annualTotalEnergyDemand;
 
   const savingsMap = useMemo(
     () =>
@@ -62,6 +64,18 @@ export function RenovationSingleSelectTable({
         ]),
       ),
     [config, baseInput, renovations, baseCost],
+  );
+
+  const energyMap = useMemo(
+    () =>
+      Object.fromEntries(
+        renovations.map((r) => [
+          r.id,
+          calculate(config, applyRenovation(baseInput, r))
+            .annualTotalEnergyDemand - baseEnergy,
+        ]),
+      ),
+    [config, baseInput, renovations, baseEnergy],
   );
 
   return (
@@ -76,8 +90,13 @@ export function RenovationSingleSelectTable({
                   <span className="text-left">
                     {t('renovation.table.measure')}
                   </span>
-                  <span className="text-left whitespace-nowrap sm:text-right">
-                    {t('renovation.table.savings')}
+                  <span className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
+                    <span className="text-left whitespace-nowrap sm:text-right">
+                      {t('renovation.table.energyPotential')}
+                    </span>
+                    <span className="text-left whitespace-nowrap sm:text-right">
+                      {t('renovation.table.savings')}
+                    </span>
                   </span>
                 </div>
               </th>
@@ -99,6 +118,7 @@ export function RenovationSingleSelectTable({
                     />
                   }
                   label={row.original.label}
+                  energyDelta={energyMap[row.id] ?? 0}
                   savings={savingsMap[row.id] ?? 0}
                   recommended={row.original.recommended}
                   info={
@@ -113,10 +133,11 @@ export function RenovationSingleSelectTable({
               selectionCell={
                 <RadioGroupItem
                   value={NONE}
-                  className="border-neutral-550 border-2 p-1.75"
+                  className="size-5 border-2 border-neutral-550"
                 />
               }
               label={t('renovation.table.noMeasure')}
+              energyDelta={0}
               savings={0}
               info={
                 noMeasureTooltip ? (

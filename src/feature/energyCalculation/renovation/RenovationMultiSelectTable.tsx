@@ -50,10 +50,12 @@ export function RenovationMultiSelectTable({
     getRowId: (row) => row.id,
   });
 
-  const baseCost = useMemo(
-    () => calculate(config, baseInput).yearlyCost,
+  const baseResult = useMemo(
+    () => calculate(config, baseInput),
     [config, baseInput],
   );
+  const baseCost = baseResult.yearlyCost;
+  const baseEnergy = baseResult.annualTotalEnergyDemand;
 
   const savingsMap = useMemo(
     () =>
@@ -67,6 +69,18 @@ export function RenovationMultiSelectTable({
     [config, baseInput, renovations, baseCost],
   );
 
+  const energyMap = useMemo(
+    () =>
+      Object.fromEntries(
+        renovations.map((r) => [
+          r.id,
+          calculate(config, applyRenovation(baseInput, r))
+            .annualTotalEnergyDemand - baseEnergy,
+        ]),
+      ),
+    [config, baseInput, renovations, baseEnergy],
+  );
+
   const selectedSavings = useMemo(() => {
     if (value.length === 0) return 0;
     return (
@@ -74,10 +88,18 @@ export function RenovationMultiSelectTable({
     );
   }, [config, baseInput, value, baseCost]);
 
-  const savingsColorClass =
-    selectedSavings < 0
+  const selectedEnergy = useMemo(() => {
+    if (value.length === 0) return 0;
+    return (
+      calculate(config, applyRenovation(baseInput, value))
+        .annualTotalEnergyDemand - baseEnergy
+    );
+  }, [config, baseInput, value, baseEnergy]);
+
+  const deltaColorClass = (delta: number) =>
+    delta < 0
       ? 'text-green-600'
-      : selectedSavings > 0
+      : delta > 0
         ? 'text-red-600'
         : 'text-muted-foreground';
 
@@ -92,8 +114,13 @@ export function RenovationMultiSelectTable({
                 <span className="text-left">
                   {t('renovation.table.measure')}
                 </span>
-                <span className="text-left whitespace-nowrap sm:text-right">
-                  {t('renovation.table.savings')}
+                <span className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
+                  <span className="text-left whitespace-nowrap sm:text-right">
+                    {t('renovation.table.energyPotential')}
+                  </span>
+                  <span className="text-left whitespace-nowrap sm:text-right">
+                    {t('renovation.table.savings')}
+                  </span>
                 </span>
               </div>
             </th>
@@ -116,6 +143,7 @@ export function RenovationMultiSelectTable({
                   />
                 }
                 label={row.original.label}
+                energyDelta={energyMap[row.id] ?? 0}
                 savings={savingsMap[row.id] ?? 0}
                 recommended={row.original.recommended}
                 info={
@@ -134,15 +162,26 @@ export function RenovationMultiSelectTable({
               <td className="px-4 py-4 font-medium">
                 <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
                   <span>{t('renovation.table.total')}</span>
-                  <span
-                    className={`whitespace-nowrap sm:text-right ${savingsColorClass}`}
-                  >
-                    {selectedSavings.toLocaleString('de-DE', {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                      signDisplay: 'always',
-                    })}{' '}
-                    €/Jahr
+                  <span className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
+                    <span
+                      className={`whitespace-nowrap sm:text-right ${deltaColorClass(selectedEnergy)}`}
+                    >
+                      {selectedEnergy.toLocaleString('de-DE', {
+                        maximumFractionDigits: 0,
+                        signDisplay: 'always',
+                      })}{' '}
+                      kWh/Jahr
+                    </span>
+                    <span
+                      className={`whitespace-nowrap sm:text-right ${deltaColorClass(selectedSavings)}`}
+                    >
+                      {selectedSavings.toLocaleString('de-DE', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                        signDisplay: 'always',
+                      })}{' '}
+                      €/Jahr
+                    </span>
                   </span>
                 </div>
               </td>

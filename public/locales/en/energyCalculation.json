@@ -276,6 +276,7 @@
     },
     "table": {
       "measure": "Measure",
+      "energyPotential": "Energy Potential",
       "savings": "Savings Potential",
       "total": "Total",
       "noMeasure": "No Measure"

@@ -276,6 +276,7 @@
     },
     "table": {
       "measure": "Maßnahme",
+      "energyPotential": "Energiepotenzial",
       "savings": "Sparpotential",
       "total": "Gesamt",
       "noMeasure": "Keine Maßnahme"
