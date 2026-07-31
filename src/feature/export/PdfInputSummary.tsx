@@ -10,6 +10,7 @@ import {
 import { StyleSheet, Text, View } from '@react-pdf/renderer';
 import type { ParseKeys } from 'i18next';
 import i18next from 'i18next';
+import { formatNumber } from './pdfFormat';
 import { PdfLabeledValue } from './PdfLabeledValue';
 import { pdf } from './pdfStyles';
 
@@ -28,10 +29,7 @@ function fmt(
   unit: string,
 ): string {
   if (value == null) return '–';
-  const n = value.toLocaleString('de-DE', {
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  });
+  const n = formatNumber(value, decimals);
   return unit ? `${n} ${unit}` : n;
 }
 
@@ -470,7 +468,7 @@ export function PdfInputSummary() {
               />
               <PdfLabeledValue
                 label={ec('export.labels.heat.carrierDemand')}
-                value={fmt(result.annualCarrierHeatingEnergyDemand, 1, result.energyCarrierUnit)}
+                value={fmt(result.annualCarrierHeatingEnergyDemand, 0, result.energyCarrierUnit)}
               />
               <PdfLabeledValue
                 label={ec('export.labels.heat.totalCost')}
@@ -478,7 +476,7 @@ export function PdfInputSummary() {
               />
               <PdfLabeledValue
                 label={ec('export.labels.heat.unitRate')}
-                value={fmt(result.energyCarrierUnitRate, 4, `€/${result.energyCarrierUnit}`)}
+                value={fmt(result.energyCarrierUnitRate, 2, `€/${result.energyCarrierUnit}`)}
               />
               <PdfLabeledValue
                 label={ec('export.labels.heat.baseRate')}
@@ -503,7 +501,7 @@ export function PdfInputSummary() {
           />
           <PdfLabeledValue
             label={ec('export.labels.electricity.unitRate')}
-            value={fmt(electricity.electricityUnitRate, 4, '€/kWh')}
+            value={fmt(electricity.electricityUnitRate, 2, '€/kWh')}
           />
           <PdfLabeledValue
             label={ec('export.labels.electricity.baseRate')}
