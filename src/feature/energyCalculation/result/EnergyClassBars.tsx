@@ -19,9 +19,9 @@ const CHEVRON_CLIP =
   'polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%)';
 
 function formatRange(from: number | undefined, to: number | undefined): string {
-  if (from == null) return `< ${to} kWh/m²a`;
-  if (to == null) return `> ${from} kWh/m²a`;
-  return `${from} – ${to} kWh/m²a`;
+  if (from == null) return `< ${to} kWh/(m²·Jahr)`;
+  if (to == null) return `> ${from} kWh/(m²·Jahr)`;
+  return `${from} – ${to} kWh/(m²·Jahr)`;
 }
 
 function EnergyClassRow({

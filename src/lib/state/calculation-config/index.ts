@@ -16,26 +16,49 @@ type ActiveConfig = {
 
 const $activeConfig = atom<ActiveConfig | null>(null);
 
-export const $versionName = computed($activeConfig, (c) => c?.versionName ?? 'default');
-export const $config = computed($activeConfig, (c) => c?.calculationConfig ?? DEFAULT_CONFIG);
+export const $versionName = computed(
+  $activeConfig,
+  (c) => c?.versionName ?? 'DEFAULT',
+);
+export const $config = computed(
+  $activeConfig,
+  (c) => c?.calculationConfig ?? DEFAULT_CONFIG,
+);
 export const $subsidies = computed($activeConfig, (c) => c?.subsidies ?? []);
+export const $configLoadFailed = atom(false);
 
-(async () => {
+function parseField(value: unknown): unknown {
+  return typeof value === 'string' ? JSON.parse(value) : value;
+}
+
+function parseSubsidies(value: unknown): ActiveConfig['subsidies'] {
+  const wrapped =
+    Array.isArray(value) && typeof value[0] === 'string' ? value[0] : value;
+  const parsed = parseField(wrapped);
+  return Array.isArray(parsed) ? (parsed as ActiveConfig['subsidies']) : [];
+}
+
+async function loadActiveConfig() {
   try {
     const res = await fetch('/api/public/config/active');
-    if (!res.ok) return;
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    const result = validateConfig(JSON.parse(data.calculationConfig));
-    if (!result.success) return;
+    const result = validateConfig(parseField(data.calculationConfig));
+    if (!result.success) {
+      console.error('Invalid calculation config, using defaults', result);
+    }
     $activeConfig.set({
-      versionName: data.versionName,
-      calculationConfig: result.data,
-      subsidies: JSON.parse(data.subsidies),
+      versionName: result.success ? data.versionName : 'DEFAULT',
+      calculationConfig: result.success ? result.data : DEFAULT_CONFIG,
+      subsidies: parseSubsidies(data.subsidies),
     });
-  } catch {
-    // keep defaults
+  } catch (error) {
+    console.error('Loading the active config failed', error);
+    $configLoadFailed.set(true);
   }
-})();
+}
+
+if (typeof window !== 'undefined') void loadActiveConfig();
 
 export type EnergyEfficiencyClassData = Map<
   string,

@@ -149,7 +149,7 @@ export default function RenovationStats() {
           <NumericDelta
             before={before.energyConsumptionPerSquareMeter}
             after={after.energyConsumptionPerSquareMeter}
-            unit="kWh/m²a"
+            unit="kWh/(m²·Jahr)"
           />
         }
       />
@@ -183,7 +183,7 @@ export default function RenovationStats() {
           <NumericDelta
             before={before.yearlyCost}
             after={after.yearlyCost}
-            unit="€/a"
+            unit="€/Jahr"
           />
         }
       />
@@ -200,7 +200,7 @@ export default function RenovationStats() {
           <NumericDelta
             before={before.co2Emissions}
             after={after.co2Emissions}
-            unit="t CO₂/a"
+            unit="t CO₂/Jahr"
           />
         }
       />

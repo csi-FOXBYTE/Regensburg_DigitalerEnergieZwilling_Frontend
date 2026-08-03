@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 export type RenovationRowProps = {
   selectionCell: ReactNode;
   label: string;
+  energyDelta: number;
   savings: number;
   recommended?: boolean;
   info?: ReactNode;
@@ -18,20 +19,30 @@ function formatSavings(savings: number) {
   });
 }
 
+function formatEnergy(energyDelta: number) {
+  return energyDelta.toLocaleString('de-DE', {
+    maximumFractionDigits: 0,
+    signDisplay: 'always',
+  });
+}
+
+function deltaColorClass(delta: number) {
+  return delta < 0
+    ? 'text-green-600'
+    : delta > 0
+      ? 'text-red-600'
+      : 'text-muted-foreground';
+}
+
 export function RenovationRow({
   selectionCell,
   label,
+  energyDelta,
   savings,
   recommended,
   info,
 }: RenovationRowProps) {
   const { t } = useTranslation('energyCalculation');
-  const colorClass =
-    savings < 0
-      ? 'text-green-600'
-      : savings > 0
-        ? 'text-red-600'
-        : 'text-muted-foreground';
 
   return (
     <tr className="border-t border-neutral-200 text-base">
@@ -49,8 +60,17 @@ export function RenovationRow({
               </Badge>
             )}
           </span>
-          <span className={`whitespace-nowrap sm:text-right ${colorClass}`}>
-            {formatSavings(savings)} €/a
+          <span className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
+            <span
+              className={`whitespace-nowrap sm:text-right ${deltaColorClass(energyDelta)}`}
+            >
+              {formatEnergy(energyDelta)} kWh/Jahr
+            </span>
+            <span
+              className={`whitespace-nowrap sm:text-right ${deltaColorClass(savings)}`}
+            >
+              {formatSavings(savings)} €/Jahr
+            </span>
           </span>
         </div>
       </td>

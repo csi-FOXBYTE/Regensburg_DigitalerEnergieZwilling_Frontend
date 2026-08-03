@@ -36,6 +36,9 @@ export default function RenovationStepForm() {
 
   return (
     <div className="flex flex-col gap-4">
+      <Typography variant="h3" className="mb-2">
+        {t('renovation.subtitle')}
+      </Typography>
       <div>
         <Typography variant="h4" className="mb-2">
           {t('renovation.insulation.title')}

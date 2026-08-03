@@ -39,7 +39,7 @@ export default function ElectricityStepForm() {
             <EnergyNumberInput
               field={userElectricityConsumptionField}
               labelKey="electricity.consumption"
-              suffix=" kWh/a"
+              suffix=" kWh/Jahr"
               decimalScale={0}
               allowNegative={false}
               info={

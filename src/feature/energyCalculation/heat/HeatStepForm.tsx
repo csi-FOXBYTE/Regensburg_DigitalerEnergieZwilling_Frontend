@@ -131,7 +131,7 @@ export default function HeatStepForm() {
               <EnergyNumberInput
                 field={userThermalTotalCostField}
                 labelKey="heat.bills.consumption"
-                suffix=" €/a"
+                suffix=" €/Jahr"
                 decimalScale={2}
                 fixedDecimalScale
                 allowNegative={false}
@@ -162,7 +162,7 @@ export default function HeatStepForm() {
               <EnergyNumberInput
                 field={userThermalBaseRateField}
                 labelKey="heat.bills.baseRate"
-                suffix=" €/a"
+                suffix=" €/Jahr"
                 decimalScale={2}
                 fixedDecimalScale
                 allowNegative={false}

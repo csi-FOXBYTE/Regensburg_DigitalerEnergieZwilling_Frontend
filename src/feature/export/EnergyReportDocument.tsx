@@ -11,6 +11,7 @@ import { PdfFooter } from './PdfFooter';
 import { PdfHeader } from './PdfHeader';
 import { PdfNextSteps } from './PdfNextSteps';
 import { PdfRenovationScenarios } from './PdfRenovationScenarios';
+import { hasActiveSubsidies, PdfSubsidies } from './PdfSubsidies';
 import { pdf } from './pdfStyles';
 
 const styles = StyleSheet.create({
@@ -95,6 +96,13 @@ export function EnergyReportDocument({ recoveryLink, deletionLink, jsonLink }: P
         <PdfRenovationScenarios />
         <PdfFooter />
       </Page>
+      {hasActiveSubsidies() && (
+        <Page size="A4" style={pdf.page}>
+          <PdfHeader title={i18next.t('energyCalculation:export.reportTitle')} />
+          <PdfSubsidies />
+          <PdfFooter />
+        </Page>
+      )}
       <Page size="A4" style={pdf.page}>
         <PdfHeader title={i18next.t('energyCalculation:export.reportTitle')} />
         <PdfNextSteps />

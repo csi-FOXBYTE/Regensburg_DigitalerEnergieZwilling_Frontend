@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View } from '@react-pdf/renderer';
+import { formatEuro, formatPercent } from './pdfFormat';
 
 const styles = StyleSheet.create({
   row: {
@@ -13,14 +14,6 @@ const styles = StyleSheet.create({
   month:   { width: '20%', fontSize: 11, color: '#191919', fontWeight: 700 },
 });
 
-function formatDelta(value: number) {
-  return value.toLocaleString('de-DE', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-    signDisplay: 'always',
-  });
-}
-
 type Props = {
   label: string;
   energySavingPercent: number;
@@ -31,9 +24,15 @@ export function PdfRenovationItem({ label, energySavingPercent, costSaving }: Pr
   return (
     <View style={styles.row}>
       <Text style={styles.measure}>{label}</Text>
-      <Text style={styles.energy}>{formatDelta(energySavingPercent)} %</Text>
-      <Text style={styles.year}>{formatDelta(costSaving)} €/a</Text>
-      <Text style={styles.month}>{formatDelta(costSaving / 12)} €/Mon.</Text>
+      <Text style={styles.energy}>
+        {formatPercent(energySavingPercent, { signed: true })} %
+      </Text>
+      <Text style={styles.year}>
+        {formatEuro(costSaving, { signed: true })} €/Jahr
+      </Text>
+      <Text style={styles.month}>
+        {formatEuro(costSaving / 12, { signed: true })} €/Mon.
+      </Text>
     </View>
   );
 }

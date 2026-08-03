@@ -8,7 +8,6 @@ import BuildingAddress from '../BuildingAddress';
 import ButtonBar from '../ButtonBar';
 import RenovationStats from '../renovation/RenovationStats';
 import EnergyClassDisplay from './EnergyClassDisplay';
-import { ExportSection } from './ExportSection';
 import { NextStepsSection } from './NextStepsSection';
 import { SubsidySection } from './SubsidySection';
 ---
@@ -29,7 +28,6 @@ import { SubsidySection } from './SubsidySection';
     </Typography>
     <div class="mt-4"><EnergyClassDisplay client:load /></div>
     <SubsidySection client:load />
-    <ExportSection client:load />
     <NextStepsSection client:load />
     <ButtonBar backTextKey="backFromResults" className="mt-8" client:load />
   </ContentContainer>

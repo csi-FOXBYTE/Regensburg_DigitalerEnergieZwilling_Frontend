@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import type { Database, QueryExecResult } from 'sql.js';
 import initSqlJs from 'sql.js';
 
+const LIMIT = 100;
+
 let dbPromise: Promise<Database> | null = null;
 
 function getDb() {
@@ -91,7 +93,7 @@ function queryByHouseNumber(
      FROM streets s JOIN building_addresses ba ON ba.street_id = s.id
      WHERE ba.house_number LIKE ?
      ORDER BY s.name, CAST(ba.house_number AS INTEGER), ba.house_number
-     LIMIT 10`,
+     LIMIT ${LIMIT}`,
     [`${houseNumber}%`],
   );
 }
@@ -106,7 +108,7 @@ function queryByStreetAndHouseNumber(
      FROM streets s JOIN building_addresses ba ON ba.street_id = s.id
      WHERE s.name LIKE ? AND ba.house_number LIKE ?
      ORDER BY CAST(ba.house_number AS INTEGER), ba.house_number
-     LIMIT 10`,
+     LIMIT ${LIMIT}`,
     [`%${street}%`, `${houseNumber}%`],
   );
 }
@@ -117,7 +119,7 @@ function queryByStreet(db: Database, street: string): QueryExecResult[] {
      FROM streets s JOIN building_addresses ba ON ba.street_id = s.id
      WHERE s.name LIKE ?
      ORDER BY CAST(ba.house_number AS INTEGER), ba.house_number
-     LIMIT 10`,
+     LIMIT ${LIMIT}`,
     [`%${street}%`],
   );
 }
