@@ -412,6 +412,7 @@
       "heat": {
         "hasGasSupply": "Gas Connection",
         "hasStorage": "Fuel Storage Present",
+        "hasGeothermalAvailability": "Geothermal Energy Available",
         "constructionYear": "Heating System Year",
         "primaryEnergyCarrier": "Energy Carrier",
         "heatingSystemType": "Heating System Type",

@@ -412,6 +412,7 @@
       "heat": {
         "hasGasSupply": "Gasanschluss",
         "hasStorage": "Lagerfläche vorhanden",
+        "hasGeothermalAvailability": "Geothermie verfügbar",
         "constructionYear": "Einbaujahr Heizung",
         "primaryEnergyCarrier": "Energieträger",
         "heatingSystemType": "Heizungsart",

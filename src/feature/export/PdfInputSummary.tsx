@@ -420,6 +420,14 @@ export function PdfInputSummary() {
                 label={ec('export.labels.heat.hasStorage')}
                 value={fmtBool(heat.hasStorage, 'common:yes', 'common:no')}
               />
+              <PdfLabeledValue
+                label={ec('export.labels.heat.hasGeothermalAvailability')}
+                value={fmtBool(
+                  heat.hasGeothermalAvailability,
+                  'common:yes',
+                  'common:no',
+                )}
+              />
             </View>
           </View>
         </View>
