@@ -1,5 +1,5 @@
 import { useStore } from '@nanostores/react';
-import { HelpCircle, Info, MapPin, X } from 'lucide-react';
+import { Info, MapPin, X } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Draggable from 'react-draggable';
 import { useTranslation } from 'react-i18next';
@@ -29,8 +29,7 @@ import { clearSession, getSession } from '../../lib/state/session/storage';
 import { navigateToStep, Step } from '../../lib/state/ui/progress';
 import useIsMobile from '../../lib/useIsMobile';
 import { cn } from '../../lib/utils';
-import { CurrentStatsReduced } from '../energyCalculation/CurrentStats';
-import HowCalculatedDialog from './HowCalculatedDialog';
+import RenovationPotential from './RenovationPotential';
 import StartOverConfirmDialog from './StartOverConfirmDialog';
 
 function BuildingWindowContent({
@@ -42,7 +41,6 @@ function BuildingWindowContent({
 }) {
   const { t } = useTranslation('map');
   const [confirmOpen, setConfirmOpen] = useState(false);
-  const [howCalculatedOpen, setHowCalculatedOpen] = useState(false);
   const session = getSession(building.id);
 
   const handleStartOver = () => {
@@ -75,15 +73,11 @@ function BuildingWindowContent({
               .join(', ')}
           </Typography>
         </div>
-        <CurrentStatsReduced />
-        <button
-          type="button"
-          onClick={() => setHowCalculatedOpen(true)}
-          className="text-primary hover:text-primary-hover mt-3 flex items-center gap-1.5 text-sm underline underline-offset-2"
-        >
-          <HelpCircle className="size-3.5 shrink-0" />
-          {t('buildingWindow.howCalculated')}
-        </button>
+        <RenovationPotential
+          constructionYear={
+            building.properties.digitalEnergyTwin.constructionYear
+          }
+        />
       </div>
       <div className="shrink-0 px-6 py-3 shadow-[0_-4px_6px_-2px_rgba(0,0,0,0.08)]">
         {session ? (
@@ -125,10 +119,6 @@ function BuildingWindowContent({
         open={confirmOpen}
         onOpenChange={setConfirmOpen}
         onConfirm={handleStartOver}
-      />
-      <HowCalculatedDialog
-        open={howCalculatedOpen}
-        onOpenChange={setHowCalculatedOpen}
       />
     </>
   );

@@ -12,15 +12,20 @@ type Props = {
   onOpenChange: (open: boolean) => void;
 };
 
-export default function HowCalculatedDialog({ open, onOpenChange }: Props) {
+export default function RenovationPotentialInfoDialog({
+  open,
+  onOpenChange,
+}: Props) {
   const { t } = useTranslation('map');
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader className="pr-8">
-          <DialogTitle>{t('howCalculatedDialog.title')}</DialogTitle>
-          <DialogDescription>{t('howCalculatedDialog.description')}</DialogDescription>
+          <DialogTitle>{t('renovationPotentialInfoDialog.title')}</DialogTitle>
+          <DialogDescription>
+            {t('renovationPotentialInfoDialog.description')}
+          </DialogDescription>
         </DialogHeader>
       </DialogContent>
     </Dialog>

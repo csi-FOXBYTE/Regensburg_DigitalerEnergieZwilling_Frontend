@@ -63,7 +63,9 @@ function EnergySelectInputBase<T>({
         onValueChange={(v) => field.setValue(options[Number(v)].value)}
         disabled={disabled}
       >
-        <SelectTrigger>
+        <SelectTrigger
+          className={value != null ? 'border-neutral-450' : undefined}
+        >
           <SelectValue placeholder={placeholderLabel} />
         </SelectTrigger>
         <SelectContent>

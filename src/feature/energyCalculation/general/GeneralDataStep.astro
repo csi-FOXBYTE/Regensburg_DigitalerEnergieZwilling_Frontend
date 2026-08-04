@@ -1,12 +1,10 @@
 ---
 import ContentContainer from '@/components/layouts/ContentContainer.astro';
 import EnergyCalculationPage from '@/components/layouts/EnergyCalculationPage.astro';
-import StickyContainer from '@/components/layouts/StickyContainer.astro';
 import { Typography } from '@/components/ui/typography';
 import i18next from 'i18next';
 import { AlertCircle } from 'lucide-react';
 import BuildingAddress from '../BuildingAddress';
-import CurrentStats from '../CurrentStats';
 import GeneralDataButtonBar from './GeneralDataButtonBar';
 import GeneralDataStepForm from './GeneralDataStepForm';
 ---
@@ -30,15 +28,7 @@ import GeneralDataStepForm from './GeneralDataStepForm';
       </Typography>
     </div>
   </ContentContainer>
-  <StickyContainer>
-    <CurrentStats client:load />
-    <div class="mt-4">
-      <Typography variant="small">
-        {i18next.t('energyCalculation:generalData.statsRemark')}
-      </Typography>
-    </div>
-  </StickyContainer>
-  <ContentContainer>
+  <ContentContainer class="mt-8">
     <GeneralDataStepForm client:load />
     <GeneralDataButtonBar className="mt-8" client:load />
   </ContentContainer>

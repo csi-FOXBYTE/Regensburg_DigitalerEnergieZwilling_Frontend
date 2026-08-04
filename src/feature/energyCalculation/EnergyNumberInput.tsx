@@ -52,6 +52,7 @@ export default function EnergyNumberInput({
         value={value ?? ''}
         onValueChange={(values) => field.setValue(values.floatValue)}
         placeholder={placeholderStr}
+        className={value != null ? 'border-neutral-450' : undefined}
         aria-invalid={error ? true : undefined}
         {...props}
       />

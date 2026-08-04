@@ -21,18 +21,38 @@
     "confirmButton": "Yes, start over",
     "cancelButton": "Cancel"
   },
-  "howCalculatedDialog": {
-    "title": "How are these values calculated?",
-    "description": "The aim of the calculation is to create a reasonable approximation of the recognized technical standard DIN 18599, incorporating sufficient simplifications to model it with appropriate effort."
+  "renovationPotentialInfoDialog": {
+    "title": "How is this estimate determined?",
+    "description": "The initial estimate is based exclusively on the known construction year. Buildings constructed through 1983 are assigned high potential, buildings from 1984 through 1994 moderate potential, and newer buildings a tendency toward lower renovation potential. The possible heritage-protection notice is shown for construction years through 1948. In the following steps, you can review and supplement the building data. This estimate replaces neither professional energy advice nor verification of heritage status."
+  },
+  "renovationPotential": {
+    "title": "Estimated Renovation Potential",
+    "levels": {
+      "high": "High",
+      "moderate": "Moderate",
+      "lower": "Tends to be lower",
+      "unknown": "Not yet assessable"
+    },
+    "descriptions": {
+      "high": "Based on the known construction year, the building is expected to have high energy-renovation potential.",
+      "moderate": "Based on the known construction year, the building is expected to have moderate energy-renovation potential.",
+      "lower": "Buildings from this construction period tend to have lower energy-renovation potential.",
+      "unknown": "Without a known construction year, the renovation potential cannot yet be estimated."
+    },
+    "basis": "Initial estimate based on the construction year {{year}}.",
+    "infoLink": "How is this estimate determined?",
+    "heritageWarning": {
+      "title": "Possible heritage protection",
+      "description": "Special requirements may apply to older buildings. Before planning, please verify whether the building has protected heritage status."
+    }
   },
   "buildingWindow": {
     "title": "Initial Energy Assessment",
-    "subtitle": "These results were automatically calculated from public data and model assumptions. In the next step, you can review, supplement, or modify the building data.",
+    "subtitle": "Initial energy estimate based on public data and model assumptions. In the next step, you can review, supplement, or modify the building data.",
     "continueButton": "Determine renovation proposal now",
     "sessionContinueButton": "Continue where I left off",
     "startOverButton": "Start over",
-    "processingTime": "Processing takes approximately 5 minutes to complete",
-    "howCalculated": "How are these values calculated?"
+    "processingTime": "Processing takes approximately 5 minutes to complete"
   },
   "map": {
     "loading": "Loading application...",

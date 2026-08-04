@@ -21,9 +21,30 @@
     "confirmButton": "Ja, neu starten",
     "cancelButton": "Abbrechen"
   },
-  "howCalculatedDialog": {
-    "title": "Wie werden diese Werte berechnet?",
-    "description": "Zielsetzung der Berechnung ist es eine sinnvolle Annäherung an die anerkannte Regel der Technik DIN 18599 zu schaffen, die ausreichend Vereinfachungen schafft, um diese mit geeignetem Aufwand abzubilden."
+  "renovationPotentialInfoDialog": {
+    "title": "Wie entsteht diese Einschätzung?",
+    "description": "Die Ersteinschätzung basiert ausschließlich auf dem bekannten Baujahr. Gebäude bis einschließlich 1983 werden mit hohem, Gebäude von 1984 bis 1994 mit mittlerem und neuere Gebäude mit tendenziell geringerem Sanierungspotenzial eingeordnet. Der Hinweis zum möglichen Denkmalschutz wird bei Baujahren bis einschließlich 1948 angezeigt. In den folgenden Schritten können Sie die Gebäudedaten prüfen und ergänzen. Die Einschätzung ersetzt weder eine Energieberatung noch eine Prüfung des Denkmalstatus."
+  },
+  "renovationPotential": {
+    "title": "Geschätztes Sanierungspotenzial",
+    "levels": {
+      "high": "Hoch",
+      "moderate": "Mittel",
+      "lower": "Tendenziell geringer",
+      "unknown": "Noch nicht einschätzbar"
+    },
+    "descriptions": {
+      "high": "Aufgrund des bekannten Baujahrs besteht voraussichtlich ein hohes energetisches Sanierungspotenzial.",
+      "moderate": "Aufgrund des bekannten Baujahrs besteht voraussichtlich ein mittleres energetisches Sanierungspotenzial.",
+      "lower": "Bei Gebäuden dieses Baujahrs ist das energetische Sanierungspotenzial tendenziell geringer.",
+      "unknown": "Ohne bekanntes Baujahr kann das Sanierungspotenzial noch nicht eingeschätzt werden."
+    },
+    "basis": "Ersteinschätzung auf Basis des Baujahrs {{year}}.",
+    "infoLink": "Wie entsteht diese Einschätzung?",
+    "heritageWarning": {
+      "title": "Möglicher Denkmalschutz",
+      "description": "Bei älteren Gebäuden können besondere Vorgaben gelten. Bitte prüfen Sie vor der Planung, ob das Gebäude denkmalgeschützt ist."
+    }
   },
   "buildingWindow": {
     "title": "Ihr Gebäude",
@@ -31,8 +52,7 @@
     "continueButton": "Jetzt Sanierungsvorschlag ermitteln",
     "sessionContinueButton": "Dort weitermachen",
     "startOverButton": "Neu starten",
-    "processingTime": "Die Bearbeitung dauert ungefähr 5 Minuten bis zum Ergebnis",
-    "howCalculated": "Wie werden diese Werte berechnet?"
+    "processingTime": "Die Bearbeitung dauert ungefähr 5 Minuten bis zum Ergebnis"
   },
   "map": {
     "loading": "Lade Anwendung...",
