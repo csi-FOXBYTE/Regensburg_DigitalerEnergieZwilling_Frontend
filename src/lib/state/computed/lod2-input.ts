@@ -57,6 +57,9 @@ export const $lod2Input = computed(
       },
       roof: {
         ...(det?.roofArea != null && { area: det.roofArea }),
+        ...(building?.properties.isFlatRoof != null && {
+          isFlatRoof: building.properties.isFlatRoof,
+        }),
       },
     };
   },

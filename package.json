@@ -10,7 +10,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore": "0.17.0",
+    "@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore": "0.18.0",
     "@fontsource-variable/geist": "^5.2.8",
     "@fontsource/open-sans": "^5.2.7",
     "@nanostores/react": "^1.0.0",

@@ -13,6 +13,7 @@ import {
 } from '../../lib/camera-state';
 import {
   $building,
+  addressEntries,
   isSelectableBuilding,
   setBuilding,
   unselectBuilding,

@@ -26,6 +26,7 @@ export type BuildingProperties = {
   lowestEave: number | undefined;
   groundHeight: number | undefined;
   roofHeight: number | undefined;
+  isFlatRoof: boolean | undefined;
   digitalEnergyTwin: DigitalEnergyTwin;
   address: BuildingAddress | undefined;
 };
@@ -94,6 +95,11 @@ function boolProp(
   return undefined;
 }
 
+function isFlatRoof(feature: Cesium3DTileFeature): boolean | undefined {
+  const roofType = feature.getProperty('roofType');
+  return roofType == null ? undefined : String(roofType) === '1000';
+}
+
 /** Splits "Berliner Straße 7a,9;Zwickauer Straße 10" into one entry per address. */
 export function addressEntries(raw: string): string[] {
   return raw
@@ -150,6 +156,7 @@ export function setBuilding(
       lowestEave: numProp(feature, 'NiedrigsteTraufeDesGebaeudes'),
       groundHeight: numProp(feature, 'HoeheGrund'),
       roofHeight: numProp(feature, 'HoeheDach'),
+      isFlatRoof: isFlatRoof(feature),
       address: parseAddress(feature, streetOverride),
       digitalEnergyTwin: {
         volume: numProp(feature, 'digitalEnergyTwin.volume'),
