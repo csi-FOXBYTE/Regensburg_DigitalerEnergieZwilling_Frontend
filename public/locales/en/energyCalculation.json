@@ -14,6 +14,11 @@
     "energyEfficiencyValue": "Class {{value}}",
     "annualCostsValue": "{{value}} €/a",
     "co2EmissionsValue": "{{value}} t CO₂/a",
+    "units": {
+      "energyDemand": "kWh/m²a",
+      "annualCosts": "€/a",
+      "co2Emissions": "t CO₂/a"
+    },
     "energyDemandLow": "Low energy consumption",
     "energyDemandModerate": "Moderate energy consumption",
     "energyDemandHigh": "High energy consumption",

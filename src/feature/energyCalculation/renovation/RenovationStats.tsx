@@ -13,15 +13,15 @@ import { $renovatedEnergyState } from '../../../lib/state/computed/renovated-ene
 
 function formatValue(value: number) {
   return value.toLocaleString('de-DE', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
   });
 }
 
 function formatDelta(value: number) {
   return value.toLocaleString('de-DE', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
     signDisplay: 'always',
   });
 }
@@ -57,11 +57,11 @@ function NumericDelta({
   after: number;
   unit: string;
 }) {
-  const delta = after - before;
+  const delta = Math.round(after) - Math.round(before);
   const improved = delta < 0 ? true : delta > 0 ? false : null;
   return (
     <DeltaPill improved={improved}>
-      {formatDelta(delta)} {unit}
+      {formatDelta(delta)} <span className="text-[10px]">{unit}</span>
     </DeltaPill>
   );
 }
@@ -91,12 +91,14 @@ function RenovationStatsCard({
   titleKey,
   beforeFormatted,
   afterFormatted,
+  unit,
   delta,
 }: {
   icon: ReactNode;
   titleKey: ParseKeys<'energyCalculation'>;
   beforeFormatted: string;
   afterFormatted: string;
+  unit?: string;
   delta: ReactNode;
 }) {
   const { t } = useTranslation('energyCalculation');
@@ -110,6 +112,7 @@ function RenovationStatsCard({
       <Typography variant="muted">{t('stats.beforeRenovation')}</Typography>
       <Typography variant="muted" style={{ fontSize: '16px' }}>
         {beforeFormatted}
+        {unit && <span className="ml-1 text-xs">{unit}</span>}
       </Typography>
       <Separator style={{ margin: '4px 0' }} />
       <Typography style={{ fontSize: '16px', fontWeight: 'bold' }}>
@@ -119,6 +122,7 @@ function RenovationStatsCard({
         style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '8px' }}
       >
         {afterFormatted}
+        {unit && <span className="ml-1 text-sm">{unit}</span>}
       </Typography>
       {delta}
     </Paper>
@@ -139,17 +143,14 @@ export default function RenovationStats() {
       <RenovationStatsCard
         icon={<Zap className="size-5 text-amber-600" />}
         titleKey="stats.energyDemand"
-        beforeFormatted={t('stats.energyDemandValue', {
-          value: formatValue(before.energyConsumptionPerSquareMeter),
-        })}
-        afterFormatted={t('stats.energyDemandValue', {
-          value: formatValue(after.energyConsumptionPerSquareMeter),
-        })}
+        beforeFormatted={formatValue(before.energyConsumptionPerSquareMeter)}
+        afterFormatted={formatValue(after.energyConsumptionPerSquareMeter)}
+        unit={t('stats.units.energyDemand')}
         delta={
           <NumericDelta
             before={before.energyConsumptionPerSquareMeter}
             after={after.energyConsumptionPerSquareMeter}
-            unit="kWh/(m²·Jahr)"
+            unit={t('stats.units.energyDemand')}
           />
         }
       />
@@ -173,34 +174,28 @@ export default function RenovationStats() {
       <RenovationStatsCard
         icon={<Euro className="size-5 text-blue-600" />}
         titleKey="stats.annualCosts"
-        beforeFormatted={t('stats.annualCostsValue', {
-          value: formatValue(before.yearlyCost),
-        })}
-        afterFormatted={t('stats.annualCostsValue', {
-          value: formatValue(after.yearlyCost),
-        })}
+        beforeFormatted={formatValue(before.yearlyCost)}
+        afterFormatted={formatValue(after.yearlyCost)}
+        unit={t('stats.units.annualCosts')}
         delta={
           <NumericDelta
             before={before.yearlyCost}
             after={after.yearlyCost}
-            unit="€/Jahr"
+            unit={t('stats.units.annualCosts')}
           />
         }
       />
       <RenovationStatsCard
         icon={<Leaf className="size-5 text-green-700" />}
         titleKey="stats.co2Emissions"
-        beforeFormatted={t('stats.co2EmissionsValue', {
-          value: formatValue(before.co2Emissions),
-        })}
-        afterFormatted={t('stats.co2EmissionsValue', {
-          value: formatValue(after.co2Emissions),
-        })}
+        beforeFormatted={formatValue(before.co2Emissions)}
+        afterFormatted={formatValue(after.co2Emissions)}
+        unit={t('stats.units.co2Emissions')}
         delta={
           <NumericDelta
             before={before.co2Emissions}
             after={after.co2Emissions}
-            unit="t CO₂/Jahr"
+            unit={t('stats.units.co2Emissions')}
           />
         }
       />

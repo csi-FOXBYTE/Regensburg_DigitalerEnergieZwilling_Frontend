@@ -9,13 +9,13 @@ import { $currentEnergyState } from '../../lib/state/computed/current-energy-sta
 
 function CurrentStatsCard({
   value,
+  unit,
   titleKey,
-  valueKey,
   icon,
 }: {
-  value: unknown;
+  value: string;
+  unit?: string;
   titleKey: ParseKeys<'energyCalculation'>;
-  valueKey: ParseKeys<'energyCalculation'>;
   icon: ReactNode;
 }) {
   const { t } = useTranslation('energyCalculation');
@@ -29,47 +29,47 @@ function CurrentStatsCard({
         </Typography>
       </div>
       <Typography variant={'h3'} className="self-start text-[30px] font-bold">
-        {t(valueKey, {
-          value:
-            typeof value === 'number'
-              ? value.toLocaleString('de-DE', {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })
-              : value,
-        })}
+        {value}
+        {unit && <span className="ml-1 text-base">{unit}</span>}
       </Typography>
     </Paper>
   );
 }
 
 export default function CurrentStats() {
+  const { t } = useTranslation('energyCalculation');
   const currentStats = useStore($currentEnergyState);
+  const formatValue = (value: number) =>
+    value.toLocaleString('de-DE', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    });
 
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
       <CurrentStatsCard
-        value={currentStats.energyConsumptionPerSquareMeter}
+        value={formatValue(currentStats.energyConsumptionPerSquareMeter)}
+        unit={t('stats.units.energyDemand')}
         titleKey="stats.energyDemand"
-        valueKey="stats.energyDemandValue"
         icon={<Zap className="size-5 text-amber-600" />}
       />
       <CurrentStatsCard
-        value={currentStats.energyEfficiencyClass}
+        value={t('stats.energyEfficiencyValue', {
+          value: currentStats.energyEfficiencyClass,
+        })}
         titleKey="stats.energyEfficiency"
-        valueKey="stats.energyEfficiencyValue"
         icon={<TrendingUp className="size-5 text-green-600" />}
       />
       <CurrentStatsCard
-        value={currentStats.yearlyCost}
+        value={formatValue(currentStats.yearlyCost)}
+        unit={t('stats.units.annualCosts')}
         titleKey="stats.annualCosts"
-        valueKey="stats.annualCostsValue"
         icon={<Euro className="size-5 text-blue-600" />}
       />
       <CurrentStatsCard
-        value={currentStats.co2Emissions}
+        value={formatValue(currentStats.co2Emissions)}
+        unit={t('stats.units.co2Emissions')}
         titleKey="stats.co2Emissions"
-        valueKey="stats.co2EmissionsValue"
         icon={<Leaf className="size-5 text-green-700" />}
       />
     </div>

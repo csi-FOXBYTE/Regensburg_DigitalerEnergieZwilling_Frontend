@@ -14,6 +14,11 @@
     "energyEfficiencyValue": "Klasse {{value}}",
     "annualCostsValue": "{{value}} €/Jahr",
     "co2EmissionsValue": "{{value}} t CO₂/Jahr",
+    "units": {
+      "energyDemand": "kWh/(m²·Jahr)",
+      "annualCosts": "€/Jahr",
+      "co2Emissions": "t CO₂/Jahr"
+    },
     "energyDemandLow": "Niedriger Energieverbrauch",
     "energyDemandModerate": "Moderater Energieverbrauch",
     "energyDemandHigh": "Hoher Energieverbrauch",
