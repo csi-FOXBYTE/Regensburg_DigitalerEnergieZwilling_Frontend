@@ -134,6 +134,9 @@
         "hasInsulation": "Up to 40% of heating energy is lost through uninsulated outer walls. Insulation significantly reduces heating costs.",
         "adjacentWallArea": "Wall area that is directly adjacent to neighbouring buildings and therefore does not lose heat to the outside.",
         "insulationThickness": "A thicker insulation layer increases the building's energy efficiency. Depending on the age of the insulation, between 4 cm and 14 cm is common."
+      },
+      "errors": {
+        "adjacentAreaExceedsWallArea": "The adjacent wall area must not be greater than the total outer-wall area."
       }
     },
     "windows": {
@@ -147,6 +150,9 @@
         "area": "Enter the total area of all windows. The total area of all windows affects heat loss through the building envelope.",
         "windowType": "Wood and plastic frames provide good insulation. Aluminium and steel frames conduct cold more strongly and are less energy-efficient.",
         "uValue": "The U-value describes the thermal insulation of the window. Lower values mean better insulation. Old single-pane windows have approximately 5.0 W/m²K. Modern triple-glazed windows are around 0.7 W/m²K. You can find the U-value in your window documentation or on the type plate."
+      },
+      "errors": {
+        "areaExceedsAvailableWallArea": "The window area must not be greater than the outer-wall area minus the adjacent wall area."
       }
     },
     "bottomFloor": {

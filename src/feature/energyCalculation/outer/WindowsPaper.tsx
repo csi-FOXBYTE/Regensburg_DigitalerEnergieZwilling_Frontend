@@ -2,13 +2,15 @@ import { FieldLegend, FieldSet } from '@/components/ui/field';
 import { Paper } from '@/components/ui/paper';
 import { Separator } from '@/components/ui/separator';
 import {
+  $isExteriorWallWindowsAreaInvalid,
   exteriorWallWindowsAreaField,
   exteriorWallWindowsUValueField,
   exteriorWallWindowsWindowTypeField,
   exteriorWallWindowsWindowTypeOptions,
   exteriorWallWindowsYearField,
 } from '@/lib/state/inputs/exterior-wall-windows';
-import { buildingYearOptions } from '@/lib/state/inputs/general';
+import { buildingOrNewerYearOptions } from '@/lib/state/inputs/general';
+import { useStore } from '@nanostores/react';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '../../../components/ui/typography';
 import EnergyNumberInput from '../EnergyNumberInput';
@@ -17,6 +19,10 @@ import { InfoTooltipButton } from '../InfoButton';
 
 export default function WindowsPaper() {
   const { t } = useTranslation('energyCalculation');
+  const exteriorWallWindowsAreaInvalid = useStore(
+    $isExteriorWallWindowsAreaInvalid,
+  );
+
   return (
     <Paper id="windows" variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -29,7 +35,7 @@ export default function WindowsPaper() {
         <EnergySelectInput
           field={exteriorWallWindowsYearField}
           labelKey="outerParts.windows.year"
-          rangeBandStore={buildingYearOptions}
+          rangeBandStore={buildingOrNewerYearOptions}
           info={
             <InfoTooltipButton
               content={t('outerParts.windows.tooltips.year')}
@@ -42,6 +48,11 @@ export default function WindowsPaper() {
           suffix=" m²"
           decimalScale={1}
           allowNegative={false}
+          error={
+            exteriorWallWindowsAreaInvalid
+              ? t('outerParts.windows.errors.areaExceedsAvailableWallArea')
+              : undefined
+          }
           info={
             <InfoTooltipButton
               content={t('outerParts.windows.tooltips.area')}

@@ -8,7 +8,7 @@ import {
 import { rangeKeyEquals } from '../../yearHelper/rangeBandOptions';
 import { $resolvedInputState } from '../computed/resolved-input';
 import { $inputState } from './atoms';
-import { buildingYearOptions } from './general';
+import { buildingOrNewerYearOptions } from './general';
 
 export const hasAtticField = makeFieldStore({
   store: $inputState,
@@ -40,7 +40,7 @@ export const topFloorYearField = makeFieldStore({
   resettable: true,
 });
 
-bindFieldToOptions(topFloorYearField, buildingYearOptions, rangeKeyEquals);
+bindFieldToOptions(topFloorYearField, buildingOrNewerYearOptions, rangeKeyEquals);
 
 export const topFloorAreaField = makeFieldStore({
   store: $inputState,

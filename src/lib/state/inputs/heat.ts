@@ -12,7 +12,7 @@ import {
   $resolvedInputState,
 } from '../computed/resolved-input';
 import { $inputState } from './atoms';
-import { buildingYearOptions } from './general';
+import { buildingOrNewerYearOptions } from './general';
 
 export const heatingSystemConstructionYearField = makeFieldStore({
   store: $inputState,
@@ -27,7 +27,7 @@ export const heatingSystemConstructionYearField = makeFieldStore({
 
 bindFieldToOptions(
   heatingSystemConstructionYearField,
-  buildingYearOptions,
+  buildingOrNewerYearOptions,
   rangeKeyEquals,
 );
 

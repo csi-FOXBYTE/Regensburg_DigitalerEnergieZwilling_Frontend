@@ -11,7 +11,7 @@ import {
   hasBasementField,
   isBasementHeatedField,
 } from '@/lib/state/inputs/bottom-floor';
-import { buildingYearOptions } from '@/lib/state/inputs/general';
+import { buildingOrNewerYearOptions } from '@/lib/state/inputs/general';
 import { useStore } from '@nanostores/react';
 import { useTranslation } from 'react-i18next';
 import { Typography } from '../../../components/ui/typography';
@@ -101,7 +101,7 @@ export default function BottomFloorPaper() {
         <EnergySelectInput
           field={bottomFloorYearField}
           labelKey={`outerParts.bottomFloor.year.${context}`}
-          rangeBandStore={buildingYearOptions}
+          rangeBandStore={buildingOrNewerYearOptions}
           info={
             <InfoTooltipButton
               content={t(`outerParts.bottomFloor.tooltips.year.${context}`)}

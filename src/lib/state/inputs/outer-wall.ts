@@ -12,7 +12,7 @@ import {
   $resolvedInputState,
 } from '../computed/resolved-input';
 import { $inputState } from './atoms';
-import { buildingYearOptions } from './general';
+import { buildingOrNewerYearOptions } from './general';
 
 export const outerWallYearField = makeFieldStore({
   store: $inputState,
@@ -24,7 +24,11 @@ export const outerWallYearField = makeFieldStore({
   resettable: true,
 });
 
-bindFieldToOptions(outerWallYearField, buildingYearOptions, rangeKeyEquals);
+bindFieldToOptions(
+  outerWallYearField,
+  buildingOrNewerYearOptions,
+  rangeKeyEquals,
+);
 
 export const outerWallAreaField = makeFieldStore({
   store: $inputState,
@@ -45,6 +49,21 @@ export const outerWallAdjacentWallAreaField = makeFieldStore({
   placeholderStore: $resolvedInputState,
   resettable: true,
 });
+
+export const $isAdjacentWallAreaInvalid = computed(
+  [$inputState, $resolvedInputState],
+  (input, resolved) => {
+    const outerWallArea = input.outerWall.area ?? resolved.outerWall.area;
+    const adjacentWallArea =
+      input.outerWall.adjacentWallArea ?? resolved.outerWall.adjacentWallArea;
+
+    return (
+      outerWallArea != null &&
+      adjacentWallArea != null &&
+      adjacentWallArea > outerWallArea
+    );
+  },
+);
 
 export const outerWallConstructionTypeOptions = makeSelectionStore(
   (config) => config.outerWall.constructionTypes,

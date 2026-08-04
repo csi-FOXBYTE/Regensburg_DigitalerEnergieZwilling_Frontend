@@ -8,7 +8,7 @@ import {
 import { rangeKeyEquals } from '../../yearHelper/rangeBandOptions';
 import { $resolvedInputState } from '../computed/resolved-input';
 import { $inputState } from './atoms';
-import { buildingYearOptions } from './general';
+import { buildingOrNewerYearOptions } from './general';
 
 export const roofWindowsAreaField = makeFieldStore({
   store: $inputState,
@@ -59,7 +59,11 @@ export const roofWindowsYearField = makeFieldStore({
   resettable: true,
 });
 
-bindFieldToOptions(roofWindowsYearField, buildingYearOptions, rangeKeyEquals);
+bindFieldToOptions(
+  roofWindowsYearField,
+  buildingOrNewerYearOptions,
+  rangeKeyEquals,
+);
 
 export const $isRoofWindowsAreaInvalid = computed(
   [$inputState, $resolvedInputState],

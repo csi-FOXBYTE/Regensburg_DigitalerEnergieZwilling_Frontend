@@ -1,4 +1,5 @@
 import { type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+import { computed } from 'nanostores';
 import makeFieldStore from '../../field-store';
 import {
   bindFieldToOptions,
@@ -7,7 +8,7 @@ import {
 import { rangeKeyEquals } from '../../yearHelper/rangeBandOptions';
 import { $resolvedInputState } from '../computed/resolved-input';
 import { $inputState } from './atoms';
-import { buildingYearOptions } from './general';
+import { buildingOrNewerYearOptions } from './general';
 
 export const exteriorWallWindowsAreaField = makeFieldStore({
   store: $inputState,
@@ -60,6 +61,25 @@ export const exteriorWallWindowsYearField = makeFieldStore({
 
 bindFieldToOptions(
   exteriorWallWindowsYearField,
-  buildingYearOptions,
+  buildingOrNewerYearOptions,
   rangeKeyEquals,
+);
+
+export const $isExteriorWallWindowsAreaInvalid = computed(
+  [$inputState, $resolvedInputState],
+  (input, resolved) => {
+    const windowsArea =
+      input.exteriorWallWindows.area ?? resolved.exteriorWallWindows.area;
+    const outerWallArea = input.outerWall.area ?? resolved.outerWall.area;
+    const adjacentWallArea =
+      input.outerWall.adjacentWallArea ??
+      resolved.outerWall.adjacentWallArea ??
+      0;
+
+    return (
+      windowsArea != null &&
+      outerWallArea != null &&
+      windowsArea > outerWallArea - adjacentWallArea
+    );
+  },
 );

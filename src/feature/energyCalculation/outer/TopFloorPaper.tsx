@@ -1,7 +1,7 @@
 import { FieldLegend, FieldSeparator, FieldSet } from '@/components/ui/field';
 import { Paper } from '@/components/ui/paper';
 import { Separator } from '@/components/ui/separator';
-import { buildingYearOptions } from '@/lib/state/inputs/general';
+import { buildingOrNewerYearOptions } from '@/lib/state/inputs/general';
 import {
   $isTopFloorAreaInvalid,
   hasAtticField,
@@ -57,7 +57,7 @@ export default function TopFloorPaper() {
         <EnergySelectInput
           field={topFloorYearField}
           labelKey="outerParts.topFloor.year"
-          rangeBandStore={buildingYearOptions}
+          rangeBandStore={buildingOrNewerYearOptions}
           info={
             <InfoTooltipButton
               content={t('outerParts.topFloor.tooltips.year')}

@@ -134,6 +134,9 @@
         "hasInsulation": "Durch ungedämmte Außenwände gehen bis zu 40 % der Heizwärme verloren. Eine Dämmung senkt die Heizkosten erheblich.",
         "insulationThickness": "Eine dickere Dämmschicht erhöht die energetische Effizienz des Gebäudes. Je nach Alter der Dämmung sind zwischen 4 cm und 14 cm üblich.",
         "adjacentWallArea": "Gemeint ist die Wandfläche, die direkt an ein benachbartes Gebäude anschließt, zum Beispiel bei Reihenhäusern oder Doppelhaushälften. Diese Fläche wird anders berechnet, weil dort meist weniger Wärme verloren geht als über frei stehende Außenwände."
+      },
+      "errors": {
+        "adjacentAreaExceedsWallArea": "Die angrenzende Wandfläche darf nicht größer als die gesamte Außenwandfläche sein."
       }
     },
     "windows": {
@@ -147,6 +150,9 @@
         "area": "Geben Sie die Gesamtfläche aller Fenster an. Die Gesamtfläche aller Fenster beeinflusst den Wärmeverlust durch die Gebäudehülle.",
         "windowType": "Holz- und Kunststoffrahmen dämmen gut. Aluminium- und Stahlrahmen leiten Kälte stärker und sind weniger energieeffizient.",
         "uValue": "Der U-Wert gibt Auskunft darüber, wie gut ein Bauteil dämmt. Niedrigere Werte bedeuten bessere Dämmung. Alte Einfachfenster haben etwa 5,0 W/m²K. Moderne Dreifachfenster liegen bei etwa 0,7 W/m²K. Den U-Wert finden Sie in den Unterlagen Ihrer Fenster oder auf dem Typenschild."
+      },
+      "errors": {
+        "areaExceedsAvailableWallArea": "Die Fensterfläche darf nicht größer als die Außenwandfläche abzüglich der angrenzenden Wandfläche sein."
       }
     },
     "bottomFloor": {

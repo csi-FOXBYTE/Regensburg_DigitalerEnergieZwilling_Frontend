@@ -3,7 +3,7 @@ import { Paper } from '@/components/ui/paper';
 import { Separator } from '@/components/ui/separator';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { $config } from '@/lib/state/calculation-config';
-import { buildingYearOptions } from '@/lib/state/inputs/general';
+import { buildingOrNewerYearOptions } from '@/lib/state/inputs/general';
 import {
   $isSystemOnlyElectrical,
   $isThermalBaseRateInvalid,
@@ -82,7 +82,7 @@ export default function HeatStepForm() {
             <EnergySelectInput
               field={heatingSystemConstructionYearField}
               labelKey="heat.heating.constructionYear"
-              rangeBandStore={buildingYearOptions}
+              rangeBandStore={buildingOrNewerYearOptions}
               info={
                 <InfoTooltipButton
                   content={t('heat.heating.tooltips.constructionYear')}

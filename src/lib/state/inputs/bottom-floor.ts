@@ -7,7 +7,7 @@ import {
 import { rangeKeyEquals } from '../../yearHelper/rangeBandOptions';
 import { $resolvedInputState } from '../computed/resolved-input';
 import { $inputState } from './atoms';
-import { buildingYearOptions } from './general';
+import { buildingOrNewerYearOptions } from './general';
 
 export const bottomFloorYearField = makeFieldStore({
   store: $inputState,
@@ -19,7 +19,11 @@ export const bottomFloorYearField = makeFieldStore({
   resettable: true,
 });
 
-bindFieldToOptions(bottomFloorYearField, buildingYearOptions, rangeKeyEquals);
+bindFieldToOptions(
+  bottomFloorYearField,
+  buildingOrNewerYearOptions,
+  rangeKeyEquals,
+);
 
 export const hasBasementField = makeFieldStore({
   store: $inputState,

@@ -1,9 +1,10 @@
 import { FieldLegend, FieldSeparator, FieldSet } from '@/components/ui/field';
 import { Paper } from '@/components/ui/paper';
 import { Separator } from '@/components/ui/separator';
-import { buildingYearOptions } from '@/lib/state/inputs/general';
+import { buildingOrNewerYearOptions } from '@/lib/state/inputs/general';
 import {
   $allowsAdditionalOuterWallInsulation,
+  $isAdjacentWallAreaInvalid,
   outerWallAdjacentWallAreaField,
   outerWallAreaField,
   outerWallConstructionTypeField,
@@ -22,6 +23,7 @@ import { InfoTooltipButton } from '../InfoButton';
 
 export default function OuterWallPaper() {
   const { t } = useTranslation('energyCalculation');
+  const adjacentWallAreaInvalid = useStore($isAdjacentWallAreaInvalid);
   const allowsAdditionalInsulation = useStore(
     $allowsAdditionalOuterWallInsulation,
   );
@@ -48,7 +50,7 @@ export default function OuterWallPaper() {
         <EnergySelectInput
           field={outerWallYearField}
           labelKey="outerParts.outerWall.year"
-          rangeBandStore={buildingYearOptions}
+          rangeBandStore={buildingOrNewerYearOptions}
           info={
             <InfoTooltipButton content={t('outerParts.outerWall.tooltips.year')} />
           }
@@ -71,6 +73,11 @@ export default function OuterWallPaper() {
           suffix=" m²"
           decimalScale={1}
           allowNegative={false}
+          error={
+            adjacentWallAreaInvalid
+              ? t('outerParts.outerWall.errors.adjacentAreaExceedsWallArea')
+              : undefined
+          }
           info={
             <InfoTooltipButton content={t('outerParts.outerWall.tooltips.adjacentWallArea')} />
           }

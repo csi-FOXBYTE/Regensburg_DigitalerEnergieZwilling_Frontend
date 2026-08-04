@@ -7,7 +7,7 @@ import {
 import { rangeKeyEquals } from '../../yearHelper/rangeBandOptions';
 import { $resolvedInputState } from '../computed/resolved-input';
 import { $inputState } from './atoms';
-import { buildingYearOptions } from './general';
+import { buildingOrNewerYearOptions } from './general';
 
 export { RoofInsulationType };
 
@@ -77,4 +77,4 @@ export const roofYearField = makeFieldStore({
   resettable: true,
 });
 
-bindFieldToOptions(roofYearField, buildingYearOptions, rangeKeyEquals);
+bindFieldToOptions(roofYearField, buildingOrNewerYearOptions, rangeKeyEquals);

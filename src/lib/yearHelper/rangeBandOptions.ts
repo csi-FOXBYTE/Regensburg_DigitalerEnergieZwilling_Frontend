@@ -44,6 +44,24 @@ export function rangeKeyEquals(a: RangeKey, b: RangeKey): boolean {
   return a.from === b.from && a.to === b.to;
 }
 
+export function rangesAtOrAfterYear(
+  ranges: Ranges,
+  year: number | RangeKey | null | undefined,
+): Ranges {
+  if (year == null) return ranges;
+
+  const yearBand =
+    typeof year === 'number' ? yearToRangeKey(year, ranges) : year;
+  if (!yearBand) return ranges;
+
+  const firstAllowedIndex = ranges.findIndex((range) =>
+    rangeKeyEquals(range, yearBand),
+  );
+  return firstAllowedIndex > 0
+    ? (ranges.slice(firstAllowedIndex) as Ranges)
+    : ranges;
+}
+
 export function yearToRangeKey(year: number, ranges: Ranges): RangeKey | undefined {
   const band = (ranges as { from?: number; to?: number }[]).find(
     (r) => (r.from == null || year >= r.from) && (r.to == null || year <= r.to),

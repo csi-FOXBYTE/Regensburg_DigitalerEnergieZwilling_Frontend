@@ -8,7 +8,10 @@ import {
   bindFieldToOptions,
   makeRangeBandStore,
 } from '../../selection-store';
-import { rangeKeyEquals } from '../../yearHelper/rangeBandOptions';
+import {
+  rangeKeyEquals,
+  rangesAtOrAfterYear,
+} from '../../yearHelper/rangeBandOptions';
 import { $resolvedInputState } from '../computed/resolved-input';
 import { $inputState } from './atoms';
 
@@ -26,6 +29,15 @@ export const buildingYearOptions = makeRangeBandStore({
   getRanges: (config: DETConfig) => {
     return config.general.generalYearBands;
   },
+});
+
+export const buildingOrNewerYearOptions = makeRangeBandStore({
+  $store: $resolvedInputState,
+  getRanges: (config: DETConfig, state) =>
+    rangesAtOrAfterYear(
+      config.general.generalYearBands,
+      state.general.buildingYear,
+    ),
 });
 
 bindFieldToOptions(buildingYearField, buildingYearOptions, rangeKeyEquals);

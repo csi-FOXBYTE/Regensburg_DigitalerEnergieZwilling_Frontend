@@ -1,7 +1,7 @@
 import { FieldLegend, FieldSeparator, FieldSet } from '@/components/ui/field';
 import { Paper } from '@/components/ui/paper';
 import { Separator } from '@/components/ui/separator';
-import { buildingYearOptions } from '@/lib/state/inputs/general';
+import { buildingOrNewerYearOptions } from '@/lib/state/inputs/general';
 import {
   roofAreaField,
   roofConstructionTypeField,
@@ -67,7 +67,7 @@ export default function RoofPaper() {
         <EnergySelectInput
           field={roofYearField}
           labelKey="outerParts.roof.year"
-          rangeBandStore={buildingYearOptions}
+          rangeBandStore={buildingOrNewerYearOptions}
           info={
             <InfoTooltipButton content={t('outerParts.roof.tooltips.year')} />
           }

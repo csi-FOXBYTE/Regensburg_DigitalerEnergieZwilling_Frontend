@@ -1,7 +1,7 @@
 import { FieldLegend, FieldSet } from '@/components/ui/field';
 import { Paper } from '@/components/ui/paper';
 import { Separator } from '@/components/ui/separator';
-import { buildingYearOptions } from '@/lib/state/inputs/general';
+import { buildingOrNewerYearOptions } from '@/lib/state/inputs/general';
 import {
   $isRoofWindowsAreaInvalid,
   roofWindowsAreaField,
@@ -44,7 +44,7 @@ export default function RoofWindowsPaper() {
         <EnergySelectInput
           field={roofWindowsYearField}
           labelKey="outerParts.roofWindows.year"
-          rangeBandStore={buildingYearOptions}
+          rangeBandStore={buildingOrNewerYearOptions}
           info={
             <InfoTooltipButton content={t('outerParts.roofWindows.tooltips.year')}></InfoTooltipButton>
           }
