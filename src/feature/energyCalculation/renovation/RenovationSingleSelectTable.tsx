@@ -10,7 +10,7 @@ import { getCoreRowModel, useReactTable } from '@tanstack/react-table';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InfoTooltipButton } from '../InfoButton';
-import { RenovationRow } from './RenovationRow';
+import { RenovationRow, renovationValueColumn } from './RenovationRow';
 
 export type RenovationSingleSelectTableProps = {
   renovations: Renovation[];
@@ -91,10 +91,14 @@ export function RenovationSingleSelectTable({
                     {t('renovation.table.measure')}
                   </span>
                   <span className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
-                    <span className="text-left whitespace-nowrap sm:text-right">
+                    <span
+                      className={`text-left whitespace-nowrap sm:text-right ${renovationValueColumn}`}
+                    >
                       {t('renovation.table.energyPotential')}
                     </span>
-                    <span className="text-left whitespace-nowrap sm:text-right">
+                    <span
+                      className={`text-left whitespace-nowrap sm:text-right ${renovationValueColumn}`}
+                    >
                       {t('renovation.table.savings')}
                     </span>
                   </span>

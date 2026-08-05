@@ -2,6 +2,14 @@ import { Badge } from '@/components/ui/badge';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
+/**
+ * Energie- und Sparpotenzial sind Flex-Spans in einer einzigen Tabellenzelle,
+ * keine echten Spalten - ohne feste Breite bestimmt jede Zeile ihre eigene und
+ * nichts fluchtet untereinander. Header, Zeilen und Summenzeile teilen sich
+ * deshalb diese Breite. Ab `sm`, darunter wird ohnehin untereinander gestapelt.
+ */
+export const renovationValueColumn = 'sm:w-44 sm:shrink-0';
+
 export type RenovationRowProps = {
   selectionCell: ReactNode;
   label: string;
@@ -62,12 +70,12 @@ export function RenovationRow({
           </span>
           <span className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
             <span
-              className={`whitespace-nowrap sm:text-right ${deltaColorClass(energyDelta)}`}
+              className={`whitespace-nowrap sm:text-right ${renovationValueColumn} ${deltaColorClass(energyDelta)}`}
             >
               {formatEnergy(energyDelta)} kWh/Jahr
             </span>
             <span
-              className={`whitespace-nowrap sm:text-right ${deltaColorClass(savings)}`}
+              className={`whitespace-nowrap sm:text-right ${renovationValueColumn} ${deltaColorClass(savings)}`}
             >
               {formatSavings(savings)} €/Jahr
             </span>

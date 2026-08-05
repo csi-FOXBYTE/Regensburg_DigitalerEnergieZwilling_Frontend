@@ -14,7 +14,7 @@ import {
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InfoTooltipButton } from '../InfoButton';
-import { RenovationRow } from './RenovationRow';
+import { RenovationRow, renovationValueColumn } from './RenovationRow';
 
 export type RenovationMultiSelectTableProps = {
   renovations: Renovation[];
@@ -115,10 +115,14 @@ export function RenovationMultiSelectTable({
                   {t('renovation.table.measure')}
                 </span>
                 <span className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
-                  <span className="text-left whitespace-nowrap sm:text-right">
+                  <span
+                    className={`text-left whitespace-nowrap sm:text-right ${renovationValueColumn}`}
+                  >
                     {t('renovation.table.energyPotential')}
                   </span>
-                  <span className="text-left whitespace-nowrap sm:text-right">
+                  <span
+                    className={`text-left whitespace-nowrap sm:text-right ${renovationValueColumn}`}
+                  >
                     {t('renovation.table.savings')}
                   </span>
                 </span>
@@ -164,7 +168,7 @@ export function RenovationMultiSelectTable({
                   <span>{t('renovation.table.total')}</span>
                   <span className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
                     <span
-                      className={`whitespace-nowrap sm:text-right ${deltaColorClass(selectedEnergy)}`}
+                      className={`whitespace-nowrap sm:text-right ${renovationValueColumn} ${deltaColorClass(selectedEnergy)}`}
                     >
                       {selectedEnergy.toLocaleString('de-DE', {
                         maximumFractionDigits: 0,
@@ -173,7 +177,7 @@ export function RenovationMultiSelectTable({
                       kWh/Jahr
                     </span>
                     <span
-                      className={`whitespace-nowrap sm:text-right ${deltaColorClass(selectedSavings)}`}
+                      className={`whitespace-nowrap sm:text-right ${renovationValueColumn} ${deltaColorClass(selectedSavings)}`}
                     >
                       {selectedSavings.toLocaleString('de-DE', {
                         minimumFractionDigits: 2,
