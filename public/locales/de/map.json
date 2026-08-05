@@ -23,7 +23,7 @@
   },
   "renovationPotentialInfoDialog": {
     "title": "Wie entsteht diese Einschätzung?",
-    "description": "Die Ersteinschätzung basiert ausschließlich auf dem bekannten Baujahr. Gebäude bis einschließlich 1983 werden mit hohem, Gebäude von 1984 bis 1994 mit mittlerem und neuere Gebäude mit tendenziell geringerem Sanierungspotenzial eingeordnet. Der Hinweis zum möglichen Denkmalschutz wird bei Baujahren bis einschließlich 1948 angezeigt. In den folgenden Schritten können Sie die Gebäudedaten prüfen und ergänzen. Die Einschätzung ersetzt weder eine Energieberatung noch eine Prüfung des Denkmalstatus."
+    "description": "Die Ersteinschätzung basiert ausschließlich auf dem bekannten Baujahr. Gebäude bis einschließlich 1983 werden mit hohem, Gebäude von 1984 bis 1994 mit mittlerem und neuere Gebäude mit tendenziell geringerem Sanierungspotenzial eingeordnet. Der Hinweis zum möglichen Denkmalschutz wird bei unbekanntem Baujahr sowie bei Baujahren bis einschließlich 1948 angezeigt. In den folgenden Schritten können Sie die Gebäudedaten prüfen und ergänzen. Die Einschätzung ersetzt weder eine Energieberatung noch eine Prüfung des Denkmalstatus."
   },
   "renovationPotential": {
     "title": "Geschätztes Sanierungspotenzial",

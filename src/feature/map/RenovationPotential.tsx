@@ -31,7 +31,7 @@ export function classifyRenovationPotential(
     return {
       level: 'unknown',
       constructionYear: undefined,
-      showHeritageWarning: false,
+      showHeritageWarning: true,
     };
   }
 
