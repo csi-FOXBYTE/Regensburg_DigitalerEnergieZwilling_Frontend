@@ -36,8 +36,8 @@
     "descriptions": {
       "high": "Based on the known construction year, the building is expected to have high energy-renovation potential.",
       "moderate": "Based on the known construction year, the building is expected to have moderate energy-renovation potential.",
-      "lower": "Buildings from this construction period tend to have lower energy-renovation potential.",
-      "unknown": "Without a known construction year, the renovation potential cannot yet be estimated."
+      "lower": "Based on the known construction year, the building is expected to have low energy-renovation potential.",
+      "unknown": "No construction year is known for this building. Its energy-renovation potential can only be shown in a subsequent step."
     },
     "basis": "Initial estimate based on the construction year {{year}}.",
     "infoLink": "How is this estimate determined?",
@@ -52,7 +52,7 @@
     "continueButton": "Determine renovation proposal now",
     "sessionContinueButton": "Continue where I left off",
     "startOverButton": "Start over",
-    "processingTime": "Processing takes approximately 5 minutes to complete"
+    "processingTime": "Processing takes approximately 10 minutes to complete"
   },
   "map": {
     "loading": "Loading application...",

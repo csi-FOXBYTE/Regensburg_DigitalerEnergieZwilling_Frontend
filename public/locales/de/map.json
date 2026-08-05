@@ -36,8 +36,8 @@
     "descriptions": {
       "high": "Aufgrund des bekannten Baujahrs besteht voraussichtlich ein hohes energetisches Sanierungspotenzial.",
       "moderate": "Aufgrund des bekannten Baujahrs besteht voraussichtlich ein mittleres energetisches Sanierungspotenzial.",
-      "lower": "Bei Gebäuden dieses Baujahrs ist das energetische Sanierungspotenzial tendenziell geringer.",
-      "unknown": "Ohne bekanntes Baujahr kann das Sanierungspotenzial noch nicht eingeschätzt werden."
+      "lower": "Aufgrund des bekannten Baujahrs besteht voraussichtlich ein geringes energetisches Sanierungspotenzial.",
+      "unknown": "Für dieses Gebäude liegt kein bekanntes Baujahr vor. Ein energetisches Sanierungspotenzial kann erst in einem Folgeschritt angezeigt werden."
     },
     "basis": "Ersteinschätzung auf Basis des Baujahrs {{year}}.",
     "infoLink": "Wie entsteht diese Einschätzung?",
@@ -52,7 +52,7 @@
     "continueButton": "Jetzt Sanierungsvorschlag ermitteln",
     "sessionContinueButton": "Dort weitermachen",
     "startOverButton": "Neu starten",
-    "processingTime": "Die Bearbeitung dauert ungefähr 5 Minuten bis zum Ergebnis"
+    "processingTime": "Die Bearbeitung dauert ungefähr 10 Minuten bis zum Ergebnis"
   },
   "map": {
     "loading": "Lade Anwendung...",

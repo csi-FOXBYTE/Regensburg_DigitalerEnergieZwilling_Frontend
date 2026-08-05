@@ -155,7 +155,7 @@ function RenovationStatsCard({
   }
 
   return (
-    <Paper className="flex flex-col gap-2 p-4" elevation={2}>
+    <Paper className="relative flex flex-col gap-2 p-4" elevation={2}>
       <div className="flex gap-2">
         {icon}
         <Typography variant="h4">{t(titleKey)}</Typography>
@@ -175,9 +175,32 @@ function RenovationStatsCard({
         {afterFormatted}
         {unit && <span className="ml-1 text-sm">{unit}</span>}
       </Typography>
-      {delta}
-      {details && (
-        <>
+      <div>
+        <div className="flex flex-wrap items-center gap-2">
+          {delta}
+          {details && (
+            <button
+              type="button"
+              className="text-neutral-450 hover:text-neutral-650 focus-visible:ring-ring/50 absolute right-2 bottom-1 flex w-fit cursor-pointer items-center rounded-sm p-0.5 text-xs focus-visible:ring-2 focus-visible:outline-none"
+              aria-expanded={isOpen}
+              aria-controls={detailsId}
+              aria-label={t(
+                isOpen
+                  ? 'stats.energyDemandBreakdown.collapse'
+                  : 'stats.energyDemandBreakdown.expand',
+              )}
+              onClick={() => setIsOpen((previous) => !previous)}
+            >
+              <span className="font-medium">
+                {t('stats.energyDemandBreakdown.details')}
+              </span>
+              <ChevronDown
+                className={`ml-0.5 size-3 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+              />
+            </button>
+          )}
+        </div>
+        {details && (
           <div
             id={detailsId}
             className={`grid transition-[grid-template-rows,opacity] duration-300 ease-in-out ${
@@ -188,7 +211,7 @@ function RenovationStatsCard({
             aria-hidden={!isOpen}
           >
             <div className="min-h-0 overflow-hidden">
-              <div className="mt-1 flex flex-col gap-2">
+              <div className="mt-1 flex flex-col gap-2 pb-5">
                 <Separator />
                 {details.map((detail) => (
                   <div key={detail.label} className="flex flex-col text-sm">
@@ -205,27 +228,8 @@ function RenovationStatsCard({
               </div>
             </div>
           </div>
-          <button
-            type="button"
-            className="text-neutral-450 hover:text-neutral-650 focus-visible:ring-ring/50 mt-auto flex w-fit cursor-pointer items-center rounded-sm p-0.5 focus-visible:ring-2 focus-visible:outline-none"
-            aria-expanded={isOpen}
-            aria-controls={detailsId}
-            aria-label={t(
-              isOpen
-                ? 'stats.energyDemandBreakdown.collapse'
-                : 'stats.energyDemandBreakdown.expand',
-            )}
-            onClick={() => setIsOpen((previous) => !previous)}
-          >
-            <span className="text-sm font-medium">
-              {t('stats.energyDemandBreakdown.details')}
-            </span>
-            <ChevronDown
-              className={`ml-1 size-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
-            />
-          </button>
-        </>
-      )}
+        )}
+      </div>
     </Paper>
   );
 }

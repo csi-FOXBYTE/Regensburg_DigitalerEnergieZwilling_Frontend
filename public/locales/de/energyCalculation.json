@@ -23,7 +23,7 @@
       "carrierHeating": "Heizenergie ({{carrier}})",
       "electricalHeating": "Heizenergie (elektrisch)",
       "householdElectricity": "Haushaltsstrom",
-      "details": "Details",
+      "details": "Mehr",
       "expand": "Aufschlüsselung des Energiebedarfs anzeigen",
       "collapse": "Aufschlüsselung des Energiebedarfs ausblenden"
     },

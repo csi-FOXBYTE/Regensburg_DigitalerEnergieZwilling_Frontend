@@ -23,7 +23,7 @@
       "carrierHeating": "Heating energy ({{carrier}})",
       "electricalHeating": "Heating energy (electrical)",
       "householdElectricity": "Household electricity",
-      "details": "Details",
+      "details": "More",
       "expand": "Show energy demand breakdown",
       "collapse": "Hide energy demand breakdown"
     },
