@@ -325,6 +325,7 @@
     "sectionTitle": "Funding Programmes",
     "disclaimer": "The funding programmes shown are sample data and make no claim to completeness or currentness.",
     "benefitUpTo": "Up to",
+    "benefitMax": "max.",
     "moreInfo": "Show more",
     "loadError": "The funding programmes could not be loaded. Please reload the page."
   },
