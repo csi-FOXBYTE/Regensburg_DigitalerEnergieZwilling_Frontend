@@ -1,7 +1,12 @@
 import DesktopOnly from '@/components/DesktopOnly';
 import MobileOnly from '@/components/MobileOnly';
 import { Typography } from '@/components/ui/typography';
-import { $step, navigateToStep, Step } from '@/lib/state/ui/progress';
+import {
+  $maxStepReached,
+  $step,
+  navigateToStep,
+  Step,
+} from '@/lib/state/ui/progress';
 import { cn } from '@/lib/utils';
 import { useStore } from '@nanostores/react';
 import { ArrowLeft } from 'lucide-react';
@@ -11,11 +16,13 @@ import { Button } from '../../components/ui/button';
 
 type VisualProgressBarProps = {
   step: Step;
+  maxStepReached: Step;
 };
 
-function MobileProgressBar({ step }: VisualProgressBarProps) {
+function MobileProgressBar({ step, maxStepReached }: VisualProgressBarProps) {
   const { t } = useTranslation('progressBar');
   const label = t(`steps.${step}`);
+  const maxStepLabel = t(`steps.${maxStepReached}`);
 
   const stepBack = useCallback(() => {
     navigateToStep(step - 1);
@@ -41,12 +48,25 @@ function MobileProgressBar({ step }: VisualProgressBarProps) {
           <Typography variant="small">{label}</Typography>
         </div>
       </div>
-      <div className="h-2 w-full rounded-full bg-neutral-200">
+      <button
+        type="button"
+        disabled={maxStepReached <= step}
+        onClick={() => navigateToStep(maxStepReached)}
+        aria-label={t('goToStep', {
+          step: maxStepReached,
+          label: maxStepLabel,
+        })}
+        className="relative h-2 w-full rounded-full bg-neutral-200 disabled:cursor-default"
+      >
         <div
-          className="bg-primary h-full rounded-full"
-          style={{ width: (step / 7) * 100 + '%' }}
+          className="bg-primary-hover absolute inset-y-0 left-0 rounded-full"
+          style={{ width: (maxStepReached / Step.Result) * 100 + '%' }}
         />
-      </div>
+        <div
+          className="bg-primary absolute inset-y-0 left-0 rounded-full"
+          style={{ width: (step / Step.Result) * 100 + '%' }}
+        />
+      </button>
     </nav>
   );
 }
@@ -54,39 +74,60 @@ function MobileProgressBar({ step }: VisualProgressBarProps) {
 function DesktopTick({
   index,
   step,
+  maxStepReached,
   onClick,
+  label,
 }: {
   index: number;
   step: number;
+  maxStepReached: number;
   onClick: (step: number) => void;
+  label: string;
 }) {
   const isHighlighted = index <= step;
-  const isClickable = index < step;
+  const wasReached = index <= maxStepReached;
+  const isReachedAhead = index > step && wasReached;
+  const isClickable = index !== step && wasReached;
 
   const clicked = useCallback(() => {
     onClick(index);
-  }, [onClick, step]);
+  }, [index, onClick]);
 
   return (
     <button
       disabled={!isClickable}
       onClick={clicked}
+      aria-label={label}
       className={cn(
         'h-full flex-1 cursor-pointer bg-neutral-200 disabled:cursor-default',
         isHighlighted && 'bg-primary',
+        isReachedAhead && 'bg-primary-hover',
       )}
     />
   );
 }
 
-function DesktopProgressBar({ step }: VisualProgressBarProps) {
+function DesktopProgressBar({ step, maxStepReached }: VisualProgressBarProps) {
   const { t } = useTranslation('progressBar');
 
   const label = t(`steps.${step}`);
 
   const ticks: ReactNode[] = [];
   for (let i = 1; i <= Step.Result; i++) {
-    ticks.push(<DesktopTick step={step} index={i} key={i} onClick={navigateToStep} />);
+    const tickStep = i as Step;
+    ticks.push(
+      <DesktopTick
+        step={step}
+        maxStepReached={maxStepReached}
+        index={tickStep}
+        key={tickStep}
+        onClick={navigateToStep}
+        label={t('goToStep', {
+          step: tickStep,
+          label: t(`steps.${tickStep}`),
+        })}
+      />,
+    );
   }
 
   return (
@@ -104,14 +145,15 @@ function DesktopProgressBar({ step }: VisualProgressBarProps) {
 
 export default function ProgressBar() {
   const step = useStore($step);
+  const maxStepReached = useStore($maxStepReached);
 
   return (
     <>
       <DesktopOnly>
-        <DesktopProgressBar step={step} />
+        <DesktopProgressBar step={step} maxStepReached={maxStepReached} />
       </DesktopOnly>
       <MobileOnly>
-        <MobileProgressBar step={step} />
+        <MobileProgressBar step={step} maxStepReached={maxStepReached} />
       </MobileOnly>
     </>
   );

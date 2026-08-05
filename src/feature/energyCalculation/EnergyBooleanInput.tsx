@@ -54,7 +54,7 @@ export default function EnergyBooleanInput<
       labelKey={labelKey}
       info={info}
       onReset={field.resettable ? () => field.setValue(undefined) : undefined}
-      resetDisabled={value !== true}
+      resetDisabled={value === undefined}
       className={className}
     >
       <RadioGroup

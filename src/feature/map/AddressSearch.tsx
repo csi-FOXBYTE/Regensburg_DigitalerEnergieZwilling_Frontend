@@ -36,7 +36,11 @@ export default function AddressSearch({
   onAddressFound: (
     lat: string,
     lon: string,
-    address: { street?: string; housenumber?: string },
+    address: {
+      buildingId: string;
+      street?: string;
+      housenumber?: string;
+    },
   ) => boolean;
 }) {
   const building = useStore($building);
@@ -95,6 +99,7 @@ export default function AddressSearch({
                 e.stopPropagation();
                 const d = data[0];
                 const accepted = onAddressFound(String(d.lat), String(d.lon), {
+                  buildingId: d.buildingId,
                   street: d.street,
                   housenumber: d.houseNumber,
                 });
@@ -139,6 +144,7 @@ export default function AddressSearch({
                     String(d.lat),
                     String(d.lon),
                     {
+                      buildingId: d.buildingId,
                       street: d.street,
                       housenumber: d.houseNumber,
                     },

@@ -50,6 +50,7 @@ function utmToWgs84(cx: number, cy: number): [number, number] {
 }
 
 export interface AddressResult {
+  buildingId: string;
   street: string;
   houseNumber: string;
   lat: number;
@@ -89,7 +90,7 @@ function queryByHouseNumber(
   houseNumber: string,
 ): QueryExecResult[] {
   return db.exec(
-    `SELECT s.name, ba.house_number, ba.cx, ba.cy
+    `SELECT ba.building_id, s.name, ba.house_number, ba.cx, ba.cy
      FROM streets s JOIN building_addresses ba ON ba.street_id = s.id
      WHERE ba.house_number LIKE ?
      ORDER BY s.name, CAST(ba.house_number AS INTEGER), ba.house_number
@@ -104,7 +105,7 @@ function queryByStreetAndHouseNumber(
   houseNumber: string,
 ): QueryExecResult[] {
   return db.exec(
-    `SELECT s.name, ba.house_number, ba.cx, ba.cy
+    `SELECT ba.building_id, s.name, ba.house_number, ba.cx, ba.cy
      FROM streets s JOIN building_addresses ba ON ba.street_id = s.id
      WHERE s.name LIKE ? AND ba.house_number LIKE ?
      ORDER BY CAST(ba.house_number AS INTEGER), ba.house_number
@@ -115,7 +116,7 @@ function queryByStreetAndHouseNumber(
 
 function queryByStreet(db: Database, street: string): QueryExecResult[] {
   return db.exec(
-    `SELECT s.name, ba.house_number, ba.cx, ba.cy
+    `SELECT ba.building_id, s.name, ba.house_number, ba.cx, ba.cy
      FROM streets s JOIN building_addresses ba ON ba.street_id = s.id
      WHERE s.name LIKE ?
      ORDER BY CAST(ba.house_number AS INTEGER), ba.house_number
@@ -126,9 +127,10 @@ function queryByStreet(db: Database, street: string): QueryExecResult[] {
 
 function rowsToAddressResults(rows: QueryExecResult[]): AddressResult[] {
   if (!rows.length) return [];
-  return rows[0].values.map(([street, house, cx, cy]) => {
+  return rows[0].values.map(([buildingId, street, house, cx, cy]) => {
     const [lat, lon] = utmToWgs84(cx as number, cy as number);
     return {
+      buildingId: buildingId as string,
       street: street as string,
       houseNumber: house as string,
       lat,

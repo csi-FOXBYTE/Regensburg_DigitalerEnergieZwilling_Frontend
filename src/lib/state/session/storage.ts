@@ -6,6 +6,8 @@ import type { Step } from '../ui/progress';
 
 export type SavedSession = {
   step: Step;
+  /** Highest step reached. Optional only for sessions saved before this field existed. */
+  maxStepReached?: Step;
   building: BuildingState;
   cameraTarget?: CameraTarget;
   /** @deprecated Legacy radians retained for recovery-link compatibility. */

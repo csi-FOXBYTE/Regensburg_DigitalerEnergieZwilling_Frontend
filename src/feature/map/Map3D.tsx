@@ -2,7 +2,13 @@ import { useStore } from '@nanostores/react';
 import * as Cesium from 'cesium';
 import 'cesium/Build/Cesium/Widgets/widgets.css';
 import { AnimatePresence, motion } from 'motion/react';
-import { type ReactNode, useEffect, useLayoutEffect, useState } from 'react';
+import {
+  type ReactNode,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { Cesium3DTileset, ImageryLayer, Viewer } from 'resium';
 import { CameraController } from '../../lib/camera';
@@ -13,7 +19,6 @@ import {
 } from '../../lib/camera-state';
 import {
   $building,
-  addressEntries,
   isSelectableBuilding,
   setBuilding,
   unselectBuilding,
@@ -64,6 +69,8 @@ type Map3DProps = {
 };
 
 const LOAD_TIMEOUT_MS = 20000;
+const ADDRESS_SELECTION_BOX_HALF_SIZE_METERS = 100;
+const ADDRESS_SELECTION_TIMEOUT_MS = 5000;
 
 function formatAddress(address: {
   street?: string;
@@ -72,18 +79,23 @@ function formatAddress(address: {
   return `${address.street ?? ''} ${address.housenumber ?? ''}`.trim();
 }
 
-function matchesAddress(
+function selectFeatureForAddress(
   feature: Cesium.Cesium3DTileFeature,
-  address: { street?: string; housenumber?: string },
-): boolean {
-  if (!address.street && !address.housenumber) return false;
-  const featureStreet = feature.getProperty('addresses.0.ThoroughfareName');
-  if (typeof featureStreet !== 'string') return false;
-  // Corner buildings list several addresses, so compare against each of them.
-  return addressEntries(featureStreet).includes(formatAddress(address));
+  intent: FocusCameraIntent,
+) {
+  if (intent.reason.type !== 'address') return;
+  setBuilding(
+    feature,
+    {
+      lon: intent.target.longitudeDegrees,
+      lat: intent.target.latitudeDegrees,
+    },
+    // Keep exactly the searched address when a building carries several.
+    formatAddress(intent.reason.address) || undefined,
+  );
 }
 
-function selectAddressFeature(
+function selectAddressFeatureByDrillPick(
   viewer: Cesium.Viewer,
   intent: FocusCameraIntent,
 ) {
@@ -114,18 +126,129 @@ function selectAddressFeature(
     );
   if (drilled.length === 0) return;
 
-  const matched =
-    drilled.find((feature) => matchesAddress(feature, address)) ?? drilled[0];
-
-  setBuilding(
-    matched,
-    {
-      lon: intent.target.longitudeDegrees,
-      lat: intent.target.latitudeDegrees,
-    },
-    // Keep exactly the picked address, even if the building carries several.
-    formatAddress(address) || undefined,
+  const matched = drilled.find(
+    (feature) => String(feature.getProperty('id')) === address.buildingId,
   );
+  selectFeatureForAddress(matched ?? drilled[0], intent);
+}
+
+function createAddressSelectionBox(
+  viewer: Cesium.Viewer,
+  intent: FocusCameraIntent,
+): Cesium.OrientedBoundingBox {
+  const cartographic = Cesium.Cartographic.fromDegrees(
+    intent.target.longitudeDegrees,
+    intent.target.latitudeDegrees,
+  );
+  const groundHeight = viewer.scene.globe.getHeight(cartographic) ?? 350;
+  const center = Cesium.Cartesian3.fromDegrees(
+    intent.target.longitudeDegrees,
+    intent.target.latitudeDegrees,
+    groundHeight,
+  );
+  const transform = Cesium.Transforms.eastNorthUpToFixedFrame(center);
+  const rotation = Cesium.Matrix4.getMatrix3(transform, new Cesium.Matrix3());
+  const halfAxes = Cesium.Matrix3.multiplyByScale(
+    rotation,
+    new Cesium.Cartesian3(
+      ADDRESS_SELECTION_BOX_HALF_SIZE_METERS,
+      ADDRESS_SELECTION_BOX_HALF_SIZE_METERS,
+      ADDRESS_SELECTION_BOX_HALF_SIZE_METERS,
+    ),
+    new Cesium.Matrix3(),
+  );
+  return new Cesium.OrientedBoundingBox(center, halfAxes);
+}
+
+function tileIntersectsAddressSelectionBox(
+  tile: Cesium.Cesium3DTile,
+  box: Cesium.OrientedBoundingBox,
+): boolean {
+  return (
+    Cesium.OrientedBoundingBox.distanceSquaredTo(
+      box,
+      tile.boundingSphere.center,
+    ) <=
+    tile.boundingSphere.radius * tile.boundingSphere.radius
+  );
+}
+
+function findFeatureById(
+  content: Cesium.Cesium3DTileContent,
+  buildingId: string,
+): Cesium.Cesium3DTileFeature | undefined {
+  for (let i = 0; i < content.featuresLength; i++) {
+    const feature = content.getFeature(i);
+    if (String(feature.getProperty('id')) === buildingId) return feature;
+  }
+
+  for (const innerContent of content.innerContents ?? []) {
+    const feature = findFeatureById(
+      innerContent as Cesium.Cesium3DTileContent,
+      buildingId,
+    );
+    if (feature) return feature;
+  }
+}
+
+type PendingAddressSelection = {
+  viewer: Cesium.Viewer;
+  intent: FocusCameraIntent;
+  searchBox: Cesium.OrientedBoundingBox;
+  scannedTiles: Set<Cesium.Cesium3DTile>;
+  timeoutId: number;
+};
+
+class AddressFeatureSelector {
+  private pending: PendingAddressSelection | undefined;
+
+  start(viewer: Cesium.Viewer, intent: FocusCameraIntent) {
+    if (intent.reason.type !== 'address') return;
+    this.cancel();
+    const timeoutId = window.setTimeout(
+      () => this.finishWithDrillPick(),
+      ADDRESS_SELECTION_TIMEOUT_MS,
+    );
+    this.pending = {
+      viewer,
+      intent,
+      searchBox: createAddressSelectionBox(viewer, intent),
+      scannedTiles: new Set(),
+      timeoutId,
+    };
+    viewer.scene.requestRender();
+  }
+
+  inspectVisibleTile(tile: Cesium.Cesium3DTile) {
+    const pending = this.pending;
+    if (!pending || pending.scannedTiles.has(tile)) return;
+    pending.scannedTiles.add(tile);
+    if (!tileIntersectsAddressSelectionBox(tile, pending.searchBox)) return;
+
+    if (pending.intent.reason.type !== 'address') return;
+    const feature = findFeatureById(
+      tile.content,
+      pending.intent.reason.address.buildingId,
+    );
+    if (!feature || !isSelectableBuilding(feature)) return;
+
+    const { intent } = pending;
+    this.cancel();
+    selectFeatureForAddress(feature, intent);
+  }
+
+  finishWithDrillPick() {
+    const pending = this.pending;
+    if (!pending) return;
+    this.cancel();
+    selectAddressFeatureByDrillPick(pending.viewer, pending.intent);
+  }
+
+  cancel() {
+    if (!this.pending) return;
+    window.clearTimeout(this.pending.timeoutId);
+    this.pending = undefined;
+  }
 }
 
 export function Map3D({ children }: Map3DProps) {
@@ -136,6 +259,7 @@ export function Map3D({ children }: Map3DProps) {
   const [tilesetRef, setTilesetRef] = useState<Cesium.Cesium3DTileset | null>(
     null,
   );
+  const addressFeatureSelectorRef = useRef(new AddressFeatureSelector());
   const [loading, setLoading] = useState(true);
   const [loadFailed, setLoadFailed] = useState(false);
 
@@ -144,6 +268,8 @@ export function Map3D({ children }: Map3DProps) {
     const timer = setTimeout(() => setLoadFailed(true), LOAD_TIMEOUT_MS);
     return () => clearTimeout(timer);
   }, [loading]);
+
+  useEffect(() => () => addressFeatureSelectorRef.current.cancel(), []);
 
   const selectedBuildingId = building?.id ?? null;
 
@@ -188,7 +314,8 @@ export function Map3D({ children }: Map3DProps) {
     viewerRef.scene.globe.showGroundAtmosphere = false;
 
     const cameraController = new CameraController(viewerRef, {
-      onFocusComplete: (intent) => selectAddressFeature(viewerRef, intent),
+      onFocusComplete: (intent) =>
+        addressFeatureSelectorRef.current.start(viewerRef, intent),
     });
     return registerCameraOwner(cameraController);
   }, [viewerRef]);
@@ -225,7 +352,11 @@ export function Map3D({ children }: Map3DProps) {
           onAllTilesLoad={() => {
             setLoading(false);
             setLoadFailed(false);
+            addressFeatureSelectorRef.current.finishWithDrillPick();
           }}
+          onTileVisible={(tile) =>
+            addressFeatureSelectorRef.current.inspectVisibleTile(tile)
+          }
           onReady={(tileset) => {
             setTilesetRef(tileset);
             tileset.colorBlendMode = Cesium.Cesium3DTileColorBlendMode.REPLACE;
@@ -236,6 +367,7 @@ export function Map3D({ children }: Map3DProps) {
           }}
           onClick={(movement, feature) => {
             if (!feature || !viewerRef || !movement.position) return;
+            addressFeatureSelectorRef.current.cancel();
             const tileFeature = feature as Cesium.Cesium3DTileFeature;
             if (!isSelectableBuilding(tileFeature)) return;
 

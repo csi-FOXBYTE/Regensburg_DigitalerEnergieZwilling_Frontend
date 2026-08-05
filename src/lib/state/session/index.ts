@@ -10,7 +10,13 @@ import {
   $selectedHeatingSurfaceRenovations,
   $selectedInsulationRenovations,
 } from '../inputs/atoms';
-import { $step, navigateToStep, setStep, Step } from '../ui/progress';
+import {
+  $maxStepReached,
+  $step,
+  navigateToStep,
+  setStep,
+  Step,
+} from '../ui/progress';
 import {
   getMeta,
   getSession,
@@ -107,6 +113,7 @@ export function saveSession(): void {
   console.log('[session] saveSession — writing full blob for', building.id);
   saveRawSession(building.id, {
     step,
+    maxStepReached: $maxStepReached.get(),
     building,
     cameraTarget: target,
     cameraLon: (target.longitudeDegrees * Math.PI) / 180,
@@ -131,14 +138,20 @@ export function loadSession(buildingId: string): void {
 export function loadSessionFromData(session: SavedSession): void {
   console.log('[session] loadSessionFromData — step:', session.step);
   const target = resolveSessionCameraTarget(session);
-  const migratedSession = target
-    ? {
-        ...session,
-        cameraTarget: target,
-        cameraLon: (target.longitudeDegrees * Math.PI) / 180,
-        cameraLat: (target.latitudeDegrees * Math.PI) / 180,
-      }
-    : session;
+  const migratedSession = {
+    ...session,
+    maxStepReached: Math.max(
+      session.step,
+      session.maxStepReached ?? session.step,
+    ) as Step,
+    ...(target
+      ? {
+          cameraTarget: target,
+          cameraLon: (target.longitudeDegrees * Math.PI) / 180,
+          cameraLat: (target.latitudeDegrees * Math.PI) / 180,
+        }
+      : {}),
+  };
   saveRawSession(session.building.id, migratedSession);
   setMeta({ lastActiveBuildingId: session.building.id, step: session.step });
   $building.set(session.building);

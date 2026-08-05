@@ -26,7 +26,12 @@ import {
   emptyInputState,
 } from '../../lib/state/inputs/atoms';
 import { clearSession, getSession } from '../../lib/state/session/storage';
-import { $step, navigateToStep, Step } from '../../lib/state/ui/progress';
+import {
+  $step,
+  navigateToStep,
+  setMaxStepReached,
+  Step,
+} from '../../lib/state/ui/progress';
 import useIsMobile from '../../lib/useIsMobile';
 import { cn } from '../../lib/utils';
 import CurrentStats from '../energyCalculation/CurrentStats';
@@ -52,6 +57,7 @@ function BuildingWindowContent({
     $selectedInsulationRenovations.set([]);
     $selectedHeatingSurfaceRenovations.set([]);
     $selectedHeatingRenovations.set([]);
+    setMaxStepReached(Step.GeneralData);
     navigateToStep(Step.GeneralData);
   };
 

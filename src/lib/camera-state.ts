@@ -14,6 +14,7 @@ export type CameraTarget = {
 };
 
 export type AddressCameraContext = {
+  buildingId: string;
   street?: string;
   housenumber?: string;
 };

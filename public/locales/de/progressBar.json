@@ -9,5 +9,6 @@
     "6": "Sanierungsmaßnahmen",
     "7": "Ergebnisse"
   },
-  "mobileStepsIndicator": "Schritt {{step}} von {{maxSteps}}"
+  "mobileStepsIndicator": "Schritt {{step}} von {{maxSteps}}",
+  "goToStep": "Zu Schritt {{step}} wechseln: {{label}}"
 }

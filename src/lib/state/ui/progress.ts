@@ -12,9 +12,17 @@ export enum Step {
 }
 
 export const $step = atom<Step>(Step.Welcome);
+export const $maxStepReached = atom<Step>(Step.Welcome);
 
 export function setStep(step: Step) {
+  if (step > $maxStepReached.get()) {
+    $maxStepReached.set(step);
+  }
   $step.set(step);
+}
+
+export function setMaxStepReached(step: Step) {
+  $maxStepReached.set(step);
 }
 
 export function navigateToStep(target: Step) {
