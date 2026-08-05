@@ -1,0 +1,60 @@
+{
+  "trigger": "Information",
+  "title": "Information about the data basis and calculation",
+  "description": "How building data, assumptions and your input affect the indicative result.",
+  "draft": {
+    "badge": "DRAFT",
+    "contentBadge": "CONTENT PENDING",
+    "title": "The technical content has not yet been approved",
+    "description": "This view currently demonstrates the structure, interaction and intended scope. All technical statements and reference values are deliberately marked as placeholders and must not yet be treated as authoritative information."
+  },
+  "demo": {
+    "title": "How automatically determined values and your own input work",
+    "description": "Try the field below. This demonstration is completely separate from your actual calculation and starts over whenever the dialog is opened.",
+    "automaticValueLabel": "Automatically determined living area",
+    "automaticValueHint": "Depending on the input, automatic values may be derived from building data or determined using default assumptions. The living area of 140 m² shown here is only an example.",
+    "inputExplanationTitle": "Example: Check and correct the living area",
+    "inputExplanationText": "In this example, the tool has automatically determined a living area of 140 m². Check this value and correct it if you know the actual living area.",
+    "inputLabel": "Living area",
+    "infoDialog": {
+      "title": "What does living area mean?",
+      "description": "[DEMO CONTENT] In this example, living area refers to the heated area of the building. An information hint like this explains what the respective input represents and where you may be able to find the relevant value. The final technical copy will be added later."
+    },
+    "automaticExplanation": "If you know the actual living area, you can enter it in the field. Your input will then replace the automatically determined 140 m² for the subsequent calculation. Use the reset button to remove your input again.",
+    "userValueExplanation": "The living area you entered is now used instead of the automatically determined 140 m² for the subsequent calculation. Use the reset button to remove your input and return to the automatically determined value.",
+    "placeholder": "[PLACEHOLDER] This section will explain which sources automatic field values may come from, how user input takes precedence and how resetting affects the value that is actually used by the calculation."
+  },
+  "sectionsTitle": "Topics covered by this information page",
+  "sectionsDescription": "The expanded sections demonstrate the intended structure; the technical copy will be completed later.",
+  "sections": {
+    "scope": {
+      "title": "Guidance or professional energy advice?",
+      "placeholder": "[PLACEHOLDER] This section will clearly distinguish an approximate model-based orientation from standards-compliant energy advice and an energy performance certificate. It will also identify suitable next steps before making investment decisions."
+    },
+    "data": {
+      "title": "LoD2, geometry and building data",
+      "placeholder": "[PLACEHOLDER] This section will cover the source, date, geographical coverage and known quality limits of the data. It will also explain LoD2 representation, derived geometric values and how one real building may be split into several digital building bodies."
+    },
+    "inputs": {
+      "title": "Automatic values, defaults and your own input",
+      "placeholder": "[PLACEHOLDER] This section will explain the priority of data sources: user input, values derived automatically from building data, followed by reference or default assumptions. Guidance on checking and correcting values will be included."
+    },
+    "model": {
+      "title": "Calculation model and reference tables",
+      "placeholder": "[PLACEHOLDER] This section will describe the calculation path for the building envelope, heat losses, hot water, heating and electricity. Reference tables, model versions and technical sources will be listed transparently."
+    },
+    "energy": {
+      "title": "Final and primary energy demand",
+      "placeholder": "[PLACEHOLDER] This section will distinguish final energy, primary energy and, where relevant, useful energy. It will also state exactly which metric is displayed and used for comparisons in each part of the application."
+    },
+    "assumptions": {
+      "title": "Energy carrier, cost and emission assumptions",
+      "placeholder": "[PLACEHOLDER] This section will list the energy carriers, primary energy factors, emission factors, energy contents and price assumptions actually used, including units, reference year, source and scope."
+    },
+    "limits": {
+      "title": "Data quality and model limits",
+      "placeholder": "[PLACEHOLDER] This section will transparently describe uncertainties, effects not represented by the model and common causes of deviations, including occupancy, user behaviour, climate, vacancies, building condition, system settings and local characteristics."
+    }
+  },
+  "footer": "Draft information page – technical content and sources still need to be added."
+}

@@ -1,0 +1,60 @@
+{
+  "trigger": "Hinweise",
+  "title": "Hinweise zur Datengrundlage und Berechnung",
+  "description": "Wie Gebäudedaten, Annahmen und Ihre Eingaben in die Orientierung einfließen.",
+  "draft": {
+    "badge": "ENTWURF",
+    "contentBadge": "INHALT OFFEN",
+    "title": "Die fachlichen Inhalte sind noch nicht abgestimmt",
+    "description": "Diese Ansicht zeigt zunächst Struktur, Bedienung und Themenumfang. Alle fachlichen Aussagen und Referenzwerte sind bewusst als Platzhalter gekennzeichnet und dürfen noch nicht als verbindliche Information verstanden werden."
+  },
+  "demo": {
+    "title": "So funktionieren automatisch ermittelte Werte und eigene Eingaben",
+    "description": "Probieren Sie das Feld aus. Diese Demonstration ist vollständig von Ihrer echten Berechnung getrennt und beginnt bei jedem Öffnen des Dialogs von vorn.",
+    "automaticValueLabel": "Automatisch ermittelte Wohnfläche",
+    "automaticValueHint": "Je nach Eingabefeld können automatische Werte aus Gebäudedaten abgeleitet oder mithilfe von Standardannahmen bestimmt werden. Die hier gezeigte Wohnfläche von 140 m² dient nur als Beispiel.",
+    "inputExplanationTitle": "Beispiel: Wohnfläche prüfen und korrigieren",
+    "inputExplanationText": "Das Tool hat in diesem Beispiel automatisch eine Wohnfläche von 140 m² ermittelt. Prüfen Sie den Wert und korrigieren Sie ihn, wenn Sie die tatsächliche Wohnfläche kennen.",
+    "inputLabel": "Wohnfläche",
+    "infoDialog": {
+      "title": "Was bedeutet Wohnfläche?",
+      "description": "[DEMO-INHALT] Die Wohnfläche bezeichnet in diesem Beispiel die beheizte Fläche des Gebäudes. Ein solcher Info-Hinweis erklärt, was mit dem jeweiligen Eingabewert gemeint ist und wo Sie die passende Angabe gegebenenfalls finden können. Der endgültige fachliche Text wird später ergänzt."
+    },
+    "automaticExplanation": "Wenn Sie Ihre tatsächliche Wohnfläche kennen, können Sie sie in das Feld eintragen. Ihre Angabe ersetzt dann die automatisch ermittelten 140 m² für die weitere Berechnung. Mit dem Reset-Button können Sie Ihre Eingabe wieder entfernen.",
+    "userValueExplanation": "Ihre eingegebene Wohnfläche wird jetzt anstelle der automatisch ermittelten 140 m² für die weitere Berechnung verwendet. Mit dem Reset-Button entfernen Sie Ihre Angabe und wechseln zurück zum automatisch ermittelten Wert.",
+    "placeholder": "[PLATZHALTER] Hier wird später erklärt, aus welchen Quellen automatische Feldwerte stammen können, wie eigene Eingaben Vorrang erhalten und welche Wirkung der Reset auf den tatsächlich verwendeten Berechnungswert hat."
+  },
+  "sectionsTitle": "Themen der Hinweisseite",
+  "sectionsDescription": "Die geöffneten Bereiche zeigen den geplanten Aufbau; die Texte werden fachlich noch ausgearbeitet.",
+  "sections": {
+    "scope": {
+      "title": "Orientierung oder Energieberatung?",
+      "placeholder": "[PLATZHALTER] Hier folgt die klare Abgrenzung zwischen einer überschlägigen, modellbasierten Orientierung und einer normgerechten Energieberatung beziehungsweise einem Energieausweis. Außerdem werden geeignete nächste Schritte bei konkreten Investitionsentscheidungen benannt."
+    },
+    "data": {
+      "title": "LoD2-, Geometrie- und Gebäudedaten",
+      "placeholder": "[PLATZHALTER] Hier folgen Datenquelle, Datenstand, räumliche Abdeckung und bekannte Qualitätsgrenzen. Ebenfalls zu erläutern: LoD2-Darstellung, Ableitung geometrischer Größen und die mögliche Unterteilung eines realen Gebäudes in mehrere digitale Baukörper."
+    },
+    "inputs": {
+      "title": "Automatische Werte, Standardannahmen und eigene Angaben",
+      "placeholder": "[PLATZHALTER] Hier wird die Priorität der Datenquellen erklärt: eigene Eingabe, automatisch aus Gebäudedaten abgeleiteter Wert und anschließend Referenz- oder Defaultannahme. Ergänzt werden Hinweise zur Prüfung und Korrektur der Angaben."
+    },
+    "model": {
+      "title": "Berechnungsmodell und Referenztabellen",
+      "placeholder": "[PLATZHALTER] Hier folgt eine verständliche Beschreibung des Berechnungswegs für Gebäudehülle, Wärmeverluste, Warmwasser, Heizung und Strom. Verwendete Referenztabellen, Modellversionen und fachliche Quellen werden nachvollziehbar aufgeführt."
+    },
+    "energy": {
+      "title": "Endenergie- und Primärenergiebedarf",
+      "placeholder": "[PLATZHALTER] Hier werden Endenergie, Primärenergie und gegebenenfalls Nutzenergie voneinander abgegrenzt. Zusätzlich wird eindeutig erläutert, welche Kennzahl an welcher Stelle der Anwendung dargestellt und für Vergleiche verwendet wird."
+    },
+    "assumptions": {
+      "title": "Energieträger-, Kosten- und Emissionsannahmen",
+      "placeholder": "[PLATZHALTER] Hier folgen die tatsächlich verwendeten Energieträger, Primärenergiefaktoren, Emissionsfaktoren, Energieinhalte und Preisannahmen jeweils mit Einheit, Bezugsjahr, Quelle und Gültigkeitsbereich."
+    },
+    "limits": {
+      "title": "Datenqualität und Modellgrenzen",
+      "placeholder": "[PLATZHALTER] Hier werden Unsicherheiten, nicht berücksichtigte Einflüsse und typische Abweichungsursachen transparent beschrieben. Dazu gehören unter anderem Nutzung, Nutzerverhalten, Klima, Leerstand, Bauzustand, Anlageneinstellung und lokale Besonderheiten."
+    }
+  },
+  "footer": "Entwurfsstand der Hinweisseite – fachliche Inhalte und Quellen sind noch zu ergänzen."
+}
