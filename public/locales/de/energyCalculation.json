@@ -297,6 +297,7 @@
       "measure": "Maßnahme",
       "energyPotential": "Energiepotenzial",
       "savings": "Sparpotential",
+      "sortBy": "Nach {{column}} sortieren",
       "total": "Gesamt",
       "noMeasure": "Keine Maßnahme"
     },
