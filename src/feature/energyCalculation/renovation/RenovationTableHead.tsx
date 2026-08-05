@@ -2,6 +2,7 @@ import { type Renovation } from '@csi-foxbyte/regensburg_digitalerenergiezwillin
 import type { Column, Table } from '@tanstack/react-table';
 import { ArrowDown, ArrowUp, ChevronsUpDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Typography } from '../../../components/ui/typography';
 import { renovationValueColumn } from './RenovationRow';
 import { RENOVATION_COLUMNS } from './renovationColumns';
 
@@ -29,9 +30,9 @@ function SortButton({
       aria-label={t('renovation.table.sortBy', { column: label })}
       className={`hover:text-foreground focus-visible:ring-ring inline-flex cursor-pointer items-center gap-1 whitespace-nowrap focus-visible:ring-2 focus-visible:outline-none ${className}`}
     >
-      <span>{label}</span>
+      <Typography>{label}</Typography>
       <Icon
-        className={`size-4.5 ${sorted ? 'text-foreground' : 'text-muted-foreground'}`}
+        className={`size-5 ${sorted ? 'text-foreground' : 'text-muted-foreground'}`}
       />
     </button>
   );
