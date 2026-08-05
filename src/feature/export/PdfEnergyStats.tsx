@@ -104,7 +104,8 @@ export function PdfEnergyStats() {
   const costDelta =
     Math.round(after.yearlyCost) - Math.round(before.yearlyCost);
   const co2Delta =
-    Math.round(after.co2Emissions) - Math.round(before.co2Emissions);
+    Math.round(after.co2Emissions * 10) / 10 -
+    Math.round(before.co2Emissions * 10) / 10;
 
   return (
     <View style={styles.row}>
@@ -137,12 +138,12 @@ export function PdfEnergyStats() {
       <StatCard
         title={t('energyCalculation:stats.co2Emissions')}
         beforeValue={t('energyCalculation:stats.co2EmissionsValue', {
-          value: formatNumber(before.co2Emissions, 0),
+          value: formatNumber(before.co2Emissions, 1),
         })}
         afterValue={t('energyCalculation:stats.co2EmissionsValue', {
-          value: formatNumber(after.co2Emissions, 0),
+          value: formatNumber(after.co2Emissions, 1),
         })}
-        deltaLabel={`${formatNumber(co2Delta, 0, { signed: true })} t CO₂/Jahr`}
+        deltaLabel={`${formatNumber(co2Delta, 1, { signed: true })} t CO₂/Jahr`}
         deltaColor={deltaColor(
           co2Delta < 0 ? true : co2Delta > 0 ? false : null,
         )}

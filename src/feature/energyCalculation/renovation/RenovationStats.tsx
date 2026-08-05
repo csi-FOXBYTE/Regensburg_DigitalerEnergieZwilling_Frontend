@@ -22,17 +22,17 @@ type StatDetail = {
   unit: string;
 };
 
-function formatValue(value: number) {
+function formatValue(value: number, fractionDigits = 0) {
   return value.toLocaleString('de-DE', {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
+    minimumFractionDigits: fractionDigits,
+    maximumFractionDigits: fractionDigits,
   });
 }
 
-function formatDelta(value: number) {
+function formatDelta(value: number, fractionDigits = 0) {
   return value.toLocaleString('de-DE', {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
+    minimumFractionDigits: fractionDigits,
+    maximumFractionDigits: fractionDigits,
     signDisplay: 'always',
   });
 }
@@ -74,16 +74,21 @@ function NumericDelta({
   before,
   after,
   unit,
+  fractionDigits = 0,
 }: {
   before: number;
   after: number;
   unit: string;
+  fractionDigits?: number;
 }) {
-  const delta = Math.round(after) - Math.round(before);
+  const factor = 10 ** fractionDigits;
+  const delta =
+    Math.round(after * factor) / factor - Math.round(before * factor) / factor;
   const improved = delta < 0 ? true : delta > 0 ? false : null;
   return (
     <DeltaPill improved={improved}>
-      {formatDelta(delta)} <span className="text-[10px]">{unit}</span>
+      {formatDelta(delta, fractionDigits)}{' '}
+      <span className="text-[10px]">{unit}</span>
     </DeltaPill>
   );
 }
@@ -350,14 +355,15 @@ export default function RenovationStats({
         compact={compact}
         icon={<Leaf className="size-5 text-green-700" />}
         titleKey="stats.co2Emissions"
-        beforeFormatted={formatValue(before.co2Emissions)}
-        afterFormatted={formatValue(after.co2Emissions)}
+        beforeFormatted={formatValue(before.co2Emissions, 1)}
+        afterFormatted={formatValue(after.co2Emissions, 1)}
         unit={t('stats.units.co2Emissions')}
         delta={
           <NumericDelta
             before={before.co2Emissions}
             after={after.co2Emissions}
             unit={t('stats.units.co2Emissions')}
+            fractionDigits={1}
           />
         }
       />

@@ -140,10 +140,10 @@ export default function CurrentStats({
   const { t, i18n } = useTranslation('energyCalculation');
   const currentStats = useStore($currentEnergyState);
   const energyCarrierOptions = useStore(primaryEnergyCarrierOptions);
-  const formatValue = (value: number) =>
+  const formatValue = (value: number, fractionDigits = 0) =>
     value.toLocaleString('de-DE', {
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
+      minimumFractionDigits: fractionDigits,
+      maximumFractionDigits: fractionDigits,
     });
   const energyDemandUnit = t('stats.units.energyDemand');
   const energyCarrier = energyCarrierOptions.find(
@@ -225,7 +225,7 @@ export default function CurrentStats({
       />
       <CurrentStatsCard
         compact={compact}
-        value={formatValue(currentStats.co2Emissions)}
+        value={formatValue(currentStats.co2Emissions, 1)}
         unit={t('stats.units.co2Emissions')}
         titleKey="stats.co2Emissions"
         icon={<Leaf className="size-5 text-green-700" />}
