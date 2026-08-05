@@ -26,9 +26,10 @@ import {
   emptyInputState,
 } from '../../lib/state/inputs/atoms';
 import { clearSession, getSession } from '../../lib/state/session/storage';
-import { navigateToStep, Step } from '../../lib/state/ui/progress';
+import { $step, navigateToStep, Step } from '../../lib/state/ui/progress';
 import useIsMobile from '../../lib/useIsMobile';
 import { cn } from '../../lib/utils';
+import CurrentStats from '../energyCalculation/CurrentStats';
 import RenovationPotential from './RenovationPotential';
 import StartOverConfirmDialog from './StartOverConfirmDialog';
 
@@ -41,7 +42,9 @@ function BuildingWindowContent({
 }) {
   const { t } = useTranslation('map');
   const [confirmOpen, setConfirmOpen] = useState(false);
+  useStore($step);
   const session = getSession(building.id);
+  const showStats = session != null && session.step > Step.GeneralData;
 
   const handleStartOver = () => {
     clearSession(building.id);
@@ -73,11 +76,15 @@ function BuildingWindowContent({
               .join(', ')}
           </Typography>
         </div>
-        <RenovationPotential
-          constructionYear={
-            building.properties.digitalEnergyTwin.constructionYear
-          }
-        />
+        {showStats ? (
+          <CurrentStats embedded />
+        ) : (
+          <RenovationPotential
+            constructionYear={
+              building.properties.digitalEnergyTwin.constructionYear
+            }
+          />
+        )}
       </div>
       <div className="shrink-0 px-6 py-3 shadow-[0_-4px_6px_-2px_rgba(0,0,0,0.08)]">
         {session ? (

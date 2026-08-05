@@ -132,8 +132,10 @@ function calculatePerSquareMeter(
 
 export default function CurrentStats({
   compact = false,
+  embedded = false,
 }: {
   compact?: boolean;
+  embedded?: boolean;
 }) {
   const { t, i18n } = useTranslation('energyCalculation');
   const currentStats = useStore($currentEnergyState);
@@ -191,7 +193,13 @@ export default function CurrentStats({
   ];
 
   return (
-    <div className="grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div
+      className={
+        embedded
+          ? 'grid grid-cols-1 items-start gap-4 sm:grid-cols-2'
+          : 'grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-4'
+      }
+    >
       <CurrentStatsCard
         compact={compact}
         value={formatValue(currentStats.energyConsumptionPerSquareMeter)}
