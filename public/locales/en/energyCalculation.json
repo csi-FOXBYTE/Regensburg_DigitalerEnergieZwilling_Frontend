@@ -19,6 +19,14 @@
       "annualCosts": "€/a",
       "co2Emissions": "t CO₂/a"
     },
+    "energyDemandBreakdown": {
+      "carrierHeating": "Heating energy ({{carrier}})",
+      "electricalHeating": "Heating energy (electrical)",
+      "householdElectricity": "Household electricity",
+      "details": "Details",
+      "expand": "Show energy demand breakdown",
+      "collapse": "Hide energy demand breakdown"
+    },
     "energyDemandLow": "Low energy consumption",
     "energyDemandModerate": "Moderate energy consumption",
     "energyDemandHigh": "High energy consumption",

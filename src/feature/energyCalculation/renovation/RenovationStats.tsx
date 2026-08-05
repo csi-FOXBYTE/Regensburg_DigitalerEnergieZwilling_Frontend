@@ -1,8 +1,11 @@
-import { type EnergyEfficiencyClass } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+import {
+  type CalculationResult,
+  type EnergyEfficiencyClass,
+} from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import { useStore } from '@nanostores/react';
 import type { ParseKeys } from 'i18next';
-import { Euro, Leaf, TrendingUp, Zap } from 'lucide-react';
-import type { ReactNode } from 'react';
+import { ChevronDown, Euro, Leaf, TrendingUp, Zap } from 'lucide-react';
+import { type ReactNode, useId, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Paper } from '../../../components/ui/paper';
 import { Separator } from '../../../components/ui/separator';
@@ -10,6 +13,14 @@ import { Typography } from '../../../components/ui/typography';
 import { $energyEfficiencyClasses } from '../../../lib/state/calculation-config';
 import { $currentEnergyState } from '../../../lib/state/computed/current-energy-state';
 import { $renovatedEnergyState } from '../../../lib/state/computed/renovated-energy-state';
+import { primaryEnergyCarrierOptions } from '../../../lib/state/inputs/heat';
+
+type StatDetail = {
+  label: string;
+  before: string;
+  after: string;
+  unit: string;
+};
 
 function formatValue(value: number) {
   return value.toLocaleString('de-DE', {
@@ -24,6 +35,17 @@ function formatDelta(value: number) {
     maximumFractionDigits: 0,
     signDisplay: 'always',
   });
+}
+
+function calculatePerSquareMeter(
+  result: CalculationResult,
+  partialDemand: number,
+) {
+  if (result.annualTotalEnergyDemand === 0) return 0;
+  return (
+    (partialDemand / result.annualTotalEnergyDemand) *
+    result.energyConsumptionPerSquareMeter
+  );
 }
 
 function deltaPillClass(improved: boolean | null) {
@@ -93,6 +115,7 @@ function RenovationStatsCard({
   afterFormatted,
   unit,
   delta,
+  details,
 }: {
   icon: ReactNode;
   titleKey: ParseKeys<'energyCalculation'>;
@@ -100,8 +123,11 @@ function RenovationStatsCard({
   afterFormatted: string;
   unit?: string;
   delta: ReactNode;
+  details?: StatDetail[];
 }) {
   const { t } = useTranslation('energyCalculation');
+  const [isOpen, setIsOpen] = useState(false);
+  const detailsId = useId();
 
   return (
     <Paper className="flex flex-col gap-2 p-4" elevation={2}>
@@ -125,34 +151,133 @@ function RenovationStatsCard({
         {unit && <span className="ml-1 text-sm">{unit}</span>}
       </Typography>
       {delta}
+      {details && (
+        <>
+          <div
+            id={detailsId}
+            className={`grid transition-[grid-template-rows,opacity] duration-300 ease-in-out ${
+              isOpen
+                ? 'grid-rows-[1fr] opacity-100'
+                : 'grid-rows-[0fr] opacity-0'
+            }`}
+            aria-hidden={!isOpen}
+          >
+            <div className="min-h-0 overflow-hidden">
+              <div className="mt-1 flex flex-col gap-2">
+                <Separator />
+                {details.map((detail) => (
+                  <div key={detail.label} className="flex flex-col text-sm">
+                    <span className="text-neutral-550">{detail.label}</span>
+                    <span className="font-bold">
+                      <span className="text-neutral-450 font-normal">
+                        {detail.before}
+                      </span>{' '}
+                      → {detail.after}
+                      <span className="ml-1 text-xs">{detail.unit}</span>
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <button
+            type="button"
+            className="text-neutral-450 hover:text-neutral-650 focus-visible:ring-ring/50 mt-auto flex w-fit cursor-pointer items-center rounded-sm p-0.5 focus-visible:ring-2 focus-visible:outline-none"
+            aria-expanded={isOpen}
+            aria-controls={detailsId}
+            aria-label={t(
+              isOpen
+                ? 'stats.energyDemandBreakdown.collapse'
+                : 'stats.energyDemandBreakdown.expand',
+            )}
+            onClick={() => setIsOpen((previous) => !previous)}
+          >
+            <span className="text-sm font-medium">
+              {t('stats.energyDemandBreakdown.details')}
+            </span>
+            <ChevronDown
+              className={`ml-1 size-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+            />
+          </button>
+        </>
+      )}
     </Paper>
   );
 }
 
 export default function RenovationStats() {
-  const { t } = useTranslation('energyCalculation');
+  const { t, i18n } = useTranslation('energyCalculation');
   const effClasses = useStore($energyEfficiencyClasses);
   const before = useStore($currentEnergyState);
   const after = useStore($renovatedEnergyState);
+  const energyCarrierOptions = useStore(primaryEnergyCarrierOptions);
   const classIndex = new Map(
     Array.from(effClasses.keys()).map((cls, i) => [cls, i]),
   );
+  const getEnergyCarrierLabel = (value: string) => {
+    const carrier = energyCarrierOptions.find(
+      (option) => option.value === value,
+    );
+    return (
+      carrier?.localization[i18n.language] ??
+      carrier?.localization[i18n.language.split('-')[0]] ??
+      carrier?.localization.en ??
+      value
+    );
+  };
+  const beforeCarrierLabel = getEnergyCarrierLabel(before.energyCarrierType);
+  const afterCarrierLabel = getEnergyCarrierLabel(after.energyCarrierType);
+  const carrierLabel =
+    before.energyCarrierType === after.energyCarrierType
+      ? beforeCarrierLabel
+      : `${beforeCarrierLabel} → ${afterCarrierLabel}`;
+  const energyDemandUnit = t('stats.units.energyDemand');
+  const makeEnergyDemandDetail = (
+    label: string,
+    beforeValue: number,
+    afterValue: number,
+  ): StatDetail => ({
+    label,
+    before: formatValue(calculatePerSquareMeter(before, beforeValue)),
+    after: formatValue(calculatePerSquareMeter(after, afterValue)),
+    unit: energyDemandUnit,
+  });
+  const energyDemandDetails: StatDetail[] = [
+    makeEnergyDemandDetail(
+      t('stats.energyDemandBreakdown.carrierHeating', {
+        carrier: carrierLabel,
+      }),
+      before.annualCarrierHeatingEnergyDemand,
+      after.annualCarrierHeatingEnergyDemand,
+    ),
+    makeEnergyDemandDetail(
+      t('stats.energyDemandBreakdown.electricalHeating'),
+      before.annualElectricalHeatingEnergyDemand,
+      after.annualElectricalHeatingEnergyDemand,
+    ),
+    makeEnergyDemandDetail(
+      t('stats.energyDemandBreakdown.householdElectricity'),
+      before.annualHouseholdElectricalEnergyDemand,
+      after.annualHouseholdElectricalEnergyDemand,
+    ),
+  ];
 
   return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2 lg:grid-cols-4">
       <RenovationStatsCard
         icon={<Zap className="size-5 text-amber-600" />}
         titleKey="stats.energyDemand"
         beforeFormatted={formatValue(before.energyConsumptionPerSquareMeter)}
         afterFormatted={formatValue(after.energyConsumptionPerSquareMeter)}
-        unit={t('stats.units.energyDemand')}
+        unit={energyDemandUnit}
         delta={
           <NumericDelta
             before={before.energyConsumptionPerSquareMeter}
             after={after.energyConsumptionPerSquareMeter}
-            unit={t('stats.units.energyDemand')}
+            unit={energyDemandUnit}
           />
         }
+        details={energyDemandDetails}
       />
       <RenovationStatsCard
         icon={<TrendingUp className="size-5 text-green-600" />}

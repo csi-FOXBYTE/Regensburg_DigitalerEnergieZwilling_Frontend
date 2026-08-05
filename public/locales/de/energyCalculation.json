@@ -19,6 +19,14 @@
       "annualCosts": "€/Jahr",
       "co2Emissions": "t CO₂/Jahr"
     },
+    "energyDemandBreakdown": {
+      "carrierHeating": "Heizenergie ({{carrier}})",
+      "electricalHeating": "Heizenergie (elektrisch)",
+      "householdElectricity": "Haushaltsstrom",
+      "details": "Details",
+      "expand": "Aufschlüsselung des Energiebedarfs anzeigen",
+      "collapse": "Aufschlüsselung des Energiebedarfs ausblenden"
+    },
     "energyDemandLow": "Niedriger Energieverbrauch",
     "energyDemandModerate": "Moderater Energieverbrauch",
     "energyDemandHigh": "Hoher Energieverbrauch",
