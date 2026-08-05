@@ -21,16 +21,35 @@ function CurrentStatsCard({
   titleKey,
   icon,
   details,
+  compact = false,
 }: {
   value: string;
   unit?: string;
   titleKey: ParseKeys<'energyCalculation'>;
   icon: ReactNode;
   details?: StatDetail[];
+  compact?: boolean;
 }) {
   const { t } = useTranslation('energyCalculation');
   const [isOpen, setIsOpen] = useState(false);
   const detailsId = useId();
+
+  if (compact) {
+    return (
+      <Paper className="flex flex-col gap-1 p-2" elevation={2}>
+        <div className="flex gap-1">
+          {icon}
+          <Typography variant="h4" className="text-sm leading-5">
+            {t(titleKey)}
+          </Typography>
+        </div>
+        <Typography className="text-lg leading-6 font-bold">
+          {value}
+          {unit && <span className="ml-1 text-sm">{unit}</span>}
+        </Typography>
+      </Paper>
+    );
+  }
 
   return (
     <Paper className="flex flex-col gap-2 p-3" elevation={2}>
@@ -107,7 +126,11 @@ function calculatePerSquareMeter(
   return (partialDemand / totalDemand) * totalPerSquareMeter;
 }
 
-export default function CurrentStats() {
+export default function CurrentStats({
+  compact = false,
+}: {
+  compact?: boolean;
+}) {
   const { t, i18n } = useTranslation('energyCalculation');
   const currentStats = useStore($currentEnergyState);
   const energyCarrierOptions = useStore(primaryEnergyCarrierOptions);
@@ -166,6 +189,7 @@ export default function CurrentStats() {
   return (
     <div className="grid grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-4">
       <CurrentStatsCard
+        compact={compact}
         value={formatValue(currentStats.energyConsumptionPerSquareMeter)}
         unit={energyDemandUnit}
         titleKey="stats.energyDemand"
@@ -173,6 +197,7 @@ export default function CurrentStats() {
         details={energyDemandBreakdown}
       />
       <CurrentStatsCard
+        compact={compact}
         value={t('stats.energyEfficiencyValue', {
           value: currentStats.energyEfficiencyClass,
         })}
@@ -180,12 +205,14 @@ export default function CurrentStats() {
         icon={<TrendingUp className="size-5 text-green-600" />}
       />
       <CurrentStatsCard
+        compact={compact}
         value={formatValue(currentStats.yearlyCost)}
         unit={t('stats.units.annualCosts')}
         titleKey="stats.annualCosts"
         icon={<Euro className="size-5 text-blue-600" />}
       />
       <CurrentStatsCard
+        compact={compact}
         value={formatValue(currentStats.co2Emissions)}
         unit={t('stats.units.co2Emissions')}
         titleKey="stats.co2Emissions"

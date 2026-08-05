@@ -19,8 +19,11 @@ import { SubsidySection } from './SubsidySection';
     </Typography>
     <BuildingAddress client:load />
   </ContentContainer>
-  <StickyContainer>
+  <StickyContainer compactWhenStuck>
     <RenovationStats client:load />
+    <Fragment slot="compact">
+      <RenovationStats compact client:load />
+    </Fragment>
   </StickyContainer>
   <ContentContainer>
     <Typography variant="h3" className="mt-2">

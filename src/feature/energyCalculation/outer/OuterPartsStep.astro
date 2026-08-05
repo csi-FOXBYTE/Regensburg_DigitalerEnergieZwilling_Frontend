@@ -18,11 +18,17 @@ import OuterSectionNav from './OuterSectionNav';
     </Typography>
     <BuildingAddress client:load />
   </ContentContainer>
-  <StickyContainer padding="pt-4 pb-5">
+  <StickyContainer padding="pt-4 pb-5" compactWhenStuck>
     <CurrentStats client:load />
     <div class="mt-8">
       <OuterSectionNav client:load />
     </div>
+    <Fragment slot="compact">
+      <CurrentStats compact client:load />
+      <div class="mt-4">
+        <OuterSectionNav client:load />
+      </div>
+    </Fragment>
   </StickyContainer>
   <ContentContainer>
     <OuterPartsStepForm client:load />

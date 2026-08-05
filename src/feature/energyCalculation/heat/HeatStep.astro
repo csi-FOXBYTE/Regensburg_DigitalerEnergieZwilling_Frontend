@@ -17,8 +17,11 @@ import HeatStepForm from './HeatStepForm';
     </Typography>
     <BuildingAddress client:load />
   </ContentContainer>
-  <StickyContainer>
+  <StickyContainer compactWhenStuck>
     <CurrentStats client:load />
+    <Fragment slot="compact">
+      <CurrentStats compact client:load />
+    </Fragment>
   </StickyContainer>
   <ContentContainer>
     <HeatStepForm client:load />

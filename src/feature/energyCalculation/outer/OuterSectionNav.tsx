@@ -18,6 +18,16 @@ const SECTION_IDS = [
 
 type SectionId = (typeof SECTION_IDS)[number];
 
+function getStickyContainer(nav: HTMLElement | null) {
+  const ownContainer = nav?.closest<HTMLElement>('[data-sticky-container]');
+  const compactContainer =
+    ownContainer?.previousElementSibling?.querySelector<HTMLElement>(
+      '[data-compact-sticky] > [data-sticky-container]',
+    );
+
+  return compactContainer ?? ownContainer;
+}
+
 export default function OuterSectionNav() {
   const [active, setActive] = useState<SectionId | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
@@ -33,9 +43,7 @@ export default function OuterSectionNav() {
     !(isAtticHeatedValue ?? isAtticHeatedPlaceholder);
 
   useEffect(() => {
-    const sticky = navRef.current?.closest<HTMLElement>(
-      '[data-sticky-container]',
-    );
+    const sticky = getStickyContainer(navRef.current);
 
     const update = () => {
       // Detection line sits just below the sticky container — the same
@@ -91,9 +99,7 @@ export default function OuterSectionNav() {
     const el = document.getElementById(id);
     if (!el) return;
 
-    const sticky = navRef.current?.closest<HTMLElement>(
-      '[data-sticky-container]',
-    );
+    const sticky = getStickyContainer(navRef.current);
     const stickyHeight = sticky?.getBoundingClientRect().height ?? 0;
 
     const top =

@@ -116,6 +116,7 @@ function RenovationStatsCard({
   unit,
   delta,
   details,
+  compact = false,
 }: {
   icon: ReactNode;
   titleKey: ParseKeys<'energyCalculation'>;
@@ -124,10 +125,34 @@ function RenovationStatsCard({
   unit?: string;
   delta: ReactNode;
   details?: StatDetail[];
+  compact?: boolean;
 }) {
   const { t } = useTranslation('energyCalculation');
   const [isOpen, setIsOpen] = useState(false);
   const detailsId = useId();
+
+  if (compact) {
+    return (
+      <Paper className="flex flex-col gap-1 p-2" elevation={2}>
+        <div className="flex gap-1">
+          {icon}
+          <Typography variant="h4" className="text-sm leading-5">
+            {t(titleKey)}
+          </Typography>
+        </div>
+        <div className="flex items-baseline gap-1">
+          <Typography variant="muted" className="leading-6">
+            {beforeFormatted} →
+          </Typography>
+          <Typography className="text-lg leading-6 font-bold">
+            {afterFormatted}
+            {unit && <span className="ml-1 text-sm">{unit}</span>}
+          </Typography>
+        </div>
+        {delta}
+      </Paper>
+    );
+  }
 
   return (
     <Paper className="flex flex-col gap-2 p-4" elevation={2}>
@@ -205,7 +230,11 @@ function RenovationStatsCard({
   );
 }
 
-export default function RenovationStats() {
+export default function RenovationStats({
+  compact = false,
+}: {
+  compact?: boolean;
+}) {
   const { t, i18n } = useTranslation('energyCalculation');
   const effClasses = useStore($energyEfficiencyClasses);
   const before = useStore($currentEnergyState);
@@ -265,6 +294,7 @@ export default function RenovationStats() {
   return (
     <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2 lg:grid-cols-4">
       <RenovationStatsCard
+        compact={compact}
         icon={<Zap className="size-5 text-amber-600" />}
         titleKey="stats.energyDemand"
         beforeFormatted={formatValue(before.energyConsumptionPerSquareMeter)}
@@ -280,6 +310,7 @@ export default function RenovationStats() {
         details={energyDemandDetails}
       />
       <RenovationStatsCard
+        compact={compact}
         icon={<TrendingUp className="size-5 text-green-600" />}
         titleKey="stats.energyEfficiency"
         beforeFormatted={t('stats.energyEfficiencyValue', {
@@ -297,6 +328,7 @@ export default function RenovationStats() {
         }
       />
       <RenovationStatsCard
+        compact={compact}
         icon={<Euro className="size-5 text-blue-600" />}
         titleKey="stats.annualCosts"
         beforeFormatted={formatValue(before.yearlyCost)}
@@ -311,6 +343,7 @@ export default function RenovationStats() {
         }
       />
       <RenovationStatsCard
+        compact={compact}
         icon={<Leaf className="size-5 text-green-700" />}
         titleKey="stats.co2Emissions"
         beforeFormatted={formatValue(before.co2Emissions)}
