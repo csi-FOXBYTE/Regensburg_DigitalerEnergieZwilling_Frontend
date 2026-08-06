@@ -30,7 +30,8 @@ export default function FeedbackButton() {
 
   const [open, setOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [category, setCategory] = useState<Category>('bug');
+  // Empty until the user picks one, so the select shows its placeholder.
+  const [category, setCategory] = useState<Category | ''>('');
   const [message, setMessage] = useState('');
   const [email, setEmail] = useState('');
 
@@ -44,14 +45,14 @@ export default function FeedbackButton() {
 
   function resetForm() {
     setSubmitted(false);
-    setCategory('bug');
+    setCategory('');
     setMessage('');
     setEmail('');
   }
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    if (!message.trim()) return;
+    if (!category || !message.trim()) return;
     setSubmitted(true);
     closeTimeout.current = setTimeout(() => setOpen(false), 2000);
   }
@@ -101,16 +102,26 @@ export default function FeedbackButton() {
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="feedback-category">
-                  {t('feedback.category.label')}
+                  {t('feedback.category.label')}{' '}
+                  <span className="text-destructive">*</span>
                 </FieldLabel>
                 <Select
+                  required
                   value={category}
                   onValueChange={(value) => setCategory(value as Category)}
                 >
                   <SelectTrigger id="feedback-category">
-                    <SelectValue />
+                    <SelectValue
+                      placeholder={t('feedback.category.placeholder')}
+                    />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent
+                    position="popper"
+                    side="bottom"
+                    align="start"
+                    sideOffset={4}
+                    avoidCollisions={false}
+                  >
                     {CATEGORIES.map((value) => (
                       <SelectItem key={value} value={value}>
                         {t(`feedback.category.options.${value}`)}
@@ -160,7 +171,7 @@ export default function FeedbackButton() {
               <Button
                 type="submit"
                 className="w-full gap-2"
-                disabled={!message.trim()}
+                disabled={!category || !message.trim()}
               >
                 <Send className="size-5" /> {t('feedback.submit')}
               </Button>

@@ -18,6 +18,7 @@
     "subtitle": "Help us improve the tool",
     "category": {
       "label": "Category",
+      "placeholder": "Please select a category",
       "options": {
         "bug": "Report a bug",
         "improvement": "Suggest an improvement",
