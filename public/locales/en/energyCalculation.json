@@ -493,6 +493,16 @@
       "description": "Plan the order of measures carefully – ideally starting with the building envelope, then the technical systems. This ensures the new heating system is optimally sized."
     }
   },
+  "buildingData": {
+    "trigger": "Show building data",
+    "title": "Building data",
+    "description": "Your details on the building's current state from steps 1 to 5.",
+    "hint": "This overview shows the values the calculation currently uses. You can change them in the corresponding step.",
+    "labels": {
+      "street": "Street and house number",
+      "city": "Postcode and city"
+    }
+  },
   "booleanLabels": {
     "insulated": "Insulated",
     "notInsulated": "Not insulated",

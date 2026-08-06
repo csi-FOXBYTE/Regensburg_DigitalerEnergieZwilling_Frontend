@@ -493,6 +493,16 @@
       "description": "Planen Sie die Reihenfolge der Maßnahmen sinnvoll – idealerweise zuerst die Gebäudehülle, dann die Anlagentechnik. So dimensionieren Sie die neue Heizung optimal."
     }
   },
+  "buildingData": {
+    "trigger": "Gebäudedaten anzeigen",
+    "title": "Gebäudedaten",
+    "description": "Ihre Angaben zum Ist-Zustand des Gebäudes aus den Schritten 1 bis 5.",
+    "hint": "Diese Übersicht zeigt die Werte, mit denen aktuell gerechnet wird. Anpassen können Sie sie im jeweiligen Schritt.",
+    "labels": {
+      "street": "Straße und Hausnummer",
+      "city": "Postleitzahl und Ort"
+    }
+  },
   "booleanLabels": {
     "insulated": "Gedämmt",
     "notInsulated": "Nicht gedämmt",
