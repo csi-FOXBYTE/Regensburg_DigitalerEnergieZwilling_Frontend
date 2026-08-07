@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -155,14 +156,15 @@ export function MapHelp() {
   return (
     <>
       {mounted && (
-        <button
-          type="button"
+        <Button
+          variant="ghost"
+          size="icon"
+          className="rounded-full bg-white hover:bg-neutral-100"
           onClick={() => setOpen(true)}
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-neutral-800 hover:bg-neutral-100 focus-visible:outline-none"
           aria-label={t('mapHelp.ariaLabelButton')}
         >
           <span className="text-xl leading-none font-bold">?</span>
-        </button>
+        </Button>
       )}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
