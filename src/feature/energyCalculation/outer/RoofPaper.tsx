@@ -86,6 +86,7 @@ export default function RoofPaper() {
           field={roofConstructionTypeField}
           labelKey="outerParts.roof.constructionType"
           selectionStore={roofConstructionTypeOptions}
+          sortAlphabetically
           info={
             <InfoDialogButton
               title={t('outerParts.roof.tooltips.constructionTypeTitle')}
@@ -175,6 +176,7 @@ export default function RoofPaper() {
               field={roofInsulationTypeField}
               labelKey="outerParts.roof.insulationType"
               options={roofInsulationTypeOptions}
+              sortAlphabetically
               info={
                 <InfoDialogButton
                   title={t('outerParts.roof.tooltips.insulationTypeTitle')}

@@ -54,6 +54,7 @@ export default function GeneralDataStepForm() {
               field={buildingTypeField}
               labelKey="generalData.fields.buildingType"
               options={buildingTypeOptions}
+              sortAlphabetically
               info={
                 <InfoTooltipButton content={t('generalData.tooltips.buildingType')} />
               }

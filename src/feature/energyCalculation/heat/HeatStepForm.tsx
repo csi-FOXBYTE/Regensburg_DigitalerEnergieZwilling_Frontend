@@ -93,6 +93,7 @@ export default function HeatStepForm() {
               field={primaryEnergyCarrierField}
               labelKey="heat.heating.primaryEnergyCarrier"
               selectionStore={primaryEnergyCarrierOptions}
+              sortAlphabetically
               info={
                 <InfoTooltipButton
                   content={t('heat.heating.tooltips.primaryEnergyCarrier')}
