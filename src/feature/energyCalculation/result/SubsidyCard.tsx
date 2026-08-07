@@ -2,9 +2,10 @@ import { Badge } from '@/components/ui/badge';
 import { Paper } from '@/components/ui/paper';
 import { Typography } from '@/components/ui/typography';
 import type {
-  Subsidy,
-  SubsidyBenefit,
-} from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
+  SubsidyFinancing,
+  SubsidyWithFinancing,
+} from '@/lib/state/calculation-config';
+import type { SubsidyBenefit } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import { ChevronDown, ExternalLink } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -26,20 +27,36 @@ function formatBenefit(
   return `${prefix}${num(benefit.value)} ${benefit.unit}${forSuffix}`;
 }
 
-export function SubsidyCard({ title, content, href, benefits }: Subsidy) {
+const FINANCING_LABEL_KEY = {
+  loan: 'subsidy.financingLoan',
+  grant: 'subsidy.financingGrant',
+} as const satisfies Record<SubsidyFinancing, string>;
+
+export function SubsidyCard({
+  title,
+  financing,
+  content,
+  href,
+  benefits,
+}: SubsidyWithFinancing) {
   const { t } = useTranslation('energyCalculation');
   const [isOpen, setIsOpen] = useState(false);
+
+  const benefitText = formatBenefit(benefits, {
+    upTo: t('subsidy.benefitUpTo'),
+    max: t('subsidy.benefitMax'),
+  });
+  // Die Förder-Config wird ungeprüft übernommen — fehlt `financing` noch,
+  // bleibt die Bubble beim reinen Betrag statt "undefined:" anzuzeigen.
+  const financingKey = FINANCING_LABEL_KEY[financing];
 
   return (
     <Paper
       className="flex cursor-pointer flex-col gap-3 p-4"
       onClick={() => setIsOpen((prev) => !prev)}
     >
-      <Badge className="h-auto border-green-600 bg-green-600/10 whitespace-normal text-green-600">
-        {formatBenefit(benefits, {
-          upTo: t('subsidy.benefitUpTo'),
-          max: t('subsidy.benefitMax'),
-        })}
+      <Badge className="h-auto border-green-600 bg-green-600/10 whitespace-normal wrap-anywhere text-green-600">
+        {financingKey ? `${t(financingKey)}: ${benefitText}` : benefitText}
       </Badge>
       <Typography variant="h4">{title}</Typography>
       <div className="relative">

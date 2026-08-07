@@ -8,10 +8,19 @@ import {
 } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import { atom, computed } from 'nanostores';
 
+export type SubsidyFinancing = 'loan' | 'grant';
+
+/**
+ * Der Rechenkern kennt `financing` noch nicht. Bis die neue Version deployt
+ * ist, wird das Feld händisch in der Förder-Config gepflegt und hier
+ * ergänzt. Sobald der Kern es mitliefert, kann diese Erweiterung entfallen.
+ */
+export type SubsidyWithFinancing = Subsidy & { financing: SubsidyFinancing };
+
 type ActiveConfig = {
   versionName: string;
   calculationConfig: DETConfig;
-  subsidies: Array<{ subsidy: Subsidy; isActive: boolean }>;
+  subsidies: Array<{ subsidy: SubsidyWithFinancing; isActive: boolean }>;
 };
 
 const $activeConfig = atom<ActiveConfig | null>(null);

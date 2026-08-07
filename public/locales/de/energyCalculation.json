@@ -326,6 +326,8 @@
     "disclaimer": "Die angezeigten Förderprogramme erheben keinen Anspruch auf Vollständigkeit oder Aktualität. Nicht alle Förderprogramme sind kombinierbar oder dauerhaft verfügbar.",
     "benefitUpTo": "Bis zu",
     "benefitMax": "max.",
+    "financingLoan": "Kredit",
+    "financingGrant": "Zuschuss",
     "moreInfo": "Mehr anzeigen",
     "loadError": "Die Förderprogramme konnten nicht geladen werden. Bitte laden Sie die Seite neu."
   },
