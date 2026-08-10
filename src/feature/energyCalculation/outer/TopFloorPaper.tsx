@@ -85,6 +85,7 @@ export default function TopFloorPaper() {
           field={topFloorTypeField}
           labelKey="outerParts.topFloor.type"
           selectionStore={topFloorTypeOptions}
+          sortAlphabetically
           info={
             <InfoTooltipButton
               content={t('outerParts.topFloor.tooltips.type')}

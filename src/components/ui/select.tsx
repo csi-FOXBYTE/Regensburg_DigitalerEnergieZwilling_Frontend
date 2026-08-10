@@ -80,8 +80,16 @@ function SelectTrigger({
 function SelectContent({
   className,
   children,
-  position = 'item-aligned',
-  align = 'center',
+  // Immer unterhalb des Triggers aufklappen. Radix' Default `item-aligned`
+  // schiebt das Menü so, dass der gewählte Eintrag über dem Trigger liegt —
+  // die Position hängt dann von der Auswahl ab. `avoidCollisions={false}`
+  // verhindert zusätzlich das Umklappen nach oben am Viewport-Rand; die Höhe
+  // begrenzt stattdessen `--radix-select-content-available-height`.
+  position = 'popper',
+  side = 'bottom',
+  align = 'start',
+  sideOffset = 4,
+  avoidCollisions = false,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
   return (
@@ -96,7 +104,10 @@ function SelectContent({
           className,
         )}
         position={position}
+        side={side}
         align={align}
+        sideOffset={sideOffset}
+        avoidCollisions={avoidCollisions}
         {...props}
       >
         <SelectScrollUpButton />

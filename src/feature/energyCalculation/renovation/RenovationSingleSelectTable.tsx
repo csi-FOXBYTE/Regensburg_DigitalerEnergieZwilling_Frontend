@@ -6,11 +6,18 @@ import {
   type DETInput,
   type Renovation,
 } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
-import { getCoreRowModel, useReactTable } from '@tanstack/react-table';
-import { useMemo } from 'react';
+import {
+  getCoreRowModel,
+  getSortedRowModel,
+  useReactTable,
+  type SortingState,
+} from '@tanstack/react-table';
+import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { InfoTooltipButton } from '../InfoButton';
 import { RenovationRow } from './RenovationRow';
+import { RenovationTableHead } from './RenovationTableHead';
+import { useRenovationColumns } from './renovationColumns';
 
 export type RenovationSingleSelectTableProps = {
   renovations: Renovation[];
@@ -33,13 +40,6 @@ export function RenovationSingleSelectTable({
 }: RenovationSingleSelectTableProps) {
   const { t } = useTranslation('energyCalculation');
   const selectedId = value.length > 0 ? value[0].id : NONE;
-
-  const table = useReactTable({
-    data: renovations,
-    columns: [],
-    getCoreRowModel: getCoreRowModel(),
-    getRowId: (row) => row.id,
-  });
 
   const handleChange = (id: string) => {
     onSelectionChange(
@@ -78,30 +78,27 @@ export function RenovationSingleSelectTable({
     [config, baseInput, renovations, baseEnergy],
   );
 
+  const columns = useRenovationColumns(energyMap, savingsMap);
+  const [sorting, setSorting] = useState<SortingState>([]);
+
+  const table = useReactTable({
+    data: renovations,
+    columns,
+    state: { sorting },
+    onSortingChange: setSorting,
+    // Erster Klick sortiert immer aufsteigend - TanStack wuerde bei
+    // numerischen Spalten sonst mit absteigend anfangen.
+    sortDescFirst: false,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getRowId: (row) => row.id,
+  });
+
   return (
     <RadioGroup value={selectedId} onValueChange={handleChange}>
       <div className="w-full overflow-x-auto">
         <table className="w-full border-collapse border border-neutral-200 text-sm">
-          <thead>
-            <tr className="bg-neutral-150">
-              <th className="w-8" />
-              <th className="px-4 py-3 font-medium">
-                <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-                  <span className="text-left">
-                    {t('renovation.table.measure')}
-                  </span>
-                  <span className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
-                    <span className="text-left whitespace-nowrap sm:text-right">
-                      {t('renovation.table.energyPotential')}
-                    </span>
-                    <span className="text-left whitespace-nowrap sm:text-right">
-                      {t('renovation.table.savings')}
-                    </span>
-                  </span>
-                </div>
-              </th>
-            </tr>
-          </thead>
+          <RenovationTableHead table={table} />
           <tbody>
             {table.getRowModel().rows.map((row) => {
               const tooltipText = (t as (key: string, opts: object) => string)(

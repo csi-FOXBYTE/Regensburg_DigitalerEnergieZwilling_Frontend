@@ -290,10 +290,12 @@
       "measure": "Maßnahme",
       "energyPotential": "Energiepotenzial",
       "savings": "Sparpotential",
+      "sortBy": "Nach {{column}} sortieren",
       "total": "Gesamt",
       "noMeasure": "Keine Maßnahme"
     },
     "recommended": "Empfohlen",
+    "selectRecommended": "Empfohlene Maßnahmen auswählen",
     "tooltips": {
       "envelope_roof": "Eine Dachdämmung reduziert Wärmeverluste über das Dach deutlich und verbessert den Hitzeschutz im Sommer. Besonders bei ausgebauten Dachgeschossen ist die Maßnahme sehr wirkungsvoll. Die Berechnung wird nur berücksichtigt, wenn der Dachraum beheizt ist.",
       "envelope_topFloor": "Über die oberste Geschossdecke geht oft viel Heizwärme verloren. Eine Dämmung dieser Fläche zählt zu den einfachsten und wirtschaftlichsten Sanierungsmaßnahmen. Die Berechnung wird nur berücksichtigt, wenn der Dachraum unbeheizt ist.",
@@ -316,6 +318,9 @@
     "sectionTitle": "Förderprogramme",
     "disclaimer": "Die angezeigten Förderprogramme erheben keinen Anspruch auf Vollständigkeit oder Aktualität. Nicht alle Förderprogramme sind kombinierbar oder dauerhaft verfügbar.",
     "benefitUpTo": "Bis zu",
+    "benefitMax": "max.",
+    "financingLoan": "Kredit",
+    "financingGrant": "Zuschuss",
     "moreInfo": "Mehr anzeigen",
     "loadError": "Die Förderprogramme konnten nicht geladen werden. Bitte laden Sie die Seite neu."
   },
@@ -481,6 +486,16 @@
     "step4": {
       "title": "Sanierung umsetzen",
       "description": "Planen Sie die Reihenfolge der Maßnahmen sinnvoll – idealerweise zuerst die Gebäudehülle, dann die Anlagentechnik. So dimensionieren Sie die neue Heizung optimal."
+    }
+  },
+  "buildingData": {
+    "trigger": "Gebäudedaten anzeigen",
+    "title": "Gebäudedaten",
+    "description": "Ihre Angaben zum Ist-Zustand des Gebäudes aus den Schritten 1 bis 5.",
+    "hint": "Diese Übersicht zeigt die Werte, mit denen aktuell gerechnet wird. Anpassen können Sie sie im jeweiligen Schritt.",
+    "labels": {
+      "street": "Straße und Hausnummer",
+      "city": "Postleitzahl und Ort"
     }
   },
   "booleanLabels": {

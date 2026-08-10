@@ -30,6 +30,8 @@ type BaseProps<T> = {
   isEqual?: (a: T, b: T) => boolean;
   disabled?: boolean;
   className?: string;
+  /** Sortiert die Einträge nach Label; ohne den Prop bleibt die Reihenfolge der Config. */
+  sortAlphabetically?: boolean;
 };
 
 function EnergySelectInputBase<T>({
@@ -40,14 +42,21 @@ function EnergySelectInputBase<T>({
   isEqual = Object.is,
   disabled,
   className,
+  sortAlphabetically = false,
 }: BaseProps<T>) {
+  const { i18n } = useTranslation();
   const value = useStore(field.$store);
   const placeholder = useStore(field.$placeholder);
+  // Der Select-Value ist der Listenindex, deshalb muss ab hier durchgehend
+  // dieselbe (ggf. sortierte) Liste verwendet werden.
+  const items = sortAlphabetically
+    ? [...options].sort((a, b) => a.label.localeCompare(b.label, i18n.language))
+    : options;
   const currentIndex = value != null
-    ? options.findIndex((o) => isEqual(o.value, value))
+    ? items.findIndex((o) => isEqual(o.value, value))
     : -1;
   const placeholderLabel = placeholder != null
-    ? options.find((o) => isEqual(o.value, placeholder))?.label
+    ? items.find((o) => isEqual(o.value, placeholder))?.label
     : undefined;
 
   return (
@@ -60,7 +69,7 @@ function EnergySelectInputBase<T>({
     >
       <Select
         value={currentIndex >= 0 ? String(currentIndex) : ''}
-        onValueChange={(v) => field.setValue(options[Number(v)].value)}
+        onValueChange={(v) => field.setValue(items[Number(v)].value)}
         disabled={disabled}
       >
         <SelectTrigger
@@ -69,7 +78,7 @@ function EnergySelectInputBase<T>({
           <SelectValue placeholder={placeholderLabel} />
         </SelectTrigger>
         <SelectContent>
-          {options.map((option, index) => (
+          {items.map((option, index) => (
             <SelectItem key={index} value={String(index)}>
               {option.label}
             </SelectItem>

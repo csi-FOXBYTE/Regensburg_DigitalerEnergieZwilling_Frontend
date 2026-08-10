@@ -112,6 +112,7 @@ export default function BottomFloorPaper() {
           field={bottomFloorConstructionTypeField}
           labelKey={`outerParts.bottomFloor.constructionType.${context}`}
           selectionStore={bottomFloorConstructionTypeOptions}
+          sortAlphabetically
           info={
             <InfoTooltipButton
               content={t(

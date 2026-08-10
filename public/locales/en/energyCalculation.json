@@ -290,10 +290,12 @@
       "measure": "Measure",
       "energyPotential": "Energy Potential",
       "savings": "Savings Potential",
+      "sortBy": "Sort by {{column}}",
       "total": "Total",
       "noMeasure": "No Measure"
     },
     "recommended": "Recommended",
+    "selectRecommended": "Select recommended measures",
     "tooltips": {
       "envelope_roof": "Roof insulation significantly reduces heat loss through the roof and improves summer heat protection. The measure is especially effective in converted loft spaces. The calculation only applies when the loft is heated.",
       "envelope_topFloor": "A lot of heat is often lost through the top floor ceiling. Insulating this surface is one of the simplest and most cost-effective renovation measures. The calculation only applies when the loft is unheated.",
@@ -316,6 +318,9 @@
     "sectionTitle": "Funding Programmes",
     "disclaimer": "The funding programmes shown are sample data and make no claim to completeness or currentness.",
     "benefitUpTo": "Up to",
+    "benefitMax": "max.",
+    "financingLoan": "Loan",
+    "financingGrant": "Grant",
     "moreInfo": "Show more",
     "loadError": "The funding programmes could not be loaded. Please reload the page."
   },
@@ -481,6 +486,16 @@
     "step4": {
       "title": "Carry Out Renovation",
       "description": "Plan the order of measures carefully – ideally starting with the building envelope, then the technical systems. This ensures the new heating system is optimally sized."
+    }
+  },
+  "buildingData": {
+    "trigger": "Show building data",
+    "title": "Building data",
+    "description": "Your details on the building's current state from steps 1 to 5.",
+    "hint": "This overview shows the values the calculation currently uses. You can change them in the corresponding step.",
+    "labels": {
+      "street": "Street and house number",
+      "city": "Postcode and city"
     }
   },
   "booleanLabels": {

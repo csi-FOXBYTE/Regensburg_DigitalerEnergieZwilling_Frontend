@@ -16,6 +16,7 @@ import {
 import { useStore } from '@nanostores/react';
 import { useTranslation } from 'react-i18next';
 import { RenovationMultiSelectTable } from './RenovationMultiSelectTable';
+import { RenovationRecommendedToggle } from './RenovationRecommendedToggle';
 import { RenovationSingleSelectTable } from './RenovationSingleSelectTable';
 
 export default function RenovationStepForm() {
@@ -40,9 +41,14 @@ export default function RenovationStepForm() {
         {t('renovation.subtitle')}
       </Typography>
       <div>
-        <Typography variant="h4" className="mb-2">
-          {t('renovation.insulation.title')}
-        </Typography>
+        {/* Der Schalter gilt global fuer alle drei Tabellen, sitzt aber in der
+            Ueberschriftenzeile der ersten. */}
+        <div className="mb-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+          <Typography variant="h4">
+            {t('renovation.insulation.title')}
+          </Typography>
+          <RenovationRecommendedToggle />
+        </div>
         <RenovationMultiSelectTable
           renovations={insulationRenovations}
           value={selectedInsulation}

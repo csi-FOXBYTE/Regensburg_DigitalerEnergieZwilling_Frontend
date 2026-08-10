@@ -25,6 +25,7 @@
     "subtitle": "Helfen Sie uns, das Tool zu verbessern",
     "category": {
       "label": "Kategorie",
+      "placeholder": "Bitte wählen Sie eine Kategorie",
       "options": {
         "bug": "Fehler melden",
         "improvement": "Verbesserungsvorschlag",
