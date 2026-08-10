@@ -10,20 +10,13 @@
     "co2Emissions": "CO₂ Emissions",
     "beforeRenovation": "Before Renovation",
     "afterRenovation": "After Renovation",
-    "energyDemandValue": "{{value}} kWh/m²a",
     "energyEfficiencyValue": "Class {{value}}",
-    "annualCostsValue": "{{value}} €/a",
-    "co2EmissionsValue": "{{value}} t CO₂/a",
-    "units": {
-      "energyDemand": "kWh/m²a",
-      "annualCosts": "€/a",
-      "co2Emissions": "t CO₂/a"
-    },
     "energyDemandBreakdown": {
       "carrierHeating": "Heating energy ({{carrier}})",
       "electricalHeating": "Heating energy (electrical)",
       "householdElectricity": "Household electricity",
       "details": "More",
+      "less": "Less",
       "expand": "Show energy demand breakdown",
       "collapse": "Hide energy demand breakdown"
     },

@@ -20,13 +20,10 @@ import { Typography } from '@/components/ui/typography';
 import EnergyNumberInput from '@/feature/energyCalculation/EnergyNumberInput';
 import { InfoDialogButton } from '@/feature/energyCalculation/InfoButton';
 import makeFieldStore from '@/lib/field-store';
+import { $config } from '@/lib/state/calculation-config';
 import { $step, Step } from '@/lib/state/ui/progress';
 import { useStore } from '@nanostores/react';
-import {
-  AlertTriangle,
-  BookOpenText,
-  Database,
-} from 'lucide-react';
+import { AlertTriangle, BookOpenText, Database } from 'lucide-react';
 import { atom } from 'nanostores';
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -55,15 +52,21 @@ function markNoticeAsSeen(): void {
   }
 }
 
-function PlaceholderCopy({ children }: { children: ReactNode }) {
+function OpenPoint({ children }: { children: ReactNode }) {
   const { t } = useTranslation('methodology');
 
   return (
-    <div className="border-primary/40 bg-primary/5 flex flex-col gap-2 border border-dashed p-4">
-      <Badge variant="destructive">{t('draft.contentBadge')}</Badge>
-      <Typography variant="small">{children}</Typography>
+    <div className="border-primary flex flex-col gap-1 border-l-2 pl-3">
+      <Typography variant="small" className="font-bold">
+        {t('draft.openPoint')}
+      </Typography>
+      <Typography>{children}</Typography>
     </div>
   );
+}
+
+function MethodologyAccordionContent({ children }: { children: ReactNode }) {
+  return <AccordionContent className="h-auto">{children}</AccordionContent>;
 }
 
 function DemoInput() {
@@ -120,28 +123,353 @@ function DemoInput() {
 
         <Separator />
 
-        <div className="flex w-fit items-center gap-2">
-          <FieldLabel htmlFor={inputId}>{t('demo.inputLabel')}</FieldLabel>
-          <InfoDialogButton
-            title={t('demo.infoDialog.title')}
-            content={t('demo.infoDialog.description')}
+        <div className="flex flex-col gap-2">
+          <div className="flex w-fit items-center gap-2">
+            <FieldLabel htmlFor={inputId}>{t('demo.inputLabel')}</FieldLabel>
+            <InfoDialogButton
+              title={t('demo.infoDialog.title')}
+              content={t('demo.infoDialog.description')}
+            />
+          </div>
+          <EnergyNumberInput
+            field={livingAreaField}
+            id={inputId}
+            aria-label={t('demo.inputLabel')}
+            suffix=" m²"
+            decimalScale={1}
+            allowNegative={false}
+            isAllowed={({ floatValue }) =>
+              floatValue == null || floatValue >= 0
+            }
           />
         </div>
-        <EnergyNumberInput
-          field={livingAreaField}
-          id={inputId}
-          aria-label={t('demo.inputLabel')}
-          suffix=" m²"
-          decimalScale={1}
-          allowNegative={false}
-          isAllowed={({ floatValue }) => floatValue == null || floatValue >= 0}
-        />
         <Typography>
           {userValue == null
             ? t('demo.automaticExplanation')
             : t('demo.userValueExplanation')}
         </Typography>
       </div>
+    </div>
+  );
+}
+
+function ScopeContent() {
+  const { t } = useTranslation('methodology');
+
+  return (
+    <div className="flex flex-col gap-4">
+      <Typography>{t('sections.scope.intro')}</Typography>
+      <Typography as="h4" variant="h4">
+        {t('sections.scope.providesTitle')}
+      </Typography>
+      <Typography as="ul" className="list-disc space-y-1 pl-5">
+        <li>{t('sections.scope.providesOrientation')}</li>
+        <li>{t('sections.scope.providesComparison')}</li>
+        <li>{t('sections.scope.providesNextSteps')}</li>
+      </Typography>
+      <Typography as="h4" variant="h4">
+        {t('sections.scope.notProvidesTitle')}
+      </Typography>
+      <Typography as="ul" className="list-disc space-y-1 pl-5">
+        <li>{t('sections.scope.notProvidesConsulting')}</li>
+        <li>{t('sections.scope.notProvidesCertificate')}</li>
+        <li>{t('sections.scope.notProvidesPlanning')}</li>
+        <li>{t('sections.scope.notProvidesFunding')}</li>
+      </Typography>
+      <Typography>{t('sections.scope.conclusion')}</Typography>
+    </div>
+  );
+}
+
+function DataContent() {
+  const { t } = useTranslation('methodology');
+
+  return (
+    <div className="flex flex-col gap-4">
+      <Typography>
+        {t('sections.data.sourcePrefix')}{' '}
+        <a
+          href="https://geodaten.bayern.de/opengeodata/OpenDataDetail.html?pn=lod2"
+          target="_blank"
+          rel="noreferrer"
+        >
+          {t('sections.data.sourceLink')}
+        </a>
+        {t('sections.data.sourceSuffix')}
+      </Typography>
+      <Typography>{t('sections.data.processing')}</Typography>
+      <Typography as="h4" variant="h4">
+        {t('sections.data.derivedTitle')}
+      </Typography>
+      <Typography as="ul" className="list-disc space-y-1 pl-5">
+        <li>{t('sections.data.derivedGround')}</li>
+        <li>{t('sections.data.derivedWalls')}</li>
+        <li>{t('sections.data.derivedRoof')}</li>
+        <li>{t('sections.data.derivedHeight')}</li>
+        <li>{t('sections.data.derivedLivingArea')}</li>
+      </Typography>
+      <Typography as="h4" variant="h4">
+        {t('sections.data.buildingPartsTitle')}
+      </Typography>
+      <Typography>{t('sections.data.buildingParts')}</Typography>
+      <Typography as="h4" variant="h4">
+        {t('sections.data.notContainedTitle')}
+      </Typography>
+      <Typography>{t('sections.data.notContained')}</Typography>
+      <Typography>{t('sections.data.constructionYear')}</Typography>
+      <OpenPoint>{t('sections.data.dataStatusOpen')}</OpenPoint>
+    </div>
+  );
+}
+
+function InputsContent() {
+  const { t } = useTranslation('methodology');
+
+  return (
+    <div className="flex flex-col gap-4">
+      <Typography>{t('sections.inputs.intro')}</Typography>
+      <Typography as="h4" variant="h4">
+        {t('sections.inputs.priorityTitle')}
+      </Typography>
+      <Typography as="ol" className="list-decimal space-y-1 pl-5">
+        <li>{t('sections.inputs.priorityDefault')}</li>
+        <li>{t('sections.inputs.priorityAutomatic')}</li>
+        <li>{t('sections.inputs.priorityManual')}</li>
+      </Typography>
+      <Typography>{t('sections.inputs.reset')}</Typography>
+      <Typography as="h4" variant="h4">
+        {t('sections.inputs.originTitle')}
+      </Typography>
+      <Typography as="ul" className="list-disc space-y-1 pl-5">
+        <li>{t('sections.inputs.originAutomatic')}</li>
+        <li>{t('sections.inputs.originEstimated')}</li>
+        <li>{t('sections.inputs.originManual')}</li>
+      </Typography>
+      <Typography>{t('sections.inputs.livingAreaExample')}</Typography>
+    </div>
+  );
+}
+
+function ModelContent() {
+  const { t } = useTranslation('methodology');
+
+  return (
+    <div className="flex flex-col gap-4">
+      <Typography>{t('sections.model.intro')}</Typography>
+      <Typography as="h4" variant="h4">
+        {t('sections.model.chainTitle')}
+      </Typography>
+      <Typography as="ol" className="list-decimal space-y-1 pl-5">
+        <li>{t('sections.model.chainGeometry')}</li>
+        <li>{t('sections.model.chainEnvelope')}</li>
+        <li>{t('sections.model.chainVentilation')}</li>
+        <li>{t('sections.model.chainHeating')}</li>
+        <li>{t('sections.model.chainTotals')}</li>
+      </Typography>
+      <Typography as="h4" variant="h4">
+        {t('sections.model.referencesTitle')}
+      </Typography>
+      <Typography>{t('sections.model.references')}</Typography>
+      <OpenPoint>{t('sections.model.referencesOpen')}</OpenPoint>
+    </div>
+  );
+}
+
+function EnergyContent() {
+  const { t } = useTranslation('methodology');
+
+  return (
+    <div className="flex flex-col gap-4">
+      <Typography as="h4" variant="h4">
+        {t('sections.energy.finalTitle')}
+      </Typography>
+      <Typography>{t('sections.energy.final')}</Typography>
+      <Typography>{t('sections.energy.finalCalculation')}</Typography>
+      <Separator />
+      <Typography as="h4" variant="h4">
+        {t('sections.energy.primaryTitle')}
+      </Typography>
+      <Typography>{t('sections.energy.primary')}</Typography>
+      <Typography>{t('sections.energy.primaryCalculation')}</Typography>
+      <Separator />
+      <Typography as="h4" variant="h4">
+        {t('sections.energy.emissionsTitle')}
+      </Typography>
+      <Typography>{t('sections.energy.emissions')}</Typography>
+      <Typography>{t('sections.energy.display')}</Typography>
+      <Typography>{t('sections.energy.interpretation')}</Typography>
+    </div>
+  );
+}
+
+function localizeSelection(
+  selections: Array<{ value: string; localization: Record<string, string> }>,
+  key: string,
+  language: string,
+): string {
+  const selection = selections.find((item) => item.value === key);
+  const baseLanguage = language.split('-')[0];
+  return (
+    selection?.localization[language] ??
+    selection?.localization[baseLanguage] ??
+    selection?.localization.en ??
+    key
+  );
+}
+
+function EnergyAssumptionsContent() {
+  const { t, i18n } = useTranslation('methodology');
+  const { t: tCommon } = useTranslation('common');
+  const config = useStore($config);
+  const language = i18n.resolvedLanguage ?? i18n.language;
+  const number = (value: number, maximumFractionDigits = 3) =>
+    value.toLocaleString(language, { maximumFractionDigits });
+
+  const carrierRows = config.heat.primaryEnergyCarrierData.filter(
+    ({ key }) => key !== 'none',
+  );
+
+  return (
+    <div className="flex flex-col gap-4">
+      <Typography>{t('sections.assumptions.intro')}</Typography>
+
+      <Typography as="h4" variant="h4">
+        {t('sections.assumptions.carrierTitle')}
+      </Typography>
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-190 border-collapse text-left text-sm">
+          <caption className="sr-only">
+            {t('sections.assumptions.carrierCaption')}
+          </caption>
+          <thead className="border-neutral-450 border-b-2">
+            <tr>
+              <th className="px-2 py-2 font-bold">
+                {t('sections.assumptions.columns.carrier')}
+              </th>
+              <th className="px-2 py-2 font-bold">
+                {t('sections.assumptions.columns.energyContent')}
+              </th>
+              <th className="px-2 py-2 font-bold">
+                {t('sections.assumptions.columns.co2')}
+              </th>
+              <th className="px-2 py-2 font-bold">
+                {t('sections.assumptions.columns.primaryFactor')}
+              </th>
+              <th className="px-2 py-2 font-bold">
+                {t('sections.assumptions.columns.unitRate')}
+              </th>
+              <th className="px-2 py-2 font-bold">
+                {t('sections.assumptions.columns.baseRate')}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {carrierRows.map(({ key, value }) => (
+              <tr key={key} className="border-b border-neutral-200">
+                <td className="px-2 py-2">
+                  {localizeSelection(
+                    config.heat.primaryEnergyCarriers,
+                    key,
+                    language,
+                  )}
+                </td>
+                <td className="px-2 py-2">
+                  {number(value.energyPerUnit)} kWh/{value.unit}
+                </td>
+                <td className="px-2 py-2">
+                  {number(value.co2Factor)} g CO₂/kWh
+                </td>
+                <td className="px-2 py-2">
+                  {number(value.primaryEnergyFactor)}
+                </td>
+                <td className="px-2 py-2">
+                  {number(value.unitRate)} €/{value.unit}
+                </td>
+                <td className="px-2 py-2">
+                  {number(value.baseRate, 2)} {tCommon('units.eurosPerYear')}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <Typography as="h4" variant="h4">
+        {t('sections.assumptions.electricityTitle')}
+      </Typography>
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-150 border-collapse text-left text-sm">
+          <caption className="sr-only">
+            {t('sections.assumptions.electricityCaption')}
+          </caption>
+          <thead className="border-neutral-450 border-b-2">
+            <tr>
+              <th className="px-2 py-2 font-bold">
+                {t('sections.assumptions.columns.electricityType')}
+              </th>
+              <th className="px-2 py-2 font-bold">
+                {t('sections.assumptions.columns.co2')}
+              </th>
+              <th className="px-2 py-2 font-bold">
+                {t('sections.assumptions.columns.primaryFactor')}
+              </th>
+              <th className="px-2 py-2 font-bold">
+                {t('sections.assumptions.columns.electricityRate')}
+              </th>
+              <th className="px-2 py-2 font-bold">
+                {t('sections.assumptions.columns.baseRate')}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {config.heat.electricityTypeData.map(({ key, value }) => (
+              <tr key={key} className="border-b border-neutral-200">
+                <td className="px-2 py-2">
+                  {localizeSelection(
+                    config.heat.electricityTypes,
+                    key,
+                    language,
+                  )}
+                </td>
+                <td className="px-2 py-2">
+                  {number(value.co2Factor)} g CO₂/kWh
+                </td>
+                <td className="px-2 py-2">
+                  {number(value.primaryEnergyFactor)}
+                </td>
+                <td className="px-2 py-2">{number(value.unitRate)} €/kWh</td>
+                <td className="px-2 py-2">
+                  {number(value.baseRate, 2)} {tCommon('units.eurosPerYear')}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <Typography>{t('sections.assumptions.electricHeating')}</Typography>
+      <Typography>{t('sections.assumptions.calculation')}</Typography>
+      <OpenPoint>{t('sections.assumptions.sourcesOpen')}</OpenPoint>
+    </div>
+  );
+}
+
+function LimitsContent() {
+  const { t } = useTranslation('methodology');
+
+  return (
+    <div className="flex flex-col gap-4">
+      <Typography>{t('sections.limits.intro')}</Typography>
+      <Typography as="ul" className="list-disc space-y-1 pl-5">
+        <li>{t('sections.limits.geometry')}</li>
+        <li>{t('sections.limits.condition')}</li>
+        <li>{t('sections.limits.usage')}</li>
+        <li>{t('sections.limits.weather')}</li>
+        <li>{t('sections.limits.system')}</li>
+        <li>{t('sections.limits.costs')}</li>
+        <li>{t('sections.limits.renewables')}</li>
+      </Typography>
+      <Typography>{t('sections.limits.inputDepth')}</Typography>
+      <Typography>{t('sections.limits.conclusion')}</Typography>
     </div>
   );
 }
@@ -192,7 +520,7 @@ function MethodologyDialogContent() {
               <Typography variant="muted">{t('demo.description')}</Typography>
             </div>
             <DemoInput />
-            <PlaceholderCopy>{t('demo.placeholder')}</PlaceholderCopy>
+            <Typography>{t('demo.explanation')}</Typography>
           </section>
 
           <section
@@ -214,73 +542,59 @@ function MethodologyDialogContent() {
             >
               <AccordionItem value="scope">
                 <AccordionTrigger>{t('sections.scope.title')}</AccordionTrigger>
-                <AccordionContent>
-                  <PlaceholderCopy>
-                    {t('sections.scope.placeholder')}
-                  </PlaceholderCopy>
-                </AccordionContent>
+                <MethodologyAccordionContent>
+                  <ScopeContent />
+                </MethodologyAccordionContent>
               </AccordionItem>
 
               <AccordionItem value="data">
                 <AccordionTrigger>{t('sections.data.title')}</AccordionTrigger>
-                <AccordionContent>
-                  <PlaceholderCopy>
-                    {t('sections.data.placeholder')}
-                  </PlaceholderCopy>
-                </AccordionContent>
+                <MethodologyAccordionContent>
+                  <DataContent />
+                </MethodologyAccordionContent>
               </AccordionItem>
 
               <AccordionItem value="inputs">
                 <AccordionTrigger>
                   {t('sections.inputs.title')}
                 </AccordionTrigger>
-                <AccordionContent>
-                  <PlaceholderCopy>
-                    {t('sections.inputs.placeholder')}
-                  </PlaceholderCopy>
-                </AccordionContent>
+                <MethodologyAccordionContent>
+                  <InputsContent />
+                </MethodologyAccordionContent>
               </AccordionItem>
 
               <AccordionItem value="model">
                 <AccordionTrigger>{t('sections.model.title')}</AccordionTrigger>
-                <AccordionContent>
-                  <PlaceholderCopy>
-                    {t('sections.model.placeholder')}
-                  </PlaceholderCopy>
-                </AccordionContent>
+                <MethodologyAccordionContent>
+                  <ModelContent />
+                </MethodologyAccordionContent>
               </AccordionItem>
 
               <AccordionItem value="energy">
                 <AccordionTrigger>
                   {t('sections.energy.title')}
                 </AccordionTrigger>
-                <AccordionContent>
-                  <PlaceholderCopy>
-                    {t('sections.energy.placeholder')}
-                  </PlaceholderCopy>
-                </AccordionContent>
+                <MethodologyAccordionContent>
+                  <EnergyContent />
+                </MethodologyAccordionContent>
               </AccordionItem>
 
               <AccordionItem value="assumptions">
                 <AccordionTrigger>
                   {t('sections.assumptions.title')}
                 </AccordionTrigger>
-                <AccordionContent>
-                  <PlaceholderCopy>
-                    {t('sections.assumptions.placeholder')}
-                  </PlaceholderCopy>
-                </AccordionContent>
+                <MethodologyAccordionContent>
+                  <EnergyAssumptionsContent />
+                </MethodologyAccordionContent>
               </AccordionItem>
 
               <AccordionItem value="limits">
                 <AccordionTrigger>
                   {t('sections.limits.title')}
                 </AccordionTrigger>
-                <AccordionContent>
-                  <PlaceholderCopy>
-                    {t('sections.limits.placeholder')}
-                  </PlaceholderCopy>
-                </AccordionContent>
+                <MethodologyAccordionContent>
+                  <LimitsContent />
+                </MethodologyAccordionContent>
               </AccordionItem>
             </Accordion>
           </section>

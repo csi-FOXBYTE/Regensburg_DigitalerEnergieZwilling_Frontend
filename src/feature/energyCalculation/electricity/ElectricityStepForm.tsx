@@ -17,13 +17,16 @@ import { InfoTooltipButton } from '../InfoButton';
 
 export default function ElectricityStepForm() {
   const { t } = useTranslation('energyCalculation');
+  const { t: tCommon } = useTranslation('common');
   return (
     <TooltipProvider>
       <FieldGroup>
         <Paper variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
           <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <FieldLegend className="col-span-full">
-              <Typography variant="h4">{t('electricity.electricity')}</Typography>
+              <Typography variant="h4">
+                {t('electricity.electricity')}
+              </Typography>
             </FieldLegend>
             <Separator className="col-span-full" />
             <EnergySelectInput
@@ -39,7 +42,7 @@ export default function ElectricityStepForm() {
             <EnergyNumberInput
               field={userElectricityConsumptionField}
               labelKey="electricity.consumption"
-              suffix=" kWh/Jahr"
+              suffix={` ${tCommon('units.kilowattHoursPerYear')}`}
               decimalScale={0}
               allowNegative={false}
               info={
@@ -51,7 +54,7 @@ export default function ElectricityStepForm() {
             <EnergyNumberInput
               field={electricityUnitRateField}
               labelKey="electricity.unitRate"
-              suffix=" €/kWh"
+              suffix={` ${tCommon('units.eurosPerUnit', { unit: 'kWh' })}`}
               decimalScale={2}
               fixedDecimalScale
               allowNegative={false}
@@ -64,7 +67,7 @@ export default function ElectricityStepForm() {
             <EnergyNumberInput
               field={electricityBaseRateField}
               labelKey="electricity.baseRate"
-              suffix=" €/kWh"
+              suffix={` ${tCommon('units.eurosPerYear')}`}
               decimalScale={2}
               fixedDecimalScale
               allowNegative={false}

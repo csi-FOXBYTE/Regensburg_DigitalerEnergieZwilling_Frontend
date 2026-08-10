@@ -82,6 +82,8 @@ export function PdfInputSummary() {
   const resolved = $resolvedInputState.get();
   const config = $config.get();
   const result = $currentEnergyState.get();
+  const kilowattHoursPerYear = i18next.t('common:units.kilowattHoursPerYear');
+  const eurosPerYear = i18next.t('common:units.eurosPerYear');
 
   const {
     general,
@@ -472,23 +474,35 @@ export function PdfInputSummary() {
             <View style={styles.grid}>
               <PdfLabeledValue
                 label={ec('export.labels.heat.heatingDemand')}
-                value={fmt(result.annualHeatingEnergyDemand, 0, 'kWh/Jahr')}
+                value={fmt(
+                  result.annualHeatingEnergyDemand,
+                  0,
+                  kilowattHoursPerYear,
+                )}
               />
               <PdfLabeledValue
                 label={ec('export.labels.heat.carrierDemand')}
-                value={fmt(result.annualCarrierHeatingEnergyDemand, 0, result.energyCarrierUnit)}
+                value={fmt(
+                  result.annualCarrierHeatingEnergyDemand,
+                  0,
+                  result.energyCarrierUnit,
+                )}
               />
               <PdfLabeledValue
                 label={ec('export.labels.heat.totalCost')}
-                value={fmt(result.annualTotalHeatingCost, 2, '€/Jahr')}
+                value={fmt(result.annualTotalHeatingCost, 2, eurosPerYear)}
               />
               <PdfLabeledValue
                 label={ec('export.labels.heat.unitRate')}
-                value={fmt(result.energyCarrierUnitRate, 2, `€/${result.energyCarrierUnit}`)}
+                value={fmt(
+                  result.energyCarrierUnitRate,
+                  2,
+                  `€/${result.energyCarrierUnit}`,
+                )}
               />
               <PdfLabeledValue
                 label={ec('export.labels.heat.baseRate')}
-                value={fmt(result.energyCarrierBaseRate, 2, '€/Jahr')}
+                value={fmt(result.energyCarrierBaseRate, 2, eurosPerYear)}
               />
             </View>
           </View>
@@ -513,31 +527,51 @@ export function PdfInputSummary() {
           />
           <PdfLabeledValue
             label={ec('export.labels.electricity.baseRate')}
-            value={fmt(electricity.userElectricityBaseRate, 2, '€/Jahr')}
+            value={fmt(electricity.userElectricityBaseRate, 2, eurosPerYear)}
           />
           {result.annualElectricalHeatingEnergyDemand > 0 ? (
             <>
               <PdfLabeledValue
                 label={ec('export.labels.electricity.totalDemand')}
-                value={fmt(result.annualTotalElectricalEnergyDemand, 0, 'kWh/Jahr')}
+                value={fmt(
+                  result.annualTotalElectricalEnergyDemand,
+                  0,
+                  kilowattHoursPerYear,
+                )}
               />
               <PdfLabeledValue
                 label={ec('export.labels.electricity.heatingDemand')}
-                value={fmt(result.annualElectricalHeatingEnergyDemand, 0, 'kWh/Jahr')}
+                value={fmt(
+                  result.annualElectricalHeatingEnergyDemand,
+                  0,
+                  kilowattHoursPerYear,
+                )}
               />
               <PdfLabeledValue
                 label={ec('export.labels.electricity.householdDemand')}
-                value={fmt(result.annualHouseholdElectricalEnergyDemand, 0, 'kWh/Jahr')}
+                value={fmt(
+                  result.annualHouseholdElectricalEnergyDemand,
+                  0,
+                  kilowattHoursPerYear,
+                )}
               />
               <PdfLabeledValue
                 label={ec('export.labels.electricity.householdCost')}
-                value={fmt(result.annualHouseholdElectricalEnergyCost, 2, '€/Jahr')}
+                value={fmt(
+                  result.annualHouseholdElectricalEnergyCost,
+                  2,
+                  eurosPerYear,
+                )}
               />
             </>
           ) : (
             <PdfLabeledValue
               label={ec('export.labels.electricity.householdDemand')}
-              value={fmt(result.annualHouseholdElectricalEnergyDemand, 0, 'kWh/Jahr')}
+              value={fmt(
+                result.annualHouseholdElectricalEnergyDemand,
+                0,
+                kilowattHoursPerYear,
+              )}
             />
           )}
         </View>

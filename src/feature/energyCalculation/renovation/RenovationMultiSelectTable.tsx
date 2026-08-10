@@ -32,6 +32,7 @@ export function RenovationMultiSelectTable({
   config,
 }: RenovationMultiSelectTableProps) {
   const { t } = useTranslation('energyCalculation');
+  const { t: tCommon } = useTranslation('common');
   const rowSelection = useMemo<RowSelectionState>(
     () => Object.fromEntries(value.map((r) => [r.id, true])),
     [value],
@@ -139,7 +140,7 @@ export function RenovationMultiSelectTable({
                   <Checkbox
                     checked={row.getIsSelected()}
                     onCheckedChange={() => row.toggleSelected()}
-                    className="size-5 border-2 border-neutral-550"
+                    className="border-neutral-550 size-5 border-2"
                   />
                 }
                 label={row.original.label}
@@ -170,7 +171,7 @@ export function RenovationMultiSelectTable({
                         maximumFractionDigits: 0,
                         signDisplay: 'always',
                       })}{' '}
-                      kWh/Jahr
+                      {tCommon('units.kilowattHoursPerYear')}
                     </span>
                     <span
                       className={`whitespace-nowrap sm:text-right ${deltaColorClass(selectedSavings)}`}
@@ -180,7 +181,7 @@ export function RenovationMultiSelectTable({
                         maximumFractionDigits: 2,
                         signDisplay: 'always',
                       })}{' '}
-                      €/Jahr
+                      {tCommon('units.eurosPerYear')}
                     </span>
                   </span>
                 </div>

@@ -31,6 +31,7 @@ import { InfoTooltipButton } from '../InfoButton';
 
 export default function HeatStepForm() {
   const { t } = useTranslation('energyCalculation');
+  const { t: tCommon } = useTranslation('common');
   const isSystemOnlyElectrical = useStore($isSystemOnlyElectrical);
   const config = useStore($config);
   const carrierValue = useStore(primaryEnergyCarrierField.$store);
@@ -131,7 +132,7 @@ export default function HeatStepForm() {
               <EnergyNumberInput
                 field={userThermalTotalCostField}
                 labelKey="heat.bills.consumption"
-                suffix=" €/Jahr"
+                suffix={` ${tCommon('units.eurosPerYear')}`}
                 decimalScale={2}
                 fixedDecimalScale
                 allowNegative={false}
@@ -144,7 +145,11 @@ export default function HeatStepForm() {
               <EnergyNumberInput
                 field={userThermalUnitRateField}
                 labelKey="heat.bills.unitRate"
-                suffix={thermalUnit ? ` €/${thermalUnit}` : ' €'}
+                suffix={
+                  thermalUnit
+                    ? ` ${tCommon('units.eurosPerUnit', { unit: thermalUnit })}`
+                    : ' €'
+                }
                 decimalScale={2}
                 fixedDecimalScale
                 allowNegative={false}
@@ -162,7 +167,7 @@ export default function HeatStepForm() {
               <EnergyNumberInput
                 field={userThermalBaseRateField}
                 labelKey="heat.bills.baseRate"
-                suffix=" €/Jahr"
+                suffix={` ${tCommon('units.eurosPerYear')}`}
                 decimalScale={2}
                 fixedDecimalScale
                 allowNegative={false}

@@ -18,10 +18,14 @@ import { $renovatedEnergyState } from '../../../lib/state/computed/renovated-ene
 const CHEVRON_CLIP =
   'polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%)';
 
-function formatRange(from: number | undefined, to: number | undefined): string {
-  if (from == null) return `< ${to} kWh/(m²·Jahr)`;
-  if (to == null) return `> ${from} kWh/(m²·Jahr)`;
-  return `${from} – ${to} kWh/(m²·Jahr)`;
+function formatRange(
+  from: number | undefined,
+  to: number | undefined,
+  unit: string,
+): string {
+  if (from == null) return `< ${to} ${unit}`;
+  if (to == null) return `> ${from} ${unit}`;
+  return `${from} – ${to} ${unit}`;
 }
 
 function EnergyClassRow({
@@ -98,6 +102,8 @@ export default function EnergyClassBars() {
   const steps = bands.length - 1;
 
   const { t } = useTranslation('energyCalculation');
+  const { t: tCommon } = useTranslation('common');
+  const energyDemandUnit = tCommon('units.kilowattHoursPerSquareMeterPerYear');
   const classIndex = Object.fromEntries(
     bands.map((band, i) => [band.value, i]),
   );
@@ -145,6 +151,7 @@ export default function EnergyClassBars() {
           const rangeText = formatRange(
             'from' in band ? band.from : undefined,
             'to' in band ? band.to : undefined,
+            energyDemandUnit,
           );
           return (
             <EnergyClassRow

@@ -43,6 +43,7 @@ export function RenovationRow({
   info,
 }: RenovationRowProps) {
   const { t } = useTranslation('energyCalculation');
+  const { t: tCommon } = useTranslation('common');
 
   return (
     <tr className="border-t border-neutral-200 text-base">
@@ -64,12 +65,13 @@ export function RenovationRow({
             <span
               className={`whitespace-nowrap sm:text-right ${deltaColorClass(energyDelta)}`}
             >
-              {formatEnergy(energyDelta)} kWh/Jahr
+              {formatEnergy(energyDelta)}{' '}
+              {tCommon('units.kilowattHoursPerYear')}
             </span>
             <span
               className={`whitespace-nowrap sm:text-right ${deltaColorClass(savings)}`}
             >
-              {formatSavings(savings)} €/Jahr
+              {formatSavings(savings)} {tCommon('units.eurosPerYear')}
             </span>
           </span>
         </div>

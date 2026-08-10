@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View } from '@react-pdf/renderer';
+import i18next from 'i18next';
 import { formatEuro, formatPercent } from './pdfFormat';
 
 const styles = StyleSheet.create({
@@ -9,9 +10,9 @@ const styles = StyleSheet.create({
     borderColor: '#e5e5e5',
   },
   measure: { width: '40%', fontSize: 11, color: '#191919', paddingRight: 8 },
-  energy:  { width: '20%', fontSize: 11, color: '#191919', fontWeight: 700 },
-  year:    { width: '20%', fontSize: 11, color: '#191919', fontWeight: 700 },
-  month:   { width: '20%', fontSize: 11, color: '#191919', fontWeight: 700 },
+  energy: { width: '20%', fontSize: 11, color: '#191919', fontWeight: 700 },
+  year: { width: '20%', fontSize: 11, color: '#191919', fontWeight: 700 },
+  month: { width: '20%', fontSize: 11, color: '#191919', fontWeight: 700 },
 });
 
 type Props = {
@@ -20,7 +21,12 @@ type Props = {
   costSaving: number;
 };
 
-export function PdfRenovationItem({ label, energySavingPercent, costSaving }: Props) {
+export function PdfRenovationItem({
+  label,
+  energySavingPercent,
+  costSaving,
+}: Props) {
+  const eurosPerYear = i18next.t('common:units.eurosPerYear');
   return (
     <View style={styles.row}>
       <Text style={styles.measure}>{label}</Text>
@@ -28,7 +34,7 @@ export function PdfRenovationItem({ label, energySavingPercent, costSaving }: Pr
         {formatPercent(energySavingPercent, { signed: true })} %
       </Text>
       <Text style={styles.year}>
-        {formatEuro(costSaving, { signed: true })} €/Jahr
+        {formatEuro(costSaving, { signed: true })} {eurosPerYear}
       </Text>
       <Text style={styles.month}>
         {formatEuro(costSaving / 12, { signed: true })} €/Mon.

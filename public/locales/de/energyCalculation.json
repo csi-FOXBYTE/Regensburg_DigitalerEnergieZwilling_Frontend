@@ -10,20 +10,13 @@
     "co2Emissions": "CO₂-Emissionen",
     "beforeRenovation": "Vor Sanierung",
     "afterRenovation": "Nach Sanierung",
-    "energyDemandValue": "{{value}} kWh/(m²·Jahr)",
     "energyEfficiencyValue": "Klasse {{value}}",
-    "annualCostsValue": "{{value}} €/Jahr",
-    "co2EmissionsValue": "{{value}} t CO₂/Jahr",
-    "units": {
-      "energyDemand": "kWh/(m²·Jahr)",
-      "annualCosts": "€/Jahr",
-      "co2Emissions": "t CO₂/Jahr"
-    },
     "energyDemandBreakdown": {
       "carrierHeating": "Heizenergie ({{carrier}})",
       "electricalHeating": "Heizenergie (elektrisch)",
       "householdElectricity": "Haushaltsstrom",
       "details": "Mehr",
+      "less": "Weniger",
       "expand": "Aufschlüsselung des Energiebedarfs anzeigen",
       "collapse": "Aufschlüsselung des Energiebedarfs ausblenden"
     },

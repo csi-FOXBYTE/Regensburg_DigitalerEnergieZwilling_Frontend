@@ -197,7 +197,11 @@ function RenovationStatsCard({
               onClick={() => setIsOpen((previous) => !previous)}
             >
               <span className="font-medium">
-                {t('stats.energyDemandBreakdown.details')}
+                {t(
+                  isOpen
+                    ? 'stats.energyDemandBreakdown.less'
+                    : 'stats.energyDemandBreakdown.details',
+                )}
               </span>
               <ChevronDown
                 className={`ml-0.5 size-3 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
@@ -245,6 +249,7 @@ export default function RenovationStats({
   compact?: boolean;
 }) {
   const { t, i18n } = useTranslation('energyCalculation');
+  const { t: tCommon } = useTranslation('common');
   const effClasses = useStore($energyEfficiencyClasses);
   const before = useStore($currentEnergyState);
   const after = useStore($renovatedEnergyState);
@@ -269,7 +274,9 @@ export default function RenovationStats({
     before.energyCarrierType === after.energyCarrierType
       ? beforeCarrierLabel
       : `${beforeCarrierLabel} → ${afterCarrierLabel}`;
-  const energyDemandUnit = t('stats.units.energyDemand');
+  const energyDemandUnit = tCommon('units.kilowattHoursPerSquareMeterPerYear');
+  const annualCostsUnit = tCommon('units.eurosPerYear');
+  const co2EmissionsUnit = tCommon('units.tonsCo2PerYear');
   const makeEnergyDemandDetail = (
     label: string,
     beforeValue: number,
@@ -342,12 +349,12 @@ export default function RenovationStats({
         titleKey="stats.annualCosts"
         beforeFormatted={formatValue(before.yearlyCost)}
         afterFormatted={formatValue(after.yearlyCost)}
-        unit={t('stats.units.annualCosts')}
+        unit={annualCostsUnit}
         delta={
           <NumericDelta
             before={before.yearlyCost}
             after={after.yearlyCost}
-            unit={t('stats.units.annualCosts')}
+            unit={annualCostsUnit}
           />
         }
       />
@@ -357,12 +364,12 @@ export default function RenovationStats({
         titleKey="stats.co2Emissions"
         beforeFormatted={formatValue(before.co2Emissions, 1)}
         afterFormatted={formatValue(after.co2Emissions, 1)}
-        unit={t('stats.units.co2Emissions')}
+        unit={co2EmissionsUnit}
         delta={
           <NumericDelta
             before={before.co2Emissions}
             after={after.co2Emissions}
-            unit={t('stats.units.co2Emissions')}
+            unit={co2EmissionsUnit}
             fractionDigits={1}
           />
         }

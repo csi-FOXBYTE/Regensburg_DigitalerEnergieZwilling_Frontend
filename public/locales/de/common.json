@@ -7,6 +7,13 @@
     "upTo": "bis {{year}}",
     "from": "ab {{year}}"
   },
+  "units": {
+    "kilowattHoursPerYear": "kWh/Jahr",
+    "kilowattHoursPerSquareMeterPerYear": "kWh/(m²·Jahr)",
+    "eurosPerYear": "€/Jahr",
+    "eurosPerUnit": "€/{{unit}}",
+    "tonsCo2PerYear": "t CO₂/Jahr"
+  },
   "footer": {
     "imprint": "Impressum",
     "privacy": "Datenschutz",

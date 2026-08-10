@@ -52,10 +52,14 @@ const styles = StyleSheet.create({
   badgeText: { fontSize: 8, fontWeight: 700, color: '#ffffff' },
 });
 
-function formatRange(from: number | undefined, to: number | undefined): string {
-  if (from == null) return `< ${to} kWh/(m²·Jahr)`;
-  if (to == null) return `> ${from} kWh/(m²·Jahr)`;
-  return `${from} – ${to} kWh/(m²·Jahr)`;
+function formatRange(
+  from: number | undefined,
+  to: number | undefined,
+  unit: string,
+): string {
+  if (from == null) return `< ${to} ${unit}`;
+  if (to == null) return `> ${from} ${unit}`;
+  return `${from} – ${to} ${unit}`;
 }
 
 export function PdfEnergyClassBars() {
@@ -64,6 +68,7 @@ export function PdfEnergyClassBars() {
   const current = $currentEnergyState.get();
   const renovated = $renovatedEnergyState.get();
   const t = i18next.t.bind(i18next);
+  const energyDemandUnit = t('common:units.kilowattHoursPerSquareMeterPerYear');
 
   const bands = config.general.energyEfficiencyClasses;
   const steps = bands.length - 1;
@@ -111,6 +116,7 @@ export function PdfEnergyClassBars() {
           ? formatRange(
               'from' in band ? band.from : undefined,
               'to' in band ? band.to : undefined,
+              energyDemandUnit,
             )
           : null;
 

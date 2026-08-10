@@ -79,7 +79,11 @@ function CurrentStatsCard({
               onClick={() => setIsOpen((previous) => !previous)}
             >
               <span className="font-medium">
-                {t('stats.energyDemandBreakdown.details')}
+                {t(
+                  isOpen
+                    ? 'stats.energyDemandBreakdown.less'
+                    : 'stats.energyDemandBreakdown.details',
+                )}
               </span>
               <ChevronDown
                 className={`ml-0.5 size-3 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
@@ -138,6 +142,7 @@ export default function CurrentStats({
   embedded?: boolean;
 }) {
   const { t, i18n } = useTranslation('energyCalculation');
+  const { t: tCommon } = useTranslation('common');
   const currentStats = useStore($currentEnergyState);
   const energyCarrierOptions = useStore(primaryEnergyCarrierOptions);
   const formatValue = (value: number, fractionDigits = 0) =>
@@ -145,7 +150,9 @@ export default function CurrentStats({
       minimumFractionDigits: fractionDigits,
       maximumFractionDigits: fractionDigits,
     });
-  const energyDemandUnit = t('stats.units.energyDemand');
+  const energyDemandUnit = tCommon('units.kilowattHoursPerSquareMeterPerYear');
+  const annualCostsUnit = tCommon('units.eurosPerYear');
+  const co2EmissionsUnit = tCommon('units.tonsCo2PerYear');
   const energyCarrier = energyCarrierOptions.find(
     ({ value }) => value === currentStats.energyCarrierType,
   );
@@ -219,14 +226,14 @@ export default function CurrentStats({
       <CurrentStatsCard
         compact={compact}
         value={formatValue(currentStats.yearlyCost)}
-        unit={t('stats.units.annualCosts')}
+        unit={annualCostsUnit}
         titleKey="stats.annualCosts"
         icon={<Euro className="size-5 text-blue-600" />}
       />
       <CurrentStatsCard
         compact={compact}
         value={formatValue(currentStats.co2Emissions, 1)}
-        unit={t('stats.units.co2Emissions')}
+        unit={co2EmissionsUnit}
         titleKey="stats.co2Emissions"
         icon={<Leaf className="size-5 text-green-700" />}
       />
