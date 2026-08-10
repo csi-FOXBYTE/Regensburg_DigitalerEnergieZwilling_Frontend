@@ -41,27 +41,8 @@ export const primaryEnergyCarrierField = makeFieldStore({
   resettable: true,
 });
 
-/**
- * Der Rechenkern liefert für diese beiden Träger noch die alten Bezeichnungen.
- * Bis die angepasste Config deployt ist, werden die Labels hier überschrieben.
- * Danach kann das Mapping ersatzlos entfallen.
- */
-const CARRIER_LABEL_OVERRIDES: Record<string, Record<string, string>> = {
-  wood_biomass: { de: 'Holzscheite' },
-  wood_pellets: { de: 'Holzpellets' },
-};
-
-export const primaryEnergyCarrierOptions = computed(
-  makeSelectionStore((config) => config.heat.primaryEnergyCarriers),
-  (carriers) =>
-    carriers.map((carrier) => {
-      const override = CARRIER_LABEL_OVERRIDES[carrier.value];
-      if (!override) return carrier;
-      return {
-        ...carrier,
-        localization: { ...carrier.localization, ...override },
-      };
-    }),
+export const primaryEnergyCarrierOptions = makeSelectionStore(
+  (config) => config.heat.primaryEnergyCarriers,
 );
 
 bindFieldToOptions(primaryEnergyCarrierField, primaryEnergyCarrierOptions);

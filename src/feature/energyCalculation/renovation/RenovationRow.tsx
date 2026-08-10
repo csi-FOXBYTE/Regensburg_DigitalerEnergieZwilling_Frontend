@@ -59,9 +59,14 @@ export function RenovationRow({
       <td className="px-4 py-4">
         <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
           <span className="flex flex-col items-start gap-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-2">
-            <span className="flex items-center gap-2">
+            <span className="leading-snug">
               {label}
-              {info}
+              {info && (
+                <>
+                  {'\u00a0'}
+                  <span className="inline-flex align-middle">{info}</span>
+                </>
+              )}
             </span>
             {recommended && (
               <Badge className="border-green-600 bg-green-600/10 text-green-600">

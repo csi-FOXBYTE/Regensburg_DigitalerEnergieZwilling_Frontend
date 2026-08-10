@@ -105,12 +105,9 @@ function CurrentStatsCard({
               <div className="mt-1 flex flex-col gap-2 pb-5">
                 <Separator />
                 {details.map((detail) => (
-                  <div
-                    key={detail.label}
-                    className="flex items-baseline justify-between gap-3 text-sm"
-                  >
+                  <div key={detail.label} className="flex flex-col text-sm">
                     <span className="text-neutral-550">{detail.label}</span>
-                    <span className="shrink-0 font-bold">
+                    <span className="font-bold">
                       {detail.value}
                       <span className="ml-1 text-xs">{detail.unit}</span>
                     </span>

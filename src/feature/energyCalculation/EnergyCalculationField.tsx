@@ -32,10 +32,15 @@ export default function EnergyCalculationField({
   return (
     <Field className={className}>
       {labelKey && (
-        <div className="flex w-fit items-center gap-2">
-          <FieldLabel>{t(labelKey)}</FieldLabel>
-          {info}
-        </div>
+        <FieldLabel className="block">
+          {t(labelKey)}
+          {info && (
+            <>
+              {'\u00a0'}
+              <span className="inline-flex align-middle">{info}</span>
+            </>
+          )}
+        </FieldLabel>
       )}
       <div className="flex w-full items-center gap-2">
         {children}
