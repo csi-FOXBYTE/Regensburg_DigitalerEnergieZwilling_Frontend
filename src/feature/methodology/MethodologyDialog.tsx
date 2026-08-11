@@ -177,6 +177,7 @@ function ScopeContent() {
         <li>{t('sections.scope.notProvidesFunding')}</li>
       </Typography>
       <Typography>{t('sections.scope.conclusion')}</Typography>
+      <Typography>{t('sections.scope.resultsPageHint')}</Typography>
     </div>
   );
 }
