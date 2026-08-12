@@ -34,7 +34,7 @@ export default function LandingPageContent() {
 
       <button
         data-next-step
-        className="group/button bg-primary text-primary-foreground flex w-full items-center justify-center gap-2 px-7 py-3"
+        className="group/button bg-primary text-primary-foreground hover:bg-primary-hover flex w-full cursor-pointer items-center justify-center gap-2 px-7 py-3 transition-colors active:translate-y-px active:scale-[0.985]"
       >
         {t('startButton')}
         <ArrowIcon />
