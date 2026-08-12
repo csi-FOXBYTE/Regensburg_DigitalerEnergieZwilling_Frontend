@@ -39,7 +39,8 @@
       "notProvidesCertificate": "einen Energieausweis oder einen anderen norm- beziehungsweise rechtsverbindlichen Nachweis,",
       "notProvidesPlanning": "eine technische Fachplanung, Bauteilprüfung oder belastbare Wirtschaftlichkeitsberechnung,",
       "notProvidesFunding": "eine Förderfähigkeitsprüfung oder Förderzusage.",
-      "conclusion": "Nutzen Sie die Ergebnisse als Orientierung. Lassen Sie den tatsächlichen Gebäudezustand und konkrete Investitionen vor einer Entscheidung durch qualifizierte Fachleute prüfen."
+      "conclusion": "Nutzen Sie die Ergebnisse als Orientierung. Lassen Sie den tatsächlichen Gebäudezustand und konkrete Investitionen vor einer Entscheidung durch qualifizierte Fachleute prüfen.",
+      "resultsPageHint": "Weitere Informationen zu Anlaufstellen und nächsten Schritten finden Sie auf der Ergebnisseite."
     },
     "data": {
       "title": "LoD2-, Geometrie- und Gebäudedaten",

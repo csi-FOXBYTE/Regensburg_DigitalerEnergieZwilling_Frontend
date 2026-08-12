@@ -39,7 +39,8 @@
       "notProvidesCertificate": "an energy performance certificate or any other standards-compliant or legally binding evidence,",
       "notProvidesPlanning": "technical planning, building-component inspection or a reliable profitability calculation,",
       "notProvidesFunding": "an eligibility assessment or confirmation of funding.",
-      "conclusion": "Use the results for orientation. Have the actual building condition and any planned investment checked by qualified professionals before making a decision."
+      "conclusion": "Use the results for orientation. Have the actual building condition and any planned investment checked by qualified professionals before making a decision.",
+      "resultsPageHint": "Further information on points of contact and next steps can be found on the results page."
     },
     "data": {
       "title": "LoD2, geometry and building data",
