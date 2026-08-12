@@ -2,6 +2,7 @@ import { Check, MessageCircle, Send } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../ui/button';
+import { Callout } from '../ui/callout';
 import {
   Dialog,
   DialogContent,
@@ -162,11 +163,11 @@ export default function FeedbackButton() {
                 <FieldDescription>{t('feedback.email.hint')}</FieldDescription>
               </Field>
 
-              <div className="bg-muted border-input-border border p-4">
-                <Typography variant="small" className="text-muted-foreground">
+              <Callout variant="info">
+                <Typography variant="small">
                   {t('feedback.privacyNotice')}
                 </Typography>
-              </div>
+              </Callout>
 
               <Button
                 type="submit"

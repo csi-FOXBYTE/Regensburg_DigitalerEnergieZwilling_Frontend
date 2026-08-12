@@ -1,6 +1,6 @@
+import { Callout } from '@/components/ui/callout';
 import { Typography } from '@/components/ui/typography';
 import { useStore } from '@nanostores/react';
-import { Info } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import {
   $configLoadFailed,
@@ -20,13 +20,9 @@ export function SubsidySection() {
         <Typography variant="muted">{t('subsidy.disclaimer')}</Typography>
       </div>
       {loadFailed ? (
-        <div
-          role="alert"
-          className="flex items-start gap-2 border border-[#e30613] bg-white px-3 py-2.5 text-sm text-[#e30613]"
-        >
-          <Info className="mt-0.5 size-4 shrink-0" />
+        <Callout role="alert" variant="warning">
           <span>{t('subsidy.loadError')}</span>
-        </div>
+        </Callout>
       ) : (
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {subsidies

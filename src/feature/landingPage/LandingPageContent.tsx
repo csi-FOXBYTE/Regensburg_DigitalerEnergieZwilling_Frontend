@@ -1,12 +1,7 @@
 import ArrowIcon from '@/components/ArrowIcon';
+import { Callout } from '@/components/ui/callout';
 import { Typography } from '@/components/ui/typography';
-import {
-  AlertCircle,
-  Calculator,
-  FileText,
-  MapPin,
-  Wrench,
-} from 'lucide-react';
+import { Calculator, FileText, MapPin, Wrench } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const ICON_MAP = { MapPin, Calculator, Wrench, FileText } as const;
@@ -40,13 +35,14 @@ export default function LandingPageContent() {
         <ArrowIcon />
       </button>
 
-      <div className="border-primary flex gap-4 border p-4">
-        <AlertCircle className="text-primary mt-0.5 size-5 shrink-0" />
-        <div>
-          <Typography variant="h4">{t('remarkTitle')}</Typography>
-          <Typography variant="body">{t('remarkContent')}</Typography>
-        </div>
-      </div>
+      <Callout
+        variant="info"
+        size="large"
+        title={t('remarkTitle')}
+        className="bg-background"
+      >
+        <Typography variant="body">{t('remarkContent')}</Typography>
+      </Callout>
     </>
   );
 }

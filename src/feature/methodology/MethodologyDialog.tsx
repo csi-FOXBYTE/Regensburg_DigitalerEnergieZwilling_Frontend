@@ -4,8 +4,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Callout } from '@/components/ui/callout';
 import {
   Dialog,
   DialogContent,
@@ -23,7 +23,7 @@ import makeFieldStore from '@/lib/field-store';
 import { $config } from '@/lib/state/calculation-config';
 import { $step, Step } from '@/lib/state/ui/progress';
 import { useStore } from '@nanostores/react';
-import { AlertTriangle, BookOpenText, Database } from 'lucide-react';
+import { BookOpenText, Database } from 'lucide-react';
 import { atom } from 'nanostores';
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -56,12 +56,9 @@ function OpenPoint({ children }: { children: ReactNode }) {
   const { t } = useTranslation('methodology');
 
   return (
-    <div className="border-primary flex flex-col gap-1 border-l-2 pl-3">
-      <Typography variant="small" className="font-bold">
-        {t('draft.openPoint')}
-      </Typography>
+    <Callout variant="warning" title={t('draft.openPoint')}>
       <Typography>{children}</Typography>
-    </div>
+    </Callout>
   );
 }
 
@@ -495,24 +492,15 @@ function MethodologyDialogContent() {
 
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5 sm:px-8 sm:py-6">
         <div className="mx-auto flex max-w-4xl flex-col gap-6">
-          <section
-            className="border-primary bg-primary/5 flex gap-3 border-2 p-4"
+          <Callout
+            variant="warning"
+            size="large"
+            title={t('draft.title')}
+            titleId="methodology-draft-title"
             aria-labelledby="methodology-draft-title"
           >
-            <AlertTriangle
-              className="text-primary mt-0.5 size-6 shrink-0"
-              aria-hidden="true"
-            />
-            <div className="flex flex-col gap-1">
-              <div className="flex flex-wrap items-center gap-2">
-                <Badge variant="destructive">{t('draft.badge')}</Badge>
-                <Typography id="methodology-draft-title" as="h2" variant="h4">
-                  {t('draft.title')}
-                </Typography>
-              </div>
-              <Typography variant="small">{t('draft.description')}</Typography>
-            </div>
-          </section>
+            <Typography variant="small">{t('draft.description')}</Typography>
+          </Callout>
 
           <section className="flex flex-col gap-3" aria-labelledby="demo-title">
             <div>

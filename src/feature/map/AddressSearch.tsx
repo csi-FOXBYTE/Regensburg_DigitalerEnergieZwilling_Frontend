@@ -1,7 +1,8 @@
+import { Callout } from '@/components/ui/callout';
 import { useStore } from '@nanostores/react';
 import { useDebounce } from '@uidotdev/usehooks';
 import { Command } from 'cmdk';
-import { Info, Search, X } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { type ReactNode, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { parseQuery, useAddressSearch } from '../../lib/addressDb';
@@ -169,32 +170,36 @@ export default function AddressSearch({
         )}
 
         {isError && (
-          <div
+          <Callout
             role="alert"
-            className="flex items-start gap-2 border border-t-0 border-[#e30613] bg-white px-3 py-2.5 text-sm text-[#e30613] shadow-lg md:py-3 md:text-base"
+            variant="danger"
+            className="border-t-0 shadow-lg md:text-base"
           >
-            <Info className="mt-0.5 size-4 shrink-0" />
             <span>{t('addressSearch.loadError')}</span>
-          </div>
+          </Callout>
         )}
       </Command>
 
       {!hintDismissed && !building && (
-        <div className="mt-2 flex items-start gap-2 border border-[#e30613] bg-white/80 px-3 py-2 text-sm shadow-lg">
-          <Info className="mt-0.5 size-4 shrink-0 text-[#e30613]" />
+        <Callout
+          variant="info"
+          className="mt-2 shadow-lg"
+          action={
+            <button
+              type="button"
+              onClick={() => setHintDismissed(true)}
+              className="text-blue-700 hover:text-blue-900"
+              aria-label={t('addressSearch.ariaDismissLabel')}
+            >
+              <X className="size-4" />
+            </button>
+          }
+        >
           <p className="flex-1">
             <strong>{t('addressSearch.chooseBuilding')}</strong>{' '}
             {t('addressSearch.infoText')}
           </p>
-          <button
-            type="button"
-            onClick={() => setHintDismissed(true)}
-            className="text-[#e30613] hover:text-[#8b2412]"
-            aria-label={t('addressSearch.ariaDismissLabel')}
-          >
-            <X className="size-4" />
-          </button>
-        </div>
+        </Callout>
       )}
     </div>
   );

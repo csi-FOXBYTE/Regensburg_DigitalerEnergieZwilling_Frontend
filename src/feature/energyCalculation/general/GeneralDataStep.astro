@@ -1,9 +1,9 @@
 ---
 import ContentContainer from '@/components/layouts/ContentContainer.astro';
 import EnergyCalculationPage from '@/components/layouts/EnergyCalculationPage.astro';
+import { Callout } from '@/components/ui/callout';
 import { Typography } from '@/components/ui/typography';
 import i18next from 'i18next';
-import { AlertCircle } from 'lucide-react';
 import BuildingAddress from '../BuildingAddress';
 import GeneralDataButtonBar from './GeneralDataButtonBar';
 import GeneralDataStepForm from './GeneralDataStepForm';
@@ -15,18 +15,11 @@ import GeneralDataStepForm from './GeneralDataStepForm';
       {i18next.t('energyCalculation:generalData.title')}
     </Typography>
     <BuildingAddress client:load />
-    <div class="border-primary mt-4 flex gap-2 border-2 p-3">
-      <AlertCircle
-        className="text-primary shrink-0 cursor-pointer"
-        style={{
-          width: 'clamp(20px, calc(16px + 1vw), 24px)',
-          height: 'clamp(20px, calc(16px + 1vw), 24px)',
-        }}
-      />
+    <Callout variant="info" className="mt-4">
       <Typography variant="small">
         {i18next.t('energyCalculation:generalData.dataSourceRemark')}
       </Typography>
-    </div>
+    </Callout>
   </ContentContainer>
   <ContentContainer class="mt-8">
     <GeneralDataStepForm client:load />

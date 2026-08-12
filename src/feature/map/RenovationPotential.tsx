@@ -1,6 +1,7 @@
 import { Badge } from '@/components/ui/badge';
+import { Callout } from '@/components/ui/callout';
 import { Typography } from '@/components/ui/typography';
-import { AlertTriangle, HelpCircle } from 'lucide-react';
+import { HelpCircle } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import RenovationPotentialInfoDialog from './RenovationPotentialInfoDialog';
@@ -104,17 +105,15 @@ export default function RenovationPotential({
         )}
 
         {potential.showHeritageWarning && (
-          <div className="mt-3 flex gap-2 rounded-md border border-amber-500 bg-amber-50 p-2.5">
-            <AlertTriangle className="mt-0.5 size-4 shrink-0 text-amber-700" />
-            <div>
-              <Typography variant="small" className="font-bold text-amber-900">
-                {t('renovationPotential.heritageWarning.title')}
-              </Typography>
-              <Typography variant="verySmall" className="mt-1 text-amber-900">
-                {t('renovationPotential.heritageWarning.description')}
-              </Typography>
-            </div>
-          </div>
+          <Callout
+            variant="warning"
+            className="mt-3"
+            title={t('renovationPotential.heritageWarning.title')}
+          >
+            <Typography variant="verySmall">
+              {t('renovationPotential.heritageWarning.description')}
+            </Typography>
+          </Callout>
         )}
 
         <button

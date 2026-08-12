@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import { Callout } from '@/components/ui/callout';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Typography } from '@/components/ui/typography';
 import { EnergyReportDocument } from '@/feature/export/EnergyReportDocument';
@@ -152,23 +153,30 @@ export function NextStepsSection() {
           <Typography variant="muted" className="whitespace-pre-line">
             {t('export.consentDescription')}
           </Typography>
-          <label className="mt-4 flex cursor-pointer items-start gap-3 rounded-lg border border-green-200 bg-green-50 p-4">
-            <Checkbox
-              checked={consent}
-              onCheckedChange={(v) => setConsent(v === true)}
-              className="mt-0.5 size-5 border-2 border-neutral-550"
-            />
-            <div className="flex flex-col gap-3">
-              <Typography variant="small">
-                {t('export.consentLabel')}
-              </Typography>
-              <div className="text-muted-foreground flex items-start gap-2">
-                <ShieldCheck className="mt-0.5 size-4 shrink-0" />
-                <Typography variant="muted" className="text-xs">
-                  {t('export.privacyNote')}
+          <label className="mt-4 block cursor-pointer">
+            <Callout
+              variant="positive"
+              size="large"
+              icon={
+                <Checkbox
+                  checked={consent}
+                  onCheckedChange={(v) => setConsent(v === true)}
+                  className="border-neutral-550 size-5 border-2"
+                />
+              }
+            >
+              <div className="flex flex-col gap-3">
+                <Typography variant="small">
+                  {t('export.consentLabel')}
                 </Typography>
+                <div className="flex items-start gap-2">
+                  <ShieldCheck className="mt-0.5 size-4 shrink-0" />
+                  <Typography variant="small" className="text-xs">
+                    {t('export.privacyNote')}
+                  </Typography>
+                </div>
               </div>
-            </div>
+            </Callout>
           </label>
         </TimelineStep>
 

@@ -42,6 +42,20 @@
   --footer: var(--neutral-850);
   --footer-foreground: var(--white);
 
+  /* Semantic Status Colors */
+  --info: var(--regensburg-red);
+  --info-background: #fef2f2;
+  --info-icon: var(--regensburg-red);
+  --warning: #f59e0b;
+  --warning-background: #fffbeb;
+  --warning-icon: #b45309;
+  --danger: var(--regensburg-red);
+  --danger-background: #fef2f2;
+  --danger-icon: var(--regensburg-red);
+  --positive: #16a34a;
+  --positive-background: #f0fdf4;
+  --positive-icon: #15803d;
+
   /* Chart Colors */
   --chart-1: oklch(0.809 0.105 251.813);
   --chart-2: oklch(0.623 0.214 259.815);
@@ -164,6 +178,18 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --color-footer: var(--footer);
   --color-footer-foreground: var(--footer-foreground);
+  --color-info: var(--info);
+  --color-info-background: var(--info-background);
+  --color-info-icon: var(--info-icon);
+  --color-warning: var(--warning);
+  --color-warning-background: var(--warning-background);
+  --color-warning-icon: var(--warning-icon);
+  --color-danger: var(--danger);
+  --color-danger-background: var(--danger-background);
+  --color-danger-icon: var(--danger-icon);
+  --color-positive: var(--positive);
+  --color-positive-background: var(--positive-background);
+  --color-positive-icon: var(--positive-icon);
 
   /* Radius */
   --radius-sm: calc(var(--radius) - 4px);
