@@ -632,7 +632,7 @@ export default function MethodologyDialog() {
           type="button"
           variant="elevated"
           size="default"
-          className="text-primary hover:text-primary-hover fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] left-4 z-40 h-14 rounded-full px-4 shadow-[0_4px_12px_0px_rgba(0,0,0,0.22)] hover:bg-white hover:shadow-[0_0_12px_4px_rgba(0,0,0,0.15)] sm:left-6"
+          className="text-primary hover:text-primary-hover fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] left-6 z-40 h-14 gap-2 rounded-full px-4 shadow-[0_4px_12px_0px_rgba(0,0,0,0.22)] hover:bg-white hover:shadow-[0_0_12px_4px_rgba(0,0,0,0.15)]"
           aria-label={t('trigger')}
         >
           <BookOpenText className="size-6" aria-hidden="true" />
