@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore':
-        specifier: 0.18.1
-        version: 0.18.1(zod@3.25.76)
+        specifier: 0.18.2
+        version: 0.18.2(zod@3.25.76)
       '@fontsource-variable/geist':
         specifier: ^5.2.8
         version: 5.2.9
@@ -354,8 +354,8 @@ packages:
     resolution: {integrity: sha512-52PO61PKm6Cut1BR/OqrPLmDXL9lk7iwGHXWbWQpg1pJT8SaJ7PXyLqcAPz+6VTYXspmE4D6Xo0PgIav33dEEQ==}
     engines: {node: '>=22.0.0'}
 
-  '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore@0.18.1':
-    resolution: {integrity: sha512-NKvIxFznS6uhFJuwdKpbl4edc6hyUlp6veFnPULpX2di7NNBn0zjQmFB2Lp6IXAjzMG9hclTEb1WY9rfg84z/g==, tarball: https://npm.pkg.github.com/download/@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore/0.18.1/90cb7ae14b5466f63d148a91ca714914b025f7b3}
+  '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore@0.18.2':
+    resolution: {integrity: sha512-uWoZXsmfsD5mEdxTo1YCEK9I3+NhJzrN6Zxnw493oMcbpCxvLSHhaMO0u1jWcX5lMBbDTHGY5yxzADpg9Etu2w==, tarball: https://npm.pkg.github.com/download/@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore/0.18.2/4bd99e1a2104745f0a88e03e36e69b4f8ad4c72d}
     hasBin: true
     peerDependencies:
       zod: ^3.24.0
@@ -5155,7 +5155,7 @@ snapshots:
       '@cesium/engine': 26.0.0
       nosleep.js: 0.12.0
 
-  '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore@0.18.1(zod@3.25.76)':
+  '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore@0.18.2(zod@3.25.76)':
     dependencies:
       zod: 3.25.76
 
