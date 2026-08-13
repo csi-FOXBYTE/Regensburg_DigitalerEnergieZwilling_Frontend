@@ -97,11 +97,16 @@ export default function RenovationPotential({
           {description}
         </Typography>
         {potential.constructionYear != null && (
-          <Typography variant="verySmall" className="mt-1">
-            {t('renovationPotential.basis', {
-              year: potential.constructionYear,
-            })}
-          </Typography>
+          <div className="mt-1 flex flex-col gap-1">
+            <Typography variant="verySmall">
+              {t('renovationPotential.basis', {
+                year: potential.constructionYear,
+              })}
+            </Typography>
+            <Typography variant="verySmall">
+              {t('renovationPotential.assumption')}
+            </Typography>
+          </div>
         )}
 
         {potential.showHeritageWarning && (

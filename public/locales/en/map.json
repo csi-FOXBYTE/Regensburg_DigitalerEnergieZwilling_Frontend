@@ -40,6 +40,7 @@
       "unknown": "No construction year is known for this building. Its energy-renovation potential can only be shown in a subsequent step."
     },
     "basis": "Initial estimate based on the construction year {{year}}.",
+    "assumption": "The estimate is based on the assumption that no extensive renovation has taken place in the meantime.",
     "infoLink": "How is this estimate determined?",
     "heritageWarning": {
       "title": "Possible heritage protection",

@@ -1,5 +1,11 @@
 import DesktopOnly from '@/components/DesktopOnly';
 import MobileOnly from '@/components/MobileOnly';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { Typography } from '@/components/ui/typography';
 import {
   $maxStepReached,
@@ -77,12 +83,14 @@ function DesktopTick({
   maxStepReached,
   onClick,
   label,
+  tooltipLabel,
 }: {
   index: number;
   step: number;
   maxStepReached: number;
   onClick: (step: number) => void;
   label: string;
+  tooltipLabel: string;
 }) {
   const isHighlighted = index <= step;
   const wasReached = index <= maxStepReached;
@@ -90,20 +98,38 @@ function DesktopTick({
   const isClickable = index !== step && wasReached;
 
   const clicked = useCallback(() => {
+    if (!isClickable) return;
     onClick(index);
-  }, [index, onClick]);
+  }, [index, isClickable, onClick]);
 
-  return (
+  const tick = (
     <button
-      disabled={!isClickable}
+      type="button"
+      aria-disabled={!isClickable}
       onClick={clicked}
       aria-label={label}
       className={cn(
-        'h-full flex-1 cursor-pointer bg-neutral-200 disabled:cursor-default',
+        'h-full flex-1 bg-neutral-200',
+        isClickable ? 'cursor-pointer' : 'cursor-default',
         isHighlighted && 'bg-primary',
         isReachedAhead && 'bg-primary-hover',
       )}
     />
+  );
+
+  if (!wasReached) return tick;
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>{tick}</TooltipTrigger>
+      <TooltipContent
+        side="bottom"
+        sideOffset={8}
+        className="max-w-70 rounded bg-white px-4 py-3 text-sm leading-relaxed text-[#191919] shadow-lg"
+      >
+        {tooltipLabel}
+      </TooltipContent>
+    </Tooltip>
   );
 }
 
@@ -126,6 +152,7 @@ function DesktopProgressBar({ step, maxStepReached }: VisualProgressBarProps) {
           step: tickStep,
           label: t(`steps.${tickStep}`),
         })}
+        tooltipLabel={t(`steps.${tickStep}`)}
       />,
     );
   }
@@ -138,7 +165,11 @@ function DesktopProgressBar({ step, maxStepReached }: VisualProgressBarProps) {
           {label}
         </Typography>
       </div>
-      <div className={cn('flex h-2 w-full justify-between gap-1')}>{ticks}</div>
+      <TooltipProvider>
+        <div className={cn('flex h-2 w-full justify-between gap-1')}>
+          {ticks}
+        </div>
+      </TooltipProvider>
     </nav>
   );
 }

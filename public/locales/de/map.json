@@ -40,6 +40,7 @@
       "unknown": "Für dieses Gebäude liegt kein bekanntes Baujahr vor. Ein energetisches Sanierungspotenzial kann erst in einem Folgeschritt angezeigt werden."
     },
     "basis": "Ersteinschätzung auf Basis des Baujahrs {{year}}.",
+    "assumption": "Die Einschätzung basiert auf der Annahme, dass zwischenzeitlich keine umfangreiche Sanierung stattgefunden hat.",
     "infoLink": "Wie entsteht diese Einschätzung?",
     "heritageWarning": {
       "title": "Möglicher Denkmalschutz",
