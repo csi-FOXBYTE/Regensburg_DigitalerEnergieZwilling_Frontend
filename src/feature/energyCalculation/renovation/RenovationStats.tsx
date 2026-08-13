@@ -23,18 +23,18 @@ type StatDetail = {
 };
 
 function formatValue(value: number, fractionDigits = 0) {
-  return value.toLocaleString('de-DE', {
+  return `~${value.toLocaleString('de-DE', {
     minimumFractionDigits: fractionDigits,
     maximumFractionDigits: fractionDigits,
-  });
+  })}`;
 }
 
 function formatDelta(value: number, fractionDigits = 0) {
-  return value.toLocaleString('de-DE', {
+  return `~${value.toLocaleString('de-DE', {
     minimumFractionDigits: fractionDigits,
     maximumFractionDigits: fractionDigits,
     signDisplay: 'always',
-  });
+  })}`;
 }
 
 function calculatePerSquareMeter(

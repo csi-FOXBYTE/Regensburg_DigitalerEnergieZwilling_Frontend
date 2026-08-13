@@ -6,6 +6,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import type { FieldStore } from '@/lib/field-store';
+import { cn } from '@/lib/utils';
 import {
   formatRangeLabel,
   rangeKeyEquals,
@@ -58,6 +59,10 @@ function EnergySelectInputBase<T>({
   const placeholderLabel = placeholder != null
     ? items.find((o) => isEqual(o.value, placeholder))?.label
     : undefined;
+  // Keep the overhang of the final italic glyph inside the trigger's clipping area.
+  const paddedPlaceholder = placeholderLabel != null
+    ? `${placeholderLabel}\u2009`
+    : undefined;
 
   return (
     <EnergyCalculationField
@@ -73,9 +78,12 @@ function EnergySelectInputBase<T>({
         disabled={disabled}
       >
         <SelectTrigger
-          className={value != null ? 'border-neutral-450' : undefined}
+          className={cn(
+            'data-placeholder:italic',
+            value != null && 'border-neutral-450',
+          )}
         >
-          <SelectValue placeholder={placeholderLabel} />
+          <SelectValue placeholder={paddedPlaceholder} />
         </SelectTrigger>
         <SelectContent>
           {items.map((option, index) => (

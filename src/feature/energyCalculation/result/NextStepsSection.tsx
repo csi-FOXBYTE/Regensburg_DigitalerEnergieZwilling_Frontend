@@ -115,6 +115,7 @@ export function NextStepsSection() {
             longitude: building.coordinates.lon,
             latitude: building.coordinates.lat,
           });
+          toast.success(t('export.submissionSuccess'));
           const deletionLink = `${window.location.origin}${window.location.pathname}/delete?token=${encodeURIComponent(result.deletionLink)}`;
           const jsonPayload = btoa(encodeURIComponent(JSON.stringify(result)));
           const jsonLink = `${window.location.origin}${window.location.pathname}/delete?download-json=${encodeURIComponent(jsonPayload)}&filename=${encodeURIComponent(`${t('export.reportTitle')}.json`)}`;

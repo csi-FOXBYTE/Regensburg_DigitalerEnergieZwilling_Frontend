@@ -459,6 +459,7 @@
     "categoryLabel": "Category",
     "subsidyColumnTitle": "Title",
     "subsidyColumnLink": "Link",
+    "submissionSuccess": "Data was submitted successfully.",
     "submissionError": "Data could not be submitted. The PDF report will be downloaded anyway.",
     "downloadError": "The PDF report could not be generated. Please try again.",
     "dataLinksTitle": "Your Data Management",

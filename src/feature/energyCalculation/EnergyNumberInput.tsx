@@ -3,6 +3,7 @@ import {
   type NumberInputProps,
 } from '@/components/ui/number-input';
 import type { FieldStore } from '@/lib/field-store';
+import { cn } from '@/lib/utils';
 import { useStore } from '@nanostores/react';
 import type { ParseKeys } from 'i18next';
 import type { ReactNode } from 'react';
@@ -38,6 +39,10 @@ export default function EnergyNumberInput({
         maximumFractionDigits: decimalScale,
       })}${suffix ?? ''}`
     : suffix != null ? `- ${suffix.trim()}` : undefined;
+  // Keep the overhang of the final italic glyph inside the input's clipping area.
+  const paddedPlaceholder = placeholderStr != null
+    ? `${placeholderStr}\u2009`
+    : undefined;
 
   return (
     <EnergyCalculationField
@@ -51,8 +56,11 @@ export default function EnergyNumberInput({
       <NumberInput
         value={value ?? ''}
         onValueChange={(values) => field.setValue(values.floatValue)}
-        placeholder={placeholderStr}
-        className={value != null ? 'border-neutral-450' : undefined}
+        placeholder={paddedPlaceholder}
+        className={cn(
+          'placeholder:italic',
+          value != null && 'border-neutral-450',
+        )}
         aria-invalid={error ? true : undefined}
         {...props}
       />

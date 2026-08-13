@@ -62,7 +62,13 @@ export default function EnergyBooleanInput<
         onValueChange={(v) => field.setValue(v === 'true')}
         className="flex flex-row gap-4 pt-1"
       >
-        <Label htmlFor={`${id}-true`} className="text-base font-normal">
+        <Label
+          htmlFor={`${id}-true`}
+          className={cn(
+            'text-base font-normal',
+            isPlaceholder && placeholder === true && 'italic',
+          )}
+        >
           <RadioGroupItem
             value="true"
             id={`${id}-true`}
@@ -70,7 +76,13 @@ export default function EnergyBooleanInput<
           />
           {trueLabel}
         </Label>
-        <Label htmlFor={`${id}-false`} className="text-base font-normal">
+        <Label
+          htmlFor={`${id}-false`}
+          className={cn(
+            'text-base font-normal',
+            isPlaceholder && placeholder === false && 'italic',
+          )}
+        >
           <RadioGroupItem
             value="false"
             id={`${id}-false`}

@@ -143,10 +143,10 @@ export default function CurrentStats({
   const currentStats = useStore($currentEnergyState);
   const energyCarrierOptions = useStore(primaryEnergyCarrierOptions);
   const formatValue = (value: number, fractionDigits = 0) =>
-    value.toLocaleString('de-DE', {
+    `~${value.toLocaleString('de-DE', {
       minimumFractionDigits: fractionDigits,
       maximumFractionDigits: fractionDigits,
-    });
+    })}`;
   const energyDemandUnit = tCommon('units.kilowattHoursPerSquareMeterPerYear');
   const annualCostsUnit = tCommon('units.eurosPerYear');
   const co2EmissionsUnit = tCommon('units.tonsCo2PerYear');
