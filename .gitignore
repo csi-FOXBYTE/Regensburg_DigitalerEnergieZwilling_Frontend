@@ -27,4 +27,8 @@ pnpm-debug.log*
 public/cesium/
 .vscode/
 
+# Playwright
+playwright-report/
+test-results/
+
 /docs/local

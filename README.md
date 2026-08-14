@@ -35,8 +35,21 @@ All commands are run from the root of the project, from a terminal:
 | `pnpm dev`             | Starts local dev server at `localhost:4321`      |
 | `pnpm build`           | Build your production site to `./dist/`          |
 | `pnpm preview`         | Preview your build locally, before deploying     |
+| `pnpm test:e2e`        | Run Playwright tests in all responsive viewports |
+| `pnpm test:e2e:ui`     | Open Playwright's interactive test runner        |
 | `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `pnpm astro -- --help` | Get help using the Astro CLI                     |
+
+## End-to-end tests
+
+`pnpm test:e2e` runs the same smoke and responsive checks against
+`https://det.rg.foxbyte.de` in the locally installed Microsoft Edge at desktop,
+tablet, and mobile viewport sizes. Set `PLAYWRIGHT_BASE_URL` to target another
+deployment. The tests cover the landing page, address search, selection of a
+known building, the transition to the first data-entry step, horizontal
+overflow, 200% user font sizing, Windows forced-colors mode, and automated
+color-contrast checks. The generated HTML report and test artifacts are stored
+in `playwright-report/` and `test-results/`.
 
 ## 👀 Want to learn more?
 
