@@ -25,6 +25,9 @@ import {
 } from '../../lib/state/building';
 import { $step, Step } from '../../lib/state/ui/progress';
 
+// Entwicklungsstand: Direkte S3-URLs dürfen nicht in das Kundendeployment
+// übernommen werden. Der produktive Tile-Zugriff muss einheitlich über
+// APISIX und /api/public/tiles/* konfiguriert werden.
 const terrainProvider = Cesium.CesiumTerrainProvider.fromUrl(
   'https://s3.rg.foxbyte.de/det-rg-terrain',
   {},
@@ -39,6 +42,7 @@ const openStreetMapImagerProvider = new Cesium.UrlTemplateImageryProvider({
     'Map tiles by CartoDB, under CC BY 3.0. Data by OpenStreetMap, under ODbL.',
 });
 
+// TODO vor Kundendeployment: /api/public/tiles/* statt direktem S3-Endpunkt.
 const CESIUM_3D_TILES_URL = 'https://s3.rg.foxbyte.de/det-rg-main/tileset.json';
 const SELECTED_FEATURE_COLOR = '#fff200';
 const NON_TARGET_FEATURE_COLOR = '#e5e5e5';
