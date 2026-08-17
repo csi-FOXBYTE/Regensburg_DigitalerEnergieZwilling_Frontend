@@ -188,7 +188,6 @@ export default function AddressSearch({
             <button
               type="button"
               onClick={() => setHintDismissed(true)}
-              className="text-blue-700 hover:text-blue-900"
               aria-label={t('addressSearch.ariaDismissLabel')}
             >
               <X className="size-4" />
