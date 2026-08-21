@@ -298,6 +298,13 @@
     },
     "recommended": "Empfohlen",
     "selectRecommended": "Empfohlene Maßnahmen auswählen",
+    "summary": {
+      "trigger": "Auswahl anzeigen",
+      "title": "Gewählte Sanierungsmaßnahmen",
+      "description": "Ihre Auswahl aus Schritt 6.",
+      "hint": "Ändern können Sie die Auswahl im vorherigen Schritt.",
+      "noMeasure": "Keine Maßnahme ausgewählt"
+    },
     "tooltips": {
       "envelope_roof": "Eine Dachdämmung reduziert Wärmeverluste über das Dach deutlich und verbessert den Hitzeschutz im Sommer. Besonders bei ausgebauten Dachgeschossen ist die Maßnahme sehr wirkungsvoll. Die Berechnung wird nur berücksichtigt, wenn der Dachraum beheizt ist.",
       "envelope_topFloor": "Über die oberste Geschossdecke geht oft viel Heizwärme verloren. Eine Dämmung dieser Fläche zählt zu den einfachsten und wirtschaftlichsten Sanierungsmaßnahmen. Die Berechnung wird nur berücksichtigt, wenn der Dachraum unbeheizt ist.",

@@ -298,6 +298,13 @@
     },
     "recommended": "Recommended",
     "selectRecommended": "Select recommended measures",
+    "summary": {
+      "trigger": "Show selection",
+      "title": "Selected Renovation Measures",
+      "description": "Your selection from step 6.",
+      "hint": "You can change the selection in the previous step.",
+      "noMeasure": "No measure selected"
+    },
     "tooltips": {
       "envelope_roof": "Roof insulation significantly reduces heat loss through the roof and improves summer heat protection. The measure is especially effective in converted loft spaces. The calculation only applies when the loft is heated.",
       "envelope_topFloor": "A lot of heat is often lost through the top floor ceiling. Insulating this surface is one of the simplest and most cost-effective renovation measures. The calculation only applies when the loft is unheated.",
