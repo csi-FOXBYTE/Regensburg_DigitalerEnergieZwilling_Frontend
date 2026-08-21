@@ -77,7 +77,7 @@ export default function FeedbackButton() {
       <DialogContent className="sm:max-w-lg">
         <DialogHeader className="flex-row items-center gap-3">
           <span className="bg-muted text-primary flex size-10 shrink-0 items-center justify-center rounded-full">
-            <MessageCircle className="size-5" />
+            <MessageCircle className="size-5" aria-hidden="true" />
           </span>
           <div className="flex flex-col gap-0.5">
             <DialogTitle>{t('feedback.title')}</DialogTitle>
@@ -85,12 +85,16 @@ export default function FeedbackButton() {
           </div>
         </DialogHeader>
         {submitted ? (
-          <div className="flex flex-col items-center gap-4 py-8 text-center">
+          <div
+            className="flex flex-col items-center gap-4 py-8 text-center"
+            role="status"
+            aria-live="polite"
+          >
             <span className="flex size-16 shrink-0 items-center justify-center rounded-full bg-green-100 text-green-600">
-              <Check className="size-8" />
+              <Check className="size-8" aria-hidden="true" />
             </span>
             <div className="flex flex-col gap-1">
-              <Typography variant="h4">
+              <Typography as="h3" variant="h4">
                 {t('feedback.success.title')}
               </Typography>
               <Typography variant="muted">
@@ -104,7 +108,9 @@ export default function FeedbackButton() {
               <Field>
                 <FieldLabel htmlFor="feedback-category">
                   {t('feedback.category.label')}{' '}
-                  <span className="text-destructive">*</span>
+                  <span className="text-destructive" aria-hidden="true">
+                    *
+                  </span>
                 </FieldLabel>
                 <Select
                   required
@@ -135,7 +141,9 @@ export default function FeedbackButton() {
               <Field>
                 <FieldLabel htmlFor="feedback-message">
                   {t('feedback.message.label')}{' '}
-                  <span className="text-destructive">*</span>
+                  <span className="text-destructive" aria-hidden="true">
+                    *
+                  </span>
                 </FieldLabel>
                 <Textarea
                   id="feedback-message"
@@ -174,7 +182,8 @@ export default function FeedbackButton() {
                 className="w-full gap-2"
                 disabled={!category || !message.trim()}
               >
-                <Send className="size-5" /> {t('feedback.submit')}
+                <Send className="size-5" aria-hidden="true" />{' '}
+                {t('feedback.submit')}
               </Button>
             </FieldGroup>
           </form>

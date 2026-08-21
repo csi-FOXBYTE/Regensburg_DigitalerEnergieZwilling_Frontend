@@ -116,8 +116,11 @@ export default function DeleteConfirmationDialog() {
           className="flex max-w-md flex-col items-center gap-4 text-center"
           role="status"
         >
-          <LoaderCircle className="text-primary size-8 animate-spin" />
-          <Typography variant="h3">
+          <LoaderCircle
+            className="text-primary size-8 animate-spin"
+            aria-hidden="true"
+          />
+          <Typography as="h1" variant="h3">
             {t('deleteConfirmationDialog.checkingTitle')}
           </Typography>
           <Typography variant="muted">
@@ -164,6 +167,9 @@ export default function DeleteConfirmationDialog() {
   if (state === 'service-error') {
     return (
       <main className="flex min-h-screen items-center justify-center p-8">
+        <h1 className="sr-only">
+          {t('deleteConfirmationDialog.serviceErrorTitle')}
+        </h1>
         <div className="flex w-full max-w-md flex-col gap-5 text-center">
           <Callout
             variant="danger"
@@ -208,6 +214,7 @@ export default function DeleteConfirmationDialog() {
 
   return (
     <main className="flex min-h-screen items-center justify-center p-8">
+      <h1 className="sr-only">{terminalContent.title}</h1>
       <div className="flex w-full max-w-md flex-col gap-5 text-center">
         <Callout
           variant={terminalContent.variant}

@@ -2,6 +2,9 @@
   "hw": "Hello World!",
   "yes": "Yes",
   "no": "No",
+  "close": "Close",
+  "clearInput": "Clear input",
+  "showMoreInformation": "Show more information",
   "yearRange": {
     "between": "{{from}} to {{to}}",
     "upTo": "up to {{year}}",
@@ -15,6 +18,7 @@
     "tonsCo2PerYear": "t CO₂/year"
   },
   "footer": {
+    "navigationLabel": "Legal information and settings",
     "imprint": "Imprint",
     "privacy": "Privacy Policy",
     "cookieSettings": "Cookie Settings",

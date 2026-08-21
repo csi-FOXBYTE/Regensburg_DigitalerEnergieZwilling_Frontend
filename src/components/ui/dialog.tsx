@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { typographyVariants } from '@/components/ui/typography';
 import { cn } from '@/lib/utils';
 import { XIcon } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 function Dialog({
   ...props
@@ -54,6 +55,8 @@ function DialogContent({
 }: React.ComponentProps<typeof DialogPrimitive.Content> & {
   showCloseButton?: boolean;
 }) {
+  const { t } = useTranslation('common');
+
   return (
     <DialogPortal>
       <DialogOverlay />
@@ -72,9 +75,9 @@ function DialogContent({
               variant="ghost"
               className="absolute top-2 right-2"
               size="icon"
+              aria-label={t('close')}
             >
-              <XIcon />
-              <span className="sr-only">Close</span>
+              <XIcon aria-hidden="true" />
             </Button>
           </DialogPrimitive.Close>
         )}
@@ -101,6 +104,8 @@ function DialogFooter({
 }: React.ComponentProps<'div'> & {
   showCloseButton?: boolean;
 }) {
+  const { t } = useTranslation('common');
+
   return (
     <div
       data-slot="dialog-footer"
@@ -110,7 +115,7 @@ function DialogFooter({
       {children}
       {showCloseButton && (
         <DialogPrimitive.Close asChild>
-          <Button variant="secondary">Close</Button>
+          <Button variant="secondary">{t('close')}</Button>
         </DialogPrimitive.Close>
       )}
     </div>

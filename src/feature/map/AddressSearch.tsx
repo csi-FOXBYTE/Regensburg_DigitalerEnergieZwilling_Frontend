@@ -86,7 +86,10 @@ export default function AddressSearch({
         aria-label={t('addressSearch.ariaFormLabel')}
       >
         <div className="relative flex items-center border border-gray-300 bg-white shadow-lg">
-          <Search className="absolute left-3 size-4 shrink-0 text-gray-400" />
+          <Search
+            className="absolute left-3 size-4 shrink-0 text-gray-400"
+            aria-hidden="true"
+          />
           <Command.Input
             value={inputValue}
             onValueChange={(val) => {
@@ -129,7 +132,7 @@ export default function AddressSearch({
               className="absolute right-3 text-gray-400 hover:text-gray-600"
               aria-label={t('addressSearch.ariaDismissLabel')}
             >
-              <X className="size-4" />
+              <X className="size-4" aria-hidden="true" />
             </button>
           )}
         </div>
@@ -190,7 +193,7 @@ export default function AddressSearch({
               onClick={() => setHintDismissed(true)}
               aria-label={t('addressSearch.ariaDismissLabel')}
             >
-              <X className="size-4" />
+              <X className="size-4" aria-hidden="true" />
             </button>
           }
         >

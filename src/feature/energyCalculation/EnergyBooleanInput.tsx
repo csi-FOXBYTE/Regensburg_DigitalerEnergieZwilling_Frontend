@@ -56,10 +56,12 @@ export default function EnergyBooleanInput<
       onReset={field.resettable ? () => field.setValue(undefined) : undefined}
       resetDisabled={value === undefined}
       className={className}
+      labelId={`${id}-label`}
     >
       <RadioGroup
         value={value != null ? String(value) : ''}
         onValueChange={(v) => field.setValue(v === 'true')}
+        aria-labelledby={labelKey ? `${id}-label` : undefined}
         className="flex flex-row gap-4 pt-1"
       >
         <Label

@@ -65,7 +65,7 @@ function BuildingWindowContent({
     <>
       <div className="min-h-0 flex-1 overflow-y-auto border-b border-neutral-200 px-6 py-3">
         <div className="flex items-center gap-1 pt-1 pb-4">
-          <MapPin className="size-4 shrink-0" />
+          <MapPin className="size-4 shrink-0" aria-hidden="true" />
           <Typography variant="body">
             {[
               building.properties.address?.street,
@@ -120,7 +120,10 @@ function BuildingWindowContent({
               <ArrowIcon />
             </Button>
             <div className="mt-2 flex items-center gap-1">
-              <Info className="text-muted-foreground size-3 shrink-0" />
+              <Info
+                className="text-muted-foreground size-3 shrink-0"
+                aria-hidden="true"
+              />
               <Typography variant="small">
                 {t('buildingWindow.processingTime')}
               </Typography>
@@ -212,8 +215,9 @@ export default function BuildingWindow() {
               size="icon"
               onClick={unselectBuilding}
               className="-mt-1 -mr-2 shrink-0"
+              aria-label={t('buildingWindow.closeButton')}
             >
-              <X />
+              <X aria-hidden="true" />
             </Button>
           </DrawerHeader>
           {selectedBuilding && (
@@ -246,13 +250,20 @@ export default function BuildingWindow() {
       >
         <div className="drag-handle flex shrink-0 cursor-move items-start border-b border-neutral-200 px-6 pt-6 pb-3 select-none">
           <div className="grow">
-            <Typography variant="h2">{t('buildingWindow.title')}</Typography>
+            <Typography as="h2" variant="h2">
+              {t('buildingWindow.title')}
+            </Typography>
             <Typography variant="muted" className="pt-3">
               {t('buildingWindow.subtitle')}
             </Typography>
           </div>
-          <Button variant="ghost" size="icon" onClick={unselectBuilding}>
-            <X />
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={unselectBuilding}
+            aria-label={t('buildingWindow.closeButton')}
+          >
+            <X aria-hidden="true" />
           </Button>
         </div>
         {selectedBuilding && (

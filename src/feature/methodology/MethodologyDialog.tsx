@@ -341,22 +341,22 @@ function EnergyAssumptionsContent() {
           </caption>
           <thead className="border-neutral-450 border-b-2">
             <tr>
-              <th className="px-2 py-2 font-bold">
+              <th scope="col" className="px-2 py-2 font-bold">
                 {t('sections.assumptions.columns.carrier')}
               </th>
-              <th className="px-2 py-2 font-bold">
+              <th scope="col" className="px-2 py-2 font-bold">
                 {t('sections.assumptions.columns.energyContent')}
               </th>
-              <th className="px-2 py-2 font-bold">
+              <th scope="col" className="px-2 py-2 font-bold">
                 {t('sections.assumptions.columns.co2')}
               </th>
-              <th className="px-2 py-2 font-bold">
+              <th scope="col" className="px-2 py-2 font-bold">
                 {t('sections.assumptions.columns.primaryFactor')}
               </th>
-              <th className="px-2 py-2 font-bold">
+              <th scope="col" className="px-2 py-2 font-bold">
                 {t('sections.assumptions.columns.unitRate')}
               </th>
-              <th className="px-2 py-2 font-bold">
+              <th scope="col" className="px-2 py-2 font-bold">
                 {t('sections.assumptions.columns.baseRate')}
               </th>
             </tr>
@@ -402,19 +402,19 @@ function EnergyAssumptionsContent() {
           </caption>
           <thead className="border-neutral-450 border-b-2">
             <tr>
-              <th className="px-2 py-2 font-bold">
+              <th scope="col" className="px-2 py-2 font-bold">
                 {t('sections.assumptions.columns.electricityType')}
               </th>
-              <th className="px-2 py-2 font-bold">
+              <th scope="col" className="px-2 py-2 font-bold">
                 {t('sections.assumptions.columns.co2')}
               </th>
-              <th className="px-2 py-2 font-bold">
+              <th scope="col" className="px-2 py-2 font-bold">
                 {t('sections.assumptions.columns.primaryFactor')}
               </th>
-              <th className="px-2 py-2 font-bold">
+              <th scope="col" className="px-2 py-2 font-bold">
                 {t('sections.assumptions.columns.electricityRate')}
               </th>
-              <th className="px-2 py-2 font-bold">
+              <th scope="col" className="px-2 py-2 font-bold">
                 {t('sections.assumptions.columns.baseRate')}
               </th>
             </tr>

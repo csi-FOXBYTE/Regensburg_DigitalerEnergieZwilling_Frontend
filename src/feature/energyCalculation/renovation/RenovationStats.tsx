@@ -141,7 +141,7 @@ function RenovationStatsCard({
       <Paper className="flex flex-col gap-1 p-2" elevation={2}>
         <div className="flex gap-1">
           {icon}
-          <Typography variant="h4" className="text-sm leading-5">
+          <Typography as="h2" variant="h4" className="text-sm leading-5">
             {t(titleKey)}
           </Typography>
         </div>
@@ -163,7 +163,9 @@ function RenovationStatsCard({
     <Paper className="relative flex flex-col gap-2 p-4" elevation={2}>
       <div className="flex gap-2">
         {icon}
-        <Typography variant="h4">{t(titleKey)}</Typography>
+        <Typography as="h2" variant="h4">
+          {t(titleKey)}
+        </Typography>
       </div>
       <Typography variant="muted">{t('stats.beforeRenovation')}</Typography>
       <Typography variant="muted" style={{ fontSize: '16px' }}>
@@ -205,6 +207,7 @@ function RenovationStatsCard({
               </span>
               <ChevronDown
                 className={`ml-0.5 size-3 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+                aria-hidden="true"
               />
             </button>
           )}
@@ -311,7 +314,7 @@ export default function RenovationStats({
     <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2 lg:grid-cols-4">
       <RenovationStatsCard
         compact={compact}
-        icon={<Zap className="size-5 text-amber-600" />}
+        icon={<Zap className="size-5 text-amber-600" aria-hidden="true" />}
         titleKey="stats.energyDemand"
         beforeFormatted={formatValue(before.energyConsumptionPerSquareMeter)}
         afterFormatted={formatValue(after.energyConsumptionPerSquareMeter)}
@@ -327,7 +330,9 @@ export default function RenovationStats({
       />
       <RenovationStatsCard
         compact={compact}
-        icon={<TrendingUp className="size-5 text-green-600" />}
+        icon={
+          <TrendingUp className="size-5 text-green-600" aria-hidden="true" />
+        }
         titleKey="stats.energyEfficiency"
         beforeFormatted={t('stats.energyEfficiencyValue', {
           value: before.energyEfficiencyClass,
@@ -345,7 +350,7 @@ export default function RenovationStats({
       />
       <RenovationStatsCard
         compact={compact}
-        icon={<Euro className="size-5 text-blue-600" />}
+        icon={<Euro className="size-5 text-blue-600" aria-hidden="true" />}
         titleKey="stats.annualCosts"
         beforeFormatted={formatValue(before.yearlyCost)}
         afterFormatted={formatValue(after.yearlyCost)}
@@ -360,7 +365,7 @@ export default function RenovationStats({
       />
       <RenovationStatsCard
         compact={compact}
-        icon={<Leaf className="size-5 text-green-700" />}
+        icon={<Leaf className="size-5 text-green-700" aria-hidden="true" />}
         titleKey="stats.co2Emissions"
         beforeFormatted={formatValue(before.co2Emissions, 1)}
         afterFormatted={formatValue(after.co2Emissions, 1)}

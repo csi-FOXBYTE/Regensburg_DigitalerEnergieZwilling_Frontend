@@ -28,7 +28,10 @@ export function MapNav() {
   const nextMode = isPerspective ? 'topDown' : 'perspective';
 
   return (
-    <div className="absolute top-2 right-2 z-10 max-w-20 md:top-4 md:right-4">
+    <nav
+      aria-label={t('mapNav.navigationLabel')}
+      className="absolute top-2 right-2 z-10 max-w-20 md:top-4 md:right-4"
+    >
       <div className="flex flex-col overflow-hidden border border-neutral-200 bg-white shadow-lg">
         {/* Help */}
         <div className="flex flex-col items-center gap-1 md:px-3 md:pt-3 md:pb-2">
@@ -179,6 +182,6 @@ export function MapNav() {
           </span>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }

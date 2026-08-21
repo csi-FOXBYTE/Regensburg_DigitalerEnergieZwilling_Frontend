@@ -35,7 +35,10 @@ function MobileProgressBar({ step, maxStepReached }: VisualProgressBarProps) {
   }, [step]);
 
   return (
-    <nav className="px-gutter sticky top-0 z-30 flex h-(--nav-height) flex-col justify-between py-4">
+    <nav
+      aria-label={t('navigationLabel')}
+      className="px-gutter sticky top-0 z-30 flex h-(--nav-height) flex-col justify-between py-4"
+    >
       <div className="flex gap-3">
         {step > 1 ? (
           <Button
@@ -43,8 +46,9 @@ function MobileProgressBar({ step, maxStepReached }: VisualProgressBarProps) {
             variant="elevated"
             className="shadow-none"
             onClick={stepBack}
+            aria-label={t('backToPreviousStep')}
           >
-            <ArrowLeft />
+            <ArrowLeft aria-hidden="true" />
           </Button>
         ) : null}
         <div className="flex flex-col">
@@ -105,7 +109,7 @@ function DesktopTick({
   const tick = (
     <button
       type="button"
-      aria-disabled={!isClickable}
+      disabled={!isClickable}
       onClick={clicked}
       aria-label={label}
       className={cn(
@@ -158,7 +162,10 @@ function DesktopProgressBar({ step, maxStepReached }: VisualProgressBarProps) {
   }
 
   return (
-    <nav className="max-w-content mx-auto flex h-(--nav-height) flex-col justify-center gap-1">
+    <nav
+      aria-label={t('navigationLabel')}
+      className="max-w-content mx-auto flex h-(--nav-height) flex-col justify-center gap-1"
+    >
       <div>
         <Typography variant="h4">
           {step > 0 ? `${step}. ` : ''}

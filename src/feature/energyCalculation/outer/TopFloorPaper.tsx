@@ -51,7 +51,9 @@ export default function TopFloorPaper() {
     >
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <FieldLegend className="col-span-full">
-          <Typography variant="h4">{t('outerParts.topFloor.topFloor')}</Typography>
+          <Typography as="span" variant="h4">
+            {t('outerParts.topFloor.topFloor')}
+          </Typography>
         </FieldLegend>
         <Separator className="col-span-full" />
         <EnergySelectInput

@@ -18,6 +18,9 @@ export default function EnergyCalculationField({
   onReset,
   resetDisabled,
   className,
+  labelFor,
+  labelId,
+  errorId,
 }: {
   children?: ReactNode;
   labelKey?: ParseKeys<'energyCalculation'>;
@@ -26,21 +29,32 @@ export default function EnergyCalculationField({
   onReset?: () => void;
   resetDisabled?: boolean;
   className?: string;
+  labelFor?: string;
+  labelId?: string;
+  errorId?: string;
 }) {
   const { t } = useTranslation('energyCalculation');
 
   return (
     <Field className={className}>
       {labelKey && (
-        <FieldLabel className="block">
-          {t(labelKey)}
+        <div className="block">
+          {labelFor ? (
+            <FieldLabel className="inline" htmlFor={labelFor} id={labelId}>
+              {t(labelKey)}
+            </FieldLabel>
+          ) : (
+            <FieldLabel asChild className="inline">
+              <span id={labelId}>{t(labelKey)}</span>
+            </FieldLabel>
+          )}
           {info && (
             <>
               {'\u00a0'}
               <span className="inline-flex align-middle">{info}</span>
             </>
           )}
-        </FieldLabel>
+        </div>
       )}
       <div className="flex w-full items-center gap-2">
         {children}
@@ -52,13 +66,14 @@ export default function EnergyCalculationField({
                   type="button"
                   onClick={onReset}
                   disabled={resetDisabled}
+                  aria-label={t('common.resetTooltip')}
                   className={
                     resetDisabled
                       ? 'cursor-not-allowed text-neutral-200'
                       : 'text-foreground hover:text-[#e30613] cursor-pointer transition-colors'
                   }
                 >
-                  <RotateCcw className="size-4" />
+                  <RotateCcw className="size-4" aria-hidden="true" />
                 </button>
               </TooltipTrigger>
               <TooltipContent
@@ -73,7 +88,7 @@ export default function EnergyCalculationField({
           <div className="size-4 shrink-0" />
         )}
       </div>
-      {error && <FieldError>{error}</FieldError>}
+      {error && <FieldError id={errorId}>{error}</FieldError>}
     </Field>
   );
 }

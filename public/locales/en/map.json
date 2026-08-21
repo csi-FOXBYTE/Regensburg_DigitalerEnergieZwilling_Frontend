@@ -63,9 +63,11 @@
     "continueButton": "Determine renovation proposal now",
     "sessionContinueButton": "Continue where I left off",
     "startOverButton": "Start over",
+    "closeButton": "Close building view",
     "processingTime": "Processing takes approximately 10 minutes to complete"
   },
   "map": {
+    "stepTitle": "Select building",
     "loading": "Loading application...",
     "loadErrorTitle": "Map could not be loaded",
     "loadErrorMessage": "The map data is unreachable. Please check your internet connection.",
@@ -82,6 +84,7 @@
     "ariaDismissLabel": "Dismiss hint"
   },
   "mapNav": {
+    "navigationLabel": "Map controls",
     "help": "Help",
     "viewMode": "View",
     "alighToNorth": "Align North",

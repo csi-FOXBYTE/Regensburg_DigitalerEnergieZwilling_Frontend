@@ -1,5 +1,6 @@
 ---
 import '@/styles/global.css';
+import i18n from 'i18next';
 
 interface Props {
   includeCesium?: boolean;
@@ -8,7 +9,7 @@ interface Props {
 const { includeCesium = true } = Astro.props;
 ---
 
-<html>
+<html lang={i18n.language}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

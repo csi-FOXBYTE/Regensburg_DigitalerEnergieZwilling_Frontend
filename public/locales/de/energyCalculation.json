@@ -61,6 +61,7 @@
   },
   "outerParts": {
     "title": "Außenbauteile des Gebäudes",
+    "sectionNavigationLabel": "Abschnitte der Außenbauteile",
     "insulation": "Dämmung",
     "roof": {
       "roof": "Dach",
@@ -291,6 +292,7 @@
       "energyPotential": "Energiepotenzial",
       "savings": "Sparpotenzial",
       "sortBy": "Nach {{column}} sortieren",
+      "selection": "Auswahl",
       "total": "Gesamt",
       "noMeasure": "Keine Maßnahme"
     },
@@ -322,6 +324,8 @@
     "financingLoan": "Kredit",
     "financingGrant": "Zuschuss",
     "moreInfo": "Mehr anzeigen",
+    "expandDetails": "Details zu {{title}} anzeigen",
+    "collapseDetails": "Details zu {{title}} ausblenden",
     "loadError": "Die Förderprogramme konnten nicht geladen werden. Bitte laden Sie die Seite neu."
   },
   "result": {

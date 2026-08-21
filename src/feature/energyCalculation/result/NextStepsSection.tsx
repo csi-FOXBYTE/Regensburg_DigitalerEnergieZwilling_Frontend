@@ -26,7 +26,7 @@ function TimelineStep({
   children: ReactNode;
 }) {
   return (
-    <div className="flex gap-5">
+    <li className="flex gap-5">
       <div className="flex flex-col items-center">
         <div className="bg-primary flex size-8 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white">
           {index}
@@ -34,7 +34,7 @@ function TimelineStep({
         {!isLast && <div className="my-1 w-px flex-1 bg-neutral-200" />}
       </div>
       <div className="flex flex-col gap-3 pb-6">{children}</div>
-    </div>
+    </li>
   );
 }
 
@@ -166,10 +166,14 @@ export function NextStepsSection() {
 
   return (
     <div className="mt-8 flex flex-col gap-4">
-      <Typography variant="h3">{t('nextSteps.sectionTitle')}</Typography>
-      <div className="mt-1.5 flex flex-col">
+      <Typography as="h2" variant="h3">
+        {t('nextSteps.sectionTitle')}
+      </Typography>
+      <ol className="mt-1.5 flex flex-col">
         <TimelineStep index={1} isLast={false}>
-          <Typography variant="h4">{t('export.consentTitle')}</Typography>
+          <Typography as="h3" variant="h4">
+            {t('export.consentTitle')}
+          </Typography>
           <Typography variant="muted" className="whitespace-pre-line">
             {t('export.consentDescription')}
           </Typography>
@@ -181,6 +185,7 @@ export function NextStepsSection() {
                 <Checkbox
                   checked={consent}
                   onCheckedChange={(v) => setConsent(v === true)}
+                  aria-label={t('export.consentLabel')}
                   className="border-neutral-550 size-5 border-2"
                 />
               }
@@ -190,7 +195,10 @@ export function NextStepsSection() {
                   {t('export.consentLabel')}
                 </Typography>
                 <div className="flex items-start gap-2">
-                  <ShieldCheck className="mt-0.5 size-4 shrink-0" />
+                  <ShieldCheck
+                    className="mt-0.5 size-4 shrink-0"
+                    aria-hidden="true"
+                  />
                   <Typography variant="small" className="text-xs">
                     {t('export.privacyNote')}
                   </Typography>
@@ -201,7 +209,9 @@ export function NextStepsSection() {
         </TimelineStep>
 
         <TimelineStep index={2} isLast={false}>
-          <Typography variant="h4">{t('export.downloadTitle')}</Typography>
+          <Typography as="h3" variant="h4">
+            {t('export.downloadTitle')}
+          </Typography>
           <Typography variant="muted">{t('export.downloadIntro')}</Typography>
           <ul className="text-muted-foreground flex list-disc flex-col gap-1 pl-5 text-sm">
             {DOWNLOAD_ITEM_KEYS.map((key) => (
@@ -213,7 +223,7 @@ export function NextStepsSection() {
             onClick={handleDownload}
             disabled={loading}
           >
-            <Download /> {t('export.downloadButton')}
+            <Download aria-hidden="true" /> {t('export.downloadButton')}
           </Button>
         </TimelineStep>
 
@@ -223,7 +233,9 @@ export function NextStepsSection() {
             index={index + 3}
             isLast={index === STEPS.length - 1}
           >
-            <Typography variant="h4">{step.title}</Typography>
+            <Typography as="h3" variant="h4">
+              {step.title}
+            </Typography>
             <Typography variant="muted" className="flex flex-col gap-4">
               <span className="whitespace-pre-line">{step.description}</span>
               {step.link && (
@@ -242,7 +254,7 @@ export function NextStepsSection() {
             </Typography>
           </TimelineStep>
         ))}
-      </div>
+      </ol>
     </div>
   );
 }

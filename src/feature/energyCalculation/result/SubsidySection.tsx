@@ -16,7 +16,9 @@ export function SubsidySection() {
   return (
     <div className="mt-8 flex flex-col gap-4">
       <div>
-        <Typography variant="h3">{t('subsidy.sectionTitle')}</Typography>
+        <Typography as="h2" variant="h3">
+          {t('subsidy.sectionTitle')}
+        </Typography>
         <Typography variant="muted">{t('subsidy.disclaimer')}</Typography>
       </div>
       {loadFailed ? (
@@ -24,7 +26,7 @@ export function SubsidySection() {
           <span>{t('subsidy.loadError')}</span>
         </Callout>
       ) : (
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div className="grid grid-cols-1 items-start gap-8 md:grid-cols-2">
           {subsidies
             .filter(({ isActive }) => isActive)
             .map(({ subsidy }) => (

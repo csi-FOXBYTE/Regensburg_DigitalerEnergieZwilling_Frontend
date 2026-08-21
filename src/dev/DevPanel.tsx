@@ -39,10 +39,12 @@ export default function DevPanel() {
   return (
     <>
       <button
+        type="button"
         onClick={() => setOpen(true)}
+        aria-label="Open developer panel"
         className="fixed bottom-4 left-4 z-50 flex size-10 items-center justify-center rounded-full bg-neutral-800 text-white shadow-lg hover:bg-neutral-700"
       >
-        <Settings className="size-5" />
+        <Settings className="size-5" aria-hidden="true" />
       </button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>

@@ -63,9 +63,11 @@
     "continueButton": "Jetzt Sanierungsvorschlag ermitteln",
     "sessionContinueButton": "Dort weitermachen",
     "startOverButton": "Neu starten",
+    "closeButton": "Gebäudeansicht schließen",
     "processingTime": "Die Bearbeitung dauert ungefähr 10 Minuten bis zum Ergebnis"
   },
   "map": {
+    "stepTitle": "Gebäude auswählen",
     "loading": "Lade Anwendung...",
     "loadErrorTitle": "Karte konnte nicht geladen werden",
     "loadErrorMessage": "Die Kartendaten sind nicht erreichbar. Bitte prüfen Sie Ihre Internetverbindung.",
@@ -82,6 +84,7 @@
     "ariaDismissLabel": "Hinweis schließen"
   },
   "mapNav": {
+    "navigationLabel": "Kartensteuerung",
     "help": "Hilfe",
     "viewMode": "Ansicht",
     "alighToNorth": "Nord ausrichten",

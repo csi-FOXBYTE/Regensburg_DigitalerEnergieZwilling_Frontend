@@ -18,12 +18,9 @@ const homeHref = getLocalizedPathname('/', i18n.language);
       Digitaler Energie Zwilling
     </a>
 
-    <img
-      src="/logo.png"
-      alt="Stadt Regensburg Logo"
-      class="h-[60px] w-auto cursor-pointer"
-      onclick="location.assign('https://www.regensburg.de/')"
-    />
+    <a href="https://www.regensburg.de/">
+      <img src="/logo.png" alt="Stadt Regensburg" class="h-[60px] w-auto" />
+    </a>
   </div>
   <slot />
 </header>
