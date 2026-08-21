@@ -73,14 +73,47 @@ function resolveSessionCameraTarget(
   return isRegensburgTarget(buildingTarget) ? buildingTarget : null;
 }
 
-// Set when a session was injected via a recovery link (?restore=…) so the
+// Set when a session was injected via a recovery link (#restore=…) so the
 // resume dialog doesn't additionally prompt for the very session we just loaded.
 let restoredFromLink = false;
+let linkRestoreError = false;
 export function markRestoredFromLink(): void {
   restoredFromLink = true;
 }
 export function wasRestoredFromLink(): boolean {
   return restoredFromLink;
+}
+export function markLinkRestoreError(): void {
+  linkRestoreError = true;
+}
+export function consumeLinkRestoreError(): boolean {
+  const result = linkRestoreError;
+  linkRestoreError = false;
+  return result;
+}
+
+export function getCurrentSessionSnapshot(): SavedSession | null {
+  const building = $building.get();
+  const step = $step.get();
+  if (step < Step.GeneralData || !building) return null;
+
+  const target = getCameraTarget() ?? {
+    longitudeDegrees: building.coordinates.lon,
+    latitudeDegrees: building.coordinates.lat,
+  };
+
+  return {
+    step,
+    maxStepReached: $maxStepReached.get(),
+    building,
+    cameraTarget: target,
+    cameraLon: (target.longitudeDegrees * Math.PI) / 180,
+    cameraLat: (target.latitudeDegrees * Math.PI) / 180,
+    inputState: $inputState.get(),
+    insulationRenovations: $selectedInsulationRenovations.get(),
+    heatingSurfaceRenovations: $selectedHeatingSurfaceRenovations.get(),
+    heatingRenovations: $selectedHeatingRenovations.get(),
+  };
 }
 
 export function saveSession(): void {
@@ -104,25 +137,11 @@ export function saveSession(): void {
     return;
   }
 
-  const inputs = $inputState.get();
-  const target = getCameraTarget() ?? {
-    longitudeDegrees: building.coordinates.lon,
-    latitudeDegrees: building.coordinates.lat,
-  };
+  const session = getCurrentSessionSnapshot();
+  if (!session) return;
 
   console.log('[session] saveSession — writing full blob for', building.id);
-  saveRawSession(building.id, {
-    step,
-    maxStepReached: $maxStepReached.get(),
-    building,
-    cameraTarget: target,
-    cameraLon: (target.longitudeDegrees * Math.PI) / 180,
-    cameraLat: (target.latitudeDegrees * Math.PI) / 180,
-    inputState: inputs,
-    insulationRenovations: $selectedInsulationRenovations.get(),
-    heatingSurfaceRenovations: $selectedHeatingSurfaceRenovations.get(),
-    heatingRenovations: $selectedHeatingRenovations.get(),
-  });
+  saveRawSession(building.id, session);
 }
 
 export function loadSession(buildingId: string): void {

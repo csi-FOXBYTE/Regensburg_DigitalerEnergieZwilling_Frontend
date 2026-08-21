@@ -5,6 +5,7 @@ import i18n from 'i18next';
 import FeedbackButton from './FeedbackButton';
 
 const imprintHref = getLocalizedPathname('/imprint', i18n.language);
+const privacyHref = getLocalizedPathname('/privacy', i18n.language);
 ---
 
 <footer class="bg-footer text-footer-foreground relative shrink-0 px-5 md:px-7">
@@ -20,7 +21,7 @@ const imprintHref = getLocalizedPathname('/imprint', i18n.language);
         >
       </li>
       <li>
-        <a href="#" class="hover:text-primary transition-colors"
+        <a href={privacyHref} class="hover:text-primary transition-colors"
           >{i18n.t('common:footer.privacy')}</a
         >
       </li>

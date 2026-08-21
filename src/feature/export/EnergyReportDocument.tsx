@@ -9,6 +9,7 @@ import { PdfEnergyClassBars } from './PdfEnergyClassBars';
 import { PdfEnergyStats } from './PdfEnergyStats';
 import { PdfFooter } from './PdfFooter';
 import { PdfHeader } from './PdfHeader';
+import { PdfInformationLinks } from './PdfInformationLinks';
 import { PdfNextSteps } from './PdfNextSteps';
 import { PdfRenovationScenarios } from './PdfRenovationScenarios';
 import { hasActiveSubsidies, PdfSubsidies } from './PdfSubsidies';
@@ -39,9 +40,17 @@ type Props = {
   recoveryLink?: string;
   deletionLink?: string;
   jsonLink?: string;
+  methodologyLink: string;
+  privacyLink: string;
 };
 
-export function EnergyReportDocument({ recoveryLink, deletionLink, jsonLink }: Props) {
+export function EnergyReportDocument({
+  recoveryLink,
+  deletionLink,
+  jsonLink,
+  methodologyLink,
+  privacyLink,
+}: Props) {
   const building = $building.get();
   const addr = building?.properties.address;
   const address = addr ? `${addr.street}\n${addr.city}` : '–';
@@ -65,8 +74,16 @@ export function EnergyReportDocument({ recoveryLink, deletionLink, jsonLink }: P
           </Text>
         </View>
         <View style={styles.section}>
-          <LabeledRow label={i18next.t('energyCalculation:export.building')} value={address} fontSize={12} />
-          <LabeledRow label={i18next.t('energyCalculation:export.reportDate')} value={reportDate} fontSize={12} />
+          <LabeledRow
+            label={i18next.t('energyCalculation:export.building')}
+            value={address}
+            fontSize={12}
+          />
+          <LabeledRow
+            label={i18next.t('energyCalculation:export.reportDate')}
+            value={reportDate}
+            fontSize={12}
+          />
         </View>
         <View style={styles.sectionGap}>
           <Text style={pdf.sectionHeader}>
@@ -98,7 +115,9 @@ export function EnergyReportDocument({ recoveryLink, deletionLink, jsonLink }: P
       </Page>
       {hasActiveSubsidies() && (
         <Page size="A4" style={pdf.page}>
-          <PdfHeader title={i18next.t('energyCalculation:export.reportTitle')} />
+          <PdfHeader
+            title={i18next.t('energyCalculation:export.reportTitle')}
+          />
           <PdfSubsidies />
           <PdfFooter />
         </Page>
@@ -106,6 +125,10 @@ export function EnergyReportDocument({ recoveryLink, deletionLink, jsonLink }: P
       <Page size="A4" style={pdf.page}>
         <PdfHeader title={i18next.t('energyCalculation:export.reportTitle')} />
         <PdfNextSteps />
+        <PdfInformationLinks
+          methodologyLink={methodologyLink}
+          privacyLink={privacyLink}
+        />
         <PdfFooter />
       </Page>
     </Document>

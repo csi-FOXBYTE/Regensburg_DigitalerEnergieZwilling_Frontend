@@ -1,4 +1,11 @@
 import { Button } from '@/components/ui/button';
+import { Callout } from '@/components/ui/callout';
+import { Typography } from '@/components/ui/typography';
+import {
+  checkSubmissionAvailability,
+  deleteSubmission,
+  SubmissionUnavailableError,
+} from '@/lib/api/public';
 import {
   Dialog,
   DialogContent,
@@ -7,105 +14,210 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { deleteSubmission } from '@/lib/api/public';
-import { useEffect, useState } from 'react';
+import { LoaderCircle } from 'lucide-react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'sonner';
 
-type Mode = 'delete' | 'download' | 'idle';
+type State =
+  | 'checking'
+  | 'confirmable'
+  | 'deleting'
+  | 'unavailable'
+  | 'deleted'
+  | 'cancelled'
+  | 'service-error';
+
+type FailedOperation = 'status' | 'delete';
+
+function getRouteContext(): { locale: 'de' | 'en'; token: string | null } {
+  const path = window.location.pathname;
+  const match = /^\/(de|en)\/delete\/([^/]+)$/.exec(path);
+  const locale = /^\/de(?:\/|$)/.test(path) ? 'de' : 'en';
+  if (!match) return { locale, token: null };
+
+  try {
+    const token = decodeURIComponent(match[2]);
+    return { locale, token: token.length > 0 ? token : null };
+  } catch {
+    return { locale, token: null };
+  }
+}
 
 export default function DeleteConfirmationDialog() {
   const { t } = useTranslation('map');
-  const [mode, setMode] = useState<Mode>('idle');
-  const [deletionUrl, setDeletionUrl] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const { locale, token } = useMemo(getRouteContext, []);
+  const [state, setState] = useState<State>(token ? 'checking' : 'unavailable');
+  const [failedOperation, setFailedOperation] =
+    useState<FailedOperation>('status');
+  const deletionInFlight = useRef(false);
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-
-    const token = params.get('token');
-    if (token) {
-      setDeletionUrl(decodeURIComponent(token));
-      setMode('delete');
+  const checkAvailability = useCallback(async () => {
+    if (!token) {
+      setState('unavailable');
       return;
     }
 
-    const encoded = params.get('download-json');
-    const filename = params.get('filename') ?? 'download.json';
-    if (encoded) {
-      setMode('download');
-      try {
-        // Payload is carried in the link itself (no backend), pretty-print on save.
-        const json = JSON.stringify(
-          JSON.parse(decodeURIComponent(atob(encoded))),
-          null,
-          2,
-        );
-        const blob = new Blob([json], { type: 'application/json' });
-        const objectUrl = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = objectUrl;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        URL.revokeObjectURL(objectUrl);
-      } catch {
-        // Malformed payload — nothing to download.
+    setState('checking');
+    try {
+      await checkSubmissionAvailability(token);
+      setState('confirmable');
+    } catch (error) {
+      if (error instanceof SubmissionUnavailableError) {
+        setState('unavailable');
+      } else {
+        setFailedOperation('status');
+        setState('service-error');
       }
     }
-  }, []);
+  }, [token]);
+
+  useEffect(() => {
+    if (token) void checkAvailability();
+  }, [checkAvailability, token]);
 
   function handleCancel() {
-    window.history.back();
+    if (state === 'confirmable') setState('cancelled');
   }
 
   async function handleConfirm() {
-    if (!deletionUrl) return;
-    setLoading(true);
+    if (!token || (state !== 'confirmable' && state !== 'service-error')) {
+      return;
+    }
+    if (state === 'service-error' && failedOperation !== 'delete') return;
+    if (deletionInFlight.current) return;
+
+    deletionInFlight.current = true;
+    setState('deleting');
     try {
-      await deleteSubmission(deletionUrl);
-      toast.success(t('deleteConfirmationDialog.successMessage'));
-      setTimeout(() => window.history.back(), 1500);
-    } catch {
-      toast.error(t('deleteConfirmationDialog.errorMessage'));
-      setLoading(false);
+      await deleteSubmission(token);
+      setState('deleted');
+    } catch (error) {
+      if (error instanceof SubmissionUnavailableError) {
+        setState('unavailable');
+      } else {
+        setFailedOperation('delete');
+        setState('service-error');
+      }
+    } finally {
+      deletionInFlight.current = false;
     }
   }
 
-  if (mode === 'download') {
+  const openApplication = (
+    <Button asChild>
+      <a href={`/${locale}`}>{t('deleteConfirmationDialog.openApplication')}</a>
+    </Button>
+  );
+
+  if (state === 'checking') {
     return (
-      <div className="flex min-h-screen items-center justify-center p-8">
-        <div className="flex max-w-sm flex-col gap-4 text-center">
-          <p className="text-lg font-semibold">{t('deleteConfirmationDialog.downloadStarted')}</p>
-          <Button variant="secondary" onClick={handleCancel}>
-            {t('deleteConfirmationDialog.backButton')}
-          </Button>
+      <main className="flex min-h-screen items-center justify-center p-8">
+        <div
+          className="flex max-w-md flex-col items-center gap-4 text-center"
+          role="status"
+        >
+          <LoaderCircle className="text-primary size-8 animate-spin" />
+          <Typography variant="h3">
+            {t('deleteConfirmationDialog.checkingTitle')}
+          </Typography>
+          <Typography variant="muted">
+            {t('deleteConfirmationDialog.checkingDescription')}
+          </Typography>
         </div>
-      </div>
+      </main>
     );
   }
 
-  if (mode === 'idle') return null;
+  if (state === 'confirmable' || state === 'deleting') {
+    return (
+      <Dialog open onOpenChange={(open) => !open && handleCancel()}>
+        <DialogContent showCloseButton={false}>
+          <DialogHeader>
+            <DialogTitle>{t('deleteConfirmationDialog.title')}</DialogTitle>
+            <DialogDescription>
+              {t('deleteConfirmationDialog.description')}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="secondary"
+              onClick={handleCancel}
+              disabled={state === 'deleting'}
+            >
+              {t('deleteConfirmationDialog.cancelButton')}
+            </Button>
+            <Button
+              variant="primary"
+              onClick={handleConfirm}
+              disabled={state === 'deleting'}
+            >
+              {state === 'deleting'
+                ? t('deleteConfirmationDialog.deletingButton')
+                : t('deleteConfirmationDialog.confirmButton')}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
+  if (state === 'service-error') {
+    return (
+      <main className="flex min-h-screen items-center justify-center p-8">
+        <div className="flex w-full max-w-md flex-col gap-5 text-center">
+          <Callout
+            variant="danger"
+            size="large"
+            title={t('deleteConfirmationDialog.serviceErrorTitle')}
+          >
+            {t('deleteConfirmationDialog.serviceErrorDescription')}
+          </Callout>
+          <div className="flex flex-col justify-center gap-3 sm:flex-row">
+            <Button
+              variant="secondary"
+              onClick={
+                failedOperation === 'status' ? checkAvailability : handleConfirm
+              }
+            >
+              {t('deleteConfirmationDialog.retryButton')}
+            </Button>
+            {openApplication}
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  const terminalContent = {
+    unavailable: {
+      title: t('deleteConfirmationDialog.unavailableTitle'),
+      description: t('deleteConfirmationDialog.unavailableDescription'),
+      variant: 'warning' as const,
+    },
+    deleted: {
+      title: t('deleteConfirmationDialog.deletedTitle'),
+      description: t('deleteConfirmationDialog.deletedDescription'),
+      variant: 'positive' as const,
+    },
+    cancelled: {
+      title: t('deleteConfirmationDialog.cancelledTitle'),
+      description: t('deleteConfirmationDialog.cancelledDescription'),
+      variant: 'info' as const,
+    },
+  }[state];
 
   return (
-    <Dialog open onOpenChange={() => handleCancel()}>
-      <DialogContent showCloseButton={false}>
-        <DialogHeader>
-          <DialogTitle>{t('deleteConfirmationDialog.title')}</DialogTitle>
-          <DialogDescription>
-            {t('deleteConfirmationDialog.description')}
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter>
-          <Button variant="secondary" onClick={handleCancel} disabled={loading}>
-            {t('deleteConfirmationDialog.cancelButton')}
-          </Button>
-          <Button variant="primary" onClick={handleConfirm} disabled={loading}>
-            {t('deleteConfirmationDialog.confirmButton')}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+    <main className="flex min-h-screen items-center justify-center p-8">
+      <div className="flex w-full max-w-md flex-col gap-5 text-center">
+        <Callout
+          variant={terminalContent.variant}
+          size="large"
+          title={terminalContent.title}
+        >
+          {terminalContent.description}
+        </Callout>
+        <div>{openApplication}</div>
+      </div>
+    </main>
   );
 }

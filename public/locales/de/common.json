@@ -49,6 +49,10 @@
       "message": "Ihr Feedback wurde erfolgreich übermittelt und hilft uns, das Tool zu verbessern."
     }
   },
+  "privacy": {
+    "title": "Datenschutzhinweis",
+    "placeholder": "Der Datenschutzhinweis wird hier ergänzt."
+  },
   "imprint": {
     "title": "Impressum",
     "contactIntro": "Für allgemeine Fragen zur Stadtverwaltung wenden Sie sich bitte an:",

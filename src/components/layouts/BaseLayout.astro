@@ -1,5 +1,11 @@
 ---
 import '@/styles/global.css';
+
+interface Props {
+  includeCesium?: boolean;
+}
+
+const { includeCesium = true } = Astro.props;
 ---
 
 <html>
@@ -8,7 +14,7 @@ import '@/styles/global.css';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Digitaler Energie Zwilling Regensburg</title>
     <link rel="icon" href="/favicon.ico" />
-    <script src="/cesium/Cesium.js" is:inline></script>
+    {includeCesium && <script src="/cesium/Cesium.js" is:inline />}
   </head>
   <body class="flex flex-col">
     <slot />

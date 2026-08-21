@@ -462,13 +462,17 @@
     "submissionSuccess": "Data was submitted successfully.",
     "submissionError": "Data could not be submitted. The PDF report will be downloaded anyway.",
     "downloadError": "The PDF report could not be generated. Please try again.",
+    "recoveryLinkError": "The portable recovery link could not be created. Please try downloading the report again.",
     "dataLinksTitle": "Your Data Management",
     "recoveryLinkLabel": "Recovery link – reload your building data in the app",
     "recoveryLinkText": "Restore session",
     "deletionLinkLabel": "Deletion link – delete your submitted data from the city server",
     "deletionLinkText": "Delete submitted data",
     "jsonLinkLabel": "JSON download – download raw data for own submission",
-    "jsonLinkText": "Download JSON file"
+    "jsonLinkText": "Download JSON file",
+    "informationLinksTitle": "Data protection and calculation information",
+    "methodologyLinkText": "Information about the data basis and calculation",
+    "privacyLinkText": "Privacy notice"
   },
   "nextSteps": {
     "sectionTitle": "What's Next",

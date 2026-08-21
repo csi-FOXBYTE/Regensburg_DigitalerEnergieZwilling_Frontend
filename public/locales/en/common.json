@@ -49,6 +49,10 @@
       "message": "Your feedback has been submitted successfully and helps us improve the tool."
     }
   },
+  "privacy": {
+    "title": "Privacy notice",
+    "placeholder": "The privacy notice will be added here."
+  },
   "imprint": {
     "title": "Imprint",
     "contactIntro": "For general questions about the city administration, please contact:",

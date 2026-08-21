@@ -462,13 +462,17 @@
     "submissionSuccess": "Daten wurden erfolgreich übermittelt.",
     "submissionError": "Daten konnten nicht übermittelt werden. Der PDF-Bericht wird trotzdem heruntergeladen.",
     "downloadError": "Der PDF-Bericht konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
+    "recoveryLinkError": "Der portable Wiederherstellungslink konnte nicht erstellt werden. Bitte laden Sie den Bericht erneut herunter.",
     "dataLinksTitle": "Ihre Datenverwaltung",
     "recoveryLinkLabel": "Wiederherstellungslink – Gebäudedaten in der App erneut laden",
     "recoveryLinkText": "Sitzung wiederherstellen",
     "deletionLinkLabel": "Löschlink – eingereichte Daten beim Stadtserver löschen",
     "deletionLinkText": "Eingereichte Daten löschen",
     "jsonLinkLabel": "JSON-Download – Rohdaten für eigene Einreichung herunterladen",
-    "jsonLinkText": "JSON-Datei herunterladen"
+    "jsonLinkText": "JSON-Datei herunterladen",
+    "informationLinksTitle": "Datenschutz- und Berechnungshinweise",
+    "methodologyLinkText": "Hinweise zur Datengrundlage und Berechnung",
+    "privacyLinkText": "Datenschutzhinweis"
   },
   "nextSteps": {
     "sectionTitle": "So geht's weiter",

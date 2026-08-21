@@ -8,7 +8,8 @@ import { downloadPdf } from '@/lib/downloadPdf';
 import { $building } from '@/lib/state/building';
 import { $versionName } from '@/lib/state/calculation-config';
 import { $calculationInput } from '@/lib/state/computed/calculation-input';
-import { getSession } from '@/lib/state/session';
+import { getCurrentSessionSnapshot } from '@/lib/state/session';
+import { encodeSessionRestore } from '@/lib/state/session/restore-codec';
 import { useStore } from '@nanostores/react';
 import { Download, ShieldCheck } from 'lucide-react';
 import { type ReactNode, useState } from 'react';
@@ -76,21 +77,32 @@ export function NextStepsSection() {
     },
   ];
 
-  function buildRecoveryLink(): string | undefined {
-    if (!building) return undefined;
-    const session = getSession(building.id);
-    if (session) {
-      try {
-        const encoded = btoa(encodeURIComponent(JSON.stringify(session)));
-        return `${window.location.origin}${window.location.pathname}?restore=${encoded}`;
-      } catch {}
-    }
-    return `${window.location.origin}${window.location.pathname}?restore=${building.id}`;
+  function buildRecoveryLink(): string {
+    const session = getCurrentSessionSnapshot();
+    if (!session) throw new Error('No portable session snapshot available');
+
+    const url = new URL(window.location.href);
+    url.search = '';
+    url.hash = `restore=${encodeSessionRestore(session)}`;
+    return url.toString();
   }
 
   async function handleDownload() {
     setLoading(true);
     try {
+      let recoveryLink: string;
+      try {
+        recoveryLink = buildRecoveryLink();
+      } catch {
+        toast.error(t('export.recoveryLinkError'));
+        return;
+      }
+
+      const locale = window.location.pathname.split('/').filter(Boolean)[0];
+      const localizedLocale = locale === 'de' ? 'de' : 'en';
+      const methodologyLink = `${window.location.origin}/${localizedLocale}/methodology`;
+      const privacyLink = `${window.location.origin}/${localizedLocale}/privacy`;
+
       if (consent && building) {
         const address = building.properties.address
           ? [
@@ -106,36 +118,43 @@ export function NextStepsSection() {
               .join(', ')
           : '';
 
-        try {
-          const result = await submitEnergyData({
-            input: calculationInput,
-            configName: versionName,
-            buildingId: building.id,
-            address,
-            longitude: building.coordinates.lon,
-            latitude: building.coordinates.lat,
-          });
+        const result = await submitEnergyData({
+          input: calculationInput,
+          configName: versionName,
+          buildingId: building.id,
+          address,
+          longitude: building.coordinates.lon,
+          latitude: building.coordinates.lat,
+        }).catch(() => {
+          toast.error(t('export.submissionError'));
+          return null;
+        });
+
+        if (result) {
           toast.success(t('export.submissionSuccess'));
-          const deletionLink = `${window.location.origin}${window.location.pathname}/delete?token=${encodeURIComponent(result.deletionLink)}`;
-          const jsonPayload = btoa(encodeURIComponent(JSON.stringify(result)));
-          const jsonLink = `${window.location.origin}${window.location.pathname}/delete?download-json=${encodeURIComponent(jsonPayload)}&filename=${encodeURIComponent(`${t('export.reportTitle')}.json`)}`;
-          const recoveryLink = buildRecoveryLink();
+          const encodedToken = encodeURIComponent(result.deletionToken);
+          const deletionLink = `${window.location.origin}/${localizedLocale}/delete/${encodedToken}`;
+          const jsonLink = `${window.location.origin}/api/public/submissions/${encodedToken}/download`;
           await downloadPdf(
             <EnergyReportDocument
               recoveryLink={recoveryLink}
               deletionLink={deletionLink}
               jsonLink={jsonLink}
+              methodologyLink={methodologyLink}
+              privacyLink={privacyLink}
             />,
             t('export.reportTitle'),
           );
           return;
-        } catch {
-          toast.error(t('export.submissionError'));
         }
       }
 
       await downloadPdf(
-        <EnergyReportDocument recoveryLink={buildRecoveryLink()} />,
+        <EnergyReportDocument
+          recoveryLink={recoveryLink}
+          methodologyLink={methodologyLink}
+          privacyLink={privacyLink}
+        />,
         t('export.reportTitle'),
       );
     } catch {

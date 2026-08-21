@@ -1,20 +1,42 @@
 export type SubmissionResult = {
-  id: string;
-  ngsiData: Record<string, unknown>;
-  raw: Record<string, unknown>;
-  deletionLink: string;
+  deletionToken: string;
 };
 
-function normalizeUrl(url: string): string {
-  if (!/^https?:\/\//i.test(url)) {
-    return `${window.location.protocol}//${url}`;
+export class SubmissionUnavailableError extends Error {
+  constructor() {
+    super('Submission unavailable');
+    this.name = 'SubmissionUnavailableError';
   }
-  return url;
 }
 
-export async function deleteSubmission(deletionUrl: string): Promise<void> {
-  const res = await fetch(normalizeUrl(deletionUrl), { method: 'GET' });
+function submissionUrl(token: string, suffix = ''): string {
+  return `/api/public/submissions/${encodeURIComponent(token)}${suffix}`;
+}
+
+export async function checkSubmissionAvailability(
+  token: string,
+): Promise<void> {
+  const res = await fetch(submissionUrl(token, '/status'), {
+    method: 'GET',
+    cache: 'no-store',
+  });
+  if (res.status === 404) throw new SubmissionUnavailableError();
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+  const result = (await res.json()) as { available?: unknown };
+  if (result.available !== true) throw new Error('Malformed status response');
+}
+
+export async function deleteSubmission(token: string): Promise<void> {
+  const res = await fetch(submissionUrl(token), {
+    method: 'DELETE',
+    cache: 'no-store',
+  });
+  if (res.status === 404) throw new SubmissionUnavailableError();
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+  const result = (await res.json()) as { success?: unknown };
+  if (result.success !== true) throw new Error('Malformed deletion response');
 }
 
 export async function submitEnergyData(params: {
@@ -31,7 +53,12 @@ export async function submitEnergyData(params: {
     body: JSON.stringify(params),
   });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const result = (await res.json()) as SubmissionResult;
-  result.deletionLink = normalizeUrl(result.deletionLink);
-  return result;
+  const result = (await res.json()) as Partial<SubmissionResult>;
+  if (
+    typeof result.deletionToken !== 'string' ||
+    result.deletionToken.length === 0
+  ) {
+    throw new Error('Malformed submission response');
+  }
+  return { deletionToken: result.deletionToken };
 }

@@ -472,6 +472,116 @@ function LimitsContent() {
   );
 }
 
+function MethodologyBody() {
+  const { t } = useTranslation('methodology');
+
+  return (
+    <div className="flex flex-col gap-6">
+      <Callout
+        variant="warning"
+        size="large"
+        title={t('draft.title')}
+        titleId="methodology-draft-title"
+        aria-labelledby="methodology-draft-title"
+      >
+        <Typography variant="small">{t('draft.description')}</Typography>
+      </Callout>
+
+      <section className="flex flex-col gap-3" aria-labelledby="demo-title">
+        <div>
+          <Typography id="demo-title" as="h2" variant="h3">
+            {t('demo.title')}
+          </Typography>
+          <Typography variant="muted">{t('demo.description')}</Typography>
+        </div>
+        <DemoInput />
+        <Typography>{t('demo.explanation')}</Typography>
+      </section>
+
+      <section className="flex flex-col gap-3" aria-labelledby="topics-title">
+        <div>
+          <Typography id="topics-title" as="h2" variant="h3">
+            {t('sectionsTitle')}
+          </Typography>
+          <Typography variant="muted">{t('sectionsDescription')}</Typography>
+        </div>
+
+        <Accordion type="multiple" defaultValue={['scope', 'data', 'inputs']}>
+          <AccordionItem value="scope">
+            <AccordionTrigger>{t('sections.scope.title')}</AccordionTrigger>
+            <MethodologyAccordionContent>
+              <ScopeContent />
+            </MethodologyAccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="data">
+            <AccordionTrigger>{t('sections.data.title')}</AccordionTrigger>
+            <MethodologyAccordionContent>
+              <DataContent />
+            </MethodologyAccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="inputs">
+            <AccordionTrigger>{t('sections.inputs.title')}</AccordionTrigger>
+            <MethodologyAccordionContent>
+              <InputsContent />
+            </MethodologyAccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="model">
+            <AccordionTrigger>{t('sections.model.title')}</AccordionTrigger>
+            <MethodologyAccordionContent>
+              <ModelContent />
+            </MethodologyAccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="energy">
+            <AccordionTrigger>{t('sections.energy.title')}</AccordionTrigger>
+            <MethodologyAccordionContent>
+              <EnergyContent />
+            </MethodologyAccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="assumptions">
+            <AccordionTrigger>
+              {t('sections.assumptions.title')}
+            </AccordionTrigger>
+            <MethodologyAccordionContent>
+              <EnergyAssumptionsContent />
+            </MethodologyAccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="limits">
+            <AccordionTrigger>{t('sections.limits.title')}</AccordionTrigger>
+            <MethodologyAccordionContent>
+              <LimitsContent />
+            </MethodologyAccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </section>
+    </div>
+  );
+}
+
+export function MethodologyPageContent() {
+  const { t } = useTranslation('methodology');
+
+  return (
+    <div className="flex flex-col gap-10">
+      <header className="flex flex-col gap-2">
+        <Typography as="h1" variant="h1">
+          {t('title')}
+        </Typography>
+        <Typography variant="lead">{t('description')}</Typography>
+      </header>
+
+      <MethodologyBody />
+
+      <Typography variant="verySmall">{t('footer')}</Typography>
+    </div>
+  );
+}
+
 function MethodologyDialogContent() {
   const { t } = useTranslation('methodology');
 
@@ -491,103 +601,8 @@ function MethodologyDialogContent() {
       </DialogHeader>
 
       <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5 sm:px-8 sm:py-6">
-        <div className="mx-auto flex max-w-4xl flex-col gap-6">
-          <Callout
-            variant="warning"
-            size="large"
-            title={t('draft.title')}
-            titleId="methodology-draft-title"
-            aria-labelledby="methodology-draft-title"
-          >
-            <Typography variant="small">{t('draft.description')}</Typography>
-          </Callout>
-
-          <section className="flex flex-col gap-3" aria-labelledby="demo-title">
-            <div>
-              <Typography id="demo-title" as="h2" variant="h3">
-                {t('demo.title')}
-              </Typography>
-              <Typography variant="muted">{t('demo.description')}</Typography>
-            </div>
-            <DemoInput />
-            <Typography>{t('demo.explanation')}</Typography>
-          </section>
-
-          <section
-            className="flex flex-col gap-3"
-            aria-labelledby="topics-title"
-          >
-            <div>
-              <Typography id="topics-title" as="h2" variant="h3">
-                {t('sectionsTitle')}
-              </Typography>
-              <Typography variant="muted">
-                {t('sectionsDescription')}
-              </Typography>
-            </div>
-
-            <Accordion
-              type="multiple"
-              defaultValue={['scope', 'data', 'inputs']}
-            >
-              <AccordionItem value="scope">
-                <AccordionTrigger>{t('sections.scope.title')}</AccordionTrigger>
-                <MethodologyAccordionContent>
-                  <ScopeContent />
-                </MethodologyAccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="data">
-                <AccordionTrigger>{t('sections.data.title')}</AccordionTrigger>
-                <MethodologyAccordionContent>
-                  <DataContent />
-                </MethodologyAccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="inputs">
-                <AccordionTrigger>
-                  {t('sections.inputs.title')}
-                </AccordionTrigger>
-                <MethodologyAccordionContent>
-                  <InputsContent />
-                </MethodologyAccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="model">
-                <AccordionTrigger>{t('sections.model.title')}</AccordionTrigger>
-                <MethodologyAccordionContent>
-                  <ModelContent />
-                </MethodologyAccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="energy">
-                <AccordionTrigger>
-                  {t('sections.energy.title')}
-                </AccordionTrigger>
-                <MethodologyAccordionContent>
-                  <EnergyContent />
-                </MethodologyAccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="assumptions">
-                <AccordionTrigger>
-                  {t('sections.assumptions.title')}
-                </AccordionTrigger>
-                <MethodologyAccordionContent>
-                  <EnergyAssumptionsContent />
-                </MethodologyAccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="limits">
-                <AccordionTrigger>
-                  {t('sections.limits.title')}
-                </AccordionTrigger>
-                <MethodologyAccordionContent>
-                  <LimitsContent />
-                </MethodologyAccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </section>
+        <div className="mx-auto max-w-4xl">
+          <MethodologyBody />
         </div>
       </div>
 
