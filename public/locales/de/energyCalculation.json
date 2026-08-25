@@ -90,6 +90,11 @@
         "insulationThickness": "Eine dickere Dämmschicht erhöht die energetische Effizienz des Gebäudes. Je nach Alter der Dämmung sind zwischen 6 cm und 20 cm üblich.",
         "insulationTypeTitle": "Art der Dachdämmung",
         "insulationTypeContent": "Bei der Aufdachdämmung wird die Dämmung oberhalb der Dachsparren angebracht. Sie bietet den besten Wärmeschutz, da keine Wärmebrücken durch die Sparren entstehen. Bei der Zwischensparrendämmung wird der Dämmstoff zwischen den Sparren eingebracht. Diese Variante ist kostengünstiger, bietet aber durch die Sparren als Wärmebrücken einen etwas geringeren Schutz."
+      },
+      "info": {
+        "title": "Dach",
+        "description": "Platzhaltertext: Das Dach schließt das Gebäude nach oben ab und grenzt an die Außenluft. In der Grafik ist der Bauteil rot hervorgehoben. Hier folgt später eine ausführliche Erklärung.",
+        "imageAlt": "Schematisches Gebäude mit rot hervorgehobenem Dach"
       }
     },
     "roofWindows": {
@@ -106,6 +111,11 @@
       },
       "errors": {
         "areaExceedsRoofArea": "Die Dachfensterfläche darf nicht größer als die Dachfläche sein."
+      },
+      "info": {
+        "title": "Dachfenster",
+        "description": "Platzhaltertext: Dachfenster sind die in der Dachfläche eingebauten Fenster. In der Grafik sind die Bauteile rot hervorgehoben. Hier folgt später eine ausführliche Erklärung.",
+        "imageAlt": "Schematisches Gebäude mit rot hervorgehobenen Dachfenstern"
       }
     },
     "topFloor": {
@@ -124,6 +134,11 @@
       },
       "errors": {
         "areaExceedsRoofArea": "Die Fläche der obersten Geschossdecke darf nicht größer als die Dachfläche sein."
+      },
+      "info": {
+        "title": "Obere Geschossdecke",
+        "description": "Platzhaltertext: Die obere Geschossdecke trennt den beheizten Wohnraum vom unbeheizten Dachraum. In der Grafik ist der Bauteil rot hervorgehoben. Hier folgt später eine ausführliche Erklärung.",
+        "imageAlt": "Schematisches Gebäude mit rot hervorgehobener oberer Geschossdecke"
       }
     },
     "outerWall": {
@@ -144,6 +159,11 @@
       },
       "errors": {
         "adjacentAreaExceedsWallArea": "Die angrenzende Wandfläche darf nicht größer als die gesamte Außenwandfläche sein."
+      },
+      "info": {
+        "title": "Außenwand",
+        "description": "Platzhaltertext: Die Außenwände umschließen den beheizten Bereich des Gebäudes und grenzen an die Außenluft. In der Grafik sind die Bauteile rot hervorgehoben. Hier folgt später eine ausführliche Erklärung.",
+        "imageAlt": "Schematisches Gebäude mit rot hervorgehobenen Außenwänden"
       }
     },
     "windows": {
@@ -160,6 +180,11 @@
       },
       "errors": {
         "areaExceedsAvailableWallArea": "Die Fensterfläche darf nicht größer als die Außenwandfläche abzüglich der angrenzenden Wandfläche sein."
+      },
+      "info": {
+        "title": "Fenster",
+        "description": "Platzhaltertext: Zu den Fenstern zählen alle verglasten Flächen sowie die Außentüren in den Außenwänden. In der Grafik sind die Bauteile rot hervorgehoben. Hier folgt später eine ausführliche Erklärung.",
+        "imageAlt": "Schematisches Gebäude mit rot hervorgehobenen Fenstern und Außentür"
       }
     },
     "bottomFloor": {
@@ -211,7 +236,20 @@
         "heated": "Ist Ihr Kellerboden gedämmt?",
         "noBasement": "Ist Ihr Boden gedämmt?"
       },
-      "insulationThickness": "Welche Dicke hat die aktuelle Dämmung?"
+      "insulationThickness": "Welche Dicke hat die aktuelle Dämmung?",
+      "info": {
+        "title": "Untere Geschossdecke",
+        "description": {
+          "default": "Platzhaltertext: Bei einem unbeheizten Keller ist die Kellerdecke der untere Abschluss des beheizten Bereichs. In der Grafik ist der Bauteil rot hervorgehoben. Hier folgt später eine ausführliche Erklärung.",
+          "heated": "Platzhaltertext: Bei einem beheizten Keller ist der Kellerboden der untere Abschluss des beheizten Bereichs und grenzt an das Erdreich. In der Grafik ist der Bauteil rot hervorgehoben. Hier folgt später eine ausführliche Erklärung.",
+          "noBasement": "Platzhaltertext: Ohne Keller ist der Boden des Erdgeschosses der untere Abschluss des beheizten Bereichs und grenzt an das Erdreich. In der Grafik ist der Bauteil rot hervorgehoben. Hier folgt später eine ausführliche Erklärung."
+        },
+        "imageAlt": {
+          "default": "Schematisches Gebäude mit rot hervorgehobener Kellerdecke über dem unbeheizten Keller",
+          "heated": "Schematisches Gebäude mit rot hervorgehobenem Kellerboden des beheizten Kellers",
+          "noBasement": "Schematisches Gebäude ohne Keller mit rot hervorgehobenem Boden des Erdgeschosses"
+        }
+      }
     }
   },
   "heat": {

@@ -24,6 +24,7 @@ import EnergyBooleanInput from '../EnergyBooleanInput';
 import EnergyNumberInput from '../EnergyNumberInput';
 import EnergySelectInput from '../EnergySelectInput';
 import { InfoDialogButton, InfoTooltipButton } from '../InfoButton';
+import BuildingPartInfoButton from './BuildingPartInfoButton';
 
 export default function RoofPaper() {
   const { t } = useTranslation('energyCalculation');
@@ -60,10 +61,11 @@ export default function RoofPaper() {
       className="flex flex-col gap-6 pt-4 pr-5 pb-5 pl-5"
     >
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <FieldLegend className="col-span-full">
+        <FieldLegend className="col-span-full flex items-center gap-2">
           <Typography as="span" variant="h4">
             {t('outerParts.roof.roof')}
           </Typography>
+          <BuildingPartInfoButton part="roof" />
         </FieldLegend>
         <Separator className="col-span-full" />
         <EnergySelectInput
