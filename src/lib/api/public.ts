@@ -2,6 +2,14 @@ export type SubmissionResult = {
   deletionToken: string;
 };
 
+export type FeedbackCategory = 'bug' | 'feedback' | 'suggestion';
+
+export type FeedbackInput = {
+  category: FeedbackCategory;
+  message: string;
+  emailAddress?: string;
+};
+
 export class SubmissionUnavailableError extends Error {
   constructor() {
     super('Submission unavailable');
@@ -61,4 +69,20 @@ export async function submitEnergyData(params: {
     throw new Error('Malformed submission response');
   }
   return { deletionToken: result.deletionToken };
+}
+
+export async function submitFeedback(input: FeedbackInput): Promise<void> {
+  const emailAddress = input.emailAddress?.trim();
+  const body = {
+    category: input.category,
+    message: input.message,
+    ...(emailAddress ? { emailAddress } : {}),
+  };
+
+  const res = await fetch('/api/public/feedback', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
 }

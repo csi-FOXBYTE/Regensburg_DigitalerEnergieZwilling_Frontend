@@ -32,8 +32,8 @@
       "placeholder": "Please select a category",
       "options": {
         "bug": "Report a bug",
-        "improvement": "Suggest an improvement",
-        "general": "General feedback"
+        "suggestion": "Suggest an improvement",
+        "feedback": "General feedback"
       }
     },
     "message": {
@@ -48,6 +48,7 @@
     },
     "privacyNotice": "Your feedback is treated confidentially and used only to improve the tool. You can find more information in our privacy policy.",
     "submit": "Send feedback",
+    "error": "Your feedback could not be submitted. Please try again.",
     "success": {
       "title": "Thank you!",
       "message": "Your feedback has been submitted successfully and helps us improve the tool."

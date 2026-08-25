@@ -32,8 +32,8 @@
       "placeholder": "Bitte wählen Sie eine Kategorie",
       "options": {
         "bug": "Fehler melden",
-        "improvement": "Verbesserungsvorschlag",
-        "general": "Allgemeines Feedback"
+        "suggestion": "Verbesserungsvorschlag",
+        "feedback": "Allgemeines Feedback"
       }
     },
     "message": {
@@ -48,6 +48,7 @@
     },
     "privacyNotice": "Ihr Feedback wird vertraulich behandelt und nur zur Verbesserung des Tools verwendet. Weitere Informationen finden Sie in unserer Datenschutzerklärung.",
     "submit": "Feedback senden",
+    "error": "Das Feedback konnte nicht übermittelt werden. Bitte versuchen Sie es erneut.",
     "success": {
       "title": "Vielen Dank!",
       "message": "Ihr Feedback wurde erfolgreich übermittelt und hilft uns, das Tool zu verbessern."
