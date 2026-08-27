@@ -10,7 +10,7 @@
     "Do you know the levers to defuse the next energy crisis?",
     "Do you know which renovation best protects you from the next energy crisis?"
   ],
-  "aboutText": "Free, non-binding, and based on municipal data",
+  "aboutText": "Free and non-binding.",
   "startButton": "Get started",
   "remarkTitle": "Important note",
   "remarkContent": "The results are not energy consultancy, but a calculation-based orientation. All calculations are based on simplified assumptions and publicly available data.",
@@ -28,7 +28,7 @@
     {
       "icon": "Wrench",
       "title": "Plan renovation measures",
-      "description": "Select proposals for suitable renovation measures and understand their impact on the energy efficiency of your building."
+      "description": "Heating system replacement and insulation: Select proposals for suitable renovation measures and understand their impact on the efficiency of your building."
     },
     {
       "icon": "FileText",

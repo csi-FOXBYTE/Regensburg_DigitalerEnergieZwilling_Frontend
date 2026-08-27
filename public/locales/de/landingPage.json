@@ -10,7 +10,7 @@
     "Kennen Sie die Hebel, mit denen Sie die nächste Energiekrise entschärfen?",
     "Wissen Sie, welche Sanierung Sie am besten vor der nächsten Energiekrise schützt?"
   ],
-  "aboutText": "Kostenlos, unverbindlich und auf Basis geprüfter Fachdaten.",
+  "aboutText": "Kostenlos und unverbindlich.",
   "startButton": "Jetzt starten",
   "remarkTitle": "Wichtiger Hinweis",
   "remarkContent": "Die Ergebnisse sind keine Energieberatung, sondern eine berechnungsbasierte Orientierung. Alle Berechnungen basieren auf vereinfachten Annahmen und öffentlich verfügbaren Daten.",
@@ -18,7 +18,7 @@
     {
       "icon": "MapPin",
       "title": "Gebäude auswählen",
-      "description": "Wählen Sie Ihr Gebäude auf der Karte aus, prüfen Sie die vorhandenen Angaben und ergänzen Sie weitere Informationen"
+      "description": "Wählen Sie Ihr Gebäude auf der Karte aus, prüfen Sie die vorhandenen Angaben und ergänzen Sie weitere Informationen."
     },
     {
       "icon": "Calculator",
@@ -28,7 +28,7 @@
     {
       "icon": "Wrench",
       "title": "Sanierungsmaßnahmen planen",
-      "description": "Wählen Sie Vorschläge zu passenden Sanierungsmaßnahmen aus und verstehen Sie deren Einfluss auf die energetische Effizienz Ihres Gebäudes."
+      "description": "Heizungswechsel und Dämmung: Wählen Sie Vorschläge zu passenden Sanierungsmaßnahmen aus und verstehen Sie deren Einfluss auf die Effizienz Ihres Gebäudes."
     },
     {
       "icon": "FileText",
