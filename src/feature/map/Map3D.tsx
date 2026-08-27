@@ -326,8 +326,12 @@ export function Map3D({ children }: Map3DProps) {
   const isInteractiveStep = currentStep === Step.Building;
   return (
     <div
+      role="region"
+      aria-label={t('map.stepTitle')}
+      aria-hidden={!isInteractiveStep}
       className={`absolute top-(--header-height) left-0 h-(--content-height) w-full ${isInteractiveStep ? 'pointer-events-auto' : 'pointer-events-none'}`}
     >
+      {isInteractiveStep && <h1 className="sr-only">{t('map.stepTitle')}</h1>}
       <Viewer
         ref={(ref) => {
           if (!ref?.cesiumElement) return;
@@ -407,10 +411,13 @@ export function Map3D({ children }: Map3DProps) {
               className="absolute inset-0 z-10 flex items-center justify-center bg-white/95 backdrop-blur-md"
             >
               {loadFailed ? (
-                <div className="flex max-w-sm flex-col items-center gap-3 px-6 text-center">
-                  <p className="text-lg font-semibold">
+                <div
+                  className="flex max-w-sm flex-col items-center gap-3 px-6 text-center"
+                  role="alert"
+                >
+                  <h2 className="text-lg font-semibold">
                     {t('map.loadErrorTitle')}
-                  </p>
+                  </h2>
                   <p className="text-sm text-gray-600">
                     {t('map.loadErrorMessage')}
                   </p>
@@ -423,7 +430,9 @@ export function Map3D({ children }: Map3DProps) {
                   </button>
                 </div>
               ) : (
-                <div>{t('map.loading')}</div>
+                <div role="status" aria-live="polite">
+                  {t('map.loading')}
+                </div>
               )}
             </motion.div>
           )}

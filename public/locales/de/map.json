@@ -3,17 +3,27 @@
     "title": "Daten wirklich löschen?",
     "description": "Dieser Vorgang löscht Ihre eingereichten Gebäudedaten unwiderruflich vom Stadtserver. Ihre lokale Sitzung und der heruntergeladene PDF-Bericht bleiben erhalten.",
     "confirmButton": "Ja, Daten löschen",
+    "deletingButton": "Wird gelöscht…",
     "cancelButton": "Abbrechen",
-    "successMessage": "Ihre Daten wurden erfolgreich gelöscht.",
-    "errorMessage": "Löschen fehlgeschlagen. Bitte versuchen Sie es erneut.",
-    "downloadStarted": "Ihre JSON-Datei wird heruntergeladen…",
-    "backButton": "Zurück"
+    "checkingTitle": "Löschlink wird geprüft",
+    "checkingDescription": "Bitte warten Sie, während geprüft wird, ob die eingereichten Daten noch verfügbar sind.",
+    "unavailableTitle": "Löschlink nicht verfügbar",
+    "unavailableDescription": "Dieser Link ist nicht mehr gültig oder die eingereichten Daten sind nicht mehr verfügbar.",
+    "deletedTitle": "Daten gelöscht",
+    "deletedDescription": "Ihre eingereichten Daten wurden unwiderruflich vom Stadtserver gelöscht.",
+    "cancelledTitle": "Löschen abgebrochen",
+    "cancelledDescription": "Ihre eingereichten Daten wurden nicht gelöscht.",
+    "serviceErrorTitle": "Dienst vorübergehend nicht verfügbar",
+    "serviceErrorDescription": "Der Löschstatus konnte nicht ermittelt werden. Bitte versuchen Sie es erneut.",
+    "retryButton": "Erneut versuchen",
+    "openApplication": "Anwendung öffnen"
   },
   "sessionResumeDialog": {
     "title": "Offene Sitzung",
     "description": "Du hast eine offene Sitzung. Möchtest du weitermachen?",
     "continueButton": "Weiter machen",
-    "dismissButton": "Neu starten"
+    "dismissButton": "Neu starten",
+    "linkRestoreError": "Der Wiederherstellungslink ist ungültig oder wird nicht unterstützt. Eine lokal gespeicherte Sitzung kann weiterhin geöffnet werden."
   },
   "startOverConfirmDialog": {
     "title": "Sitzung zurücksetzen?",
@@ -53,9 +63,11 @@
     "continueButton": "Jetzt Sanierungsvorschlag ermitteln",
     "sessionContinueButton": "Dort weitermachen",
     "startOverButton": "Neu starten",
+    "closeButton": "Gebäudeansicht schließen",
     "processingTime": "Die Bearbeitung dauert ungefähr 10 Minuten bis zum Ergebnis"
   },
   "map": {
+    "stepTitle": "Gebäude auswählen",
     "loading": "Lade Anwendung...",
     "loadErrorTitle": "Karte konnte nicht geladen werden",
     "loadErrorMessage": "Die Kartendaten sind nicht erreichbar. Bitte prüfen Sie Ihre Internetverbindung.",
@@ -72,6 +84,7 @@
     "ariaDismissLabel": "Hinweis schließen"
   },
   "mapNav": {
+    "navigationLabel": "Kartensteuerung",
     "help": "Hilfe",
     "viewMode": "Ansicht",
     "alighToNorth": "Nord ausrichten",

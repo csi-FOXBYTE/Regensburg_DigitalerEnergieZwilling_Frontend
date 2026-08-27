@@ -19,7 +19,7 @@ import type {
 import { useStore } from '@nanostores/react';
 import type { ParseKeys } from 'i18next';
 import type { ReadableAtom } from 'nanostores';
-import type { ReactNode } from 'react';
+import { useId, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import EnergyCalculationField from './EnergyCalculationField';
 
@@ -45,6 +45,7 @@ function EnergySelectInputBase<T>({
   className,
   sortAlphabetically = false,
 }: BaseProps<T>) {
+  const triggerId = useId();
   const { i18n } = useTranslation();
   const value = useStore(field.$store);
   const placeholder = useStore(field.$placeholder);
@@ -71,6 +72,7 @@ function EnergySelectInputBase<T>({
       onReset={field.resettable ? () => field.setValue(undefined) : undefined}
       resetDisabled={!value || !!disabled}
       className={className}
+      labelFor={triggerId}
     >
       <Select
         value={currentIndex >= 0 ? String(currentIndex) : ''}
@@ -78,6 +80,7 @@ function EnergySelectInputBase<T>({
         disabled={disabled}
       >
         <SelectTrigger
+          id={triggerId}
           className={cn(
             'data-placeholder:italic',
             value != null && 'border-neutral-450',

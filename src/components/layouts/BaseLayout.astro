@@ -1,14 +1,21 @@
 ---
 import '@/styles/global.css';
+import i18n from 'i18next';
+
+interface Props {
+  includeCesium?: boolean;
+}
+
+const { includeCesium = true } = Astro.props;
 ---
 
-<html>
+<html lang={i18n.language}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Digitaler Energie Zwilling Regensburg</title>
     <link rel="icon" href="/favicon.ico" />
-    <script src="/cesium/Cesium.js" is:inline></script>
+    {includeCesium && <script src="/cesium/Cesium.js" is:inline />}
   </head>
   <body class="flex flex-col">
     <slot />

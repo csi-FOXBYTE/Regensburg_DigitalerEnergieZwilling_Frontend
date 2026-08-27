@@ -55,7 +55,7 @@ export default function BottomFloorPaper() {
     >
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <FieldLegend className="col-span-full">
-          <Typography variant="h4">
+          <Typography as="span" variant="h4">
             {t('outerParts.bottomFloor.bottomFloor')}
           </Typography>
         </FieldLegend>

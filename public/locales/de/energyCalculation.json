@@ -61,6 +61,7 @@
   },
   "outerParts": {
     "title": "Außenbauteile des Gebäudes",
+    "sectionNavigationLabel": "Abschnitte der Außenbauteile",
     "insulation": "Dämmung",
     "roof": {
       "roof": "Dach",
@@ -291,11 +292,19 @@
       "energyPotential": "Energiepotenzial",
       "savings": "Sparpotenzial",
       "sortBy": "Nach {{column}} sortieren",
+      "selection": "Auswahl",
       "total": "Gesamt",
       "noMeasure": "Keine Maßnahme"
     },
     "recommended": "Empfohlen",
     "selectRecommended": "Empfohlene Maßnahmen auswählen",
+    "summary": {
+      "trigger": "Auswahl anzeigen",
+      "title": "Gewählte Sanierungsmaßnahmen",
+      "description": "Ihre Auswahl aus Schritt 6.",
+      "hint": "Ändern können Sie die Auswahl im vorherigen Schritt.",
+      "noMeasure": "Keine Maßnahme ausgewählt"
+    },
     "tooltips": {
       "envelope_roof": "Eine Dachdämmung reduziert Wärmeverluste über das Dach deutlich und verbessert den Hitzeschutz im Sommer. Besonders bei ausgebauten Dachgeschossen ist die Maßnahme sehr wirkungsvoll. Die Berechnung wird nur berücksichtigt, wenn der Dachraum beheizt ist.",
       "envelope_topFloor": "Über die oberste Geschossdecke geht oft viel Heizwärme verloren. Eine Dämmung dieser Fläche zählt zu den einfachsten und wirtschaftlichsten Sanierungsmaßnahmen. Die Berechnung wird nur berücksichtigt, wenn der Dachraum unbeheizt ist.",
@@ -322,6 +331,8 @@
     "financingLoan": "Kredit",
     "financingGrant": "Zuschuss",
     "moreInfo": "Mehr anzeigen",
+    "expandDetails": "Details zu {{title}} anzeigen",
+    "collapseDetails": "Details zu {{title}} ausblenden",
     "loadError": "Die Förderprogramme konnten nicht geladen werden. Bitte laden Sie die Seite neu."
   },
   "result": {
@@ -462,13 +473,17 @@
     "submissionSuccess": "Daten wurden erfolgreich übermittelt.",
     "submissionError": "Daten konnten nicht übermittelt werden. Der PDF-Bericht wird trotzdem heruntergeladen.",
     "downloadError": "Der PDF-Bericht konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
+    "recoveryLinkError": "Der portable Wiederherstellungslink konnte nicht erstellt werden. Bitte laden Sie den Bericht erneut herunter.",
     "dataLinksTitle": "Ihre Datenverwaltung",
     "recoveryLinkLabel": "Wiederherstellungslink – Gebäudedaten in der App erneut laden",
     "recoveryLinkText": "Sitzung wiederherstellen",
     "deletionLinkLabel": "Löschlink – eingereichte Daten beim Stadtserver löschen",
     "deletionLinkText": "Eingereichte Daten löschen",
     "jsonLinkLabel": "JSON-Download – Rohdaten für eigene Einreichung herunterladen",
-    "jsonLinkText": "JSON-Datei herunterladen"
+    "jsonLinkText": "JSON-Datei herunterladen",
+    "informationLinksTitle": "Datenschutz- und Berechnungshinweise",
+    "methodologyLinkText": "Hinweise zur Datengrundlage und Berechnung",
+    "privacyLinkText": "Datenschutzhinweis"
   },
   "nextSteps": {
     "sectionTitle": "So geht's weiter",

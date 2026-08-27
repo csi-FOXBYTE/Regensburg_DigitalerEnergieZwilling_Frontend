@@ -111,6 +111,7 @@ export function RenovationSingleSelectTable({
                   selectionCell={
                     <RadioGroupItem
                       value={row.id}
+                      aria-label={row.original.label}
                       className="size-5 border-2 border-neutral-550"
                     />
                   }
@@ -130,6 +131,7 @@ export function RenovationSingleSelectTable({
               selectionCell={
                 <RadioGroupItem
                   value={NONE}
+                  aria-label={t('renovation.table.noMeasure')}
                   className="size-5 border-2 border-neutral-550"
                 />
               }

@@ -44,7 +44,9 @@ export default function OuterWallPaper() {
     >
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <FieldLegend className="col-span-full">
-          <Typography variant="h4">{t('outerParts.outerWall.outerWall')}</Typography>
+          <Typography as="span" variant="h4">
+            {t('outerParts.outerWall.outerWall')}
+          </Typography>
         </FieldLegend>
         <Separator className="col-span-full" />
         <EnergySelectInput

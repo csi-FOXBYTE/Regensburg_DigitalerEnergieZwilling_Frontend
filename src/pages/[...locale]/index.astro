@@ -20,28 +20,38 @@ export const getStaticPaths = (() => {
 
 <script>
   import '@/lib/state/session/auto-save';
-  import { $step, setStep, navigateToStep, Step } from '@/lib/state/ui/progress';
-  import { loadSession, loadSessionFromData, markRestoredFromLink } from '@/lib/state/session';
+  import {
+    $step,
+    setStep,
+    navigateToStep,
+    Step,
+  } from '@/lib/state/ui/progress';
+  import {
+    loadSessionFromData,
+    markLinkRestoreError,
+    markRestoredFromLink,
+  } from '@/lib/state/session';
+  import { decodeSessionRestore } from '@/lib/state/session/restore-codec';
 
-  const _params = new URLSearchParams(window.location.search);
-
-  const _restoreParam = _params.get('restore');
-  if (_restoreParam) {
-    markRestoredFromLink();
-    _params.delete('restore');
-    history.replaceState(null, '', _params.toString() ? `?${_params}` : window.location.pathname);
+  const _fragmentParams = new URLSearchParams(window.location.hash.slice(1));
+  const _hasRestorePayload = _fragmentParams.has('restore');
+  const _restorePayload = _fragmentParams.get('restore');
+  if (_hasRestorePayload) {
+    _fragmentParams.delete('restore');
+    const _remainingFragment = _fragmentParams.toString();
+    history.replaceState(
+      history.state,
+      '',
+      `${window.location.pathname}${window.location.search}${_remainingFragment ? `#${_remainingFragment}` : ''}`,
+    );
     try {
-      const _session = JSON.parse(decodeURIComponent(atob(_restoreParam)));
-      if (_session?.building?.id) {
-        loadSessionFromData(_session);
-      } else {
-        loadSession(_restoreParam);
-      }
+      const _session = decodeSessionRestore(_restorePayload ?? '');
+      loadSessionFromData(_session);
+      markRestoredFromLink();
     } catch {
-      loadSession(_restoreParam);
+      markLinkRestoreError();
     }
   }
-
 
   document.addEventListener('click', (e) => {
     if ((e.target as Element).closest('[data-next-step]')) {

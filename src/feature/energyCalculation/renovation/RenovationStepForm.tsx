@@ -37,14 +37,14 @@ export default function RenovationStepForm() {
 
   return (
     <div className="flex flex-col gap-4">
-      <Typography variant="h3" className="mb-2">
+      <Typography as="h2" variant="h3" className="mb-2">
         {t('renovation.subtitle')}
       </Typography>
       <div>
         {/* Der Schalter gilt global fuer alle drei Tabellen, sitzt aber in der
             Ueberschriftenzeile der ersten. */}
         <div className="mb-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-          <Typography variant="h4">
+          <Typography as="h3" variant="h4">
             {t('renovation.insulation.title')}
           </Typography>
           <RenovationRecommendedToggle />
@@ -59,7 +59,7 @@ export default function RenovationStepForm() {
       </div>
       {heatingRenovations.length > 0 && (
         <div>
-          <Typography variant="h4" className="mb-2">
+          <Typography as="h3" variant="h4" className="mb-2">
             {t('renovation.heating.title')}
           </Typography>
           <RenovationSingleSelectTable
@@ -74,7 +74,7 @@ export default function RenovationStepForm() {
       )}
       {heatingSurfaceRenovations.length > 0 && (
         <div>
-          <Typography variant="h4" className="mb-2">
+          <Typography as="h3" variant="h4" className="mb-2">
             {t('renovation.heatingSurface.title')}
           </Typography>
           <RenovationSingleSelectTable

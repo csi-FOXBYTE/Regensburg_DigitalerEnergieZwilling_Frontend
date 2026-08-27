@@ -22,6 +22,7 @@ function CurrentStatsCard({
   icon,
   details,
   compact = false,
+  headingAs,
 }: {
   value: string;
   unit?: string;
@@ -29,6 +30,7 @@ function CurrentStatsCard({
   icon: ReactNode;
   details?: StatDetail[];
   compact?: boolean;
+  headingAs: 'h2' | 'h3';
 }) {
   const { t } = useTranslation('energyCalculation');
   const [isOpen, setIsOpen] = useState(false);
@@ -39,7 +41,7 @@ function CurrentStatsCard({
       <Paper className="flex flex-col gap-1 p-2" elevation={2}>
         <div className="flex gap-1">
           {icon}
-          <Typography variant="h4" className="text-sm leading-5">
+          <Typography as={headingAs} variant="h4" className="text-sm leading-5">
             {t(titleKey)}
           </Typography>
         </div>
@@ -55,7 +57,11 @@ function CurrentStatsCard({
     <Paper className="relative flex flex-col gap-2 p-3" elevation={2}>
       <div className="flex gap-2">
         {icon}
-        <Typography variant={'h4'} className="text-[16px] font-bold">
+        <Typography
+          as={headingAs}
+          variant="h4"
+          className="text-[16px] font-bold"
+        >
           {t(titleKey)}
         </Typography>
       </div>
@@ -87,6 +93,7 @@ function CurrentStatsCard({
               </span>
               <ChevronDown
                 className={`ml-0.5 size-3 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+                aria-hidden="true"
               />
             </button>
           )}
@@ -205,34 +212,40 @@ export default function CurrentStats({
       }
     >
       <CurrentStatsCard
+        headingAs={embedded ? 'h3' : 'h2'}
         compact={compact}
         value={formatValue(currentStats.energyConsumptionPerSquareMeter)}
         unit={energyDemandUnit}
         titleKey="stats.energyDemand"
-        icon={<Zap className="size-5 text-amber-600" />}
+        icon={<Zap className="size-5 text-amber-600" aria-hidden="true" />}
         details={energyDemandBreakdown}
       />
       <CurrentStatsCard
+        headingAs={embedded ? 'h3' : 'h2'}
         compact={compact}
         value={t('stats.energyEfficiencyValue', {
           value: currentStats.energyEfficiencyClass,
         })}
         titleKey="stats.energyEfficiency"
-        icon={<TrendingUp className="size-5 text-green-600" />}
+        icon={
+          <TrendingUp className="size-5 text-green-600" aria-hidden="true" />
+        }
       />
       <CurrentStatsCard
+        headingAs={embedded ? 'h3' : 'h2'}
         compact={compact}
         value={formatValue(currentStats.yearlyCost)}
         unit={annualCostsUnit}
         titleKey="stats.annualCosts"
-        icon={<Euro className="size-5 text-blue-600" />}
+        icon={<Euro className="size-5 text-blue-600" aria-hidden="true" />}
       />
       <CurrentStatsCard
+        headingAs={embedded ? 'h3' : 'h2'}
         compact={compact}
         value={formatValue(currentStats.co2Emissions, 1)}
         unit={co2EmissionsUnit}
         titleKey="stats.co2Emissions"
-        icon={<Leaf className="size-5 text-green-700" />}
+        icon={<Leaf className="size-5 text-green-700" aria-hidden="true" />}
       />
     </div>
   );

@@ -22,7 +22,7 @@ export default function BuildingAddress() {
 
   return (
     <div className="text-muted-foreground mt-2 flex items-center gap-2">
-      <MapPin className="size-4 shrink-0" />
+      <MapPin className="size-4 shrink-0" aria-hidden="true" />
       <Typography variant="small">{line}</Typography>
     </div>
   );

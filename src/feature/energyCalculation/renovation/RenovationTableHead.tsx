@@ -33,6 +33,7 @@ function SortButton({
       <Typography>{label}</Typography>
       <Icon
         className={`size-5 ${sorted ? 'text-foreground' : 'text-muted-foreground'}`}
+        aria-hidden="true"
       />
     </button>
   );
@@ -44,8 +45,10 @@ export function RenovationTableHead({ table }: { table: Table<Renovation> }) {
   return (
     <thead>
       <tr className="bg-neutral-150">
-        <th className="w-8" />
-        <th className="px-4 py-3 font-medium">
+        <th scope="col" className="w-8">
+          <span className="sr-only">{t('renovation.table.selection')}</span>
+        </th>
+        <th scope="col" className="px-4 py-3 font-medium">
           <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
             <SortButton
               column={table.getColumn(RENOVATION_COLUMNS.measure)}

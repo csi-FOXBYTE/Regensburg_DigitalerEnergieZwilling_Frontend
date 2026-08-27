@@ -30,7 +30,7 @@ function getStickyContainer(nav: HTMLElement | null) {
 
 export default function OuterSectionNav() {
   const [active, setActive] = useState<SectionId | null>(null);
-  const navRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLElement>(null);
   const { t } = useTranslation('energyCalculation');
 
   const hasAtticValue = useStore(hasAtticField.$store);
@@ -115,8 +115,9 @@ export default function OuterSectionNav() {
     'border-transparent hover:border-transparent shadow-[inset_0_0_0_1px_var(--color-primary)] hover:shadow-[inset_0_0_0_1px_var(--color-primary-hover)]';
 
   return (
-    <div
+    <nav
       ref={navRef}
+      aria-label={t('outerParts.sectionNavigationLabel')}
       className="hidden min-w-0 transform-gpu gap-2 overflow-x-auto backface-hidden md:flex"
     >
       <Button
@@ -170,6 +171,6 @@ export default function OuterSectionNav() {
       >
         {t('outerParts.bottomFloor.bottomFloor')}
       </Button>
-    </div>
+    </nav>
   );
 }

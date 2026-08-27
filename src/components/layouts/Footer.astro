@@ -5,31 +5,37 @@ import i18n from 'i18next';
 import FeedbackButton from './FeedbackButton';
 
 const imprintHref = getLocalizedPathname('/imprint', i18n.language);
+const privacyHref = getLocalizedPathname('/privacy', i18n.language);
 ---
 
 <footer class="bg-footer text-footer-foreground relative shrink-0 px-5 md:px-7">
   <div
     class="max-w-content mx-auto flex flex-col-reverse items-center gap-4 pt-15 pb-6 md:flex-row md:pt-5 md:pb-6"
   >
-    <ul
-      class="flex flex-col items-center gap-2 md:shrink-0 md:flex-row md:gap-6"
-    >
-      <li>
-        <a href={imprintHref} class="hover:text-primary transition-colors"
-          >{i18n.t('common:footer.imprint')}</a
-        >
-      </li>
-      <li>
-        <a href="#" class="hover:text-primary transition-colors"
-          >{i18n.t('common:footer.privacy')}</a
-        >
-      </li>
-      <li>
-        <a href="#" class="hover:text-primary transition-colors"
-          >{i18n.t('common:footer.cookieSettings')}</a
-        >
-      </li>
-    </ul>
+    <nav aria-label={i18n.t('common:footer.navigationLabel')}>
+      <ul
+        class="flex flex-col items-center gap-2 md:shrink-0 md:flex-row md:gap-6"
+      >
+        <li>
+          <a href={imprintHref} class="hover:text-primary transition-colors"
+            >{i18n.t('common:footer.imprint')}</a
+          >
+        </li>
+        <li>
+          <a href={privacyHref} class="hover:text-primary transition-colors"
+            >{i18n.t('common:footer.privacy')}</a
+          >
+        </li>
+        <li>
+          <button
+            type="button"
+            class="hover:text-primary cursor-pointer border-0 bg-transparent p-0 transition-colors"
+          >
+            {i18n.t('common:footer.cookieSettings')}
+          </button>
+        </li>
+      </ul>
+    </nav>
     <hr class="border-footer-foreground/20 my-4 w-full md:hidden" />
     <div class="flex w-full flex-col items-center gap-4 md:grow md:items-end">
       <FeedbackButton client:load />

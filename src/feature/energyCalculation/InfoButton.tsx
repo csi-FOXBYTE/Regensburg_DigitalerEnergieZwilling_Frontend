@@ -7,6 +7,7 @@ import {
 } from '@/components/ui/dialog';
 import { Info } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Tooltip,
   TooltipContent,
@@ -15,18 +16,25 @@ import {
 } from '../../components/ui/tooltip';
 
 function InfoButton({ onClick }: { onClick?: () => void }) {
+  const { t } = useTranslation('common');
+
   return (
     <button
       type="button"
       onClick={onClick}
+      aria-label={t('showMoreInformation')}
       className="group text-muted-foreground hover:text-foreground inline-flex cursor-pointer items-center"
     >
-      <Info className="size-3.5 text-muted-foreground group-hover:text-[#e30613]" />
+      <Info
+        className="size-3.5 text-muted-foreground group-hover:text-[#e30613]"
+        aria-hidden="true"
+      />
     </button>
   );
 }
 
 export function InfoTooltipButton({ content }: { content: ReactNode }) {
+  const { t } = useTranslation('common');
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
@@ -42,13 +50,18 @@ export function InfoTooltipButton({ content }: { content: ReactNode }) {
 
   return (
     <TooltipProvider>
-      <Tooltip open={open}>
+      <Tooltip open={open} onOpenChange={setOpen}>
         <TooltipTrigger
           ref={triggerRef}
+          type="button"
+          aria-label={t('showMoreInformation')}
           onClick={() => setOpen((v) => !v)}
           className="group text-muted-foreground hover:text-foreground inline-flex cursor-pointer items-center"
         >
-          <Info className="size-3.5 text-muted-foreground group-hover:text-[#e30613]" />
+          <Info
+            className="size-3.5 text-muted-foreground group-hover:text-[#e30613]"
+            aria-hidden="true"
+          />
         </TooltipTrigger>
         <TooltipContent
           className="max-w-70 rounded bg-white px-4 py-3 text-sm leading-relaxed shadow-lg"

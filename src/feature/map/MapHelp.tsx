@@ -46,9 +46,9 @@ function modeHelpRow(mode: CameraMode, t: TFunction<'map'>) {
   return {
     icon:
       mode === 'perspective' ? (
-        <Box className="size-5 shrink-0" />
+        <Box className="size-5 shrink-0" aria-hidden="true" />
       ) : (
-        <MapIcon className="size-5 shrink-0" />
+        <MapIcon className="size-5 shrink-0" aria-hidden="true" />
       ),
     label: t('mapHelp.viewMode'),
     action: t(
@@ -64,26 +64,28 @@ function DesktopHelpContent({ mode }: { mode: CameraMode }) {
   const rows = [
     modeHelpRow(mode, t),
     {
-      icon: <MousePointerClick className="size-5 shrink-0" />,
+      icon: (
+        <MousePointerClick className="size-5 shrink-0" aria-hidden="true" />
+      ),
       label: t('mapHelp.chooseBuilding'),
       action: t('mapHelp.chooseBuildingExplain'),
     },
     {
-      icon: <Move className="size-5 shrink-0" />,
+      icon: <Move className="size-5 shrink-0" aria-hidden="true" />,
       label: t('mapHelp.moveMap'),
       action: t('mapHelp.moveMapExplain'),
     },
     ...(mode === 'perspective'
       ? [
           {
-            icon: <RotateCcw className="size-5 shrink-0" />,
+            icon: <RotateCcw className="size-5 shrink-0" aria-hidden="true" />,
             label: t('mapHelp.tiltView'),
             action: t('mapHelp.tiltViewExplain'),
           },
         ]
       : []),
     {
-      icon: <ZoomIn className="size-5 shrink-0" />,
+      icon: <ZoomIn className="size-5 shrink-0" aria-hidden="true" />,
       label: t('mapHelp.zoom'),
       action: t('mapHelp.zoomExplain'),
     },
@@ -96,26 +98,26 @@ function MobileHelpContent({ mode }: { mode: CameraMode }) {
   const rows = [
     modeHelpRow(mode, t),
     {
-      icon: <Hand className="size-5 shrink-0" />,
+      icon: <Hand className="size-5 shrink-0" aria-hidden="true" />,
       label: t('mapHelp.chooseBuilding'),
       action: t('mapHelp.chooseBuildingMobileExplain'),
     },
     {
-      icon: <Move className="size-5 shrink-0" />,
+      icon: <Move className="size-5 shrink-0" aria-hidden="true" />,
       label: t('mapHelp.moveMap'),
       action: t('mapHelp.moveMapMobileExplain'),
     },
     ...(mode === 'perspective'
       ? [
           {
-            icon: <RotateCcw className="size-5 shrink-0" />,
+            icon: <RotateCcw className="size-5 shrink-0" aria-hidden="true" />,
             label: t('mapHelp.tiltView'),
             action: t('mapHelp.tiltViewMobileExplain'),
           },
         ]
       : []),
     {
-      icon: <ZoomIn className="size-5 shrink-0" />,
+      icon: <ZoomIn className="size-5 shrink-0" aria-hidden="true" />,
       label: t('mapHelp.zoom'),
       action: t('mapHelp.zoomMobileExplain'),
     },

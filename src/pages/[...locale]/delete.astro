@@ -10,7 +10,7 @@ export const getStaticPaths = (() => {
 }) satisfies GetStaticPaths;
 ---
 
-<BaseLayout>
+<BaseLayout includeCesium={false}>
   <DeleteConfirmationDialog client:only="react" />
   <Toaster client:load richColors />
 </BaseLayout>

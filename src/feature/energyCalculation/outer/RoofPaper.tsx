@@ -61,7 +61,9 @@ export default function RoofPaper() {
     >
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <FieldLegend className="col-span-full">
-          <Typography variant="h4">{t('outerParts.roof.roof')}</Typography>
+          <Typography as="span" variant="h4">
+            {t('outerParts.roof.roof')}
+          </Typography>
         </FieldLegend>
         <Separator className="col-span-full" />
         <EnergySelectInput

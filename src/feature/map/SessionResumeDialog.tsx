@@ -10,12 +10,14 @@ import {
 import type { SavedSession } from '@/lib/state/session';
 import {
   clearLastActive,
+  consumeLinkRestoreError,
   getLastActiveSession,
   loadSession,
   wasRestoredFromLink,
 } from '@/lib/state/session';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 
 export default function SessionResumeDialog() {
   const { t } = useTranslation('map');
@@ -23,13 +25,16 @@ export default function SessionResumeDialog() {
   const [session, setSession] = useState<SavedSession | null>(null);
 
   useEffect(() => {
+    if (consumeLinkRestoreError()) {
+      toast.error(t('sessionResumeDialog.linkRestoreError'));
+    }
     if (wasRestoredFromLink()) return;
     const s = getLastActiveSession();
     if (s) {
       setSession(s);
       setOpen(true);
     }
-  }, []);
+  }, [t]);
 
   const handleContinue = () => {
     if (!session) return;

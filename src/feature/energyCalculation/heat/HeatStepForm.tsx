@@ -51,7 +51,9 @@ export default function HeatStepForm() {
         <Paper variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
           <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <FieldLegend className="col-span-full">
-              <Typography variant="h4">{t('heat.supply.title')}</Typography>
+              <Typography as="span" variant="h4">
+                {t('heat.supply.title')}
+              </Typography>
             </FieldLegend>
             <Separator className="col-span-full" />
             <EnergyBooleanInput
@@ -77,7 +79,9 @@ export default function HeatStepForm() {
         <Paper variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
           <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <FieldLegend className="col-span-full">
-              <Typography variant="h4">{t('heat.heating.title')}</Typography>
+              <Typography as="span" variant="h4">
+                {t('heat.heating.title')}
+              </Typography>
             </FieldLegend>
             <Separator className="col-span-full" />
             <EnergySelectInput
@@ -127,7 +131,9 @@ export default function HeatStepForm() {
           <Paper variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
             <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
               <FieldLegend className="col-span-full">
-                <Typography variant="h4">{t('heat.bills.title')}</Typography>
+                <Typography as="span" variant="h4">
+                  {t('heat.bills.title')}
+                </Typography>
               </FieldLegend>
               <Separator className="col-span-full" />
               <EnergyNumberInput

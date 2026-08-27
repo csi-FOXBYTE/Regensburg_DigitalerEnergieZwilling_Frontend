@@ -1,14 +1,20 @@
+---
+import { getLocalizedPathname } from 'astro-react-i18next/utils';
+import i18n from 'i18next';
+
+const homeHref = getLocalizedPathname('/', i18n.language);
+---
+
 <header
   class="bg-background shadow-paper-2 absolute top-0 right-0 left-0 z-50 shrink-0 border-b border-neutral-200"
 >
   <div class="px-gutter flex h-(--title-height) items-center border-b py-4">
-    <button
-      onclick="location.reload()"
+    <a
+      href={homeHref}
       class="text-primary cursor-pointer text-[20px] leading-7 font-semibold"
-      aria-label="Seite neu laden"
     >
       Digitaler Energie Zwilling
-    </button>
+    </a>
   </div>
   <slot />
 </header>

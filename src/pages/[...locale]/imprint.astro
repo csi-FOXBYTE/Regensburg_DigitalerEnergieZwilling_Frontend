@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@/components/layouts/BaseLayout.astro';
+import ContentContainer from '@/components/layouts/ContentContainer.astro';
 import Header from '@/components/layouts/header/Header.astro';
 import Footer from '@/components/layouts/Footer.astro';
 import { Typography } from '@/components/ui/typography';
@@ -24,15 +25,13 @@ const responsibleWebsite = i18next.t('common:imprint.responsible.website');
 <BaseLayout>
   <Header />
   <main class="relative min-h-screen shrink-0 pt-(--title-height)">
-    <div
-      class="max-w-content mx-auto flex flex-col gap-10 px-gutter py-10 md:py-16"
-    >
+    <ContentContainer class="flex flex-col gap-10 py-10 md:py-16">
       <Typography as="h1" variant="h1">
         {i18next.t('common:imprint.title')}
       </Typography>
 
       <section class="flex flex-col gap-4">
-        <Typography variant="lead">
+        <Typography as="h2" variant="lead">
           {i18next.t('common:imprint.contactIntro')}
         </Typography>
         <div class="flex flex-col gap-1">
@@ -135,7 +134,7 @@ const responsibleWebsite = i18next.t('common:imprint.responsible.website');
           {i18next.t('common:imprint.administration.value')}
         </Typography>
       </section>
-    </div>
+    </ContentContainer>
   </main>
   <Footer />
 </BaseLayout>

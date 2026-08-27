@@ -51,6 +51,7 @@ function EnergyClassRow({
     <Tooltip>
       <TooltipTrigger asChild>
         <div
+          tabIndex={selected ? 0 : undefined}
           className={`group flex items-stretch gap-4 p-2 ring-2 ${ringClass}`}
         >
           <div
@@ -75,8 +76,8 @@ function EnergyClassRow({
                   <span
                     className={`flex items-center gap-0.5 px-1.5 py-0.5 text-xs font-bold text-white ${badge.bgClass}`}
                   >
-                    {badge.arrow === 'up' && <ArrowUp />}
-                    {badge.arrow === 'down' && <ArrowDown />}
+                    {badge.arrow === 'up' && <ArrowUp aria-hidden="true" />}
+                    {badge.arrow === 'down' && <ArrowDown aria-hidden="true" />}
                     {badge.label}
                   </span>
                 )}

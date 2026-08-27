@@ -126,7 +126,7 @@ export default function RenovationPotential({
           onClick={() => setInfoOpen(true)}
           className="text-primary hover:text-primary-hover mt-3 flex items-center gap-1.5 text-sm underline underline-offset-2"
         >
-          <HelpCircle className="size-3.5 shrink-0" />
+          <HelpCircle className="size-3.5 shrink-0" aria-hidden="true" />
           {t('renovationPotential.infoLink')}
         </button>
       </div>

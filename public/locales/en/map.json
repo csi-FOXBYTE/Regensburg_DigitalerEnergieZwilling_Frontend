@@ -3,17 +3,27 @@
     "title": "Really delete data?",
     "description": "This will permanently delete your submitted building data from the city server. Your local session and the downloaded PDF report will be kept.",
     "confirmButton": "Yes, delete data",
+    "deletingButton": "Deleting…",
     "cancelButton": "Cancel",
-    "successMessage": "Your data has been successfully deleted.",
-    "errorMessage": "Deletion failed. Please try again.",
-    "downloadStarted": "Your JSON file is being downloaded…",
-    "backButton": "Go back"
+    "checkingTitle": "Checking deletion link",
+    "checkingDescription": "Please wait while we check whether the submitted data is still available.",
+    "unavailableTitle": "Deletion link unavailable",
+    "unavailableDescription": "This link is no longer valid or the submitted data is no longer available.",
+    "deletedTitle": "Data deleted",
+    "deletedDescription": "Your submitted data has been permanently deleted from the city server.",
+    "cancelledTitle": "Deletion cancelled",
+    "cancelledDescription": "Your submitted data has not been deleted.",
+    "serviceErrorTitle": "Service temporarily unavailable",
+    "serviceErrorDescription": "The deletion status could not be determined. Please try again.",
+    "retryButton": "Try again",
+    "openApplication": "Open application"
   },
   "sessionResumeDialog": {
     "title": "Open Session",
     "description": "You have an open session. Would you like to continue?",
     "continueButton": "Continue",
-    "dismissButton": "Dismiss"
+    "dismissButton": "Dismiss",
+    "linkRestoreError": "The recovery link is invalid or is not supported. You can still continue a locally saved session."
   },
   "startOverConfirmDialog": {
     "title": "Reset session?",
@@ -53,9 +63,11 @@
     "continueButton": "Determine renovation proposal now",
     "sessionContinueButton": "Continue where I left off",
     "startOverButton": "Start over",
+    "closeButton": "Close building view",
     "processingTime": "Processing takes approximately 10 minutes to complete"
   },
   "map": {
+    "stepTitle": "Select building",
     "loading": "Loading application...",
     "loadErrorTitle": "Map could not be loaded",
     "loadErrorMessage": "The map data is unreachable. Please check your internet connection.",
@@ -72,6 +84,7 @@
     "ariaDismissLabel": "Dismiss hint"
   },
   "mapNav": {
+    "navigationLabel": "Map controls",
     "help": "Help",
     "viewMode": "View",
     "alighToNorth": "Align North",

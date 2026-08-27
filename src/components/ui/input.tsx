@@ -2,6 +2,7 @@ import { X } from 'lucide-react';
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 interface InputProps extends React.ComponentProps<'input'> {
   leftIcon?: React.ReactNode;
@@ -9,6 +10,7 @@ interface InputProps extends React.ComponentProps<'input'> {
 }
 
 function Input({ className, type, leftIcon, onClear, ...props }: InputProps) {
+  const { t } = useTranslation('common');
   const showClear = onClear && props.value;
 
   return (
@@ -51,9 +53,9 @@ function Input({ className, type, leftIcon, onClear, ...props }: InputProps) {
           type="button"
           onClick={onClear}
           className="text-muted-foreground hover:text-foreground absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer transition-colors"
-          aria-label="Eingabe löschen"
+          aria-label={t('clearInput')}
         >
-          <X className="size-6" />
+          <X className="size-6" aria-hidden="true" />
         </button>
       )}
     </div>

@@ -10,5 +10,7 @@
     "7": "Results"
   },
   "mobileStepsIndicator": "Step {{step}} of {{maxSteps}}",
+  "navigationLabel": "Calculation progress",
+  "backToPreviousStep": "Go back to the previous step",
   "goToStep": "Go to step {{step}}: {{label}}"
 }

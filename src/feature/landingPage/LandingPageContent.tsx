@@ -17,9 +17,14 @@ export default function LandingPageContent() {
           const Icon = ICON_MAP[icon as IconName];
           return (
             <div key={icon} className="flex gap-4">
-              <Icon className="text-primary mt-0.5 size-5 shrink-0" />
+              <Icon
+                className="text-primary mt-0.5 size-5 shrink-0"
+                aria-hidden="true"
+              />
               <div>
-                <Typography variant="h4">{title}</Typography>
+                <Typography as="h2" variant="h4">
+                  {title}
+                </Typography>
                 <Typography variant="body">{description}</Typography>
               </div>
             </div>
@@ -28,6 +33,7 @@ export default function LandingPageContent() {
       </div>
 
       <button
+        type="button"
         data-next-step
         className="group/button bg-primary text-primary-foreground hover:bg-primary-hover flex w-full cursor-pointer items-center justify-center gap-2 px-7 py-3 transition-colors active:translate-y-px active:scale-[0.985]"
       >

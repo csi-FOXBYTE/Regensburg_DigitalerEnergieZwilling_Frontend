@@ -133,6 +133,7 @@ export function RenovationMultiSelectTable({
                   <Checkbox
                     checked={row.getIsSelected()}
                     onCheckedChange={() => row.toggleSelected()}
+                    aria-label={row.original.label}
                     className="border-neutral-550 size-5 border-2"
                   />
                 }
