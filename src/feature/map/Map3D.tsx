@@ -12,6 +12,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Cesium3DTileset, ImageryLayer, Viewer } from 'resium';
 import { CameraController } from '../../lib/camera';
+import { getMapResources } from '../../lib/api/public';
 import {
   type FocusCameraIntent,
   registerCameraOwner,
@@ -25,24 +26,12 @@ import {
 } from '../../lib/state/building';
 import { $step, Step } from '../../lib/state/ui/progress';
 
-// Entwicklungsstand: Direkte S3-URLs dürfen nicht in das Kundendeployment
-// übernommen werden. Der produktive Tile-Zugriff muss einheitlich über
-// APISIX und /api/public/tiles/* konfiguriert werden.
-const terrainProvider = Cesium.CesiumTerrainProvider.fromUrl(
-  '/api/public/terrain',
-  {},
-).catch((error) => {
-  console.error('Terrain konnte nicht geladen werden:', error);
-  return new Cesium.EllipsoidTerrainProvider();
-});
-
 const openStreetMapImagerProvider = new Cesium.UrlTemplateImageryProvider({
   url: 'https://intergeo38.bayernwolke.de/betty/g_topopluslight/{z}/{x}/{y}',
   credit:
     'Map tiles by CartoDB, under CC BY 3.0. Data by OpenStreetMap, under ODbL.',
 });
 
-const CESIUM_3D_TILES_URL = '/api/public/tiles/tileset.json';
 const SELECTED_FEATURE_COLOR = '#fff200';
 const NON_TARGET_FEATURE_COLOR = '#e5e5e5';
 const IS_NON_TARGET_FEATURE =
@@ -263,8 +252,42 @@ export function Map3D({ children }: Map3DProps) {
     null,
   );
   const addressFeatureSelectorRef = useRef(new AddressFeatureSelector());
+  const [terrainProvider, setTerrainProvider] =
+    useState<Cesium.TerrainProvider>(
+      () => new Cesium.EllipsoidTerrainProvider(),
+    );
+  const [tilesetUrl, setTilesetUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadFailed, setLoadFailed] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    void getMapResources()
+      .then(async (resources) => {
+        if (cancelled) return;
+        setTilesetUrl(
+          new URL('tileset.json', resources.tilesBaseUrl).toString(),
+        );
+
+        try {
+          const provider = await Cesium.CesiumTerrainProvider.fromUrl(
+            resources.terrainBaseUrl,
+          );
+          if (!cancelled) setTerrainProvider(provider);
+        } catch (error) {
+          console.error('Terrain konnte nicht geladen werden:', error);
+        }
+      })
+      .catch((error) => {
+        console.error('Kartenressourcen konnten nicht geladen werden:', error);
+        if (!cancelled) setLoadFailed(true);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     if (!loading) return;
@@ -355,52 +378,55 @@ export function Map3D({ children }: Map3DProps) {
       >
         {isInteractiveStep && children}
         <ImageryLayer imageryProvider={openStreetMapImagerProvider} />
-        <Cesium3DTileset
-          onAllTilesLoad={() => {
-            setLoading(false);
-            setLoadFailed(false);
-            addressFeatureSelectorRef.current.finishWithDrillPick();
-          }}
-          onTileVisible={(tile) =>
-            addressFeatureSelectorRef.current.inspectVisibleTile(tile)
-          }
-          onReady={(tileset) => {
-            setTilesetRef(tileset);
-            tileset.colorBlendMode = Cesium.Cesium3DTileColorBlendMode.REPLACE;
-            tileset.colorBlendAmount = 1.0;
-            tileset.style = createTilesetStyle(selectedBuildingId);
-            tileset.imageBasedLighting.imageBasedLightingFactor.x = 2;
-            tileset.imageBasedLighting.imageBasedLightingFactor.y = 2;
-          }}
-          onClick={(movement, feature) => {
-            if (!feature || !viewerRef || !movement.position) return;
-            addressFeatureSelectorRef.current.cancel();
-            const tileFeature = feature as Cesium.Cesium3DTileFeature;
-            if (!isSelectableBuilding(tileFeature)) return;
+        {tilesetUrl && (
+          <Cesium3DTileset
+            onAllTilesLoad={() => {
+              setLoading(false);
+              setLoadFailed(false);
+              addressFeatureSelectorRef.current.finishWithDrillPick();
+            }}
+            onTileVisible={(tile) =>
+              addressFeatureSelectorRef.current.inspectVisibleTile(tile)
+            }
+            onReady={(tileset) => {
+              setTilesetRef(tileset);
+              tileset.colorBlendMode =
+                Cesium.Cesium3DTileColorBlendMode.REPLACE;
+              tileset.colorBlendAmount = 1.0;
+              tileset.style = createTilesetStyle(selectedBuildingId);
+              tileset.imageBasedLighting.imageBasedLightingFactor.x = 2;
+              tileset.imageBasedLighting.imageBasedLightingFactor.y = 2;
+            }}
+            onClick={(movement, feature) => {
+              if (!feature || !viewerRef || !movement.position) return;
+              addressFeatureSelectorRef.current.cancel();
+              const tileFeature = feature as Cesium.Cesium3DTileFeature;
+              if (!isSelectableBuilding(tileFeature)) return;
 
-            const picked = viewerRef.scene.pickPosition(movement.position);
-            if (!Cesium.defined(picked)) return;
+              const picked = viewerRef.scene.pickPosition(movement.position);
+              if (!Cesium.defined(picked)) return;
 
-            const cartographic = Cesium.Cartographic.fromCartesian(picked);
-            const target = {
-              longitudeDegrees: Cesium.Math.toDegrees(cartographic.longitude),
-              latitudeDegrees: Cesium.Math.toDegrees(cartographic.latitude),
-            };
-            const result = requestCamera({
-              type: 'focus',
-              target,
-              reason: { type: 'building' },
-              accommodateMobileOverlay: true,
-            });
-            if (result === 'ignored') return;
+              const cartographic = Cesium.Cartographic.fromCartesian(picked);
+              const target = {
+                longitudeDegrees: Cesium.Math.toDegrees(cartographic.longitude),
+                latitudeDegrees: Cesium.Math.toDegrees(cartographic.latitude),
+              };
+              const result = requestCamera({
+                type: 'focus',
+                target,
+                reason: { type: 'building' },
+                accommodateMobileOverlay: true,
+              });
+              if (result === 'ignored') return;
 
-            setBuilding(tileFeature, {
-              lon: target.longitudeDegrees,
-              lat: target.latitudeDegrees,
-            });
-          }}
-          url={CESIUM_3D_TILES_URL}
-        />
+              setBuilding(tileFeature, {
+                lon: target.longitudeDegrees,
+                lat: target.latitudeDegrees,
+              });
+            }}
+            url={tilesetUrl}
+          />
+        )}
         <AnimatePresence>
           {loading && (
             <motion.div

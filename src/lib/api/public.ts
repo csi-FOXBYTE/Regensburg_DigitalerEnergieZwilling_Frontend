@@ -2,6 +2,11 @@ export type SubmissionResult = {
   deletionToken: string;
 };
 
+export type MapResources = {
+  terrainBaseUrl: string;
+  tilesBaseUrl: string;
+};
+
 export type FeedbackCategory = 'bug' | 'feedback' | 'suggestion';
 
 export type FeedbackInput = {
@@ -15,6 +20,32 @@ export class SubmissionUnavailableError extends Error {
     super('Submission unavailable');
     this.name = 'SubmissionUnavailableError';
   }
+}
+
+function parseMapResourceUrl(value: unknown, field: string): string {
+  if (typeof value !== 'string' || value.length === 0) {
+    throw new Error(`Malformed map resources response: ${field}`);
+  }
+
+  const url = new URL(value, window.location.origin);
+  if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+    throw new Error(`Unsupported map resource URL protocol: ${field}`);
+  }
+  return url.toString();
+}
+
+export async function getMapResources(): Promise<MapResources> {
+  const res = await fetch('/api/public/map-resources');
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+  const result = (await res.json()) as Record<string, unknown>;
+  return {
+    terrainBaseUrl: parseMapResourceUrl(
+      result.terrainBaseUrl,
+      'terrainBaseUrl',
+    ),
+    tilesBaseUrl: parseMapResourceUrl(result.tilesBaseUrl, 'tilesBaseUrl'),
+  };
 }
 
 function submissionUrl(token: string, suffix = ''): string {
