@@ -6,6 +6,10 @@ export const mapConfig = {
       'Map tiles by CartoDB, under CC BY 3.0. Data by OpenStreetMap, under ODbL.',
   },
   selectableBuildingFunctionPrefix: '31001_1000',
+  featureColors: {
+    selected: '#fff200',
+    nonTarget: '#e5e5e5',
+  },
   initialView: {
     longitudeDegrees: 12.09303665836369,
     latitudeDegrees: 49.02157200002277,

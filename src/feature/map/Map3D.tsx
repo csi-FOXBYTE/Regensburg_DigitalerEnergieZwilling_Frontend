@@ -32,8 +32,6 @@ const baseImageryProvider = new Cesium.UrlTemplateImageryProvider({
   credit: mapConfig.baseLayer.credit,
 });
 
-const SELECTED_FEATURE_COLOR = '#fff200';
-const NON_TARGET_FEATURE_COLOR = '#e5e5e5';
 const IS_NON_TARGET_FEATURE = `!regExp('^${mapConfig.selectableBuildingFunctionPrefix}').test(String(\${function}))`;
 
 function createTilesetStyle(selectedBuildingId: string | null) {
@@ -43,12 +41,18 @@ function createTilesetStyle(selectedBuildingId: string | null) {
     color: {
       conditions: selectedBuildingId
         ? [
-            [selectedCondition, `color('${SELECTED_FEATURE_COLOR}')`],
-            [IS_NON_TARGET_FEATURE, `color('${NON_TARGET_FEATURE_COLOR}')`],
+            [selectedCondition, `color('${mapConfig.featureColors.selected}')`],
+            [
+              IS_NON_TARGET_FEATURE,
+              `color('${mapConfig.featureColors.nonTarget}')`,
+            ],
             ['true', "color('white')"],
           ]
         : [
-            [IS_NON_TARGET_FEATURE, `color('${NON_TARGET_FEATURE_COLOR}')`],
+            [
+              IS_NON_TARGET_FEATURE,
+              `color('${mapConfig.featureColors.nonTarget}')`,
+            ],
             ['true', "color('white')"],
           ],
     },
