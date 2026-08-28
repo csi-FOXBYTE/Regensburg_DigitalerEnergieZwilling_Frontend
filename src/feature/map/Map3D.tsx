@@ -253,9 +253,7 @@ export function Map3D({ children }: Map3DProps) {
   );
   const addressFeatureSelectorRef = useRef(new AddressFeatureSelector());
   const [terrainProvider, setTerrainProvider] =
-    useState<Cesium.TerrainProvider>(
-      () => new Cesium.EllipsoidTerrainProvider(),
-    );
+    useState<Cesium.TerrainProvider | null>(null);
   const [tilesetUrl, setTilesetUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadFailed, setLoadFailed] = useState(false);
@@ -277,6 +275,9 @@ export function Map3D({ children }: Map3DProps) {
           if (!cancelled) setTerrainProvider(provider);
         } catch (error) {
           console.error('Terrain konnte nicht geladen werden:', error);
+          if (!cancelled) {
+            setTerrainProvider(new Cesium.EllipsoidTerrainProvider());
+          }
         }
       })
       .catch((error) => {
@@ -355,115 +356,119 @@ export function Map3D({ children }: Map3DProps) {
       className={`absolute top-(--header-height) left-0 h-(--content-height) w-full ${isInteractiveStep ? 'pointer-events-auto' : 'pointer-events-none'}`}
     >
       {isInteractiveStep && <h1 className="sr-only">{t('map.stepTitle')}</h1>}
-      <Viewer
-        ref={(ref) => {
-          if (!ref?.cesiumElement) return;
-          setViewerRef(ref.cesiumElement);
-        }}
-        className="h-full"
-        geocoder={false}
-        baseLayer={false}
-        animation={false}
-        requestRenderMode={true}
-        baseLayerPicker={false}
-        projectionPicker={false}
-        homeButton={false}
-        infoBox={false}
-        vrButton={false}
-        timeline={false}
-        navigationHelpButton={false}
-        fullscreenButton={false}
-        scene3DOnly={true}
-        terrainProvider={terrainProvider}
-      >
-        {isInteractiveStep && children}
-        <ImageryLayer imageryProvider={openStreetMapImagerProvider} />
-        {tilesetUrl && (
-          <Cesium3DTileset
-            onAllTilesLoad={() => {
-              setLoading(false);
-              setLoadFailed(false);
-              addressFeatureSelectorRef.current.finishWithDrillPick();
-            }}
-            onTileVisible={(tile) =>
-              addressFeatureSelectorRef.current.inspectVisibleTile(tile)
-            }
-            onReady={(tileset) => {
-              setTilesetRef(tileset);
-              tileset.colorBlendMode =
-                Cesium.Cesium3DTileColorBlendMode.REPLACE;
-              tileset.colorBlendAmount = 1.0;
-              tileset.style = createTilesetStyle(selectedBuildingId);
-              tileset.imageBasedLighting.imageBasedLightingFactor.x = 2;
-              tileset.imageBasedLighting.imageBasedLightingFactor.y = 2;
-            }}
-            onClick={(movement, feature) => {
-              if (!feature || !viewerRef || !movement.position) return;
-              addressFeatureSelectorRef.current.cancel();
-              const tileFeature = feature as Cesium.Cesium3DTileFeature;
-              if (!isSelectableBuilding(tileFeature)) return;
+      {terrainProvider && (
+        <Viewer
+          ref={(ref) => {
+            if (!ref?.cesiumElement) return;
+            setViewerRef(ref.cesiumElement);
+          }}
+          className="h-full"
+          geocoder={false}
+          baseLayer={false}
+          animation={false}
+          requestRenderMode={true}
+          baseLayerPicker={false}
+          projectionPicker={false}
+          homeButton={false}
+          infoBox={false}
+          vrButton={false}
+          timeline={false}
+          navigationHelpButton={false}
+          fullscreenButton={false}
+          scene3DOnly={true}
+          terrainProvider={terrainProvider}
+        >
+          {isInteractiveStep && children}
+          <ImageryLayer imageryProvider={openStreetMapImagerProvider} />
+          {tilesetUrl && (
+            <Cesium3DTileset
+              onAllTilesLoad={() => {
+                setLoading(false);
+                setLoadFailed(false);
+                addressFeatureSelectorRef.current.finishWithDrillPick();
+              }}
+              onTileVisible={(tile) =>
+                addressFeatureSelectorRef.current.inspectVisibleTile(tile)
+              }
+              onReady={(tileset) => {
+                setTilesetRef(tileset);
+                tileset.colorBlendMode =
+                  Cesium.Cesium3DTileColorBlendMode.REPLACE;
+                tileset.colorBlendAmount = 1.0;
+                tileset.style = createTilesetStyle(selectedBuildingId);
+                tileset.imageBasedLighting.imageBasedLightingFactor.x = 2;
+                tileset.imageBasedLighting.imageBasedLightingFactor.y = 2;
+              }}
+              onClick={(movement, feature) => {
+                if (!feature || !viewerRef || !movement.position) return;
+                addressFeatureSelectorRef.current.cancel();
+                const tileFeature = feature as Cesium.Cesium3DTileFeature;
+                if (!isSelectableBuilding(tileFeature)) return;
 
-              const picked = viewerRef.scene.pickPosition(movement.position);
-              if (!Cesium.defined(picked)) return;
+                const picked = viewerRef.scene.pickPosition(movement.position);
+                if (!Cesium.defined(picked)) return;
 
-              const cartographic = Cesium.Cartographic.fromCartesian(picked);
-              const target = {
-                longitudeDegrees: Cesium.Math.toDegrees(cartographic.longitude),
-                latitudeDegrees: Cesium.Math.toDegrees(cartographic.latitude),
-              };
-              const result = requestCamera({
-                type: 'focus',
-                target,
-                reason: { type: 'building' },
-                accommodateMobileOverlay: true,
-              });
-              if (result === 'ignored') return;
+                const cartographic = Cesium.Cartographic.fromCartesian(picked);
+                const target = {
+                  longitudeDegrees: Cesium.Math.toDegrees(
+                    cartographic.longitude,
+                  ),
+                  latitudeDegrees: Cesium.Math.toDegrees(cartographic.latitude),
+                };
+                const result = requestCamera({
+                  type: 'focus',
+                  target,
+                  reason: { type: 'building' },
+                  accommodateMobileOverlay: true,
+                });
+                if (result === 'ignored') return;
 
-              setBuilding(tileFeature, {
-                lon: target.longitudeDegrees,
-                lat: target.latitudeDegrees,
-              });
-            }}
-            url={tilesetUrl}
-          />
-        )}
-        <AnimatePresence>
-          {loading && (
-            <motion.div
-              key="loader"
-              initial={{ opacity: 1 }}
-              exit={{ opacity: 0, scale: 1.05, filter: 'blur(10px)' }}
-              transition={{ duration: 0.8, ease: 'easeInOut' }}
-              className="absolute inset-0 z-10 flex items-center justify-center bg-white/95 backdrop-blur-md"
-            >
-              {loadFailed ? (
-                <div
-                  className="flex max-w-sm flex-col items-center gap-3 px-6 text-center"
-                  role="alert"
-                >
-                  <h2 className="text-lg font-semibold">
-                    {t('map.loadErrorTitle')}
-                  </h2>
-                  <p className="text-sm text-gray-600">
-                    {t('map.loadErrorMessage')}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => window.location.reload()}
-                    className="mt-1 bg-[#e30613] px-4 py-2 text-sm font-semibold text-white hover:bg-[#8b2412]"
-                  >
-                    {t('map.retry')}
-                  </button>
-                </div>
-              ) : (
-                <div role="status" aria-live="polite">
-                  {t('map.loading')}
-                </div>
-              )}
-            </motion.div>
+                setBuilding(tileFeature, {
+                  lon: target.longitudeDegrees,
+                  lat: target.latitudeDegrees,
+                });
+              }}
+              url={tilesetUrl}
+            />
           )}
-        </AnimatePresence>
-      </Viewer>
+        </Viewer>
+      )}
+      <AnimatePresence>
+        {loading && (
+          <motion.div
+            key="loader"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 1.05, filter: 'blur(10px)' }}
+            transition={{ duration: 0.8, ease: 'easeInOut' }}
+            className="absolute inset-0 z-10 flex items-center justify-center bg-white/95 backdrop-blur-md"
+          >
+            {loadFailed ? (
+              <div
+                className="flex max-w-sm flex-col items-center gap-3 px-6 text-center"
+                role="alert"
+              >
+                <h2 className="text-lg font-semibold">
+                  {t('map.loadErrorTitle')}
+                </h2>
+                <p className="text-sm text-gray-600">
+                  {t('map.loadErrorMessage')}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => window.location.reload()}
+                  className="mt-1 bg-[#e30613] px-4 py-2 text-sm font-semibold text-white hover:bg-[#8b2412]"
+                >
+                  {t('map.retry')}
+                </button>
+              </div>
+            ) : (
+              <div role="status" aria-live="polite">
+                {t('map.loading')}
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
