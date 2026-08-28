@@ -2,6 +2,8 @@ import { NumericFormat, type NumericFormatProps } from 'react-number-format';
 
 import { Input } from '@/components/ui/input';
 
+const MAX_ABSOLUTE_INPUT_VALUE = 1_000_000;
+
 const unitPresets = {
   area: { suffix: ' m²', decimalScale: 2, allowNegative: false },
   a: { decimalScale: 0, allowNegative: false },
@@ -23,6 +25,7 @@ function NumberInput({
   decimalSeparator = ',',
   unit,
   leftIcon,
+  isAllowed,
   ...props
 }: NumberInputProps) {
   const presetProps = unit ? unitPresets[unit] : {};
@@ -35,6 +38,11 @@ function NumberInput({
       decimalSeparator={decimalSeparator}
       leftIcon={leftIcon}
       {...props}
+      isAllowed={(values) =>
+        (values.floatValue == null ||
+          Math.abs(values.floatValue) <= MAX_ABSOLUTE_INPUT_VALUE) &&
+        (isAllowed?.(values) ?? true)
+      }
     />
   );
 }
