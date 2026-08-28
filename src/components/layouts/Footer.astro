@@ -1,4 +1,5 @@
 ---
+import { footerPartners } from '@/config/footerPartners';
 import { getVersionString } from '@/lib/version';
 import { getLocalizedPathname } from 'astro-react-i18next/utils';
 import i18n from 'i18next';
@@ -44,26 +45,15 @@ const privacyHref = getLocalizedPathname('/privacy', i18n.language);
   <div
     class="max-w-content mx-auto flex flex-col items-center justify-center gap-4 pb-10 md:flex-row md:gap-6"
   >
-    <img
-      src="/assets/R_NEXT_Logo_dark.svg"
-      alt="R_NEXT"
-      class="h-32 w-64 max-w-full rounded-md object-contain md:h-37.5 md:w-0 md:min-w-0 md:flex-1"
-    />
-    <img
-      src="/assets/KfW_RGB_neg.svg"
-      alt="KfW"
-      class="h-32 w-64 max-w-full rounded-md object-contain md:h-37.5 md:w-0 md:min-w-0 md:flex-1"
-    />
-    <img
-      src="/assets/RGpub_dark_grey.svg"
-      alt="Regensburg plant und baut"
-      class="h-32 w-64 max-w-full rounded-md object-contain md:h-37.5 md:w-0 md:min-w-0 md:flex-1"
-    />
-    <img
-      src="/assets/250317_BMWSB_quadratisch_sw.png"
-      alt="Gefördert durch das Bundesministerium für Wohnen, Stadtentwicklung und Bauwesen"
-      class="h-32 w-64 max-w-full rounded-md object-contain md:h-37.5 md:w-0 md:min-w-0 md:flex-1"
-    />
+    {
+      footerPartners.map((partner) => (
+        <img
+          src={partner.src}
+          alt={partner.alt}
+          class="h-32 w-64 max-w-full rounded-md object-contain md:h-37.5 md:w-0 md:min-w-0 md:flex-1"
+        />
+      ))
+    }
   </div>
   <span class="absolute right-5 bottom-2 text-[11px] opacity-60 md:right-7"
     >{getVersionString()}</span
