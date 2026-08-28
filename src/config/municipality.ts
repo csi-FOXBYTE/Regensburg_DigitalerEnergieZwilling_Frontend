@@ -1,4 +1,8 @@
 export const municipality = {
+  methodology: {
+    buildingDataSourceUrl:
+      'https://geodaten.bayern.de/opengeodata/OpenDataDetail.html?pn=lod2',
+  },
   energyAdvice: {
     url: 'https://www.energieagentur-regensburg.de/buergerinnen/energieberatung-anmeldung',
     contact:
