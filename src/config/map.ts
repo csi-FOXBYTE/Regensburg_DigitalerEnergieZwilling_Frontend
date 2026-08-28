@@ -1,4 +1,11 @@
 export const mapConfig = {
+  baseLayer: {
+    urlTemplate:
+      'https://intergeo38.bayernwolke.de/betty/g_topopluslight/{z}/{x}/{y}',
+    credit:
+      'Map tiles by CartoDB, under CC BY 3.0. Data by OpenStreetMap, under ODbL.',
+  },
+  selectableBuildingFunctionPrefix: '31001_1000',
   initialView: {
     longitudeDegrees: 12.09303665836369,
     latitudeDegrees: 49.02157200002277,

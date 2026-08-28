@@ -1,3 +1,4 @@
+import { mapConfig } from '@/config/map';
 import type { Cesium3DTileFeature } from 'cesium';
 import { atom } from 'nanostores';
 
@@ -44,12 +45,10 @@ export type BuildingState = {
 
 export const $building = atom<BuildingState | null>(null);
 
-const SELECTABLE_BUILDING_FUNCTION_PREFIX = '31001_1000';
-
 export function isSelectableBuilding(feature: Cesium3DTileFeature): boolean {
   const featureFunction = feature.getProperty('function');
   return String(featureFunction ?? '').startsWith(
-    SELECTABLE_BUILDING_FUNCTION_PREFIX,
+    mapConfig.selectableBuildingFunctionPrefix,
   );
 }
 

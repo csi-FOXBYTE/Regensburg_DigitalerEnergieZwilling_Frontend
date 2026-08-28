@@ -1,3 +1,4 @@
+import { mapConfig } from '@/config/map';
 import { useStore } from '@nanostores/react';
 import * as Cesium from 'cesium';
 import 'cesium/Build/Cesium/Widgets/widgets.css';
@@ -26,16 +27,14 @@ import {
 } from '../../lib/state/building';
 import { $step, Step } from '../../lib/state/ui/progress';
 
-const openStreetMapImagerProvider = new Cesium.UrlTemplateImageryProvider({
-  url: 'https://intergeo38.bayernwolke.de/betty/g_topopluslight/{z}/{x}/{y}',
-  credit:
-    'Map tiles by CartoDB, under CC BY 3.0. Data by OpenStreetMap, under ODbL.',
+const baseImageryProvider = new Cesium.UrlTemplateImageryProvider({
+  url: mapConfig.baseLayer.urlTemplate,
+  credit: mapConfig.baseLayer.credit,
 });
 
 const SELECTED_FEATURE_COLOR = '#fff200';
 const NON_TARGET_FEATURE_COLOR = '#e5e5e5';
-const IS_NON_TARGET_FEATURE =
-  "!regExp('^31001_1000').test(String(${function}))";
+const IS_NON_TARGET_FEATURE = `!regExp('^${mapConfig.selectableBuildingFunctionPrefix}').test(String(\${function}))`;
 
 function createTilesetStyle(selectedBuildingId: string | null) {
   const selectedCondition = `\${id} === '${selectedBuildingId}'`;
@@ -379,7 +378,7 @@ export function Map3D({ children }: Map3DProps) {
           terrainProvider={terrainProvider}
         >
           {isInteractiveStep && children}
-          <ImageryLayer imageryProvider={openStreetMapImagerProvider} />
+          <ImageryLayer imageryProvider={baseImageryProvider} />
           {tilesetUrl && (
             <Cesium3DTileset
               onAllTilesLoad={() => {
