@@ -1,3 +1,4 @@
+import { pdfTheme } from '@/config/pdfTheme';
 import { $subsidies } from '@/lib/state/calculation-config';
 import { Link, StyleSheet, Text, View } from '@react-pdf/renderer';
 import i18next from 'i18next';
@@ -8,25 +9,30 @@ const styles = StyleSheet.create({
   tableHeader: {
     flexDirection: 'row',
     borderBottomWidth: 1,
-    borderColor: '#e5e5e5',
+    borderColor: pdfTheme.colors.border,
     paddingBottom: 4,
   },
   row: {
     flexDirection: 'row',
     borderBottomWidth: 1,
-    borderColor: '#e5e5e5',
+    borderColor: pdfTheme.colors.border,
     paddingVertical: 6,
   },
   hTitle: {
     width: '45%',
     fontSize: 9,
-    color: '#5f6061',
+    color: pdfTheme.colors.muted,
     fontWeight: 700,
     paddingRight: 8,
   },
-  hLink: { width: '58%', fontSize: 9, color: '#5f6061', fontWeight: 700 },
+  hLink: {
+    width: '58%',
+    fontSize: 9,
+    color: pdfTheme.colors.muted,
+    fontWeight: 700,
+  },
   cTitle: { width: '42%', fontSize: 10, paddingRight: 8 },
-  cLink: { width: '58%', fontSize: 9, color: '#e30613' },
+  cLink: { width: '58%', fontSize: 9, color: pdfTheme.colors.primary },
 });
 
 // URLs contain no spaces, so react-pdf sees them as one unbreakable box that

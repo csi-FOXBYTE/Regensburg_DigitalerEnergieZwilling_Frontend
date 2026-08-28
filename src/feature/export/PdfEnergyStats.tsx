@@ -1,3 +1,4 @@
+import { pdfTheme } from '@/config/pdfTheme';
 import { $currentEnergyState } from '@/lib/state/computed/current-energy-state';
 import { $renovatedEnergyState } from '@/lib/state/computed/renovated-energy-state';
 import { StyleSheet, Text, View } from '@react-pdf/renderer';
@@ -29,12 +30,12 @@ const styles = StyleSheet.create({
   },
   divider: {
     borderBottomWidth: 1,
-    borderColor: '#e5e5e5',
+    borderColor: pdfTheme.colors.border,
     marginBottom: 4,
   },
   afterLabel: {
     fontSize: 10,
-    color: '#5f6061',
+    color: pdfTheme.colors.muted,
     marginBottom: 2,
   },
   afterValue: {
@@ -50,14 +51,14 @@ const styles = StyleSheet.create({
   badgeText: {
     fontSize: 10,
     fontWeight: 700,
-    color: '#ffffff',
+    color: pdfTheme.colors.onSolid,
   },
 });
 
 function deltaColor(improved: boolean | null) {
-  if (improved === true) return '#16a34a';
-  if (improved === false) return '#dc2626';
-  return '#5f6061';
+  if (improved === true) return pdfTheme.colors.positive;
+  if (improved === false) return pdfTheme.colors.negative;
+  return pdfTheme.colors.muted;
 }
 
 function StatCard({

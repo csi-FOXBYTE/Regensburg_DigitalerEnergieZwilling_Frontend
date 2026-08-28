@@ -1,3 +1,4 @@
+import { pdfTheme } from '@/config/pdfTheme';
 import { Path, Svg } from '@react-pdf/renderer';
 
 type IconName = 'arrow-up' | 'arrow-down' | 'arrow-right';
@@ -15,7 +16,11 @@ type Props = {
   color?: string;
 };
 
-export function PdfIcon({ name, size = 10, color = '#ffffff' }: Props) {
+export function PdfIcon({
+  name,
+  size = 10,
+  color = pdfTheme.colors.onSolid,
+}: Props) {
   const paths = ICONS[name];
   return (
     <Svg viewBox="0 0 24 24" width={size} height={size}>

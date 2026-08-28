@@ -1,3 +1,4 @@
+import { pdfTheme } from '@/config/pdfTheme';
 import { $building } from '@/lib/state/building';
 import { Document, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
 import i18next from 'i18next';
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
   },
   documentSubtitle: {
     fontSize: 18,
-    color: '#5f6061',
+    color: pdfTheme.colors.muted,
     lineHeight: 28 / 18,
   },
   section: {

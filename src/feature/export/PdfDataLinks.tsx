@@ -1,3 +1,4 @@
+import { pdfTheme } from '@/config/pdfTheme';
 import { Link, StyleSheet, Text, View } from '@react-pdf/renderer';
 import i18next from 'i18next';
 import { pdf } from './pdfStyles';
@@ -6,7 +7,7 @@ const styles = StyleSheet.create({
   section: { marginTop: 0 },
   item: { marginBottom: 10 },
   label: { ...pdf.muted, marginBottom: 3 },
-  link: { fontSize: 10, color: '#e30613' },
+  link: { fontSize: 10, color: pdfTheme.colors.primary },
 });
 
 type Props = {

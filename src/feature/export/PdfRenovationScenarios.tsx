@@ -1,3 +1,4 @@
+import { pdfTheme } from '@/config/pdfTheme';
 import {
   applyRenovation,
   calculate,
@@ -25,23 +26,52 @@ const styles = StyleSheet.create({
   tableHeader: {
     flexDirection: 'row',
     borderBottomWidth: 1,
-    borderColor: '#e5e5e5',
+    borderColor: pdfTheme.colors.border,
     paddingBottom: 4,
   },
-  hMeasure: { width: '40%', fontSize: 9, color: '#5f6061', fontWeight: 700, paddingRight: 8 },
-  hEnergy:  { width: '20%', fontSize: 9, color: '#5f6061', fontWeight: 700 },
-  hYear:    { width: '20%', fontSize: 9, color: '#5f6061', fontWeight: 700 },
-  hMonth:   { width: '20%', fontSize: 9, color: '#5f6061', fontWeight: 700 },
+  hMeasure: {
+    width: '40%',
+    fontSize: 9,
+    color: pdfTheme.colors.muted,
+    fontWeight: 700,
+    paddingRight: 8,
+  },
+  hEnergy: {
+    width: '20%',
+    fontSize: 9,
+    color: pdfTheme.colors.muted,
+    fontWeight: 700,
+  },
+  hYear: {
+    width: '20%',
+    fontSize: 9,
+    color: pdfTheme.colors.muted,
+    fontWeight: 700,
+  },
+  hMonth: {
+    width: '20%',
+    fontSize: 9,
+    color: pdfTheme.colors.muted,
+    fontWeight: 700,
+  },
 });
 
 function TableHeader() {
   const t = i18next.t.bind(i18next);
   return (
     <View style={styles.tableHeader}>
-      <Text style={styles.hMeasure}>{t('energyCalculation:renovation.table.measure')}</Text>
-      <Text style={styles.hEnergy}>{t('energyCalculation:export.energySavings')}</Text>
-      <Text style={styles.hYear}>{t('energyCalculation:export.savingsYear')}</Text>
-      <Text style={styles.hMonth}>{t('energyCalculation:export.savingsMonth')}</Text>
+      <Text style={styles.hMeasure}>
+        {t('energyCalculation:renovation.table.measure')}
+      </Text>
+      <Text style={styles.hEnergy}>
+        {t('energyCalculation:export.energySavings')}
+      </Text>
+      <Text style={styles.hYear}>
+        {t('energyCalculation:export.savingsYear')}
+      </Text>
+      <Text style={styles.hMonth}>
+        {t('energyCalculation:export.savingsMonth')}
+      </Text>
     </View>
   );
 }
@@ -59,13 +89,14 @@ function renderCategory(
   return (
     <View style={styles.category}>
       <Text style={[pdf.h3, styles.categoryTitle]}>
-        {i18next.t('energyCalculation:export.categoryLabel')}: {i18next.t(titleKey)}
+        {i18next.t('energyCalculation:export.categoryLabel')}:{' '}
+        {i18next.t(titleKey)}
       </Text>
       <TableHeader />
       {renovations.map((r) => {
         const result = calculate(config, applyRenovation(categoryBase, r));
         const energyDelta = result.energyConsumptionPerSquareMeter - baseEnergy;
-        const energySavingPercent = energyDelta / originalEnergy * 100;
+        const energySavingPercent = (energyDelta / originalEnergy) * 100;
         const costSaving = result.yearlyCost - baseCost;
         return (
           <PdfRenovationItem
@@ -84,19 +115,24 @@ export function PdfRenovationScenarios() {
   const config = $config.get();
   const rawBaseInput = $calculationInput.get();
   const currentState = $currentEnergyState.get();
-  const baseInput = { ...rawBaseInput, preRenovationValues: currentState.preRenovationValues };
+  const baseInput = {
+    ...rawBaseInput,
+    preRenovationValues: currentState.preRenovationValues,
+  };
 
   const selectedInsulation = $selectedInsulationRenovations.get();
   const selectedHeating = $selectedHeatingRenovations.get();
   const selectedHeatingSurface = $selectedHeatingSurfaceRenovations.get();
 
-  const insulationPatchedInput = selectedInsulation.length > 0
-    ? applyRenovation(baseInput, selectedInsulation)
-    : baseInput;
+  const insulationPatchedInput =
+    selectedInsulation.length > 0
+      ? applyRenovation(baseInput, selectedInsulation)
+      : baseInput;
 
-  const heatingPatchedInput = selectedHeating.length > 0
-    ? applyRenovation(insulationPatchedInput, selectedHeating)
-    : insulationPatchedInput;
+  const heatingPatchedInput =
+    selectedHeating.length > 0
+      ? applyRenovation(insulationPatchedInput, selectedHeating)
+      : insulationPatchedInput;
 
   const insulationBaseResult = currentState;
   const heatingBaseResult = calculate(config, insulationPatchedInput);

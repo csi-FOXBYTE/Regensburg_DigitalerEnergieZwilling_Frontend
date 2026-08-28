@@ -1,3 +1,4 @@
+import { pdfTheme } from '@/config/pdfTheme';
 import { Link, StyleSheet, Text, View } from '@react-pdf/renderer';
 import i18next from 'i18next';
 import { pdf } from './pdfStyles';
@@ -9,7 +10,7 @@ const styles = StyleSheet.create({
   },
   link: {
     fontSize: 10,
-    color: '#e30613',
+    color: pdfTheme.colors.primary,
   },
 });
 

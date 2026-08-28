@@ -1,3 +1,4 @@
+import { pdfTheme } from '@/config/pdfTheme';
 import {
   $config,
   $energyEfficiencyClasses,
@@ -29,8 +30,16 @@ const styles = StyleSheet.create({
   list: { flexDirection: 'column', gap: 1 },
   row: { flexDirection: 'row', gap: GAP },
   label: { alignItems: 'center', justifyContent: 'center' },
-  labelTextActive: { fontSize: 10, fontWeight: 700, color: '#ffffff' },
-  labelTextInactive: { fontSize: 7, fontWeight: 700, color: '#ffffff' },
+  labelTextActive: {
+    fontSize: 10,
+    fontWeight: 700,
+    color: pdfTheme.colors.onSolid,
+  },
+  labelTextInactive: {
+    fontSize: 7,
+    fontWeight: 700,
+    color: pdfTheme.colors.onSolid,
+  },
   barContent: {
     position: 'absolute',
     top: 0,
@@ -41,7 +50,7 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
     paddingRight: 4,
   },
-  rangeText: { fontSize: 9, fontWeight: 700, color: '#ffffff' },
+  rangeText: { fontSize: 9, fontWeight: 700, color: pdfTheme.colors.onSolid },
   badge: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -49,7 +58,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
     paddingVertical: 2,
   },
-  badgeText: { fontSize: 8, fontWeight: 700, color: '#ffffff' },
+  badgeText: { fontSize: 8, fontWeight: 700, color: pdfTheme.colors.onSolid },
 });
 
 function formatRange(
@@ -89,13 +98,13 @@ export function PdfEnergyClassBars() {
     if (cls === afterClass && !same)
       return {
         label: t('energyCalculation:stats.afterRenovation'),
-        color: improved ? '#16a34a' : '#dc2626',
+        color: improved ? pdfTheme.colors.positive : pdfTheme.colors.negative,
         arrow: improved ? 'arrow-up' : 'arrow-down',
       } as const;
     if (cls === beforeClass)
       return {
         label: t('energyCalculation:stats.beforeRenovation'),
-        color: '#191919',
+        color: pdfTheme.colors.foreground,
       };
     return undefined;
   }
@@ -149,7 +158,7 @@ export function PdfEnergyClassBars() {
                   y={0}
                   width={BAR_W}
                   height={rowHeight}
-                  fill="#f0f0f0"
+                  fill={pdfTheme.colors.inactive}
                 />
                 <Polygon points={arrowPoints} fill={color} />
               </Svg>
@@ -166,7 +175,11 @@ export function PdfEnergyClassBars() {
                   {b && (
                     <View style={[styles.badge, { backgroundColor: b.color }]}>
                       {b.arrow && (
-                        <PdfIcon name={b.arrow} size={8} color="#ffffff" />
+                        <PdfIcon
+                          name={b.arrow}
+                          size={8}
+                          color={pdfTheme.colors.onSolid}
+                        />
                       )}
                       <Text style={styles.badgeText}>{b.label}</Text>
                     </View>

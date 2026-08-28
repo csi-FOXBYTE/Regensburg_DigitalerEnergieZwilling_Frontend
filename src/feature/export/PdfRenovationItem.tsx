@@ -1,3 +1,4 @@
+import { pdfTheme } from '@/config/pdfTheme';
 import { StyleSheet, Text, View } from '@react-pdf/renderer';
 import i18next from 'i18next';
 import { formatEuro, formatPercent } from './pdfFormat';
@@ -7,12 +8,32 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 3,
     borderBottomWidth: 0.5,
-    borderColor: '#e5e5e5',
+    borderColor: pdfTheme.colors.border,
   },
-  measure: { width: '40%', fontSize: 11, color: '#191919', paddingRight: 8 },
-  energy: { width: '20%', fontSize: 11, color: '#191919', fontWeight: 700 },
-  year: { width: '20%', fontSize: 11, color: '#191919', fontWeight: 700 },
-  month: { width: '20%', fontSize: 11, color: '#191919', fontWeight: 700 },
+  measure: {
+    width: '40%',
+    fontSize: 11,
+    color: pdfTheme.colors.foreground,
+    paddingRight: 8,
+  },
+  energy: {
+    width: '20%',
+    fontSize: 11,
+    color: pdfTheme.colors.foreground,
+    fontWeight: 700,
+  },
+  year: {
+    width: '20%',
+    fontSize: 11,
+    color: pdfTheme.colors.foreground,
+    fontWeight: 700,
+  },
+  month: {
+    width: '20%',
+    fontSize: 11,
+    color: pdfTheme.colors.foreground,
+    fontWeight: 700,
+  },
 });
 
 type Props = {
