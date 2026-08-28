@@ -1,5 +1,6 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page, type TestInfo } from '@playwright/test';
+import { brand } from '../../src/config/brand';
 
 const TEST_ADDRESS_QUERY = 'Isarstr. 1';
 const TEST_ADDRESS_RESULT = 'Isarstraße 1, Regensburg';
@@ -93,7 +94,7 @@ test.describe('responsive entry flow', () => {
   test('landing page, address search, and building selection remain usable', async ({
     page,
   }, testInfo) => {
-    await expect(page).toHaveTitle('Digitaler Energie Zwilling Regensburg');
+    await expect(page).toHaveTitle(brand.pageTitle);
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 
     await expect(page.getByRole('contentinfo')).toBeVisible();
