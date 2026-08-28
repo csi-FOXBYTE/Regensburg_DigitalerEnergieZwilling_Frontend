@@ -3,10 +3,10 @@ import BaseLayout from '@/components/layouts/BaseLayout.astro';
 import ContentContainer from '@/components/layouts/ContentContainer.astro';
 import Footer from '@/components/layouts/Footer.astro';
 import Header from '@/components/layouts/header/Header.astro';
-import { Typography } from '@/components/ui/typography';
+import privacyNotice from '@/content/privacy-notice.de.md?raw';
+import { PrivacyPageContent } from '@/feature/privacy/PrivacyPageContent';
 import type { GetStaticPaths } from 'astro';
 import { buildStaticPaths } from 'astro-react-i18next/utils';
-import i18next from 'i18next';
 
 export const getStaticPaths = (() => {
   return buildStaticPaths();
@@ -16,13 +16,8 @@ export const getStaticPaths = (() => {
 <BaseLayout includeCesium={false}>
   <Header />
   <main class="relative min-h-screen shrink-0 pt-(--title-height)">
-    <ContentContainer class="flex flex-col gap-10 py-10 md:py-16">
-      <Typography as="h1" variant="h1">
-        {i18next.t('common:privacy.title')}
-      </Typography>
-      <Typography variant="lead">
-        {i18next.t('common:privacy.placeholder')}
-      </Typography>
+    <ContentContainer class="py-10 md:py-16">
+      <PrivacyPageContent content={privacyNotice} />
     </ContentContainer>
   </main>
   <Footer />
