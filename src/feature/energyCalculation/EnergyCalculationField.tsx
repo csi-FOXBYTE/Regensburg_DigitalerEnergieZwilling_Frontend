@@ -70,7 +70,7 @@ export default function EnergyCalculationField({
                   className={
                     resetDisabled
                       ? 'cursor-not-allowed text-neutral-200'
-                      : 'text-foreground hover:text-[#e30613] cursor-pointer transition-colors'
+                      : 'text-foreground hover:text-primary cursor-pointer transition-colors'
                   }
                 >
                   <RotateCcw className="size-4" aria-hidden="true" />

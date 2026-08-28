@@ -455,7 +455,7 @@ export function Map3D({ children }: Map3DProps) {
                 <button
                   type="button"
                   onClick={() => window.location.reload()}
-                  className="mt-1 bg-[#e30613] px-4 py-2 text-sm font-semibold text-white hover:bg-[#8b2412]"
+                  className="bg-primary text-primary-foreground hover:bg-primary-hover mt-1 px-4 py-2 text-sm font-semibold"
                 >
                   {t('map.retry')}
                 </button>
