@@ -37,7 +37,7 @@ function MobileProgressBar({ step, maxStepReached }: VisualProgressBarProps) {
   return (
     <nav
       aria-label={t('navigationLabel')}
-      className="px-gutter sticky top-0 z-30 flex h-(--nav-height) flex-col justify-between py-4"
+      className="px-gutter sticky top-0 z-30 flex h-(--nav-height) flex-col justify-between border-t border-neutral-200 py-4"
     >
       <div className="flex gap-3">
         {step > 1 ? (
@@ -164,7 +164,7 @@ function DesktopProgressBar({ step, maxStepReached }: VisualProgressBarProps) {
   return (
     <nav
       aria-label={t('navigationLabel')}
-      className="max-w-content mx-auto flex h-(--nav-height) flex-col justify-center gap-1"
+      className="max-w-content mx-auto flex h-(--nav-height) flex-col justify-center gap-1 border-t border-neutral-200"
     >
       <div>
         <Typography variant="h4">
