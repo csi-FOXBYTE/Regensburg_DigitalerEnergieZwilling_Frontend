@@ -78,7 +78,7 @@
     "noResults": "Address not found",
     "loadError": "Address search is currently unavailable. Please check your internet connection and reload the page.",
     "chooseBuilding": "Select building: ",
-    "infoText": "Enter an address or click directly on a building on the map.",
+    "infoText": "Enter an address or click directly on a building on the map. You can only select residential buildings.",
     "ariaFormLabel": "Search building address",
     "ariaInputLabel": "Enter address",
     "ariaDismissLabel": "Dismiss hint"
