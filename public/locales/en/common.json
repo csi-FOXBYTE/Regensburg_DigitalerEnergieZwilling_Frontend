@@ -52,6 +52,10 @@
     "success": {
       "title": "Thank you!",
       "message": "Your feedback has been submitted successfully and helps us improve the tool."
+    },
+    "bubble": {
+      "cta": "Give feedback",
+      "dismiss": "Dismiss hint"
     }
   },
   "privacy": {

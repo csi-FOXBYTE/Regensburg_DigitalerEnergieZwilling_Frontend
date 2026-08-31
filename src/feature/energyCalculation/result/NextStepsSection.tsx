@@ -165,7 +165,7 @@ export function NextStepsSection() {
   }
 
   return (
-    <div className="mt-8 flex flex-col gap-4">
+    <div id="next-steps-section" className="mt-8 flex flex-col gap-4">
       <Typography as="h2" variant="h3">
         {t('nextSteps.sectionTitle')}
       </Typography>
