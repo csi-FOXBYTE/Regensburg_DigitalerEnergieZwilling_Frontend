@@ -10,7 +10,7 @@
     "Kennen Sie die Hebel, mit denen Sie die nächste Energiekrise entschärfen?",
     "Wissen Sie, welche Sanierung Sie am besten vor der nächsten Energiekrise schützt?"
   ],
-  "aboutText": "Kostenlos und unverbindlich.",
+  "aboutText": "Finden Sie es heraus: Kostenlos und unverbindlich.",
   "startButton": "Jetzt starten",
   "remarkTitle": "Wichtiger Hinweis",
   "remarkContent": "Die Ergebnisse sind keine Energieberatung, sondern eine berechnungsbasierte Orientierung. Alle Berechnungen basieren auf vereinfachten Annahmen und öffentlich verfügbaren Daten.",
@@ -28,7 +28,7 @@
     {
       "icon": "Wrench",
       "title": "Sanierungsmaßnahmen planen",
-      "description": "Heizungswechsel und Dämmung: Wählen Sie Vorschläge zu passenden Sanierungsmaßnahmen aus und verstehen Sie deren Einfluss auf die Effizienz Ihres Gebäudes."
+      "description": "Heizungswechsel, Dämmung und erneuerbare Energien: Wählen Sie Vorschläge zu passenden Sanierungsmaßnahmen aus und verstehen Sie deren Einfluss auf die Effizienz Ihres Gebäudes."
     },
     {
       "icon": "FileText",
