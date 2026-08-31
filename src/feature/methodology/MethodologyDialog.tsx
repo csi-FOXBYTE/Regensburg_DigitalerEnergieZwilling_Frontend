@@ -335,7 +335,7 @@ function EnergyAssumptionsContent() {
         {t('sections.assumptions.carrierTitle')}
       </Typography>
       <div className="overflow-x-auto">
-        <table className="w-full min-w-190 border-collapse text-left text-sm">
+        <table className="w-full min-w-230 border-collapse text-left text-sm">
           <caption className="sr-only">
             {t('sections.assumptions.carrierCaption')}
           </caption>
@@ -358,6 +358,12 @@ function EnergyAssumptionsContent() {
               </th>
               <th scope="col" className="px-2 py-2 font-bold">
                 {t('sections.assumptions.columns.baseRate')}
+              </th>
+              <th scope="col" className="px-2 py-2 font-bold">
+                {t('sections.assumptions.columns.source')}
+              </th>
+              <th scope="col" className="px-2 py-2 font-bold">
+                {t('sections.assumptions.columns.date')}
               </th>
             </tr>
           </thead>
@@ -386,6 +392,12 @@ function EnergyAssumptionsContent() {
                 <td className="px-2 py-2">
                   {number(value.baseRate, 2)} {tCommon('units.eurosPerYear')}
                 </td>
+                <td className="px-2 py-2">{value.source ?? '–'}</td>
+                <td className="px-2 py-2">
+                  {value.date
+                    ? new Date(value.date).toLocaleDateString(language)
+                    : '–'}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -396,7 +408,7 @@ function EnergyAssumptionsContent() {
         {t('sections.assumptions.electricityTitle')}
       </Typography>
       <div className="overflow-x-auto">
-        <table className="w-full min-w-150 border-collapse text-left text-sm">
+        <table className="w-full min-w-190 border-collapse text-left text-sm">
           <caption className="sr-only">
             {t('sections.assumptions.electricityCaption')}
           </caption>
@@ -416,6 +428,12 @@ function EnergyAssumptionsContent() {
               </th>
               <th scope="col" className="px-2 py-2 font-bold">
                 {t('sections.assumptions.columns.baseRate')}
+              </th>
+              <th scope="col" className="px-2 py-2 font-bold">
+                {t('sections.assumptions.columns.source')}
+              </th>
+              <th scope="col" className="px-2 py-2 font-bold">
+                {t('sections.assumptions.columns.date')}
               </th>
             </tr>
           </thead>
@@ -438,6 +456,12 @@ function EnergyAssumptionsContent() {
                 <td className="px-2 py-2">{number(value.unitRate)} €/kWh</td>
                 <td className="px-2 py-2">
                   {number(value.baseRate, 2)} {tCommon('units.eurosPerYear')}
+                </td>
+                <td className="px-2 py-2">{value.source ?? '–'}</td>
+                <td className="px-2 py-2">
+                  {value.date
+                    ? new Date(value.date).toLocaleDateString(language)
+                    : '–'}
                 </td>
               </tr>
             ))}
