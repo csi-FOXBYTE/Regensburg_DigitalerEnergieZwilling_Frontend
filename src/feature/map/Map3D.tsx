@@ -1,3 +1,4 @@
+import { adaptBuildingFeature } from '@/config/adapters/buildingFeature';
 import { mapConfig } from '@/config/map';
 import { useStore } from '@nanostores/react';
 import * as Cesium from 'cesium';
@@ -21,7 +22,6 @@ import {
 } from '../../lib/camera-state';
 import {
   $building,
-  isSelectableBuilding,
   setBuilding,
   unselectBuilding,
 } from '../../lib/state/building';
@@ -32,31 +32,37 @@ const baseImageryProvider = new Cesium.UrlTemplateImageryProvider({
   credit: mapConfig.baseLayer.credit,
 });
 
-const IS_NON_TARGET_FEATURE = `!regExp('^${mapConfig.selectableBuildingFunctionPrefix}').test(String(\${function}))`;
+const baseTilesetStyle = new Cesium.Cesium3DTileStyle({
+  color: "color('white')",
+});
+const selectedFeatureColor = Cesium.Color.fromCssColorString(
+  mapConfig.featureColors.selected,
+);
+const nonTargetFeatureColor = Cesium.Color.fromCssColorString(
+  mapConfig.featureColors.nonTarget,
+);
 
-function createTilesetStyle(selectedBuildingId: string | null) {
-  const selectedCondition = `\${id} === '${selectedBuildingId}'`;
+function colorBuildingFeatures(
+  content: Cesium.Cesium3DTileContent,
+  selectedBuildingId: string | null,
+) {
+  for (let i = 0; i < content.featuresLength; i++) {
+    const feature = content.getFeature(i);
+    const building = adaptBuildingFeature(feature);
+    feature.color =
+      building.id === selectedBuildingId
+        ? selectedFeatureColor
+        : building.isValidBuilding
+          ? Cesium.Color.WHITE
+          : nonTargetFeatureColor;
+  }
 
-  return new Cesium.Cesium3DTileStyle({
-    color: {
-      conditions: selectedBuildingId
-        ? [
-            [selectedCondition, `color('${mapConfig.featureColors.selected}')`],
-            [
-              IS_NON_TARGET_FEATURE,
-              `color('${mapConfig.featureColors.nonTarget}')`,
-            ],
-            ['true', "color('white')"],
-          ]
-        : [
-            [
-              IS_NON_TARGET_FEATURE,
-              `color('${mapConfig.featureColors.nonTarget}')`,
-            ],
-            ['true', "color('white')"],
-          ],
-    },
-  });
+  for (const innerContent of content.innerContents ?? []) {
+    colorBuildingFeatures(
+      innerContent as Cesium.Cesium3DTileContent,
+      selectedBuildingId,
+    );
+  }
 }
 
 type Map3DProps = {
@@ -117,12 +123,12 @@ function selectAddressFeatureByDrillPick(
     .filter(
       (picked): picked is Cesium.Cesium3DTileFeature =>
         picked instanceof Cesium.Cesium3DTileFeature &&
-        isSelectableBuilding(picked),
+        adaptBuildingFeature(picked).isValidBuilding,
     );
   if (drilled.length === 0) return;
 
   const matched = drilled.find(
-    (feature) => String(feature.getProperty('id')) === address.buildingId,
+    (feature) => adaptBuildingFeature(feature).id === address.buildingId,
   );
   selectFeatureForAddress(matched ?? drilled[0], intent);
 }
@@ -174,7 +180,7 @@ function findFeatureById(
 ): Cesium.Cesium3DTileFeature | undefined {
   for (let i = 0; i < content.featuresLength; i++) {
     const feature = content.getFeature(i);
-    if (String(feature.getProperty('id')) === buildingId) return feature;
+    if (adaptBuildingFeature(feature).id === buildingId) return feature;
   }
 
   for (const innerContent of content.innerContents ?? []) {
@@ -225,7 +231,7 @@ class AddressFeatureSelector {
       tile.content,
       pending.intent.reason.address.buildingId,
     );
-    if (!feature || !isSelectableBuilding(feature)) return;
+    if (!feature || !adaptBuildingFeature(feature).isValidBuilding) return;
 
     const { intent } = pending;
     this.cancel();
@@ -305,7 +311,6 @@ export function Map3D({ children }: Map3DProps) {
 
   useEffect(() => {
     if (!tilesetRef) return;
-    tilesetRef.style = createTilesetStyle(selectedBuildingId);
     viewerRef?.scene.requestRender();
   }, [selectedBuildingId, tilesetRef, viewerRef]);
 
@@ -390,15 +395,16 @@ export function Map3D({ children }: Map3DProps) {
                 setLoadFailed(false);
                 addressFeatureSelectorRef.current.finishWithDrillPick();
               }}
-              onTileVisible={(tile) =>
-                addressFeatureSelectorRef.current.inspectVisibleTile(tile)
-              }
+              onTileVisible={(tile) => {
+                colorBuildingFeatures(tile.content, selectedBuildingId);
+                addressFeatureSelectorRef.current.inspectVisibleTile(tile);
+              }}
               onReady={(tileset) => {
                 setTilesetRef(tileset);
                 tileset.colorBlendMode =
                   Cesium.Cesium3DTileColorBlendMode.REPLACE;
                 tileset.colorBlendAmount = 1.0;
-                tileset.style = createTilesetStyle(selectedBuildingId);
+                tileset.style = baseTilesetStyle;
                 tileset.imageBasedLighting.imageBasedLightingFactor.x = 2;
                 tileset.imageBasedLighting.imageBasedLightingFactor.y = 2;
               }}
@@ -406,7 +412,7 @@ export function Map3D({ children }: Map3DProps) {
                 if (!feature || !viewerRef || !movement.position) return;
                 addressFeatureSelectorRef.current.cancel();
                 const tileFeature = feature as Cesium.Cesium3DTileFeature;
-                if (!isSelectableBuilding(tileFeature)) return;
+                if (!adaptBuildingFeature(tileFeature).isValidBuilding) return;
 
                 const picked = viewerRef.scene.pickPosition(movement.position);
                 if (!Cesium.defined(picked)) return;
