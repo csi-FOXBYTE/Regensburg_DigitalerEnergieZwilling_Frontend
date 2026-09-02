@@ -6,7 +6,7 @@ import Footer from '@/components/layouts/Footer.astro';
 import { Typography } from '@/components/ui/typography';
 import i18next from 'i18next';
 import type { GetStaticPaths } from 'astro';
-import { buildStaticPaths } from 'astro-react-i18next/utils';
+import { buildStaticPaths } from '@/i18n/routing';
 
 export const getStaticPaths = (() => {
   return buildStaticPaths();

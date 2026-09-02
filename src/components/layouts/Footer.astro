@@ -1,12 +1,14 @@
 ---
 import { footerPartners } from '@/config/footerPartners';
 import { getVersionString } from '@/lib/version';
-import { getLocalizedPathname } from 'astro-react-i18next/utils';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import i18n from 'i18next';
+import { resolveLocale } from '@/i18n/config';
 import FeedbackButton from './FeedbackButton';
 
-const imprintHref = getLocalizedPathname('/imprint', i18n.language);
-const privacyHref = getLocalizedPathname('/privacy', i18n.language);
+const locale = resolveLocale(Astro.currentLocale);
+const imprintHref = getRelativeLocaleUrl(locale, 'imprint');
+const privacyHref = getRelativeLocaleUrl(locale, 'privacy');
 ---
 
 <footer class="bg-footer text-footer-foreground relative shrink-0 px-5 md:px-7">

@@ -5,7 +5,7 @@ import Footer from '@/components/layouts/Footer.astro';
 import Header from '@/components/layouts/header/Header.astro';
 import { MethodologyPageContent } from '@/feature/methodology/MethodologyDialog';
 import type { GetStaticPaths } from 'astro';
-import { buildStaticPaths } from 'astro-react-i18next/utils';
+import { buildStaticPaths } from '@/i18n/routing';
 
 export const getStaticPaths = (() => {
   return buildStaticPaths();

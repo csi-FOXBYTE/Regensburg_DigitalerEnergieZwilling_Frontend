@@ -1,9 +1,9 @@
 ---
-import { getLocalizedPathname } from 'astro-react-i18next/utils';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import { brand } from '@/config/brand';
-import i18n from 'i18next';
+import { resolveLocale } from '@/i18n/config';
 
-const homeHref = getLocalizedPathname('/', i18n.language);
+const homeHref = getRelativeLocaleUrl(resolveLocale(Astro.currentLocale));
 ---
 
 <header

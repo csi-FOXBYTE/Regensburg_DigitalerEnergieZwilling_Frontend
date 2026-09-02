@@ -1,12 +1,12 @@
 // src/@types/i18next.d.ts
 import 'i18next';
-import common from '../public/locales/de/common.json';
-import energyCalculation from '../public/locales/de/energyCalculation.json';
-import landingPage from '../public/locales/de/landingPage.json';
-import map from '../public/locales/de/map.json';
-import methodology from '../public/locales/de/methodology.json';
-import municipality from '../public/locales/de/municipality.json';
-import progressBar from '../public/locales/de/progressBar.json';
+import common from './i18n/locales/de/common.json';
+import energyCalculation from './i18n/locales/de/energyCalculation.json';
+import landingPage from './i18n/locales/de/landingPage.json';
+import map from './i18n/locales/de/map.json';
+import methodology from './i18n/locales/de/methodology.json';
+import municipality from './i18n/locales/de/municipality.json';
+import progressBar from './i18n/locales/de/progressBar.json';
 
 declare module 'i18next' {
   interface CustomTypeOptions {

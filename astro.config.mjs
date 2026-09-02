@@ -6,9 +6,17 @@ import react from '@astrojs/react';
 
 import tailwindcss from '@tailwindcss/vite';
 
-import reactI18next from 'astro-react-i18next';
-
 import pkg from './package.json' with { type: 'json' };
+
+/** @type {import('astro').AstroIntegration} */
+const initializeClientI18next = {
+  name: 'initialize-client-i18next',
+  hooks: {
+    'astro:config:setup': ({ injectScript }) => {
+      injectScript('before-hydration', `import '@/i18n/client';`);
+    },
+  },
+};
 
 const dynamicDeletionRoutes = {
   name: 'dynamic-deletion-routes',
@@ -42,24 +50,16 @@ const dynamicDeletionRoutes = {
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [
-    react(),
-    reactI18next({
-      defaultLocale: 'en',
-      locales: ['de', 'en'],
+  integrations: [react(), initializeClientI18next],
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['de', 'en'],
+    routing: {
       prefixDefaultLocale: true,
-      defaultNamespace: 'common',
-      namespaces: [
-        'common',
-        'landingPage',
-        'progressBar',
-        'energyCalculation',
-        'map',
-        'methodology',
-        'municipality',
-      ],
-    }),
-  ],
+      redirectToDefaultLocale: false,
+      fallbackType: 'redirect',
+    },
+  },
   vite: {
     plugins: [dynamicDeletionRoutes, cesium({}), tailwindcss()],
     define: {

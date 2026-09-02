@@ -96,8 +96,8 @@ symbols, energy classes, links, and renovation comparisons to verify the result.
 Municipality-specific translated values are collected in one namespace per
 locale:
 
-- `public/locales/de/municipality.json`
-- `public/locales/en/municipality.json`
+- `src/i18n/locales/de/municipality.json`
+- `src/i18n/locales/en/municipality.json`
 
 For every supported locale, review every value in `municipality.json`:
 
@@ -132,7 +132,7 @@ and `Cologne` in English.
 
 Changing the municipality namespace replaces repeated names and facts, but it
 does not make every surrounding sentence correct. Review all namespace files
-under `public/locales/<locale>/`, paying particular attention to:
+under `src/i18n/locales/<locale>/`, paying particular attention to:
 
 - `landingPage.json`: purpose, scope, calls to action, and introductory claims.
 - `energyCalculation.json`: consent, voluntary data submission, deletion,
@@ -168,7 +168,7 @@ selecting the appropriate file in `src/pages/[...locale]/privacy.astro`.
 ### Adding or removing a locale
 
 For a new locale, create all existing namespace files under
-`public/locales/<locale>/`, including `municipality.json`, and register the
+`src/i18n/locales/<locale>/`, including `municipality.json`, and register the
 locale in `astro.config.mjs`. The `municipality` namespace is already registered
 globally and typed in `src/i18next.d.ts`; update those files only if the namespace
 set or typing source changes. When removing a locale, remove it from the Astro

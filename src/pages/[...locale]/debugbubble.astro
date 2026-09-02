@@ -3,7 +3,7 @@ import DETLayout from '@/components/layouts/DETLayout.astro';
 import FeedbackBubble from '@/components/layouts/FeedbackBubble';
 import ContentContainer from '@/components/layouts/ContentContainer.astro';
 import type { GetStaticPaths } from 'astro';
-import { buildStaticPaths } from 'astro-react-i18next/utils';
+import { buildStaticPaths } from '@/i18n/routing';
 
 export const getStaticPaths = (() => {
   return buildStaticPaths();

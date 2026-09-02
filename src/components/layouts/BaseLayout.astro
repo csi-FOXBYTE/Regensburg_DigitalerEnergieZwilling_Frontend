@@ -1,16 +1,17 @@
 ---
 import '@/styles/global.css';
 import { brand } from '@/config/brand';
-import i18n from 'i18next';
+import { resolveLocale } from '@/i18n/config';
 
 interface Props {
   includeCesium?: boolean;
 }
 
 const { includeCesium = true } = Astro.props;
+const locale = resolveLocale(Astro.currentLocale);
 ---
 
-<html lang={i18n.language}>
+<html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

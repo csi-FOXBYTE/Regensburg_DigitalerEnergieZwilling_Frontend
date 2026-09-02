@@ -2,7 +2,7 @@
 import BaseLayout from '@/components/layouts/BaseLayout.astro';
 import DeleteConfirmationDialog from '@/feature/map/DeleteConfirmationDialog';
 import type { GetStaticPaths } from 'astro';
-import { buildStaticPaths } from 'astro-react-i18next/utils';
+import { buildStaticPaths } from '@/i18n/routing';
 import { Toaster } from 'sonner';
 
 export const getStaticPaths = (() => {
