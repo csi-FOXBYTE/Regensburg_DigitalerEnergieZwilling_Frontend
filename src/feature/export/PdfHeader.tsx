@@ -25,7 +25,7 @@ export function PdfHeader({ title }: Props) {
   return (
     <View style={styles.header} fixed>
       <Text style={styles.title}>{title}</Text>
-      <Image src="/logo.png" style={styles.logo} />
+      <Image src="/assets/logo.png" style={styles.logo} />
     </View>
   );
 }

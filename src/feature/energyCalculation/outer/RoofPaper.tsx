@@ -97,7 +97,7 @@ export default function RoofPaper() {
                 <div className="flex gap-4">
                   <figure className="flex flex-1 flex-col items-center gap-2">
                     <img
-                      src="/outerpartsRoof/Satteldach.png"
+                      src="/assets/buildingParts/roofGabled.png"
                       alt={t('outerParts.roof.tooltips.constructionTypeGabledRoof')}
                       className="w-full rounded-md object-contain"
                     />
@@ -107,7 +107,7 @@ export default function RoofPaper() {
                   </figure>
                   <figure className="flex flex-1 flex-col items-center gap-2">
                     <img
-                      src="/outerpartsRoof/Flachdach.png"
+                      src="/assets/buildingParts/roofFlat.png"
                       alt={t('outerParts.roof.tooltips.constructionTypeFlatRoof')}
                       className="w-full rounded-md object-contain"
                     />
@@ -187,7 +187,7 @@ export default function RoofPaper() {
                     <div className="flex gap-4">
                       <figure className="flex flex-1 flex-col items-center gap-2">
                         <img
-                          src="/outerpartsRoof/zwischensparrendaemmung.png"
+                          src="/assets/buildingParts/roofInsulationBetweenRafters.png"
                           alt={t('outerParts.roof.insulationTypes.betweenRafter')}
                           className="w-full rounded-md object-contain"
                         />
@@ -197,7 +197,7 @@ export default function RoofPaper() {
                       </figure>
                       <figure className="flex flex-1 flex-col items-center gap-2">
                         <img
-                          src="/outerpartsRoof/aufdachdaemmung.png"
+                          src="/assets/buildingParts/roofInsulationAboveRafters.png"
                           alt={t('outerParts.roof.insulationTypes.aboveRafter')}
                           className="w-full rounded-md object-contain"
                         />

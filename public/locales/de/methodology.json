@@ -18,7 +18,7 @@
     "inputLabel": "Wohnfläche",
     "infoDialog": {
       "title": "Was bedeutet Wohnfläche?",
-      "description": "[DEMO-INHALT] Die Wohnfläche bezeichnet in diesem Beispiel die beheizte Fläche des Gebäudes. Ein solcher Info-Hinweis erklärt, was mit dem jeweiligen Eingabewert gemeint ist und wo Sie die passende Angabe gegebenenfalls finden können. Der endgültige fachliche Text wird später ergänzt."
+      "description": "[BEISPIEL-INHALT] Die Wohnfläche bezeichnet in diesem Beispiel die beheizte Fläche des Gebäudes. Ein solcher Info-Hinweis erklärt, was mit dem jeweiligen Eingabewert gemeint ist und wo Sie die passende Angabe gegebenenfalls finden können."
     },
     "automaticExplanation": "Wenn Sie Ihre tatsächliche Wohnfläche kennen, können Sie sie in das Feld eintragen. Ihre Angabe ersetzt dann die automatisch ermittelten 140 m² für die weitere Berechnung. Mit dem Reset-Button können Sie Ihre Eingabe wieder entfernen.",
     "userValueExplanation": "Ihre eingegebene Wohnfläche wird jetzt anstelle der automatisch ermittelten 140 m² für die weitere Berechnung verwendet. Mit dem Reset-Button entfernen Sie Ihre Angabe und wechseln zurück zum automatisch ermittelten Wert.",
@@ -55,7 +55,7 @@
       "derivedHeight": "Gebäudehöhe aus der Differenz zwischen niedrigster Boden- und höchster Dachhöhe,",
       "derivedLivingArea": "Geschosszahl und Wohnfläche indirekt aus Gebäudehöhe, Grundfläche und konfigurierten Umrechnungsfaktoren.",
       "buildingPartsTitle": "Ein Gebäude kann aus mehreren digitalen Baukörpern bestehen",
-      "buildingParts": "Die Quelldaten können ein baulich zusammengehöriges Gebäude als mehrere Objekte beziehungsweise BuildingParts führen, zum Beispiel bei Anbauten oder unterschiedlich hohen Gebäudeteilen. Die Anreicherung berechnet Kennwerte pro Building- oder BuildingPart-Objekt. Dadurch können Flächen und Höhen eines ausgewählten digitalen Objekts von dem abweichen, was vor Ort als gesamtes Gebäude wahrgenommen wird. Prüfen Sie die automatisch übernommenen Werte deshalb besonders sorgfältig.",
+      "buildingParts": "Die Quelldaten können ein baulich zusammengehöriges Gebäude als mehrere Objekte beziehungsweise sogenannte BuildingParts führen, zum Beispiel bei Anbauten oder unterschiedlich hohen Gebäudeteilen. Die Anreicherung berechnet Kennwerte pro Building- oder BuildingPart-Objekt. Dadurch können Flächen und Höhen eines ausgewählten digitalen Objekts von dem abweichen, was vor Ort als gesamtes Gebäude wahrgenommen wird. Prüfen Sie die automatisch übernommenen Werte deshalb besonders sorgfältig.",
       "notContainedTitle": "Was LoD2 nicht beschreibt",
       "notContained": "LoD2 bildet vor allem die äußere Gebäudeform mit Boden-, Wand- und Dachflächen ab. Die Daten enthalten keine verlässlichen Aussagen zu Wohnungsgrundrissen, beheizten Bereichen, Dämmung, Fenstern, Bauteilaufbauten, Heizungsanlage oder tatsächlichem Verbrauch. Solche Angaben werden aus weiteren Daten, Katalogen und Standardannahmen abgeleitet oder von Ihnen ergänzt.",
       "constructionYear": "Eine vorhandene Baujahresvorbelegung stammt nicht aus dem LoD2-Datensatz. Sie kann über den Mittelpunkt der Gebäudegrundfläche aus einem separaten Baualtersklassen-Datensatz zugeordnet werden. Fehlt diese Zuordnung, greift die veröffentlichte Berechnungskonfiguration auf Standardwerte zurück.",
@@ -92,13 +92,13 @@
       "title": "Endenergie- und Primärenergiebedarf",
       "finalTitle": "Endenergie",
       "final": "Endenergie bezeichnet hier die Energie, die dem Gebäude als Brennstoff, Wärme oder Strom zugeführt wird. Sie unterscheidet sich vom Heizwärmebedarf der Räume, weil Verluste und Aufwände der Anlagentechnik berücksichtigt werden.",
-      "finalCalculation": "Der Rechenkern bildet den jährlichen Gesamtenergiebedarf als Summe aus dem thermischen Energieträgerbedarf und dem gesamten Strombedarf. Der Strombedarf umfasst Haushaltsstrom und – je nach Heizsystem – Strom für die Wärmeerzeugung. Der flächenspezifische Wert wird durch die berechnete Nutzfläche geteilt.",
+      "finalCalculation": "Der Rechenkern bildet den gesamten jährlichen Endenergiebedarf als Summe aus dem thermischen Energieträgerbedarf und dem gesamten Strombedarf. Der Strombedarf umfasst Haushaltsstrom und – je nach Heizsystem – Strom für die Wärmeerzeugung. Der flächenspezifische Wert wird durch die berechnete Nutzfläche geteilt.",
       "primaryTitle": "Primärenergie",
       "primary": "Primärenergie berücksichtigt zusätzlich die vorgelagerte Gewinnung, Umwandlung und Bereitstellung des jeweiligen Energieträgers. Deshalb kann derselbe Endenergiebedarf je nach Energieträger zu einem anderen Primärenergiebedarf führen.",
       "primaryCalculation": "Für Wärme und Strom wird der jeweilige Endenergieanteil mit dem zugehörigen Primärenergiefaktor multipliziert. Beide Anteile werden zum jährlichen Primärenergiebedarf addiert.",
       "emissionsTitle": "CO₂-Emissionen und Effizienzklasse",
-      "emissions": "Die CO₂-Emissionen werden getrennt für den thermischen Energieträger und für Strom berechnet: Energiebedarf in kWh multipliziert mit dem jeweiligen Emissionsfaktor in g CO₂/kWh. Anschließend werden beide Anteile addiert und in Tonnen pro Jahr ausgegeben.",
-      "display": "Die derzeit angezeigte Energiekennzahl in kWh/(m²·Jahr) basiert auf dem jährlichen Gesamtenergiebedarf je berechneter Nutzfläche. Auch die Energieeffizienzklasse wird aus diesem flächenspezifischen Wert abgeleitet.",
+      "emissions": "Die CO₂-Emissionen werden getrennt für den thermischen Energieträger und für Strom berechnet: Endenergiebedarf in kWh multipliziert mit dem jeweiligen Emissionsfaktor in g CO₂/kWh. Anschließend werden beide Anteile addiert und in Tonnen pro Jahr ausgegeben.",
+      "display": "Die derzeit angezeigte Energiekennzahl in kWh/(m²·Jahr) basiert auf dem gesamten jährlichen energiebedarf je berechneter Nutzfläche. Auch die Energieeffizienzklasse wird aus diesem flächenspezifischen Wert abgeleitet.",
       "interpretation": "Diese Kennzahlen sind Ergebnisse des beschriebenen Modells. Sie sind weder ein gemessener Verbrauch noch automatisch mit Kennwerten eines normgerechten Energieausweises gleichzusetzen."
     },
     "assumptions": {
@@ -119,7 +119,7 @@
         "baseRate": "Grundpreis"
       },
       "electricHeating": "Elektrische Heizsysteme werden über den elektrischen Energieanteil bewertet. Dafür gelten der Emissions- und Primärenergiefaktor der ausgewählten Stromart; sie erscheinen deshalb nicht als zusätzlicher thermischer Energieträger in der ersten Tabelle.",
-      "calculation": "Der Energieträgerverbrauch ergibt sich aus dem thermischen Energiebedarf geteilt durch den Energieinhalt pro Einheit. Kosten ergeben sich aus Verbrauch mal Arbeitspreis zuzüglich Grundpreis. Primärenergie und CO₂ werden direkt aus dem Energiebedarf und den jeweiligen Faktoren berechnet.",
+      "calculation": "Der Energieträgerverbrauch ergibt sich aus dem thermischen Energiebedarf geteilt durch den Energieinhalt pro Einheit. Kosten ergeben sich aus Verbrauch mal Arbeitspreis zuzüglich Grundpreis. Primärenergie und CO₂ werden direkt aus dem Endenergiebedarf und den jeweiligen Faktoren berechnet.",
       "sourcesOpen": "Fachliche Quelle, Bezugsjahr, Preisstand und räumlicher Gültigkeitsbereich sind für die einzelnen Faktoren noch nicht vollständig dokumentiert. Diese Angaben müssen vor der Veröffentlichung ergänzt und fachlich freigegeben werden."
     },
     "limits": {
@@ -131,7 +131,7 @@
       "weather": "Die Berechnung verwendet konfigurierte Heizgradtage und ist keine gebäudespezifische dynamische Simulation eines konkreten Wetterjahres.",
       "system": "Wirkungsgrade, Regelung, hydraulischer Abgleich, Leitungsverluste und tatsächlicher Betriebszustand der Heizungsanlage können ohne Vor-Ort-Aufnahme nur vereinfacht abgebildet werden.",
       "costs": "Arbeits- und Grundpreise sind Annahmen oder Nutzereingaben. Sie sind keine Tarifauskunft, kein Angebot und keine Prognose zukünftiger Preise.",
-      "renewables": "Solarthermie ist derzeit nicht Bestandteil des Rechenwegs. Solar- und Geothermiepotenziale werden erst nach fachlicher Datenfreigabe und vollständiger Integration belastbar berücksichtigt.",
+      "renewables": "PV-Anlagen und Solarthermie sind derzeit nicht Bestandteil des Rechenwegs. Solarpotenziale werden erst nach fachlicher Datenfreigabe und vollständiger Integration belastbar berücksichtigt.",
       "inputDepth": "Eigene, verlässliche Gebäude- und Verbrauchsangaben reduzieren die Abhängigkeit von Standardannahmen. Sie beseitigen jedoch nicht die grundsätzlichen Vereinfachungen des Modells.",
       "conclusion": "Für Energieausweis, Förderantrag, Ausführungsplanung, Kostenentscheidung oder Nachweis gesetzlicher Anforderungen ist eine qualifizierte Energieberatung beziehungsweise Fachplanung erforderlich."
     }
