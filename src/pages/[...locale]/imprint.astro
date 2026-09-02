@@ -20,6 +20,10 @@ const publisherEmail = i18next.t('common:imprint.publisher.email');
 const publisherWebsite = i18next.t('common:imprint.publisher.website');
 const responsibleEmail = i18next.t('common:imprint.responsible.email');
 const responsibleWebsite = i18next.t('common:imprint.responsible.website');
+const administrationEmail = i18next.t('common:imprint.administration.email');
+const administrationWebsite = i18next.t(
+  'common:imprint.administration.website',
+);
 ---
 
 <BaseLayout>
@@ -130,8 +134,33 @@ const responsibleWebsite = i18next.t('common:imprint.responsible.website');
         <Typography as="h2" variant="h3">
           {i18next.t('common:imprint.administration.title')}
         </Typography>
+        <Typography variant="body" className="whitespace-pre-line">
+          {i18next.t('common:imprint.administration.address')}
+        </Typography>
+        <div class="flex flex-col gap-1">
+          <Typography variant="body">
+            {labelEmail}:{' '}
+            <a
+              href={`mailto:${administrationEmail}`}
+              class="text-primary hover:text-primary-hover underline transition-colors"
+            >
+              {administrationEmail}
+            </a>
+          </Typography>
+          <Typography variant="body">
+            {labelInternet}:{' '}
+            <a
+              href={`https://${administrationWebsite}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-primary hover:text-primary-hover underline transition-colors"
+            >
+              {administrationWebsite}
+            </a>
+          </Typography>
+        </div>
         <Typography variant="body">
-          {i18next.t('common:imprint.administration.value')}
+          {i18next.t('common:imprint.administration.vatId')}
         </Typography>
       </section>
     </ContentContainer>

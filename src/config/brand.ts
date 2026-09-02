@@ -3,7 +3,7 @@ export const brand = {
   pageTitle: 'Digitaler Energie Zwilling Regensburg',
   municipalityWebsite: 'https://www.regensburg.de/',
   logo: {
-    src: '/logo.png',
+    src: '/assets/logo.png',
     alt: 'Stadt Regensburg',
   },
   favicon: '/favicon.ico',

@@ -18,7 +18,7 @@
     "inputLabel": "Living area",
     "infoDialog": {
       "title": "What does living area mean?",
-      "description": "[DEMO CONTENT] In this example, living area refers to the heated area of the building. An information hint like this explains what the respective input represents and where you may be able to find the relevant value. The final technical copy will be added later."
+      "description": "[EXAMPLE CONTENT] In this example, living area refers to the heated area of the building. An information hint like this explains what the respective input represents and where you may be able to find the relevant value."
     },
     "automaticExplanation": "If you know the actual living area, you can enter it in the field. Your input will then replace the automatically determined 140 m² for the subsequent calculation. Use the reset button to remove your input again.",
     "userValueExplanation": "The living area you entered is now used instead of the automatically determined 140 m² for the subsequent calculation. Use the reset button to remove your input and return to the automatically determined value.",
@@ -55,7 +55,7 @@
       "derivedHeight": "building height from the difference between the lowest ground and highest roof elevation,",
       "derivedLivingArea": "number of storeys and living area indirectly from building height, ground area and configured conversion factors.",
       "buildingPartsTitle": "One building may consist of several digital building bodies",
-      "buildingParts": "The source data may represent one physically connected building as several objects or BuildingParts, for example for extensions or sections of different heights. Enrichment calculates metrics for each Building or BuildingPart object. The areas and heights of a selected digital object may therefore differ from what is perceived on site as the whole building. Check automatically adopted values particularly carefully.",
+      "buildingParts": "The source data may represent one physically connected building as several objects or so-called BuildingParts, for example for extensions or sections of different heights. Enrichment calculates metrics for each Building or BuildingPart object. The areas and heights of a selected digital object may therefore differ from what is perceived on site as the whole building. Check automatically adopted values particularly carefully.",
       "notContainedTitle": "What LoD2 does not describe",
       "notContained": "LoD2 primarily represents the external building shape using ground, wall and roof surfaces. It does not provide reliable information about floor plans, heated zones, insulation, windows, component assemblies, heating systems or actual consumption. These values are derived from additional data, catalogues and defaults or supplied by you.",
       "constructionYear": "A prefilled construction year does not come from the LoD2 dataset. It may be assigned from a separate building-age-class dataset using the centre of the building footprint. If no assignment is available, the published calculation configuration uses default values.",
@@ -92,13 +92,13 @@
       "title": "Final and primary energy demand",
       "finalTitle": "Final energy",
       "final": "Here, final energy means the energy supplied to the building as fuel, heat or electricity. It differs from the space-heating demand because losses and heating-system performance are included.",
-      "finalCalculation": "The calculation core defines annual total energy demand as the sum of thermal energy-carrier demand and total electricity demand. Electricity includes household use and, depending on the heating system, electricity for heat generation. The area-specific value is divided by the calculated usable floor area.",
+      "finalCalculation": "The calculation core defines total annual final energy demand as the sum of thermal energy-carrier demand and total electricity demand. Electricity includes household use and, depending on the heating system, electricity for heat generation. The area-specific value is divided by the calculated usable floor area.",
       "primaryTitle": "Primary energy",
       "primary": "Primary energy additionally accounts for upstream extraction, conversion and delivery of the relevant energy carrier. The same final-energy demand can therefore produce different primary-energy demand depending on the carrier.",
       "primaryCalculation": "The final-energy shares for heat and electricity are multiplied by their respective primary-energy factors. Both shares are added to give annual primary-energy demand.",
       "emissionsTitle": "CO₂ emissions and efficiency class",
-      "emissions": "CO₂ emissions are calculated separately for the thermal energy carrier and electricity: energy demand in kWh multiplied by the respective emission factor in g CO₂/kWh. Both shares are added and reported in tonnes per year.",
-      "display": "The energy metric currently displayed in kWh/(m²·year) is based on annual total energy demand per calculated usable floor area. The energy-efficiency class is also derived from this area-specific value.",
+      "emissions": "CO₂ emissions are calculated separately for the thermal energy carrier and electricity: final energy demand in kWh multiplied by the respective emission factor in g CO₂/kWh. Both shares are added and reported in tonnes per year.",
+      "display": "The energy metric currently displayed in kWh/(m²·year) is based on total annual energy demand per calculated usable floor area. The energy-efficiency class is also derived from this area-specific value.",
       "interpretation": "These metrics are model results. They are neither measured consumption nor automatically equivalent to metrics from a standards-compliant energy performance certificate."
     },
     "assumptions": {
@@ -119,7 +119,7 @@
         "baseRate": "Base price"
       },
       "electricHeating": "Electric heating systems are assessed through their electrical energy share. The emission and primary-energy factors of the selected electricity type apply, so electricity does not appear as an additional thermal carrier in the first table.",
-      "calculation": "Energy-carrier consumption is calculated as thermal energy demand divided by energy content per unit. Costs are consumption multiplied by unit price plus the base price. Primary energy and CO₂ are calculated directly from energy demand and the respective factors.",
+      "calculation": "Energy-carrier consumption is calculated as thermal energy demand divided by energy content per unit. Costs are consumption multiplied by unit price plus the base price. Primary energy and CO₂ are calculated directly from final energy demand and the respective factors.",
       "sourcesOpen": "The technical source, reference year, price basis and geographical scope are not yet fully documented for each factor. These details must be added and technically approved before publication."
     },
     "limits": {
@@ -131,7 +131,7 @@
       "weather": "The calculation uses configured heating degree days and is not a building-specific dynamic simulation of a particular weather year.",
       "system": "Efficiency, controls, hydraulic balancing, distribution losses and the actual condition of the heating system can only be represented in simplified form without an on-site inspection.",
       "costs": "Unit and base prices are assumptions or user inputs. They are not tariff information, a quotation or a forecast of future prices.",
-      "renewables": "Solar thermal energy is currently not part of the calculation path. Solar and geothermal potential can only be considered reliably after technical data approval and complete integration.",
+      "renewables": "PV systems and solar thermal energy are currently not part of the calculation path. Solar potential can only be considered reliably after technical data approval and complete integration.",
       "inputDepth": "Reliable building and consumption input reduces reliance on defaults, but it does not remove the model's fundamental simplifications.",
       "conclusion": "A qualified energy adviser or specialist planner is required for an energy performance certificate, funding application, detailed design, investment decision or proof of statutory compliance."
     }

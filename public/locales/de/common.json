@@ -89,7 +89,10 @@
     },
     "administration": {
       "title": "Systemadministration und -entwicklung",
-      "value": "csi"
+      "address": "Business Unit FOXBYTE\ncsi Verwaltungs GmbH\nRobert-Mayer-Straße 10\n74172 Neckarsulm",
+      "email": "info@csi-online.de",
+      "website": "www.foxbyte.de",
+      "vatId": "USt-Identifikationsnummer gemäß § 27 a UStG: DE 253 142 674"
     }
   }
 }
