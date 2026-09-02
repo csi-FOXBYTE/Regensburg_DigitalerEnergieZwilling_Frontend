@@ -5,6 +5,7 @@ export type SubmissionResult = {
 export type MapResources = {
   terrainBaseUrl: string;
   tilesBaseUrl: string;
+  addressDatabaseUrl: string;
 };
 
 export type FeedbackCategory = 'bug' | 'feedback' | 'suggestion';
@@ -45,6 +46,10 @@ export async function getMapResources(): Promise<MapResources> {
       'terrainBaseUrl',
     ),
     tilesBaseUrl: parseMapResourceUrl(result.tilesBaseUrl, 'tilesBaseUrl'),
+    addressDatabaseUrl: parseMapResourceUrl(
+      result.addressDatabaseUrl,
+      'addressDatabaseUrl',
+    ),
   };
 }
 

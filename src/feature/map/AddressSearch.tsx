@@ -160,7 +160,7 @@ export default function AddressSearch({
                 className="cursor-pointer py-2.5 pr-4 pl-9 text-sm aria-selected:bg-gray-100 md:py-3 md:text-base"
               >
                 {highlight(d.street, streetNeedle)}{' '}
-                {highlight(d.houseNumber, houseNeedle, true)}, Regensburg
+                {highlight(d.houseNumber, houseNeedle, true)}, {d.city}
               </Command.Item>
             ))}
           </Command.List>
