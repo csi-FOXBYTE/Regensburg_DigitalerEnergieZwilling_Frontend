@@ -1,6 +1,8 @@
+import { addressDbConfig } from '@/config/addressDb';
 import { useQuery } from '@tanstack/react-query';
 import type { Database, QueryExecResult } from 'sql.js';
 import initSqlJs from 'sql.js';
+import { getMapResources } from '../api/public';
 
 const LIMIT = 100;
 
@@ -10,9 +12,10 @@ function getDb() {
   if (!dbPromise) {
     dbPromise = initSqlJs({ locateFile: (f: string) => `/${f}` }).then(
       async (SQL) => {
-        const buf = await fetch(
-          'https://s3.rg.foxbyte.de/det-rg-main/det-rg-addresses.sqlite',
-        ).then((r) => r.arrayBuffer());
+        const { addressDatabaseUrl } = await getMapResources();
+        const buf = await fetch(addressDatabaseUrl).then((r) =>
+          r.arrayBuffer(),
+        );
         return new SQL.Database(new Uint8Array(buf));
       },
     );
@@ -20,39 +23,11 @@ function getDb() {
   return dbPromise;
 }
 
-// UTM32N → WGS84 (Näherung, <1m Abweichung für Regensburg)
-function utmToWgs84(cx: number, cy: number): [number, number] {
-  const a = 6378137,
-    f = 1 / 298.257223563,
-    k0 = 0.9996;
-  const e2 = 2 * f - f * f,
-    lon0 = 9 * (Math.PI / 180);
-  const x = cx - 500000,
-    y = cy;
-  const M = y / k0;
-  const mu = M / (a * (1 - e2 / 4 - (3 * e2 ** 2) / 64));
-  const e1 = (1 - Math.sqrt(1 - e2)) / (1 + Math.sqrt(1 - e2));
-  const phi1 =
-    mu +
-    ((3 * e1) / 2) * Math.sin(2 * mu) +
-    ((21 * e1 ** 2) / 16) * Math.sin(4 * mu);
-  const N1 = a / Math.sqrt(1 - e2 * Math.sin(phi1) ** 2);
-  const T1 = Math.tan(phi1) ** 2,
-    C1 = (e2 / (1 - e2)) * Math.cos(phi1) ** 2;
-  const R1 = (a * (1 - e2)) / (1 - e2 * Math.sin(phi1) ** 2) ** 1.5;
-  const D = x / (N1 * k0);
-  const lat =
-    phi1 -
-    ((N1 * Math.tan(phi1)) / R1) *
-      (D ** 2 / 2 - ((5 + 3 * T1 + 10 * C1) * D ** 4) / 24);
-  const lon = lon0 + (D - ((1 + 2 * T1 + C1) * D ** 3) / 6) / Math.cos(phi1);
-  return [lat * (180 / Math.PI), lon * (180 / Math.PI)];
-}
-
 export interface AddressResult {
   buildingId: string;
   street: string;
   houseNumber: string;
+  city: string;
   lat: number;
   lon: number;
   label: string;
@@ -128,14 +103,16 @@ function queryByStreet(db: Database, street: string): QueryExecResult[] {
 function rowsToAddressResults(rows: QueryExecResult[]): AddressResult[] {
   if (!rows.length) return [];
   return rows[0].values.map(([buildingId, street, house, cx, cy]) => {
-    const [lat, lon] = utmToWgs84(cx as number, cy as number);
+    const { cityName, transformCoordinates } = addressDbConfig;
+    const { lat, lon } = transformCoordinates(cx as number, cy as number);
     return {
       buildingId: buildingId as string,
       street: street as string,
       houseNumber: house as string,
+      city: cityName,
       lat,
       lon,
-      label: `${street} ${house}, Regensburg`,
+      label: `${street} ${house}, ${cityName}`,
     };
   });
 }

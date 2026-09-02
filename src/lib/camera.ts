@@ -1,3 +1,4 @@
+import { mapConfig } from '@/config/map';
 import * as Cesium from 'cesium';
 import {
   type CameraActivity,
@@ -11,15 +12,15 @@ import {
   setCameraTarget,
 } from './camera-state';
 
-const INITIAL_DESTINATION = new Cesium.Cartesian3(
-  4097950.7166549894,
-  878003.5980000327,
-  4792511.434740864,
+const INITIAL_DESTINATION = Cesium.Cartesian3.fromDegrees(
+  mapConfig.initialView.longitudeDegrees,
+  mapConfig.initialView.latitudeDegrees,
+  mapConfig.initialView.heightMeters,
 );
 const INITIAL_ORIENTATION = new Cesium.HeadingPitchRoll(
-  2.1531010795079872,
-  -0.32218730172914567,
-  6.283182266155325,
+  Cesium.Math.toRadians(mapConfig.initialView.headingDegrees),
+  Cesium.Math.toRadians(mapConfig.initialView.pitchDegrees),
+  Cesium.Math.toRadians(mapConfig.initialView.rollDegrees),
 );
 
 const PERSPECTIVE_FOCUS_PITCH = Cesium.Math.toRadians(-40);

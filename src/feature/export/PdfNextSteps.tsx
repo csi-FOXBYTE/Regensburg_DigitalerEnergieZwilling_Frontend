@@ -1,11 +1,8 @@
+import { municipality } from '@/config/municipality';
+import { pdfTheme } from '@/config/pdfTheme';
 import { Link, StyleSheet, Text, View } from '@react-pdf/renderer';
 import i18next from 'i18next';
 import { pdf } from './pdfStyles';
-
-const ENERGY_AGENCY_LINK =
-  'https://www.energieagentur-regensburg.de/buergerinnen/energieberatung-anmeldung';
-const ENERGY_AGENCY_CONTACT =
-  'Energieagentur Regensburg e. V.\nRudolf-Vogt-Straße 18\n93053 Regensburg\nTel. 0941 2984491-0\nkontakt@energieagentur-regensburg.de';
 
 const styles = StyleSheet.create({
   content: {
@@ -19,7 +16,7 @@ const styles = StyleSheet.create({
   },
   link: {
     fontSize: 10,
-    color: '#e30613',
+    color: pdfTheme.colors.primary,
   },
 });
 
@@ -28,8 +25,8 @@ export function PdfNextSteps() {
     {
       title: i18next.t('energyCalculation:nextSteps.step1.title'),
       description: i18next.t('energyCalculation:nextSteps.step1.description'),
-      link: ENERGY_AGENCY_LINK,
-      contact: ENERGY_AGENCY_CONTACT,
+      link: municipality.energyAdvice.url,
+      contact: municipality.energyAdvice.contact,
     },
     {
       title: i18next.t('energyCalculation:nextSteps.step2.title'),

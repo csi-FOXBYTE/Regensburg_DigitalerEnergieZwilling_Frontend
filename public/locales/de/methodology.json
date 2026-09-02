@@ -44,8 +44,8 @@
     },
     "data": {
       "title": "LoD2-, Geometrie- und Gebäudedaten",
-      "sourcePrefix": "Die Geometriegrundlage sind amtliche LoD2-Gebäudedaten für die Gemeinde Regensburg mit dem Gemeindeschlüssel 09362000. Herausgeber ist das Landesamt für Digitalisierung, Breitband und Vermessung beziehungsweise die Bayerische Vermessungsverwaltung. Die Quelldistribution wird wöchentlich aktualisiert. Weitere Angaben bietet die",
-      "sourceLink": "Produkt- und Metadatenseite der Bayerischen Vermessungsverwaltung",
+      "sourcePrefix": "Die Geometriegrundlage sind amtliche LoD2-Gebäudedaten für die Gemeinde $t(municipality:name) mit dem Gemeindeschlüssel $t(municipality:buildingData.municipalityKey). Herausgeber ist $t(municipality:buildingData.publisher). Die Quelldistribution wird $t(municipality:buildingData.updateFrequency) aktualisiert. Weitere Angaben bietet die",
+      "sourceLink": "$t(municipality:buildingData.sourceLinkLabel)",
       "sourceSuffix": ".",
       "processing": "In einer Verarbeitungspipeline werden Geometriekennwerte aus den Quelldaten berechnet. Anschließend werden die Daten als 3D Tiles für die Kartenansicht und als Ausgangswerte für die Berechnung bereitgestellt.",
       "derivedTitle": "Aus der Geometrie abgeleitete Werte",

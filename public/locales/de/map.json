@@ -1,7 +1,7 @@
 {
   "deleteConfirmationDialog": {
     "title": "Daten wirklich löschen?",
-    "description": "Dieser Vorgang löscht Ihre eingereichten Gebäudedaten unwiderruflich vom Stadtserver. Ihre lokale Sitzung und der heruntergeladene PDF-Bericht bleiben erhalten.",
+    "description": "Dieser Vorgang löscht Ihre eingereichten Gebäudedaten unwiderruflich vom $t(municipality:dataSubmission.server). Ihre lokale Sitzung und der heruntergeladene PDF-Bericht bleiben erhalten.",
     "confirmButton": "Ja, Daten löschen",
     "deletingButton": "Wird gelöscht…",
     "cancelButton": "Abbrechen",
@@ -10,7 +10,7 @@
     "unavailableTitle": "Löschlink nicht verfügbar",
     "unavailableDescription": "Dieser Link ist nicht mehr gültig oder die eingereichten Daten sind nicht mehr verfügbar.",
     "deletedTitle": "Daten gelöscht",
-    "deletedDescription": "Ihre eingereichten Daten wurden unwiderruflich vom Stadtserver gelöscht.",
+    "deletedDescription": "Ihre eingereichten Daten wurden unwiderruflich vom $t(municipality:dataSubmission.server) gelöscht.",
     "cancelledTitle": "Löschen abgebrochen",
     "cancelledDescription": "Ihre eingereichten Daten wurden nicht gelöscht.",
     "serviceErrorTitle": "Dienst vorübergehend nicht verfügbar",
@@ -74,7 +74,7 @@
     "retry": "Erneut versuchen"
   },
   "addressSearch": {
-    "placeHolder": "Adresse suchen in Regensburg...",
+    "placeHolder": "Adresse suchen in $t(municipality:name)...",
     "noResults": "Adresse nicht gefunden",
     "loadError": "Die Adresssuche ist momentan nicht verfügbar. Bitte prüfen Sie Ihre Internetverbindung und laden Sie die Seite neu.",
     "chooseBuilding": "Gebäude auswählen: ",

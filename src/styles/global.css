@@ -124,50 +124,70 @@
 }
 
 @theme inline {
-  /* Symmetric (all-direction) shadows for Paper */
+  /* `shadow-paper-*`: symmetric elevation levels for Paper surfaces. */
   --shadow-paper-1: 0 0 4px 0 rgb(0 0 0 / 0.08);
   --shadow-paper-2: 0 0 8px 0 rgb(0 0 0 / 0.1);
   --shadow-paper-3: 0 0 16px 2px rgb(0 0 0 / 0.12);
   --shadow-paper-4: 0 0 24px 4px rgb(0 0 0 / 0.14);
   --shadow-paper-5: 0 0 32px 6px rgb(0 0 0 / 0.16);
 
-  /* Font */
+  /* `font-sans`: default application typography. */
   --font-sans: 'Open Sans', sans-serif;
 
-  /* Colors */
-  /* Neutral Scale */
+  /* `neutral-*`: direct neutral utilities for text, dividers, and disabled UI. */
   --color-neutral-850: var(--neutral-850);
   --color-neutral-550: var(--neutral-550);
   --color-neutral-450: var(--neutral-450);
   --color-neutral-200: var(--neutral-200);
   --color-neutral-150: var(--neutral-150);
 
+  /* Page and full-area surfaces with their default text color. */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  /* Card and Paper surfaces with their default text color. */
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+
+  /* Floating surfaces such as popovers with their default text color. */
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
+
+  /* Primary actions, links, progress, and interactive emphasis. */
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
   --color-primary-foreground: var(--primary-foreground);
+
+  /* Secondary actions and low-emphasis interactive surfaces. */
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
+
+  /* Subdued surfaces and supporting or explanatory text. */
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+
+  /* Hovered or highlighted control surfaces that are not primary actions. */
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+
+  /* Destructive actions and invalid-state emphasis. */
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+
+  /* Default borders, input surfaces, input outlines, and focus rings. */
   --color-border: var(--border);
   --color-input: var(--input);
   --color-input-border: var(--input-border);
   --color-ring: var(--ring);
+
+  /* Ordered data-series colors exposed as `chart-1` through `chart-5`. */
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+
+  /* Sidebar surfaces, text, actions, highlights, borders, and focus rings. */
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -176,22 +196,32 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Footer surface and its default text color. */
   --color-footer: var(--footer);
   --color-footer-foreground: var(--footer-foreground);
+
+  /* Informational callouts: border, background, and icon. */
   --color-info: var(--info);
   --color-info-background: var(--info-background);
   --color-info-icon: var(--info-icon);
+
+  /* Warning callouts: border, background, and icon. */
   --color-warning: var(--warning);
   --color-warning-background: var(--warning-background);
   --color-warning-icon: var(--warning-icon);
+
+  /* Danger callouts: border, background, and icon. */
   --color-danger: var(--danger);
   --color-danger-background: var(--danger-background);
   --color-danger-icon: var(--danger-icon);
+
+  /* Positive callouts: border, background, and icon. */
   --color-positive: var(--positive);
   --color-positive-background: var(--positive-background);
   --color-positive-icon: var(--positive-icon);
 
-  /* Radius */
+  /* `rounded-sm` through `rounded-4xl`, derived from the brand radius. */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -200,9 +230,11 @@
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
 
+  /* `*-gutter`: responsive horizontal page padding. */
   --spacing-gutter: var(--gutter);
   --spacing-gutter-desktop: var(--desktop-gutter);
 
+  /* `max-w-content`: maximum width of centered application content. */
   --container-content: var(--content-width);
 }
 

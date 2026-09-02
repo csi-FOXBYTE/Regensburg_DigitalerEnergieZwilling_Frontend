@@ -60,7 +60,7 @@
   },
   "imprint": {
     "title": "Impressum",
-    "contactIntro": "Für allgemeine Fragen zur Stadtverwaltung wenden Sie sich bitte an:",
+    "contactIntro": "$t(municipality:imprint.contactIntro)",
     "labels": {
       "email": "E-Mail",
       "phone": "Telefon",
@@ -68,31 +68,31 @@
       "internet": "Internet"
     },
     "contact": {
-      "email": "stadt_regensburg@regensburg.de",
-      "phone": "(0941) 507-0",
-      "fax": "(0941) 507-1199",
-      "address": "Stadt Regensburg\nPostfach 11 06 43\n93019 Regensburg"
+      "email": "$t(municipality:imprint.contact.email)",
+      "phone": "$t(municipality:imprint.contact.phone)",
+      "fax": "$t(municipality:imprint.contact.fax)",
+      "address": "$t(municipality:imprint.contact.address)"
     },
     "publisher": {
-      "title": "Herausgeber (gemäß § 5 TMG; § 55 II RStV)",
-      "address": "Stadt Regensburg\nAltes Rathaus\nRathausplatz 1\n93047 Regensburg",
-      "email": "pressestelle@regensburg.de",
-      "website": "www.regensburg.de",
-      "legalForm": "Die Stadt Regensburg ist eine Gebietskörperschaft des Öffentlichen Rechts. Sie wird vertreten durch Oberbürgermeister Dr. Thomas Burger.",
-      "vatId": "USt-Identifikationsnummer gemäß § 27 a UStG: DE 133714341"
+      "title": "$t(municipality:imprint.publisher.title)",
+      "address": "$t(municipality:imprint.publisher.address)",
+      "email": "$t(municipality:imprint.publisher.email)",
+      "website": "$t(municipality:imprint.publisher.website)",
+      "legalForm": "$t(municipality:imprint.publisher.legalForm)",
+      "vatId": "$t(municipality:imprint.publisher.vatId)"
     },
     "responsible": {
-      "title": "Inhaltlich verantwortlich (nach § 55 II RStV)",
-      "address": "Stadt Regensburg | Amt für Stadtentwicklung | Abteilung Entwicklungsplanung\nRalf Lehmann\nD.-Martin-Luther-Straße 1\n93047 Regensburg",
-      "email": "stadtentwickung@regensburg.de",
-      "website": "www.regensburg.de"
+      "title": "$t(municipality:imprint.responsible.title)",
+      "address": "$t(municipality:imprint.responsible.address)",
+      "email": "$t(municipality:imprint.responsible.email)",
+      "website": "$t(municipality:imprint.responsible.website)"
     },
     "administration": {
-      "title": "Systemadministration und -entwicklung",
-      "address": "Business Unit FOXBYTE\ncsi Verwaltungs GmbH\nRobert-Mayer-Straße 10\n74172 Neckarsulm",
-      "email": "info@csi-online.de",
-      "website": "www.foxbyte.de",
-      "vatId": "USt-Identifikationsnummer gemäß § 27 a UStG: DE 253 142 674"
+      "title": "$t(municipality:imprint.administration.title)",
+      "address": "$t(municipality:imprint.administration.address)",
+      "email": "$t(municipality:imprint.administration.email)",
+      "website": "$t(municipality:imprint.administration.website)",
+      "vatId": "$t(municipality:imprint.administration.vatId)"
     }
   }
 }

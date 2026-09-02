@@ -1,5 +1,6 @@
 ---
 import { getLocalizedPathname } from 'astro-react-i18next/utils';
+import { brand } from '@/config/brand';
 import i18n from 'i18next';
 
 const homeHref = getLocalizedPathname('/', i18n.language);
@@ -13,7 +14,7 @@ const homeHref = getLocalizedPathname('/', i18n.language);
       href={homeHref}
       class="text-primary cursor-pointer text-[20px] leading-7 font-semibold"
     >
-      Digitaler Energie Zwilling
+      {brand.applicationName}
     </a>
   </div>
   <slot />

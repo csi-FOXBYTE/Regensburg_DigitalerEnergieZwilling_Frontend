@@ -1,3 +1,4 @@
+import { mapConfig } from '@/config/map';
 import {
   type CameraTarget,
   getCameraTarget,
@@ -28,30 +29,24 @@ import {
 export { clearSession, getSession } from './storage';
 export type { DetMeta, SavedSession } from './storage';
 
-const REGENSBURG_BOUNDS = {
-  west: 11.5,
-  south: 48.5,
-  east: 13,
-  north: 49.5,
-};
-
-function isRegensburgTarget(value: unknown): value is CameraTarget {
+function isMapTarget(value: unknown): value is CameraTarget {
   if (!value || typeof value !== 'object') return false;
   const target = value as Partial<CameraTarget>;
+  const bounds = mapConfig.sessionTargetBounds;
   return (
     Number.isFinite(target.longitudeDegrees) &&
     Number.isFinite(target.latitudeDegrees) &&
-    target.longitudeDegrees! >= REGENSBURG_BOUNDS.west &&
-    target.longitudeDegrees! <= REGENSBURG_BOUNDS.east &&
-    target.latitudeDegrees! >= REGENSBURG_BOUNDS.south &&
-    target.latitudeDegrees! <= REGENSBURG_BOUNDS.north
+    target.longitudeDegrees! >= bounds.westDegrees &&
+    target.longitudeDegrees! <= bounds.eastDegrees &&
+    target.latitudeDegrees! >= bounds.southDegrees &&
+    target.latitudeDegrees! <= bounds.northDegrees
   );
 }
 
 function resolveSessionCameraTarget(
   session: SavedSession,
 ): CameraTarget | null {
-  if (isRegensburgTarget(session.cameraTarget)) {
+  if (isMapTarget(session.cameraTarget)) {
     return session.cameraTarget;
   }
 
@@ -63,14 +58,14 @@ function resolveSessionCameraTarget(
       longitudeDegrees: (session.cameraLon * 180) / Math.PI,
       latitudeDegrees: (session.cameraLat * 180) / Math.PI,
     };
-    if (isRegensburgTarget(legacyTarget)) return legacyTarget;
+    if (isMapTarget(legacyTarget)) return legacyTarget;
   }
 
   const buildingTarget = {
     longitudeDegrees: session.building.coordinates.lon,
     latitudeDegrees: session.building.coordinates.lat,
   };
-  return isRegensburgTarget(buildingTarget) ? buildingTarget : null;
+  return isMapTarget(buildingTarget) ? buildingTarget : null;
 }
 
 // Set when a session was injected via a recovery link (#restore=…) so the

@@ -345,15 +345,15 @@
     "classTooltipCurrentState": "Klasse {{cls}}: {{range}} (Ihr aktueller Stand)"
   },
   "export": {
-    "consentTitle": "Helfen Sie Regensburg bei der Wärmeplanung",
-    "consentDescription": "Wenn Sie zustimmen, werden nur die für die Gebäudedatenspende und Wärmeplanung technisch notwendigen Daten an die Stadtverwaltung übermittelt. Dazu gehören insbesondere die vollständige Gebäudeadresse, die Gebäudekoordinaten, die Gebäude-ID sowie die freigegebenen Eingabe- und Berechnungsergebnisse. Wegen des Gebäudebezugs sind diese Daten nicht anonym. Eine Registrierung oder die Angabe von Namen und Kontaktdaten ist nicht erforderlich.\n\nDie Einreichung ist mit dem Download des PDF-Berichts verbunden und erfolgt, sobald Sie den Bericht anfordern. Der Bericht enthält außerdem einen zufällig erzeugten Löschlink, über den Sie die übermittelten Daten nach einem Bestätigungsdialog löschen können.",
-    "consentLabel": "Ja, ich möchte die technisch notwendigen Gebäude-, Eingabe- und Berechnungsdaten freiwillig zur Verfügung stellen und damit einen Beitrag zum Klimaschutz in Regensburg leisten.",
+    "consentTitle": "Helfen Sie $t(municipality:name) bei der Wärmeplanung",
+    "consentDescription": "Wenn Sie zustimmen, werden nur die für die Gebäudedatenspende und Wärmeplanung technisch notwendigen Daten an die $t(municipality:administration.genericName) übermittelt. Dazu gehören insbesondere die vollständige Gebäudeadresse, die Gebäudekoordinaten, die Gebäude-ID sowie die freigegebenen Eingabe- und Berechnungsergebnisse. Wegen des Gebäudebezugs sind diese Daten nicht anonym. Eine Registrierung oder die Angabe von Namen und Kontaktdaten ist nicht erforderlich.\n\nDie Einreichung ist mit dem Download des PDF-Berichts verbunden und erfolgt, sobald Sie den Bericht anfordern. Der Bericht enthält außerdem einen zufällig erzeugten Löschlink, über den Sie die übermittelten Daten nach einem Bestätigungsdialog löschen können.",
+    "consentLabel": "Ja, ich möchte die technisch notwendigen Gebäude-, Eingabe- und Berechnungsdaten freiwillig zur Verfügung stellen und damit einen Beitrag zum Klimaschutz in $t(municipality:name) leisten.",
     "privacyNote": "Datenschutz gemäß DSGVO Art. 6 Abs. 1 lit. a: Ihre Einwilligung ist freiwillig und jederzeit widerrufbar. Übermittelt werden insbesondere die vollständige Gebäudeadresse und die Gebäudekoordinaten; Namen, Benutzerkonto und Kontaktdaten werden nicht benötigt.",
     "downloadTitle": "PDF-Bericht herunterladen",
     "downloadIntro": "Laden Sie Ihre Ergebnisse als praktische PDF-Zusammenfassung herunter. Darin enthalten sind:",
     "downloadItems": {
       "recoveryLink": "Wiederherstellungslink zu Ihrer Gebäudekonfiguration",
-      "dataDonation": "Wenn Sie Ihre Gebäudedaten der Stadt Regensburg zur Verfügung gestellt haben: der auf den Einreichungsumfang reduzierte Datensatz als maschinenlesbare Datei (JSON) sowie Ihr Löschlink",
+      "dataDonation": "Wenn Sie Ihre Gebäudedaten der $t(municipality:administration.name) zur Verfügung gestellt haben: der auf den Einreichungsumfang reduzierte Datensatz als maschinenlesbare Datei (JSON) sowie Ihr Löschlink",
       "buildingData": "Die Bestandsdaten zu Ihrem Gebäude",
       "scenario": "Ihr gewähltes Sanierungsszenario",
       "nextSteps": "Tipps zu den nächsten Schritten",
@@ -477,7 +477,7 @@
     "dataLinksTitle": "Ihre Datenverwaltung",
     "recoveryLinkLabel": "Wiederherstellungslink – Gebäudedaten in der App erneut laden",
     "recoveryLinkText": "Sitzung wiederherstellen",
-    "deletionLinkLabel": "Löschlink – eingereichte Daten beim Stadtserver löschen",
+    "deletionLinkLabel": "Löschlink – eingereichte Daten beim $t(municipality:dataSubmission.server) löschen",
     "deletionLinkText": "Eingereichte Daten löschen",
     "jsonLinkLabel": "JSON-Download – Rohdaten für eigene Einreichung herunterladen",
     "jsonLinkText": "JSON-Datei herunterladen",
@@ -489,7 +489,7 @@
     "sectionTitle": "So geht's weiter",
     "step1": {
       "title": "Energieberatung einholen",
-      "description": "Nutzen Sie diesen Bericht als Grundlage für eine professionelle Energieberatung. Eine kostenlose Erstberatung bietet die Energieagentur Regensburg an. Dort erhalten Sie Unterstützung zu Sanierungsmaßnahmen, Kosten und passenden Fördermöglichkeiten.\nWeitere Informationen:"
+      "description": "Nutzen Sie diesen Bericht als Grundlage für eine professionelle Energieberatung. Eine kostenlose Erstberatung bietet die $t(municipality:energyAdvice.providerName) an. Dort erhalten Sie Unterstützung zu Sanierungsmaßnahmen, Kosten und passenden Fördermöglichkeiten.\nWeitere Informationen:"
     },
     "step2": {
       "title": "Fördermittel beantragen",

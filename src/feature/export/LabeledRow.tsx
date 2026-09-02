@@ -1,3 +1,4 @@
+import { pdfTheme } from '@/config/pdfTheme';
 import { StyleSheet, Text, View } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
@@ -6,11 +7,11 @@ const styles = StyleSheet.create({
   },
   label: {
     width: '60%',
-    color: '#191919',
+    color: pdfTheme.colors.foreground,
   },
   value: {
     width: '40%',
-    color: '#191919',
+    color: pdfTheme.colors.foreground,
     fontWeight: 700,
   },
 });

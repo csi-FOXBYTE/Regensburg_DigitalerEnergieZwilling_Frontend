@@ -129,7 +129,7 @@ function DesktopTick({
       <TooltipContent
         side="bottom"
         sideOffset={8}
-        className="max-w-70 rounded bg-white px-4 py-3 text-sm leading-relaxed text-[#191919] shadow-lg"
+        className="bg-background text-foreground max-w-70 rounded px-4 py-3 text-sm leading-relaxed shadow-lg"
       >
         {tooltipLabel}
       </TooltipContent>

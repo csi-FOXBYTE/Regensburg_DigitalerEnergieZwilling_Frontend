@@ -3,6 +3,7 @@ import { Callout } from '@/components/ui/callout';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Typography } from '@/components/ui/typography';
 import { EnergyReportDocument } from '@/feature/export/EnergyReportDocument';
+import { municipality } from '@/config/municipality';
 import { submitEnergyData } from '@/lib/api/public';
 import { downloadPdf } from '@/lib/downloadPdf';
 import { $building } from '@/lib/state/building';
@@ -59,9 +60,8 @@ export function NextStepsSection() {
     {
       title: t('nextSteps.step1.title'),
       description: t('nextSteps.step1.description'),
-      link: 'https://www.energieagentur-regensburg.de/buergerinnen/energieberatung-anmeldung',
-      contact:
-        'Energieagentur Regensburg e. V.\nRudolf-Vogt-Straße 18\n93053 Regensburg\nTel. 0941 2984491-0\nkontakt@energieagentur-regensburg.de',
+      link: municipality.energyAdvice.url,
+      contact: municipality.energyAdvice.contact,
     },
     {
       title: t('nextSteps.step2.title'),

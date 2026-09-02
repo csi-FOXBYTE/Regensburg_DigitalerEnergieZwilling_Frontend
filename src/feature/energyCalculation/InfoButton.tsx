@@ -26,7 +26,7 @@ function InfoButton({ onClick }: { onClick?: () => void }) {
       className="group text-muted-foreground hover:text-foreground inline-flex cursor-pointer items-center"
     >
       <Info
-        className="size-3.5 text-muted-foreground group-hover:text-[#e30613]"
+        className="group-hover:text-primary text-muted-foreground size-3.5"
         aria-hidden="true"
       />
     </button>
@@ -59,13 +59,12 @@ export function InfoTooltipButton({ content }: { content: ReactNode }) {
           className="group text-muted-foreground hover:text-foreground inline-flex cursor-pointer items-center"
         >
           <Info
-            className="size-3.5 text-muted-foreground group-hover:text-[#e30613]"
+            className="group-hover:text-primary text-muted-foreground size-3.5"
             aria-hidden="true"
           />
         </TooltipTrigger>
         <TooltipContent
-          className="max-w-70 rounded bg-white px-4 py-3 text-sm leading-relaxed shadow-lg"
-          style={{ color: '#191919' }}
+          className="bg-background text-foreground max-w-70 rounded px-4 py-3 text-sm leading-relaxed shadow-lg"
           onEscapeKeyDown={() => setOpen(false)}
         >
           {content}

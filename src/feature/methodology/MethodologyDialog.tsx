@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { municipality } from '@/config/municipality';
 import { Button } from '@/components/ui/button';
 import { Callout } from '@/components/ui/callout';
 import {
@@ -187,7 +188,7 @@ function DataContent() {
       <Typography>
         {t('sections.data.sourcePrefix')}{' '}
         <a
-          href="https://geodaten.bayern.de/opengeodata/OpenDataDetail.html?pn=lod2"
+          href={municipality.methodology.buildingDataSourceUrl}
           target="_blank"
           rel="noreferrer"
         >

@@ -345,15 +345,15 @@
     "classTooltipCurrentState": "Class {{cls}}: {{range}} (Your Current State)"
   },
   "export": {
-    "consentTitle": "Help Regensburg with Heat Planning",
-    "consentDescription": "If you consent, only the data technically required for the building data donation and heat planning will be transmitted to the city administration. This includes, in particular, the full building address, building coordinates, building ID, and the approved input and calculation results. Because the data relates to a specific building, it is not anonymous. Registration or the provision of names and contact details is not required.\n\nSubmission is linked to downloading the PDF report and takes place when you request the report. The report also contains a randomly generated deletion link that lets you delete the submitted data after a confirmation dialog.",
-    "consentLabel": "Yes, I would like to voluntarily provide the technically required building, input, and calculation data and contribute to climate protection in Regensburg.",
+    "consentTitle": "Help $t(municipality:name) with Heat Planning",
+    "consentDescription": "If you consent, only the data technically required for the building data donation and heat planning will be transmitted to the $t(municipality:administration.genericName). This includes, in particular, the full building address, building coordinates, building ID, and the approved input and calculation results. Because the data relates to a specific building, it is not anonymous. Registration or the provision of names and contact details is not required.\n\nSubmission is linked to downloading the PDF report and takes place when you request the report. The report also contains a randomly generated deletion link that lets you delete the submitted data after a confirmation dialog.",
+    "consentLabel": "Yes, I would like to voluntarily provide the technically required building, input, and calculation data and contribute to climate protection in $t(municipality:name).",
     "privacyNote": "Data protection in accordance with GDPR Art. 6(1)(a): Your consent is voluntary and can be withdrawn at any time. The transmitted data includes the full building address and building coordinates; no name, user account, or contact details are required.",
     "downloadTitle": "Download PDF Report",
     "downloadIntro": "Download your results as a convenient PDF summary. It includes:",
     "downloadItems": {
       "recoveryLink": "A recovery link to your building configuration",
-      "dataDonation": "If you have shared your building data with the City of Regensburg: the dataset reduced to the submitted scope as a machine-readable file (JSON), plus your deletion link",
+      "dataDonation": "If you have shared your building data with the $t(municipality:administration.name): the dataset reduced to the submitted scope as a machine-readable file (JSON), plus your deletion link",
       "buildingData": "Your building's existing data",
       "scenario": "Your selected renovation scenario",
       "nextSteps": "Tips for next steps",
@@ -477,7 +477,7 @@
     "dataLinksTitle": "Your Data Management",
     "recoveryLinkLabel": "Recovery link – reload your building data in the app",
     "recoveryLinkText": "Restore session",
-    "deletionLinkLabel": "Deletion link – delete your submitted data from the city server",
+    "deletionLinkLabel": "Deletion link – delete your submitted data from the $t(municipality:dataSubmission.server)",
     "deletionLinkText": "Delete submitted data",
     "jsonLinkLabel": "JSON download – download raw data for own submission",
     "jsonLinkText": "Download JSON file",
