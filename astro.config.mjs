@@ -56,6 +56,7 @@ export default defineConfig({
         'energyCalculation',
         'map',
         'methodology',
+        'municipality',
       ],
     }),
   ],

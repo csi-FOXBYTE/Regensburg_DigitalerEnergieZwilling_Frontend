@@ -44,8 +44,8 @@
     },
     "data": {
       "title": "LoD2, geometry and building data",
-      "sourcePrefix": "The geometry is based on official LoD2 building data for the municipality of Regensburg, municipality key 09362000. The publisher is the Bavarian State Office for Digitisation, Broadband and Surveying, or Bavarian Surveying Administration. The source distribution is updated weekly. Further details are available on the",
-      "sourceLink": "product and metadata page of the Bavarian Surveying Administration",
+      "sourcePrefix": "The geometry is based on official LoD2 building data for the municipality of $t(municipality:name), municipality key $t(municipality:buildingData.municipalityKey). The publisher is $t(municipality:buildingData.publisher). The source distribution is updated $t(municipality:buildingData.updateFrequency). Further details are available on the",
+      "sourceLink": "$t(municipality:buildingData.sourceLinkLabel)",
       "sourceSuffix": ".",
       "processing": "A processing pipeline calculates geometry metrics from the source data. The resulting data is then provided as 3D Tiles for the map and as baseline values for the calculation.",
       "derivedTitle": "Values derived from geometry",

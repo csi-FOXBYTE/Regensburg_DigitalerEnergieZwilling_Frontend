@@ -1,7 +1,7 @@
 {
   "deleteConfirmationDialog": {
     "title": "Really delete data?",
-    "description": "This will permanently delete your submitted building data from the city server. Your local session and the downloaded PDF report will be kept.",
+    "description": "This will permanently delete your submitted building data from the $t(municipality:dataSubmission.server). Your local session and the downloaded PDF report will be kept.",
     "confirmButton": "Yes, delete data",
     "deletingButton": "Deleting…",
     "cancelButton": "Cancel",
@@ -10,7 +10,7 @@
     "unavailableTitle": "Deletion link unavailable",
     "unavailableDescription": "This link is no longer valid or the submitted data is no longer available.",
     "deletedTitle": "Data deleted",
-    "deletedDescription": "Your submitted data has been permanently deleted from the city server.",
+    "deletedDescription": "Your submitted data has been permanently deleted from the $t(municipality:dataSubmission.server).",
     "cancelledTitle": "Deletion cancelled",
     "cancelledDescription": "Your submitted data has not been deleted.",
     "serviceErrorTitle": "Service temporarily unavailable",
@@ -74,7 +74,7 @@
     "retry": "Try again"
   },
   "addressSearch": {
-    "placeHolder": "Search address in Regensburg...",
+    "placeHolder": "Search address in $t(municipality:name)...",
     "noResults": "Address not found",
     "loadError": "Address search is currently unavailable. Please check your internet connection and reload the page.",
     "chooseBuilding": "Select building: ",
