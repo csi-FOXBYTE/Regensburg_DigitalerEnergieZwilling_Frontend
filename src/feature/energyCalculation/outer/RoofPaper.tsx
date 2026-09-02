@@ -98,8 +98,10 @@ export default function RoofPaper() {
                   <figure className="flex flex-1 flex-col items-center gap-2">
                     <img
                       src="/assets/buildingParts/roofGabled.png"
-                      alt={t('outerParts.roof.tooltips.constructionTypeGabledRoof')}
-                      className="w-full rounded-md object-contain"
+                      alt={t(
+                        'outerParts.roof.tooltips.constructionTypeGabledRoof',
+                      )}
+                      className="rounded-surface w-full object-contain"
                     />
                     <figcaption className="text-sm font-medium">
                       {t('outerParts.roof.tooltips.constructionTypeGabledRoof')}
@@ -108,8 +110,10 @@ export default function RoofPaper() {
                   <figure className="flex flex-1 flex-col items-center gap-2">
                     <img
                       src="/assets/buildingParts/roofFlat.png"
-                      alt={t('outerParts.roof.tooltips.constructionTypeFlatRoof')}
-                      className="w-full rounded-md object-contain"
+                      alt={t(
+                        'outerParts.roof.tooltips.constructionTypeFlatRoof',
+                      )}
+                      className="rounded-surface w-full object-contain"
                     />
                     <figcaption className="text-sm font-medium">
                       {t('outerParts.roof.tooltips.constructionTypeFlatRoof')}
@@ -126,7 +130,9 @@ export default function RoofPaper() {
           field={hasAtticField}
           labelKey="outerParts.roof.hasAttic"
           info={
-            <InfoTooltipButton content={t('outerParts.roof.tooltips.hasAttic')} />
+            <InfoTooltipButton
+              content={t('outerParts.roof.tooltips.hasAttic')}
+            />
           }
         />
         {hasAttic && (
@@ -139,7 +145,9 @@ export default function RoofPaper() {
               key: 'booleanLabels.notHeated',
             }}
             info={
-              <InfoTooltipButton content={t('outerParts.roof.tooltips.isAtticHeated')} />
+              <InfoTooltipButton
+                content={t('outerParts.roof.tooltips.isAtticHeated')}
+              />
             }
           />
         )}
@@ -158,7 +166,9 @@ export default function RoofPaper() {
             key: 'booleanLabels.notInsulated',
           }}
           info={
-            <InfoTooltipButton content={t('outerParts.roof.tooltips.hasInsulation')} />
+            <InfoTooltipButton
+              content={t('outerParts.roof.tooltips.hasInsulation')}
+            />
           }
         />
         {roofHasInsulation && (
@@ -171,7 +181,9 @@ export default function RoofPaper() {
               allowNegative={false}
               className="col-start-1"
               info={
-                <InfoTooltipButton content={t('outerParts.roof.tooltips.insulationThickness')} />
+                <InfoTooltipButton
+                  content={t('outerParts.roof.tooltips.insulationThickness')}
+                />
               }
             />
             <EnergySelectInput
@@ -188,8 +200,10 @@ export default function RoofPaper() {
                       <figure className="flex flex-1 flex-col items-center gap-2">
                         <img
                           src="/assets/buildingParts/roofInsulationBetweenRafters.png"
-                          alt={t('outerParts.roof.insulationTypes.betweenRafter')}
-                          className="w-full rounded-md object-contain"
+                          alt={t(
+                            'outerParts.roof.insulationTypes.betweenRafter',
+                          )}
+                          className="rounded-surface w-full object-contain"
                         />
                         <figcaption className="text-sm font-medium">
                           {t('outerParts.roof.insulationTypes.betweenRafter')}
@@ -199,7 +213,7 @@ export default function RoofPaper() {
                         <img
                           src="/assets/buildingParts/roofInsulationAboveRafters.png"
                           alt={t('outerParts.roof.insulationTypes.aboveRafter')}
-                          className="w-full rounded-md object-contain"
+                          className="rounded-surface w-full object-contain"
                         />
                         <figcaption className="text-sm font-medium">
                           {t('outerParts.roof.insulationTypes.aboveRafter')}

@@ -63,7 +63,7 @@ function DeltaPill({
 }) {
   return (
     <span
-      className={`w-fit rounded-full px-2 py-1 text-xs font-bold ${deltaPillClass(improved)}`}
+      className={`rounded-badge w-fit px-2 py-1 text-xs font-bold ${deltaPillClass(improved)}`}
     >
       {children}
     </span>
@@ -188,7 +188,7 @@ function RenovationStatsCard({
           {details && (
             <button
               type="button"
-              className="text-neutral-450 hover:text-neutral-650 focus-visible:ring-ring/50 absolute right-2 bottom-1 flex w-fit cursor-pointer items-center rounded-sm p-0.5 text-xs focus-visible:ring-2 focus-visible:outline-none"
+              className="text-neutral-450 hover:text-neutral-650 focus-visible:ring-ring/50 rounded-control absolute right-2 bottom-1 flex w-fit cursor-pointer items-center p-0.5 text-xs focus-visible:ring-2 focus-visible:outline-none"
               aria-expanded={isOpen}
               aria-controls={detailsId}
               aria-label={t(

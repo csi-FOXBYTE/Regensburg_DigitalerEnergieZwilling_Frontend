@@ -71,8 +71,9 @@ Muted text always uses `#5f6061` — never a lighter grey invented for the PDF.
 
 ## Shape
 
-The design uses **sharp corners everywhere** (`--radius: 0px`). Do not add
-`borderRadius` to boxes, cards, or badges in the PDF.
+The Regensburg web theme uses sharp corners for surfaces while keeping floating
+controls rounded. The PDF follows the **sharp-corner** surface policy; do not
+add `borderRadius` to boxes, cards, or badges in the PDF.
 
 ---
 

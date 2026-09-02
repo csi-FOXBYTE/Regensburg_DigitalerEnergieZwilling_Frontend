@@ -32,7 +32,7 @@ export function MapNav() {
       aria-label={t('mapNav.navigationLabel')}
       className="absolute top-2 right-2 z-10 max-w-20 md:top-4 md:right-4"
     >
-      <div className="flex flex-col overflow-hidden border border-neutral-200 bg-white shadow-lg">
+      <div className="rounded-toolbar flex flex-col overflow-hidden border border-neutral-200 bg-white shadow-lg">
         {/* Help */}
         <div className="flex flex-col items-center gap-1 md:px-3 md:pt-3 md:pb-2">
           <MapHelp />
@@ -48,7 +48,7 @@ export function MapNav() {
           <Button
             variant="ghost"
             size="icon"
-            className="rounded-full bg-white hover:bg-neutral-100"
+            className="rounded-floating-control bg-white hover:bg-neutral-100"
             disabled={disabled}
             onClick={() => requestCamera({ type: 'setMode', mode: nextMode })}
             aria-label={t(
@@ -75,7 +75,7 @@ export function MapNav() {
           <Button
             variant="ghost"
             size="icon"
-            className="rounded-full"
+            className="rounded-floating-control"
             disabled={disabled}
             onClick={() => requestCamera({ type: 'alignNorth' })}
             aria-label={t('mapNav.ariaLabelNorth')}
@@ -86,7 +86,10 @@ export function MapNav() {
               aria-hidden="true"
               style={{ transform: `rotate(${-heading}deg)` }}
             >
-              <polygon points="10,1 13,10 10,8 7,10" className="fill-primary" />
+              <polygon
+                points="10,1 13,10 10,8 7,10"
+                className="fill-compass-north"
+              />
               <polygon
                 points="10,19 7,10 10,12 13,10"
                 className="fill-neutral-300"
@@ -112,7 +115,7 @@ export function MapNav() {
             <Button
               variant="ghost"
               size="icon"
-              className="col-start-2 row-start-1 h-8 w-8 rounded-full"
+              className="rounded-floating-control col-start-2 row-start-1 h-8 w-8"
               disabled={disabled}
               onClick={() => requestCamera({ type: 'pan', direction: 'up' })}
               aria-label={t('mapNav.ariaLabelPanUp')}
@@ -122,7 +125,7 @@ export function MapNav() {
             <Button
               variant="ghost"
               size="icon"
-              className="col-start-1 row-start-2 h-8 w-8 rounded-full"
+              className="rounded-floating-control col-start-1 row-start-2 h-8 w-8"
               disabled={disabled}
               onClick={() => requestCamera({ type: 'pan', direction: 'left' })}
               aria-label={t('mapNav.ariaLabelPanLeft')}
@@ -132,7 +135,7 @@ export function MapNav() {
             <Button
               variant="ghost"
               size="icon"
-              className="col-start-3 row-start-2 h-8 w-8 rounded-full"
+              className="rounded-floating-control col-start-3 row-start-2 h-8 w-8"
               disabled={disabled}
               onClick={() => requestCamera({ type: 'pan', direction: 'right' })}
               aria-label={t('mapNav.ariaLabelPanRight')}
@@ -142,7 +145,7 @@ export function MapNav() {
             <Button
               variant="ghost"
               size="icon"
-              className="col-start-2 row-start-3 h-8 w-8 rounded-full"
+              className="rounded-floating-control col-start-2 row-start-3 h-8 w-8"
               disabled={disabled}
               onClick={() => requestCamera({ type: 'pan', direction: 'down' })}
               aria-label={t('mapNav.ariaLabelPanDown')}

@@ -41,6 +41,7 @@
   --ring: var(--regensburg-red);
   --footer: var(--neutral-850);
   --footer-foreground: var(--white);
+  --compass-north: #e30613;
 
   /* Semantic Status Colors */
   --info: var(--regensburg-red);
@@ -63,8 +64,13 @@
   --chart-4: oklch(0.488 0.243 264.376);
   --chart-5: oklch(0.424 0.199 265.638);
 
-  /* Radius - Regensburg uses sharp corners */
-  --radius: 0px;
+  /* Radius policy - Regensburg uses sharp corners */
+  --control-radius: 0px;
+  --surface-radius: 0px;
+  --dialog-radius: 0px;
+  --toolbar-radius: 0px;
+  --badge-radius: 0px;
+  --floating-control-radius: 9999px;
 
   /* Layout Sizes */
   --title-height: 86px;
@@ -72,6 +78,8 @@
   --header-height: calc(var(--title-height) + var(--nav-height));
   --content-height: calc(100dvh - var(--header-height));
   --content-width: 1170px;
+  --landing-map-fade-start: 45%;
+  --landing-map-fade-end: 100%;
   --content-start-left: max(
     calc((100vw - var(--content-width)) / 2),
     var(--gutter)
@@ -201,6 +209,9 @@
   --color-footer: var(--footer);
   --color-footer-foreground: var(--footer-foreground);
 
+  /* North-facing compass needle, independent of interactive brand colors. */
+  --color-compass-north: var(--compass-north);
+
   /* Informational callouts: border, background, and icon. */
   --color-info: var(--info);
   --color-info-background: var(--info-background);
@@ -221,14 +232,13 @@
   --color-positive-background: var(--positive-background);
   --color-positive-icon: var(--positive-icon);
 
-  /* `rounded-sm` through `rounded-4xl`, derived from the brand radius. */
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
+  /* Role-based radii for municipality-controlled component geometry. */
+  --radius-control: var(--control-radius);
+  --radius-surface: var(--surface-radius);
+  --radius-dialog: var(--dialog-radius);
+  --radius-toolbar: var(--toolbar-radius);
+  --radius-badge: var(--badge-radius);
+  --radius-floating-control: var(--floating-control-radius);
 
   /* `*-gutter`: responsive horizontal page padding. */
   --spacing-gutter: var(--gutter);

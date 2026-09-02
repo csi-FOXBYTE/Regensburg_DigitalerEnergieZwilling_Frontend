@@ -20,7 +20,7 @@ const paperVariants = cva('bg-background text-foreground transition-shadow', {
     },
     square: {
       true: 'rounded-none',
-      false: 'rounded-lg',
+      false: 'rounded-surface',
     },
   },
   defaultVariants: {

@@ -29,7 +29,7 @@ function TimelineStep({
   return (
     <li className="flex gap-5">
       <div className="flex flex-col items-center">
-        <div className="bg-primary flex size-8 shrink-0 items-center justify-center rounded-full text-sm font-bold text-white">
+        <div className="bg-primary rounded-badge flex size-8 shrink-0 items-center justify-center text-sm font-bold text-white">
           {index}
         </div>
         {!isLast && <div className="my-1 w-px flex-1 bg-neutral-200" />}

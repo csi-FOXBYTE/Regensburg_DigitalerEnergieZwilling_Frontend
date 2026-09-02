@@ -2,9 +2,7 @@ import * as TabsPrimitive from '@radix-ui/react-tabs';
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 
-function Tabs({
-  ...props
-}: React.ComponentProps<typeof TabsPrimitive.Root>) {
+function Tabs({ ...props }: React.ComponentProps<typeof TabsPrimitive.Root>) {
   return <TabsPrimitive.Root data-slot="tabs" {...props} />;
 }
 
@@ -15,10 +13,7 @@ function TabsList({
   return (
     <TabsPrimitive.List
       data-slot="tabs-list"
-      className={cn(
-        'flex gap-2 overflow-x-auto pb-1',
-        className,
-      )}
+      className={cn('flex gap-2 overflow-x-auto pb-1', className)}
       {...props}
     />
   );
@@ -32,10 +27,10 @@ function TabsTrigger({
     <TabsPrimitive.Trigger
       data-slot="tabs-trigger"
       className={cn(
-        'shrink-0 cursor-pointer rounded-full border border-neutral-200 px-4 py-1.5 text-sm text-neutral-550 transition-colors',
+        'rounded-control text-neutral-550 shrink-0 cursor-pointer border border-neutral-200 px-4 py-1.5 text-sm transition-colors',
         'hover:border-primary hover:text-primary',
         'data-[state=active]:border-primary data-[state=active]:text-primary',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50',
+        'focus-visible:ring-primary/50 focus-visible:ring-2 focus-visible:outline-none',
         'disabled:pointer-events-none disabled:opacity-50',
         className,
       )}

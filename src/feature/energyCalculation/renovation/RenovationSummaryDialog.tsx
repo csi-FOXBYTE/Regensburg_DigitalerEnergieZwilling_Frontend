@@ -17,7 +17,7 @@ function RenovationSummaryDialogContent() {
   const { t } = useTranslation('energyCalculation');
 
   return (
-    <DialogContent className="top-0 left-0 flex h-dvh max-h-dvh w-full max-w-none translate-x-0 translate-y-0 flex-col gap-0 rounded-none border-0 p-0 sm:top-1/2 sm:left-1/2 sm:h-[min(88dvh,56rem)] sm:w-[calc(100%-3rem)] sm:max-w-5xl sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-lg sm:border">
+    <DialogContent className="sm:rounded-dialog top-0 left-0 flex h-dvh max-h-dvh w-full max-w-none translate-x-0 translate-y-0 flex-col gap-0 rounded-none border-0 p-0 sm:top-1/2 sm:left-1/2 sm:h-[min(88dvh,56rem)] sm:w-[calc(100%-3rem)] sm:max-w-5xl sm:-translate-x-1/2 sm:-translate-y-1/2 sm:border">
       <DialogHeader className="shrink-0 border-b border-neutral-200 px-4 py-4 pr-16 sm:px-6 sm:py-6 sm:pr-16">
         <div className="flex items-center gap-3">
           <ListChecks

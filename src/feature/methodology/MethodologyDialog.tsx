@@ -611,7 +611,7 @@ function MethodologyDialogContent() {
   const { t } = useTranslation('methodology');
 
   return (
-    <DialogContent className="top-0 left-0 flex h-dvh max-h-dvh w-full max-w-none translate-x-0 translate-y-0 flex-col gap-0 rounded-none border-0 p-0 sm:top-1/2 sm:left-1/2 sm:h-[min(88dvh,56rem)] sm:w-[calc(100%-3rem)] sm:max-w-5xl sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-lg sm:border">
+    <DialogContent className="sm:rounded-dialog top-0 left-0 flex h-dvh max-h-dvh w-full max-w-none translate-x-0 translate-y-0 flex-col gap-0 rounded-none border-0 p-0 sm:top-1/2 sm:left-1/2 sm:h-[min(88dvh,56rem)] sm:w-[calc(100%-3rem)] sm:max-w-5xl sm:-translate-x-1/2 sm:-translate-y-1/2 sm:border">
       <DialogHeader className="shrink-0 border-b border-neutral-200 px-4 py-4 pr-16 sm:px-6 sm:py-6 sm:pr-16">
         <div className="flex items-center gap-3">
           <BookOpenText
@@ -661,7 +661,7 @@ export default function MethodologyDialog() {
           type="button"
           variant="elevated"
           size="default"
-          className="text-primary hover:text-primary-hover fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] left-6 z-40 h-14 gap-2 rounded-full px-4 shadow-[0_4px_12px_0px_rgba(0,0,0,0.22)] hover:bg-white hover:shadow-[0_0_12px_4px_rgba(0,0,0,0.15)]"
+          className="text-primary hover:text-primary-hover rounded-floating-control fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] left-6 z-40 h-14 gap-2 px-4 shadow-[0_4px_12px_0px_rgba(0,0,0,0.22)] hover:bg-white hover:shadow-[0_0_12px_4px_rgba(0,0,0,0.15)]"
           aria-label={t('trigger')}
         >
           <BookOpenText className="size-6" aria-hidden="true" />

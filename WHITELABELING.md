@@ -40,8 +40,9 @@ semantic tokens that refer to them. In particular, check:
 
 - brand, neutral, background, foreground, and border colors;
 - primary, hover, focus-ring, destructive, and status colors;
+- the dedicated compass-north color;
 - footer and chart colors;
-- `--radius` if the municipality does not use sharp corners;
+- control, surface, dialog, toolbar, badge, and floating-control radii;
 - typography, content width, header heights, and spacing if the new logo or
   design system requires different dimensions.
 
@@ -51,6 +52,28 @@ Components consume semantic Tailwind utilities such as `bg-primary`,
 replacing colors in individual components. The `@theme inline` block documents
 the purpose of each token and exposes it to Tailwind; keep that mapping intact
 unless a new semantic role is deliberately introduced.
+
+Configure component geometry with `--control-radius`, `--surface-radius`,
+`--dialog-radius`, `--toolbar-radius`, `--badge-radius`, and
+`--floating-control-radius`. These values back the corresponding
+`rounded-control`, `rounded-surface`, `rounded-dialog`, `rounded-toolbar`,
+`rounded-badge`, and `rounded-floating-control` utilities. Do not restore a
+single base radius with arithmetic offsets: each role is independent so a
+municipality can vary the roles intentionally. Regensburg uses
+`--floating-control-radius: 9999px` to keep square floating controls circular
+and wider controls, such as the “Hinweise” button, pill-shaped. Circular radio
+and switch indicators remain fixed because their shape communicates their
+function.
+
+`--compass-north` controls the north half of the map compass independently of
+`--primary`. Keep it aligned with the navigational convention even when the
+municipality's primary action color changes.
+
+`--landing-map-fade-start` and `--landing-map-fade-end` position the welcome
+page's transition from the fixed-height map to the opaque page background.
+Their percentages are relative to the map's `--content-height`. Adjust these
+layout variables when necessary; do not move the gradient to the landing panel
+or redesign that panel as a floating card.
 
 The web font is imported and assigned to `--font-sans` in the same file. If the
 font changes, update both places and make sure the font is actually available to

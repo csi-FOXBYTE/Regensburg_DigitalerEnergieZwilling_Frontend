@@ -20,8 +20,8 @@ const buttonVariants = cva(
       },
       size: {
         default:
-          'min-h-[42px] rounded-none px-5 py-2 text-[16px] leading-[26px] font-normal has-data-[icon=inline-end]:pr-4 has-data-[icon=inline-start]:pl-4',
-        icon: "size-10 rounded-lg p-2 [&_svg:not([class*='size-'])]:size-6",
+          'min-h-[42px] rounded-control px-5 py-2 text-[16px] leading-[26px] font-normal has-data-[icon=inline-end]:pr-4 has-data-[icon=inline-start]:pl-4',
+        icon: "size-10 rounded-control p-2 [&_svg:not([class*='size-'])]:size-6",
       },
     },
     defaultVariants: {

@@ -442,6 +442,16 @@ export function Map3D({ children }: Map3DProps) {
           )}
         </Viewer>
       )}
+      {currentStep === Step.Welcome && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-10"
+          style={{
+            background:
+              'linear-gradient(to bottom, transparent var(--landing-map-fade-start), var(--background) var(--landing-map-fade-end))',
+          }}
+        />
+      )}
       <AnimatePresence>
         {loading && (
           <motion.div

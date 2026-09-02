@@ -201,7 +201,7 @@ export default function BuildingWindow() {
       >
         <DrawerContent
           overlayClassName="supports-backdrop-filter:backdrop-blur-none"
-          className="overflow-hidden data-[vaul-drawer-direction=bottom]:max-h-[96vh] data-[vaul-drawer-direction=bottom]:rounded-t-[24px]"
+          className="overflow-hidden data-[vaul-drawer-direction=bottom]:max-h-[96vh]"
         >
           <DrawerHeader className="flex-row items-start justify-between text-left!">
             <div>

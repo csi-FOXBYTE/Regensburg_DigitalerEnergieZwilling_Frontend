@@ -66,14 +66,14 @@ function MobileProgressBar({ step, maxStepReached }: VisualProgressBarProps) {
           step: maxStepReached,
           label: maxStepLabel,
         })}
-        className="relative h-2 w-full rounded-full bg-neutral-200 disabled:cursor-default"
+        className="rounded-badge relative h-2 w-full bg-neutral-200 disabled:cursor-default"
       >
         <div
-          className="bg-primary-hover absolute inset-y-0 left-0 rounded-full"
+          className="bg-primary-hover rounded-badge absolute inset-y-0 left-0"
           style={{ width: (maxStepReached / Step.Result) * 100 + '%' }}
         />
         <div
-          className="bg-primary absolute inset-y-0 left-0 rounded-full"
+          className="bg-primary rounded-badge absolute inset-y-0 left-0"
           style={{ width: (step / Step.Result) * 100 + '%' }}
         />
       </button>

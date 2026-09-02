@@ -25,7 +25,7 @@ function Input({ className, type, leftIcon, onClear, ...props }: InputProps) {
         data-slot="input"
         className={cn(
           // layout & sizing
-          'w-full min-w-0 rounded-lg px-3 py-2',
+          'rounded-control w-full min-w-0 px-3 py-2',
           // left icon padding
           leftIcon && 'pl-11',
           // clear button padding

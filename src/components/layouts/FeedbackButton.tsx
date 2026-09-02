@@ -60,7 +60,7 @@ export function FeedbackDialogContent() {
   return (
     <>
       <DialogHeader className="flex-row items-center gap-3">
-        <span className="bg-muted text-primary flex size-10 shrink-0 items-center justify-center rounded-full">
+        <span className="bg-muted text-primary rounded-badge flex size-10 shrink-0 items-center justify-center">
           <MessageCircle className="size-5" aria-hidden="true" />
         </span>
         <div className="flex flex-col gap-0.5">
@@ -74,7 +74,7 @@ export function FeedbackDialogContent() {
           role="status"
           aria-live="polite"
         >
-          <span className="flex size-16 shrink-0 items-center justify-center rounded-full bg-green-100 text-green-600">
+          <span className="rounded-badge flex size-16 shrink-0 items-center justify-center bg-green-100 text-green-600">
             <Check className="size-8" aria-hidden="true" />
           </span>
           <div className="flex flex-col gap-1">
@@ -192,7 +192,7 @@ export default function FeedbackButton() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="border-footer-foreground text-footer-foreground hover:bg-footer-foreground hover:text-footer w-full cursor-pointer rounded-none border bg-transparent transition-colors md:w-67.5">
+        <Button className="border-footer-foreground text-footer-foreground hover:bg-footer-foreground hover:text-footer w-full cursor-pointer border bg-transparent transition-colors md:w-67.5">
           {t('footer.feedback')}
         </Button>
       </DialogTrigger>

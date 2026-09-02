@@ -87,7 +87,7 @@ export default function FeedbackBubble() {
                   setClicked(true);
                   setDialogOpen(true);
                 }}
-                className="text-primary hover:text-primary-hover flex items-center gap-2 rounded-full border border-neutral-200 bg-background py-3 pr-5 pl-4 shadow-[0_4px_12px_0px_rgba(0,0,0,0.22)] transition-colors hover:bg-white hover:shadow-[0_0_12px_4px_rgba(0,0,0,0.15)]"
+                className="text-primary hover:text-primary-hover rounded-floating-control bg-background flex items-center gap-2 border border-neutral-200 py-3 pr-5 pl-4 shadow-[0_4px_12px_0px_rgba(0,0,0,0.22)] transition-colors hover:bg-white hover:shadow-[0_0_12px_4px_rgba(0,0,0,0.15)]"
               >
                 <MessageCircle className="size-5 shrink-0" aria-hidden="true" />
                 <span className="text-sm font-medium whitespace-nowrap">

@@ -161,7 +161,7 @@ export function MapHelp() {
         <Button
           variant="ghost"
           size="icon"
-          className="rounded-full bg-white hover:bg-neutral-100"
+          className="rounded-floating-control bg-white hover:bg-neutral-100"
           onClick={() => setOpen(true)}
           aria-label={t('mapHelp.ariaLabelButton')}
         >
