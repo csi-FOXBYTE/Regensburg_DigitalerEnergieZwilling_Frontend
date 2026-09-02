@@ -1,6 +1,7 @@
 ---
 import ContentContainer from '@/components/layouts/ContentContainer.astro';
 import EnergyCalculationPage from '@/components/layouts/EnergyCalculationPage.astro';
+import FeedbackBubble from '@/components/layouts/FeedbackBubble';
 import StickyContainer from '@/components/layouts/StickyContainer.astro';
 import { Typography } from '@/components/ui/typography';
 import i18next from 'i18next';
@@ -42,4 +43,5 @@ import { SubsidySection } from './SubsidySection';
     <NextStepsSection client:load />
     <ButtonBar backTextKey="backFromResults" className="mt-8" client:load />
   </ContentContainer>
+  <FeedbackBubble client:load />
 </EnergyCalculationPage>

@@ -116,7 +116,9 @@
         "primaryFactor": "Primary-energy factor",
         "unitRate": "Unit price",
         "electricityRate": "Electricity price",
-        "baseRate": "Base price"
+        "baseRate": "Base price",
+        "source": "Source",
+        "date": "As of"
       },
       "electricHeating": "Electric heating systems are assessed through their electrical energy share. The emission and primary-energy factors of the selected electricity type apply, so electricity does not appear as an additional thermal carrier in the first table.",
       "calculation": "Energy-carrier consumption is calculated as thermal energy demand divided by energy content per unit. Costs are consumption multiplied by unit price plus the base price. Primary energy and CO₂ are calculated directly from final energy demand and the respective factors.",

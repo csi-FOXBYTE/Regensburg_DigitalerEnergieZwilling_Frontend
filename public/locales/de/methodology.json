@@ -116,7 +116,9 @@
         "primaryFactor": "Primärenergiefaktor",
         "unitRate": "Arbeitspreis",
         "electricityRate": "Strompreis",
-        "baseRate": "Grundpreis"
+        "baseRate": "Grundpreis",
+        "source": "Quelle",
+        "date": "Stand"
       },
       "electricHeating": "Elektrische Heizsysteme werden über den elektrischen Energieanteil bewertet. Dafür gelten der Emissions- und Primärenergiefaktor der ausgewählten Stromart; sie erscheinen deshalb nicht als zusätzlicher thermischer Energieträger in der ersten Tabelle.",
       "calculation": "Der Energieträgerverbrauch ergibt sich aus dem thermischen Energiebedarf geteilt durch den Energieinhalt pro Einheit. Kosten ergeben sich aus Verbrauch mal Arbeitspreis zuzüglich Grundpreis. Primärenergie und CO₂ werden direkt aus dem Endenergiebedarf und den jeweiligen Faktoren berechnet.",

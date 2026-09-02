@@ -32,7 +32,7 @@ const CATEGORIES = [
   'feedback',
 ] as const satisfies readonly FeedbackCategory[];
 
-function FeedbackDialogContent() {
+export function FeedbackDialogContent() {
   const { t } = useTranslation('common');
 
   const [submitted, setSubmitted] = useState(false);
