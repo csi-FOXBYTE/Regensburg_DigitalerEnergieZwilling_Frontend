@@ -18,13 +18,25 @@ const initializeClientI18next = {
   },
 };
 
-const dynamicDeletionRoutes = {
-  name: 'dynamic-deletion-routes',
-  configureServer(server) {
+const developmentRoutes = {
+  name: 'development-routes',
+  configureServer(
+    /** @type {{ middlewares: { use: (handler: (request: import('node:http').IncomingMessage, response: import('node:http').ServerResponse, next: () => void) => void) => void } }} */ server,
+  ) {
     server.middlewares.use((request, response, next) => {
       if (!request.url) return next();
 
       const url = new URL(request.url, 'http://localhost');
+      if (url.pathname === '/') {
+        const locale = /^de/i.test(request.headers['accept-language'] ?? '')
+          ? 'de'
+          : 'en';
+        response.statusCode = 302;
+        response.setHeader('Location', `/${locale}${url.search}`);
+        response.end();
+        return;
+      }
+
       const neutralMatch = /^\/delete\/([^/]+)$/.exec(url.pathname);
       if (neutralMatch) {
         const locale = /^de/i.test(request.headers['accept-language'] ?? '')
@@ -61,7 +73,7 @@ export default defineConfig({
     },
   },
   vite: {
-    plugins: [dynamicDeletionRoutes, cesium({}), tailwindcss()],
+    plugins: [developmentRoutes, cesium({}), tailwindcss()],
     define: {
       // react-draggable >=4.6.0 references process.env.DRAGGABLE_DEBUG at
       // runtime; without this define `process` is undefined in the browser

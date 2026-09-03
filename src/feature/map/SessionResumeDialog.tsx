@@ -9,6 +9,10 @@ import {
 } from '@/components/ui/dialog';
 import type { SavedSession } from '@/lib/state/session';
 import {
+  consumeInvalidExternalTargetWarning,
+  externalTargetSuppressesSessionResume,
+} from '@/lib/state/external-building-target';
+import {
   clearLastActive,
   consumeLinkRestoreError,
   getLastActiveSession,
@@ -28,7 +32,11 @@ export default function SessionResumeDialog() {
     if (consumeLinkRestoreError()) {
       toast.error(t('sessionResumeDialog.linkRestoreError'));
     }
-    if (wasRestoredFromLink()) return;
+    if (consumeInvalidExternalTargetWarning()) {
+      toast.warning(t('externalBuildingLink.invalidWarning'));
+    }
+    if (wasRestoredFromLink() || externalTargetSuppressesSessionResume())
+      return;
     const s = getLastActiveSession();
     if (s) {
       setSession(s);

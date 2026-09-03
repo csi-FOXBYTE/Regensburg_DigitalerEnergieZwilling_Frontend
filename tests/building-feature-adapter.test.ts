@@ -1,7 +1,12 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { adaptBuildingFeature } from '../src/config/adapters/buildingFeature';
-import type { BuildingFeatureSource } from '../src/lib/state/building';
+import {
+  $building,
+  setBuilding,
+  unselectBuilding,
+  type BuildingFeatureSource,
+} from '../src/lib/state/building';
 
 function feature(properties: Record<string, unknown>): BuildingFeatureSource {
   return {
@@ -106,4 +111,26 @@ test('marks non-target features invalid and tolerates missing metadata', () => {
       geothermalEnergyAvailable: undefined,
     },
   });
+});
+
+test('selects an invalid building only with an explicit override', () => {
+  const invalidBuilding = feature({
+    id: 'other-1',
+    function: 'garage',
+    'addresses.0.ThoroughfareName': 'Nebenstraße 2',
+    'addresses.0.Locality': 'Regensburg',
+  });
+  const coordinates = { lon: 12.1, lat: 49.1 };
+
+  unselectBuilding();
+  setBuilding(invalidBuilding, coordinates);
+  assert.equal($building.get(), null);
+
+  setBuilding(invalidBuilding, coordinates, { allowInvalidBuilding: true });
+  assert.deepEqual($building.get(), {
+    id: 'other-1',
+    coordinates,
+    properties: adaptBuildingFeature(invalidBuilding).properties,
+  });
+  unselectBuilding();
 });

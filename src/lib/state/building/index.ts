@@ -2,7 +2,6 @@ import {
   adaptBuildingFeature,
   addressEntries,
 } from '@/config/adapters/buildingFeature';
-import type { Cesium3DTileFeature } from 'cesium';
 import { atom } from 'nanostores';
 
 export { addressEntries };
@@ -56,6 +55,11 @@ export type BuildingCoordinates = {
   lat: number;
 };
 
+export type BuildingSelectionOptions = {
+  streetOverride?: string;
+  allowInvalidBuilding?: boolean;
+};
+
 export type BuildingState = {
   id: string;
   properties: BuildingProperties;
@@ -65,19 +69,23 @@ export type BuildingState = {
 export const $building = atom<BuildingState | null>(null);
 
 export function setBuilding(
-  feature: Cesium3DTileFeature,
+  feature: BuildingFeatureSource,
   coordinates: BuildingCoordinates,
-  streetOverride?: string,
+  options: BuildingSelectionOptions = {},
 ) {
   const adapted = adaptBuildingFeature(feature);
-  if (!adapted.isValidBuilding || !adapted.id) return;
+  if (
+    (!adapted.isValidBuilding && !options.allowInvalidBuilding) ||
+    !adapted.id
+  )
+    return;
 
   const address = adapted.properties.address;
   const properties =
-    streetOverride && address
+    options.streetOverride && address
       ? {
           ...adapted.properties,
-          address: { ...address, street: streetOverride },
+          address: { ...address, street: options.streetOverride },
         }
       : adapted.properties;
 

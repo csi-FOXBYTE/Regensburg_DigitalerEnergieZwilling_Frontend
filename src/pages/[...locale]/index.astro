@@ -32,10 +32,12 @@ export const getStaticPaths = (() => {
     markRestoredFromLink,
   } from '@/lib/state/session';
   import { decodeSessionRestore } from '@/lib/state/session/restore-codec';
+  import { initializeExternalBuildingTarget } from '@/lib/state/external-building-target';
 
   const _fragmentParams = new URLSearchParams(window.location.hash.slice(1));
   const _hasRestorePayload = _fragmentParams.has('restore');
   const _restorePayload = _fragmentParams.get('restore');
+  let _restoredFromLink = false;
   if (_hasRestorePayload) {
     _fragmentParams.delete('restore');
     const _remainingFragment = _fragmentParams.toString();
@@ -48,10 +50,12 @@ export const getStaticPaths = (() => {
       const _session = decodeSessionRestore(_restorePayload ?? '');
       loadSessionFromData(_session);
       markRestoredFromLink();
+      _restoredFromLink = true;
     } catch {
       markLinkRestoreError();
     }
   }
+  initializeExternalBuildingTarget(_fragmentParams, _restoredFromLink);
 
   document.addEventListener('click', (e) => {
     if ((e.target as Element).closest('[data-next-step]')) {

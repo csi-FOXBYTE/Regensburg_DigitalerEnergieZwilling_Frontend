@@ -25,6 +25,7 @@ function getDb() {
 
 export interface AddressResult {
   buildingId: string;
+  isValidBuilding: boolean;
   street: string;
   houseNumber: string;
   city: string;
@@ -65,7 +66,8 @@ function queryByHouseNumber(
   houseNumber: string,
 ): QueryExecResult[] {
   return db.exec(
-    `SELECT ba.building_id, s.name, ba.house_number, ba.cx, ba.cy
+    `SELECT ba.building_id, s.name, ba.house_number, ba.cx, ba.cy,
+            ba.is_valid_building
      FROM streets s JOIN building_addresses ba ON ba.street_id = s.id
      WHERE ba.house_number LIKE ?
      ORDER BY s.name, CAST(ba.house_number AS INTEGER), ba.house_number
@@ -80,7 +82,8 @@ function queryByStreetAndHouseNumber(
   houseNumber: string,
 ): QueryExecResult[] {
   return db.exec(
-    `SELECT ba.building_id, s.name, ba.house_number, ba.cx, ba.cy
+    `SELECT ba.building_id, s.name, ba.house_number, ba.cx, ba.cy,
+            ba.is_valid_building
      FROM streets s JOIN building_addresses ba ON ba.street_id = s.id
      WHERE s.name LIKE ? AND ba.house_number LIKE ?
      ORDER BY CAST(ba.house_number AS INTEGER), ba.house_number
@@ -91,7 +94,8 @@ function queryByStreetAndHouseNumber(
 
 function queryByStreet(db: Database, street: string): QueryExecResult[] {
   return db.exec(
-    `SELECT ba.building_id, s.name, ba.house_number, ba.cx, ba.cy
+    `SELECT ba.building_id, s.name, ba.house_number, ba.cx, ba.cy,
+            ba.is_valid_building
      FROM streets s JOIN building_addresses ba ON ba.street_id = s.id
      WHERE s.name LIKE ?
      ORDER BY CAST(ba.house_number AS INTEGER), ba.house_number
@@ -102,19 +106,22 @@ function queryByStreet(db: Database, street: string): QueryExecResult[] {
 
 function rowsToAddressResults(rows: QueryExecResult[]): AddressResult[] {
   if (!rows.length) return [];
-  return rows[0].values.map(([buildingId, street, house, cx, cy]) => {
-    const { cityName, transformCoordinates } = addressDbConfig;
-    const { lat, lon } = transformCoordinates(cx as number, cy as number);
-    return {
-      buildingId: buildingId as string,
-      street: street as string,
-      houseNumber: house as string,
-      city: cityName,
-      lat,
-      lon,
-      label: `${street} ${house}, ${cityName}`,
-    };
-  });
+  return rows[0].values.map(
+    ([buildingId, street, house, cx, cy, isValidBuilding]) => {
+      const { cityName, transformCoordinates } = addressDbConfig;
+      const { lat, lon } = transformCoordinates(cx as number, cy as number);
+      return {
+        buildingId: buildingId as string,
+        isValidBuilding: isValidBuilding === 1,
+        street: street as string,
+        houseNumber: house as string,
+        city: cityName,
+        lat,
+        lon,
+        label: `${street} ${house}, ${cityName}`,
+      };
+    },
+  );
 }
 
 function searchAddresses(db: Database, query: string): AddressResult[] {

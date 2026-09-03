@@ -15,6 +15,7 @@ export type CameraTarget = {
 
 export type AddressCameraContext = {
   buildingId: string;
+  allowInvalidBuilding?: boolean;
   street?: string;
   housenumber?: string;
 };
@@ -24,6 +25,7 @@ export type FocusCameraIntent = {
   target: CameraTarget;
   reason:
     | { type: 'address'; address: AddressCameraContext }
+    | { type: 'externalBuilding'; buildingId: string }
     | { type: 'building' }
     | { type: 'sessionRestore' };
   accommodateMobileOverlay?: boolean;

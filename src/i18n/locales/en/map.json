@@ -31,6 +31,16 @@
     "confirmButton": "Yes, start over",
     "cancelButton": "Cancel"
   },
+  "invalidBuildingConfirmDialog": {
+    "title": "Select this building anyway?",
+    "description": "According to the available data, this building is not intended for the renovation tool. The calculation may therefore produce unsuitable or incomplete results. Would you still like to select it?",
+    "confirmButton": "Select anyway",
+    "cancelButton": "Cancel"
+  },
+  "externalBuildingLink": {
+    "invalidWarning": "The external building link is incomplete or invalid.",
+    "notFoundWarning": "The requested building could not be found. If it is visible, you can select it manually."
+  },
   "renovationPotentialInfoDialog": {
     "title": "How is this estimate determined?",
     "description": "The initial estimate is based exclusively on the known construction year. Buildings constructed through 1983 are assigned high potential, buildings from 1984 through 1994 moderate potential, and newer buildings a tendency toward lower renovation potential. The possible heritage-protection notice is shown when the construction year is unknown or is 1948 or earlier. In the following steps, you can review and supplement the building data. This estimate replaces neither professional energy advice nor verification of heritage status."

@@ -1,11 +1,16 @@
 import { adaptBuildingFeature } from '@/config/adapters/buildingFeature';
 import { mapConfig } from '@/config/map';
+import {
+  findExactBuildingFeature,
+  hasExactBuildingId,
+} from '@/lib/building-target';
 import { useStore } from '@nanostores/react';
 import * as Cesium from 'cesium';
 import 'cesium/Build/Cesium/Widgets/widgets.css';
 import { AnimatePresence, motion } from 'motion/react';
 import {
   type ReactNode,
+  useCallback,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -13,6 +18,7 @@ import {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Cesium3DTileset, ImageryLayer, Viewer } from 'resium';
+import { toast } from 'sonner';
 import { CameraController } from '../../lib/camera';
 import { getMapResources } from '../../lib/api/public';
 import {
@@ -26,6 +32,7 @@ import {
   unselectBuilding,
 } from '../../lib/state/building';
 import { $step, Step } from '../../lib/state/ui/progress';
+import InvalidBuildingConfirmDialog from './InvalidBuildingConfirmDialog';
 
 const baseImageryProvider = new Cesium.UrlTemplateImageryProvider({
   url: mapConfig.baseLayer.urlTemplate,
@@ -80,29 +87,59 @@ function formatAddress(address: {
   return `${address.street ?? ''} ${address.housenumber ?? ''}`.trim();
 }
 
-function selectFeatureForAddress(
-  feature: Cesium.Cesium3DTileFeature,
+type BuildingTargetFocusIntent = FocusCameraIntent & {
+  reason:
+    | Extract<FocusCameraIntent['reason'], { type: 'address' }>
+    | Extract<FocusCameraIntent['reason'], { type: 'externalBuilding' }>;
+};
+
+function isBuildingTargetFocusIntent(
   intent: FocusCameraIntent,
+): intent is BuildingTargetFocusIntent {
+  return (
+    intent.reason.type === 'address' ||
+    intent.reason.type === 'externalBuilding'
+  );
+}
+
+function getRequestedBuildingId(intent: BuildingTargetFocusIntent): string {
+  return intent.reason.type === 'address'
+    ? intent.reason.address.buildingId
+    : intent.reason.buildingId;
+}
+
+function allowsInvalidBuilding(intent: BuildingTargetFocusIntent): boolean {
+  return (
+    intent.reason.type === 'address' &&
+    intent.reason.address.allowInvalidBuilding === true
+  );
+}
+
+function selectFeatureForTarget(
+  feature: Cesium.Cesium3DTileFeature,
+  intent: BuildingTargetFocusIntent,
+  allowInvalidBuilding = allowsInvalidBuilding(intent),
 ) {
-  if (intent.reason.type !== 'address') return;
+  const address =
+    intent.reason.type === 'address' ? intent.reason.address : null;
   setBuilding(
     feature,
     {
       lon: intent.target.longitudeDegrees,
       lat: intent.target.latitudeDegrees,
     },
-    // Keep exactly the searched address when a building carries several.
-    formatAddress(intent.reason.address) || undefined,
+    {
+      // Keep exactly the searched address when a building carries several.
+      streetOverride: address ? formatAddress(address) || undefined : undefined,
+      allowInvalidBuilding,
+    },
   );
 }
 
-function selectAddressFeatureByDrillPick(
+function findTargetFeatureByDrillPick(
   viewer: Cesium.Viewer,
-  intent: FocusCameraIntent,
-) {
-  if (intent.reason.type !== 'address') return;
-  const address = intent.reason.address;
-
+  intent: BuildingTargetFocusIntent,
+): Cesium.Cesium3DTileFeature | undefined {
   const cartographic = Cesium.Cartographic.fromDegrees(
     intent.target.longitudeDegrees,
     intent.target.latitudeDegrees,
@@ -116,26 +153,20 @@ function selectAddressFeatureByDrillPick(
 
   viewer.scene.requestRender();
   const screenPosition = viewer.scene.cartesianToCanvasCoordinates(position);
-  if (!screenPosition) return;
+  if (!screenPosition) return undefined;
 
   const drilled = viewer.scene
     .drillPick(screenPosition)
     .filter(
       (picked): picked is Cesium.Cesium3DTileFeature =>
-        picked instanceof Cesium.Cesium3DTileFeature &&
-        adaptBuildingFeature(picked).isValidBuilding,
+        picked instanceof Cesium.Cesium3DTileFeature,
     );
-  if (drilled.length === 0) return;
-
-  const matched = drilled.find(
-    (feature) => adaptBuildingFeature(feature).id === address.buildingId,
-  );
-  selectFeatureForAddress(matched ?? drilled[0], intent);
+  return findExactBuildingFeature(drilled, getRequestedBuildingId(intent));
 }
 
 function createAddressSelectionBox(
   viewer: Cesium.Viewer,
-  intent: FocusCameraIntent,
+  intent: BuildingTargetFocusIntent,
 ): Cesium.OrientedBoundingBox {
   const cartographic = Cesium.Cartographic.fromDegrees(
     intent.target.longitudeDegrees,
@@ -180,7 +211,7 @@ function findFeatureById(
 ): Cesium.Cesium3DTileFeature | undefined {
   for (let i = 0; i < content.featuresLength; i++) {
     const feature = content.getFeature(i);
-    if (adaptBuildingFeature(feature).id === buildingId) return feature;
+    if (hasExactBuildingId(feature, buildingId)) return feature;
   }
 
   for (const innerContent of content.innerContents ?? []) {
@@ -194,17 +225,25 @@ function findFeatureById(
 
 type PendingAddressSelection = {
   viewer: Cesium.Viewer;
-  intent: FocusCameraIntent;
+  intent: BuildingTargetFocusIntent;
   searchBox: Cesium.OrientedBoundingBox;
   scannedTiles: Set<Cesium.Cesium3DTile>;
   timeoutId: number;
+  onComplete: (
+    feature: Cesium.Cesium3DTileFeature | undefined,
+    intent: BuildingTargetFocusIntent,
+  ) => void;
 };
 
 class AddressFeatureSelector {
   private pending: PendingAddressSelection | undefined;
 
-  start(viewer: Cesium.Viewer, intent: FocusCameraIntent) {
-    if (intent.reason.type !== 'address') return;
+  start(
+    viewer: Cesium.Viewer,
+    intent: FocusCameraIntent,
+    onComplete: PendingAddressSelection['onComplete'],
+  ) {
+    if (!isBuildingTargetFocusIntent(intent)) return;
     this.cancel();
     const timeoutId = window.setTimeout(
       () => this.finishWithDrillPick(),
@@ -216,6 +255,7 @@ class AddressFeatureSelector {
       searchBox: createAddressSelectionBox(viewer, intent),
       scannedTiles: new Set(),
       timeoutId,
+      onComplete,
     };
     viewer.scene.requestRender();
   }
@@ -226,23 +266,25 @@ class AddressFeatureSelector {
     pending.scannedTiles.add(tile);
     if (!tileIntersectsAddressSelectionBox(tile, pending.searchBox)) return;
 
-    if (pending.intent.reason.type !== 'address') return;
     const feature = findFeatureById(
       tile.content,
-      pending.intent.reason.address.buildingId,
+      getRequestedBuildingId(pending.intent),
     );
-    if (!feature || !adaptBuildingFeature(feature).isValidBuilding) return;
+    if (!feature) return;
 
-    const { intent } = pending;
+    const { intent, onComplete } = pending;
     this.cancel();
-    selectFeatureForAddress(feature, intent);
+    onComplete(feature, intent);
   }
 
   finishWithDrillPick() {
     const pending = this.pending;
     if (!pending) return;
     this.cancel();
-    selectAddressFeatureByDrillPick(pending.viewer, pending.intent);
+    pending.onComplete(
+      findTargetFeatureByDrillPick(pending.viewer, pending.intent),
+      pending.intent,
+    );
   }
 
   cancel() {
@@ -261,11 +303,38 @@ export function Map3D({ children }: Map3DProps) {
     null,
   );
   const addressFeatureSelectorRef = useRef(new AddressFeatureSelector());
+  const [pendingInvalidSelection, setPendingInvalidSelection] = useState<{
+    feature: Cesium.Cesium3DTileFeature;
+    intent: BuildingTargetFocusIntent;
+  } | null>(null);
   const [terrainProvider, setTerrainProvider] =
     useState<Cesium.TerrainProvider | null>(null);
   const [tilesetUrl, setTilesetUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [loadFailed, setLoadFailed] = useState(false);
+
+  const handleTargetSelection = useCallback(
+    (
+      feature: Cesium.Cesium3DTileFeature | undefined,
+      intent: BuildingTargetFocusIntent,
+    ) => {
+      if (!feature) {
+        toast.warning(t('externalBuildingLink.notFoundWarning'));
+        return;
+      }
+
+      if (
+        !adaptBuildingFeature(feature).isValidBuilding &&
+        !allowsInvalidBuilding(intent)
+      ) {
+        setPendingInvalidSelection({ feature, intent });
+        return;
+      }
+
+      selectFeatureForTarget(feature, intent);
+    },
+    [t],
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -350,10 +419,14 @@ export function Map3D({ children }: Map3DProps) {
 
     const cameraController = new CameraController(viewerRef, {
       onFocusComplete: (intent) =>
-        addressFeatureSelectorRef.current.start(viewerRef, intent),
+        addressFeatureSelectorRef.current.start(
+          viewerRef,
+          intent,
+          handleTargetSelection,
+        ),
     });
     return registerCameraOwner(cameraController);
-  }, [viewerRef]);
+  }, [handleTargetSelection, viewerRef]);
 
   const isInteractiveStep = currentStep === Step.Building;
   return (
@@ -488,6 +561,22 @@ export function Map3D({ children }: Map3DProps) {
           </motion.div>
         )}
       </AnimatePresence>
+      <InvalidBuildingConfirmDialog
+        open={pendingInvalidSelection !== null}
+        onOpenChange={(open) => {
+          if (!open) setPendingInvalidSelection(null);
+        }}
+        onConfirm={() => {
+          if (pendingInvalidSelection) {
+            selectFeatureForTarget(
+              pendingInvalidSelection.feature,
+              pendingInvalidSelection.intent,
+              true,
+            );
+          }
+          setPendingInvalidSelection(null);
+        }}
+      />
     </div>
   );
 }

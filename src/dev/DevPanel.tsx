@@ -5,8 +5,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { Settings } from 'lucide-react';
+import { $building } from '@/lib/state/building';
+import { useStore } from '@nanostores/react';
+import { Link, Settings } from 'lucide-react';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 const BUILDING_KEY_PREFIX = 'det_building_data_';
 const META_KEY = 'det_meta';
@@ -33,8 +36,27 @@ function logBuildings() {
   console.log('[dev] buildings with saved sessions:', ids);
 }
 
+async function copyExternalBuildingLink(
+  building: NonNullable<ReturnType<typeof $building.get>>,
+) {
+  const url = new URL('/', window.location.origin);
+  url.hash = new URLSearchParams({
+    buildingId: building.id,
+    lat: String(building.coordinates.lat),
+    lon: String(building.coordinates.lon),
+  }).toString();
+
+  try {
+    await navigator.clipboard.writeText(url.toString());
+    toast.success('External building link copied');
+  } catch {
+    toast.error('Could not copy external building link');
+  }
+}
+
 export default function DevPanel() {
   const [open, setOpen] = useState(false);
+  const building = useStore($building);
 
   return (
     <>
@@ -58,6 +80,15 @@ export default function DevPanel() {
             <Button variant="secondary" onClick={logBuildings}>
               Log buildings with data
             </Button>
+            {building && (
+              <Button
+                variant="secondary"
+                onClick={() => void copyExternalBuildingLink(building)}
+              >
+                <Link aria-hidden="true" />
+                Copy external building link
+              </Button>
+            )}
           </div>
         </DialogContent>
       </Dialog>
