@@ -16,6 +16,7 @@ import { Typography } from '../../../components/ui/typography';
 import EnergyNumberInput from '../EnergyNumberInput';
 import EnergySelectInput from '../EnergySelectInput';
 import { InfoTooltipButton } from '../InfoButton';
+import BuildingPartInfoButton from './BuildingPartInfoButton';
 
 export default function WindowsPaper() {
   const { t } = useTranslation('energyCalculation');
@@ -26,10 +27,11 @@ export default function WindowsPaper() {
   return (
     <Paper id="windows" variant="outlined" className="pt-4 pr-5 pb-5 pl-5">
       <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <FieldLegend className="col-span-full">
+        <FieldLegend className="col-span-full flex items-center gap-2">
           <Typography as="span" variant="h4">
             {t('outerParts.windows.windows')}
           </Typography>
+          <BuildingPartInfoButton part="windows" />
         </FieldLegend>
         <Separator className="col-span-full" />
         <EnergySelectInput

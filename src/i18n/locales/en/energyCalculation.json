@@ -90,6 +90,11 @@
         "insulationThickness": "A thicker insulation layer increases the building's energy efficiency. Depending on the age of the insulation, between 6 cm and 20 cm is common.",
         "insulationTypeTitle": "Roof Insulation Type",
         "insulationTypeContent": "With above-rafter insulation, the insulation is fitted above the roof rafters. It provides the best thermal protection as no thermal bridges are created by the rafters. With between-rafter insulation, the insulation material is placed between the rafters. This option is more cost-effective but provides slightly less protection due to the rafters acting as thermal bridges."
+      },
+      "info": {
+        "title": "Roof",
+        "description": "Placeholder text: The roof closes off the building at the top and borders the outside air. The component is highlighted in red in the graphic. A detailed explanation will follow here later.",
+        "imageAlt": "Schematic building with the roof highlighted in red"
       }
     },
     "roofWindows": {
@@ -106,6 +111,11 @@
       },
       "errors": {
         "areaExceedsRoofArea": "The roof-window area must not be greater than the roof area."
+      },
+      "info": {
+        "title": "Roof windows",
+        "description": "Placeholder text: Roof windows are the windows built into the roof surface. The components are highlighted in red in the graphic. A detailed explanation will follow here later.",
+        "imageAlt": "Schematic building with the roof windows highlighted in red"
       }
     },
     "topFloor": {
@@ -124,6 +134,11 @@
       },
       "errors": {
         "areaExceedsRoofArea": "The top-floor ceiling area must not be greater than the roof area."
+      },
+      "info": {
+        "title": "Top floor ceiling",
+        "description": "Placeholder text: The top floor ceiling separates the heated living space from the unheated attic. The component is highlighted in red in the graphic. A detailed explanation will follow here later.",
+        "imageAlt": "Schematic building with the top floor ceiling highlighted in red"
       }
     },
     "outerWall": {
@@ -144,6 +159,11 @@
       },
       "errors": {
         "adjacentAreaExceedsWallArea": "The adjacent wall area must not be greater than the total outer-wall area."
+      },
+      "info": {
+        "title": "Exterior wall",
+        "description": "Placeholder text: The exterior walls enclose the heated area of the building and border the outside air. The components are highlighted in red in the graphic. A detailed explanation will follow here later.",
+        "imageAlt": "Schematic building with the exterior walls highlighted in red"
       }
     },
     "windows": {
@@ -160,6 +180,11 @@
       },
       "errors": {
         "areaExceedsAvailableWallArea": "The window area must not be greater than the outer-wall area minus the adjacent wall area."
+      },
+      "info": {
+        "title": "Windows",
+        "description": "Placeholder text: Windows include all glazed surfaces as well as the exterior doors in the exterior walls. The components are highlighted in red in the graphic. A detailed explanation will follow here later.",
+        "imageAlt": "Schematic building with the windows and exterior door highlighted in red"
       }
     },
     "bottomFloor": {
@@ -211,7 +236,20 @@
         "heated": "Is your basement floor insulated?",
         "noBasement": "Is your floor insulated?"
       },
-      "insulationThickness": "What is the thickness of the current insulation?"
+      "insulationThickness": "What is the thickness of the current insulation?",
+      "info": {
+        "title": "Bottom floor ceiling",
+        "description": {
+          "default": "Placeholder text: With an unheated basement, the basement ceiling forms the lower boundary of the heated area. The component is highlighted in red in the graphic. A detailed explanation will follow here later.",
+          "heated": "Placeholder text: With a heated basement, the basement floor forms the lower boundary of the heated area and borders the ground. The component is highlighted in red in the graphic. A detailed explanation will follow here later.",
+          "noBasement": "Placeholder text: Without a basement, the ground floor slab forms the lower boundary of the heated area and borders the ground. The component is highlighted in red in the graphic. A detailed explanation will follow here later."
+        },
+        "imageAlt": {
+          "default": "Schematic building with the basement ceiling above the unheated basement highlighted in red",
+          "heated": "Schematic building with the basement floor of the heated basement highlighted in red",
+          "noBasement": "Schematic building without a basement with the ground floor slab highlighted in red"
+        }
+      }
     }
   },
   "heat": {

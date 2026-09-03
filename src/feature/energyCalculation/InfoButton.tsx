@@ -5,6 +5,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { cn } from '@/lib/utils';
 import { Info } from 'lucide-react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -15,7 +16,13 @@ import {
   TooltipTrigger,
 } from '../../components/ui/tooltip';
 
-function InfoButton({ onClick }: { onClick?: () => void }) {
+function InfoButton({
+  onClick,
+  iconClassName,
+}: {
+  onClick?: () => void;
+  iconClassName?: string;
+}) {
   const { t } = useTranslation('common');
 
   return (
@@ -26,7 +33,10 @@ function InfoButton({ onClick }: { onClick?: () => void }) {
       className="group text-muted-foreground hover:text-foreground inline-flex cursor-pointer items-center"
     >
       <Info
-        className="group-hover:text-primary text-muted-foreground size-3.5"
+        className={cn(
+          'group-hover:text-primary text-muted-foreground size-3.5',
+          iconClassName,
+        )}
         aria-hidden="true"
       />
     </button>
@@ -78,17 +88,21 @@ export function InfoDialogButton({
   title,
   content,
   media,
+  contentClassName,
+  iconClassName,
 }: {
   title: ReactNode;
   content: ReactNode;
   media?: ReactNode;
+  contentClassName?: string;
+  iconClassName?: string;
 }) {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <InfoButton onClick={() => setOpen(true)} />
+      <InfoButton onClick={() => setOpen(true)} iconClassName={iconClassName} />
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
+        <DialogContent className={contentClassName}>
           <DialogHeader>
             <DialogTitle>{title}</DialogTitle>
             {media}
