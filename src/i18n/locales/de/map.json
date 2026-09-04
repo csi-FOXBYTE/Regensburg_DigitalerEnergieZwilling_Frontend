@@ -88,7 +88,7 @@
     "noResults": "Adresse nicht gefunden",
     "loadError": "Die Adresssuche ist momentan nicht verfügbar. Bitte prüfen Sie Ihre Internetverbindung und laden Sie die Seite neu.",
     "chooseBuilding": "Gebäude auswählen: ",
-    "infoText": "Geben Sie eine Adresse ein oder klicken Sie direkt auf ein Gebäude in der Karte. Sie können nur Wohngebäude auswählen.",
+    "infoText": "Geben Sie eine Adresse ein oder klicken Sie direkt auf ein Gebäude in der Karte.",
     "ariaFormLabel": "Gebäudeadresse suchen",
     "ariaInputLabel": "Adresse eingeben",
     "ariaDismissLabel": "Hinweis schließen"
