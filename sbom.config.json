@@ -1,0 +1,68 @@
+{
+  "description": "Static Astro and React public frontend for the Regensburg digital energy twin.",
+  "buildDependencies": [
+    "@astrojs/react",
+    "@tailwindcss/vite",
+    "astro",
+    "tailwindcss",
+    "tw-animate-css",
+    "vite-plugin-cesium"
+  ],
+  "additionalComponents": [
+    {
+      "type": "container",
+      "bom-ref": "oci:node:22-alpine",
+      "name": "node",
+      "version": "22-alpine (not digest pinned)",
+      "scope": "required",
+      "ecosystem": "OCI container",
+      "relationship": "referenced build software",
+      "metadataSource": "Dockerfile",
+      "notes": "Builder base image; packages inside the image are not expanded.",
+      "licenses": [
+        {
+          "license": {
+            "name": "MIT (Node.js); container includes additional licenses"
+          }
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "bom-ref": "pkg:npm/pnpm@not-pinned",
+      "name": "pnpm",
+      "version": "not pinned",
+      "scope": "required",
+      "ecosystem": "npm CLI",
+      "relationship": "referenced build software",
+      "metadataSource": "Dockerfile",
+      "notes": "Package manager enabled through Corepack during the container build; package.json does not pin a pnpm version.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "type": "container",
+      "bom-ref": "oci:nginxinc/nginx-unprivileged:alpine",
+      "name": "nginxinc/nginx-unprivileged",
+      "version": "alpine (not digest pinned)",
+      "scope": "required",
+      "ecosystem": "OCI container",
+      "relationship": "referenced runtime software",
+      "metadataSource": "Dockerfile",
+      "notes": "Production image serving the generated static site; packages inside the image are not expanded.",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD-2-Clause (NGINX); container includes additional licenses"
+          }
+        }
+      ]
+    }
+  ]
+}
+
