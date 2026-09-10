@@ -144,14 +144,14 @@
     "outerWall": {
       "outerWall": "Außenwand",
       "year": "Wann wurde Ihre Außenwand zuletzt wesentlich neu aufgebaut oder konstruktiv verändert?",
-      "area": "Wie groß ist die Fläche Ihrer Außenwände?",
-      "constructionType": "Welche Bauweise haben Ihre Außenwände?",
-      "hasInsulation": "Sind Ihre Außenwände gedämmt?",
+      "area": "Wie groß ist die Fläche Ihrer freistehenden Außenwand?",
+      "constructionType": "Welche Bauweise hat Ihre Außenwand?",
+      "hasInsulation": "Ist Ihre Außenwand gedämmt?",
       "insulationThickness": "Welche Dicke hat die aktuelle Dämmung?",
       "adjacentWallArea": "Wie groß ist die Wandfläche, die direkt an benachbarte Gebäude grenzt?",
       "tooltips": {
         "year": "Gemeint ist, ob die Wand selbst konstruktiv verändert oder mit anderen Materialien neu aufgebaut wurde, zum Beispiel durch eine neue Wandkonstruktion. Neue Farbe, neuer Putz oder eine nachträgliche Dämmung zählen hier nicht dazu.",
-        "area": "Geben Sie die gesamte Fläche aller freistehenden Außenwände an, ohne Abzug von Fensterflächen. Größere Wandflächen bedeuten mehr Wärmeverlust.",
+        "area": "Geben Sie die gesamte Fläche aller freistehenden Außenwände an, ohne Abzug von Fensterflächen. Größere Wandflächen bedeuten mehr Wärmeverlust. ",
         "constructionType": "Massivwände (z. B. Ziegel oder Beton) speichern Wärme gut.",
         "hasInsulation": "Durch ungedämmte Außenwände gehen bis zu 40 % der Heizwärme verloren. Eine Dämmung senkt die Heizkosten erheblich.",
         "insulationThickness": "Eine dickere Dämmschicht erhöht die energetische Effizienz des Gebäudes. Je nach Alter der Dämmung sind zwischen 4 cm und 14 cm üblich.",
