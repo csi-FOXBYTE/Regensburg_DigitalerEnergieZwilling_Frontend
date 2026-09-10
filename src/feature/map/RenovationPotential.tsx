@@ -76,7 +76,7 @@ export default function RenovationPotential({
   return (
     <>
       <div>
-        <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="flex flex-col items-start gap-2">
           <Typography as="h3" variant="h4">
             {t('renovationPotential.title')}
           </Typography>

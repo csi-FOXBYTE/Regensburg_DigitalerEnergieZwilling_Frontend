@@ -2,11 +2,9 @@ import { type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_
 import { produce } from 'immer';
 import { computed } from 'nanostores';
 import makeFieldStore from '../../field-store';
-import {
-  bindFieldToOptions,
-  makeSelectionStore,
-} from '../../selection-store';
+import { bindFieldToOptions, makeSelectionStore } from '../../selection-store';
 import { rangeKeyEquals } from '../../yearHelper/rangeBandOptions';
+import { $building } from '../building';
 import {
   $resolvedInput,
   $resolvedInputState,
@@ -51,16 +49,24 @@ export const outerWallAdjacentWallAreaField = makeFieldStore({
 });
 
 export const $isAdjacentWallAreaInvalid = computed(
-  [$inputState, $resolvedInputState],
-  (input, resolved) => {
-    const outerWallArea = input.outerWall.area ?? resolved.outerWall.area;
+  [$inputState, $resolvedInputState, $building],
+  (input, resolved, building) => {
+    // Core's resolved split areas already exclude adjacency. Validate against
+    // the original gross walls, including any unheated attic walls.
+    const det = building?.properties.digitalEnergyTwin;
+    const grossWallArea =
+      det?.grossExternalWallArea ??
+      (det?.grossExternalWallAreaWithoutAttic != null &&
+      det?.grossExternalWallAreaAttic != null
+        ? det.grossExternalWallAreaWithoutAttic + det.grossExternalWallAreaAttic
+        : undefined);
     const adjacentWallArea =
       input.outerWall.adjacentWallArea ?? resolved.outerWall.adjacentWallArea;
 
     return (
-      outerWallArea != null &&
+      grossWallArea != null &&
       adjacentWallArea != null &&
-      adjacentWallArea > outerWallArea
+      adjacentWallArea > grossWallArea
     );
   },
 );
@@ -96,7 +102,8 @@ export const outerWallHasInsulationField = makeFieldStore({
 
 export const outerWallInsulationThicknessField = makeFieldStore({
   store: $inputState,
-  getValue: (obj): number | null | undefined => obj.outerWall.insulationThickness,
+  getValue: (obj): number | null | undefined =>
+    obj.outerWall.insulationThickness,
   setValue: (draft, value) => {
     draft.outerWall.insulationThickness = value;
   },

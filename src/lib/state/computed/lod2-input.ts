@@ -20,10 +20,28 @@ export type Lod2DerivedInput = {
   roof: Partial<DETRoofInput>;
 };
 
+function exposedWallArea(
+  grossArea: number | undefined,
+  sharedArea: number | undefined,
+): number | undefined {
+  if (grossArea == null || sharedArea == null) return undefined;
+  return Math.max(0, grossArea - sharedArea);
+}
+
 export const $lod2Input = computed(
   [$building, $config],
   (building, config): Lod2DerivedInput => {
     const det = building?.properties.digitalEnergyTwin;
+    // Core expects exposed areas; enrichment splits gross and shared walls at
+    // this building's eave. Do not distribute the full shared area across them.
+    const areaWithoutAttic = exposedWallArea(
+      det?.grossExternalWallAreaWithoutAttic,
+      det?.adjacentWallAreaWithoutAttic,
+    );
+    const atticArea = exposedWallArea(
+      det?.grossExternalWallAreaAttic,
+      det?.adjacentWallAreaAttic,
+    );
     const height = det?.height ?? building?.properties.measuredHeight;
     const buildingYear =
       det?.constructionYear != null
@@ -34,6 +52,9 @@ export const $lod2Input = computed(
       general: {
         ...(det?.groundArea != null && { buildingBaseArea: det.groundArea }),
         ...(height != null && { buildingHeight: height }),
+        ...(det?.lowestEavesHeight != null && {
+          lowestEaveHeight: det.lowestEavesHeight,
+        }),
         ...(buildingYear != null && { buildingYear }),
       },
       heat: {
@@ -48,9 +69,8 @@ export const $lod2Input = computed(
         ...(det?.upperFloorArea != null && { area: det.upperFloorArea }),
       },
       outerWall: {
-        ...(det?.grossExternalWallArea != null && {
-          area: det.grossExternalWallArea,
-        }),
+        ...(areaWithoutAttic != null && { areaWithoutAttic }),
+        ...(atticArea != null && { atticArea }),
         ...(det?.adjacentWallArea != null && {
           adjacentWallArea: det.adjacentWallArea,
         }),

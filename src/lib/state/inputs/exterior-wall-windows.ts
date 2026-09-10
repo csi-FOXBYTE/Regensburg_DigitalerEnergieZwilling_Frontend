@@ -1,10 +1,7 @@
 import { type RangeKey } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import { computed } from 'nanostores';
 import makeFieldStore from '../../field-store';
-import {
-  bindFieldToOptions,
-  makeSelectionStore,
-} from '../../selection-store';
+import { bindFieldToOptions, makeSelectionStore } from '../../selection-store';
 import { rangeKeyEquals } from '../../yearHelper/rangeBandOptions';
 import { $resolvedInputState } from '../computed/resolved-input';
 import { $inputState } from './atoms';
@@ -71,15 +68,11 @@ export const $isExteriorWallWindowsAreaInvalid = computed(
     const windowsArea =
       input.exteriorWallWindows.area ?? resolved.exteriorWallWindows.area;
     const outerWallArea = input.outerWall.area ?? resolved.outerWall.area;
-    const adjacentWallArea =
-      input.outerWall.adjacentWallArea ??
-      resolved.outerWall.adjacentWallArea ??
-      0;
 
     return (
       windowsArea != null &&
       outerWallArea != null &&
-      windowsArea > outerWallArea - adjacentWallArea
+      windowsArea > outerWallArea
     );
   },
 );

@@ -12,10 +12,6 @@ import {
   roofInsulationTypeField,
   roofYearField,
 } from '@/lib/state/inputs/roof';
-import {
-  hasAtticField,
-  isAtticHeatedField,
-} from '@/lib/state/inputs/top-floor';
 import { useStore } from '@nanostores/react';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -28,10 +24,6 @@ import BuildingPartInfoButton from './BuildingPartInfoButton';
 
 export default function RoofPaper() {
   const { t } = useTranslation('energyCalculation');
-
-  const hasAtticValue = useStore(hasAtticField.$store);
-  const hasAtticPlaceholder = useStore(hasAtticField.$placeholder);
-  const hasAttic = hasAtticValue ?? hasAtticPlaceholder;
 
   const roofHasInsulationValue = useStore(roofHasInsulationField.$store);
   const roofHasInsulationPlaceholder = useStore(
@@ -60,7 +52,7 @@ export default function RoofPaper() {
       variant="outlined"
       className="flex flex-col gap-6 pt-4 pr-5 pb-5 pl-5"
     >
-      <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <FieldSet className="energy-field-grid grid grid-cols-1 gap-6 lg:grid-cols-2">
         <FieldLegend className="col-span-full flex items-center gap-2">
           <Typography as="span" variant="h4">
             {t('outerParts.roof.roof')}
@@ -127,35 +119,8 @@ export default function RoofPaper() {
           }
         />
       </FieldSet>
-      <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <EnergyBooleanInput
-          field={hasAtticField}
-          labelKey="outerParts.roof.hasAttic"
-          info={
-            <InfoTooltipButton
-              content={t('outerParts.roof.tooltips.hasAttic')}
-            />
-          }
-        />
-        {hasAttic && (
-          <EnergyBooleanInput
-            field={isAtticHeatedField}
-            labelKey="outerParts.roof.isAtticHeated"
-            trueKey={{ ns: 'energyCalculation', key: 'booleanLabels.heated' }}
-            falseKey={{
-              ns: 'energyCalculation',
-              key: 'booleanLabels.notHeated',
-            }}
-            info={
-              <InfoTooltipButton
-                content={t('outerParts.roof.tooltips.isAtticHeated')}
-              />
-            }
-          />
-        )}
-      </FieldSet>
       <FieldSeparator />
-      <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <FieldSet className="energy-field-grid grid grid-cols-1 gap-6 lg:grid-cols-2">
         <FieldLegend variant="label" className="col-span-full font-bold">
           {t('outerParts.insulation')}
         </FieldLegend>

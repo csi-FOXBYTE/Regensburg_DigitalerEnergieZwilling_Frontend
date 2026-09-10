@@ -43,7 +43,7 @@ export default function OuterWallPaper() {
       variant="outlined"
       className="flex flex-col gap-6 pt-4 pr-5 pb-5 pl-5"
     >
-      <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <FieldSet className="energy-field-grid grid grid-cols-1 gap-6 lg:grid-cols-2">
         <FieldLegend className="col-span-full flex items-center gap-2">
           <Typography as="span" variant="h4">
             {t('outerParts.outerWall.outerWall')}
@@ -104,7 +104,7 @@ export default function OuterWallPaper() {
       {allowsAdditionalInsulation && (
         <>
           <FieldSeparator />
-          <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <FieldSet className="energy-field-grid grid grid-cols-1 gap-6 lg:grid-cols-2">
             <FieldLegend variant="label" className="col-span-full font-bold">
               {t('outerParts.insulation')}
             </FieldLegend>

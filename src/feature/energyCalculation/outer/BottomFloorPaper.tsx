@@ -54,7 +54,7 @@ export default function BottomFloorPaper() {
       variant="outlined"
       className="flex flex-col gap-6 pt-4 pr-5 pb-5 pl-5"
     >
-      <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <FieldSet className="energy-field-grid grid grid-cols-1 gap-6 lg:grid-cols-2">
         <FieldLegend className="col-span-full flex items-center gap-2">
           <Typography as="span" variant="h4">
             {t('outerParts.bottomFloor.bottomFloor')}
@@ -62,31 +62,6 @@ export default function BottomFloorPaper() {
           <BuildingPartInfoButton part="bottomFloor" context={context} />
         </FieldLegend>
         <Separator className="col-span-full" />
-        <EnergyBooleanInput
-          field={hasBasementField}
-          labelKey="outerParts.bottomFloor.hasBasement"
-          info={
-            <InfoTooltipButton
-              content={t('outerParts.bottomFloor.tooltips.hasBasement')}
-            ></InfoTooltipButton>
-          }
-        />
-        {hasBasement && (
-          <EnergyBooleanInput
-            field={isBasementHeatedField}
-            labelKey="outerParts.bottomFloor.isBasementHeated"
-            trueKey={{ ns: 'energyCalculation', key: 'booleanLabels.heated' }}
-            falseKey={{
-              ns: 'energyCalculation',
-              key: 'booleanLabels.notHeated',
-            }}
-            info={
-              <InfoTooltipButton
-                content={t('outerParts.bottomFloor.tooltips.isBasementHeated')}
-              ></InfoTooltipButton>
-            }
-          />
-        )}
         <EnergyNumberInput
           field={bottomFloorAreaField}
           labelKey={`outerParts.bottomFloor.area.${context}`}
@@ -125,7 +100,7 @@ export default function BottomFloorPaper() {
         />
       </FieldSet>
       <FieldSeparator />
-      <FieldSet className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <FieldSet className="energy-field-grid grid grid-cols-1 gap-6 lg:grid-cols-2">
         <FieldLegend variant="label" className="col-span-full font-bold">
           {t('outerParts.insulation')}
         </FieldLegend>

@@ -37,22 +37,29 @@ function booleanProperty(
   return undefined;
 }
 
-function sharedWallAreaSum(feature: BuildingFeatureSource): number | undefined {
+function sharedWallAreaSum(
+  feature: BuildingFeatureSource,
+  key: 'sharedWallArea' | 'sharedWallAreaWithoutAttic' | 'sharedWallAreaAttic',
+): number | undefined {
   const raw = feature.getProperty('digitalEnergyTwin.adjacentBuildings');
   if (typeof raw !== 'string') return undefined;
 
   try {
     const parsed = JSON.parse(raw) as unknown;
     if (!Array.isArray(parsed)) return undefined;
-    return parsed.reduce((sum, building) => {
+    let sum = 0;
+    for (const building of parsed) {
       const area =
-        typeof building === 'object' &&
-        building !== null &&
-        typeof (building as Record<string, unknown>).sharedWallArea === 'number'
-          ? ((building as Record<string, unknown>).sharedWallArea as number)
-          : 0;
-      return sum + area;
-    }, 0);
+        typeof building === 'object' && building !== null
+          ? (building as Record<string, unknown>)[key]
+          : undefined;
+      // A missing split is unknown, not a shared area of zero.
+      if (typeof area !== 'number' || !Number.isFinite(area) || area < 0) {
+        return undefined;
+      }
+      sum += area;
+    }
+    return sum;
   } catch {
     return undefined;
   }
@@ -126,14 +133,31 @@ export const adaptBuildingFeature: BuildingFeatureAdapter = (feature) => {
           feature,
           'digitalEnergyTwin.grossExternalWallArea',
         ),
+        grossExternalWallAreaWithoutAttic: numberProperty(
+          feature,
+          'digitalEnergyTwin.grossExternalWallAreaWithoutAttic',
+        ),
+        grossExternalWallAreaAttic: numberProperty(
+          feature,
+          'digitalEnergyTwin.grossExternalWallAreaAttic',
+        ),
         roofArea: numberProperty(feature, 'digitalEnergyTwin.roofArea'),
         roofPitchDegrees: numberProperty(
           feature,
           'digitalEnergyTwin.roofPitchDegrees',
         ),
         height: numberProperty(feature, 'digitalEnergyTwin.height'),
+        lowestEavesHeight: numberProperty(
+          feature,
+          'digitalEnergyTwin.lowestEavesHeight',
+        ),
         envelopeArea: numberProperty(feature, 'digitalEnergyTwin.envelopeArea'),
-        adjacentWallArea: sharedWallAreaSum(feature),
+        adjacentWallArea: sharedWallAreaSum(feature, 'sharedWallArea'),
+        adjacentWallAreaWithoutAttic: sharedWallAreaSum(
+          feature,
+          'sharedWallAreaWithoutAttic',
+        ),
+        adjacentWallAreaAttic: sharedWallAreaSum(feature, 'sharedWallAreaAttic'),
         constructionYear: numberProperty(
           feature,
           'digitalEnergyTwin.constructionYear',

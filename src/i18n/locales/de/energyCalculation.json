@@ -151,14 +151,14 @@
       "adjacentWallArea": "Wie groß ist die Wandfläche, die direkt an benachbarte Gebäude grenzt?",
       "tooltips": {
         "year": "Gemeint ist, ob die Wand selbst konstruktiv verändert oder mit anderen Materialien neu aufgebaut wurde, zum Beispiel durch eine neue Wandkonstruktion. Neue Farbe, neuer Putz oder eine nachträgliche Dämmung zählen hier nicht dazu.",
-        "area": "Geben Sie die gesamte Fläche aller freistehenden Außenwände an, ohne Abzug von Fensterflächen. Größere Wandflächen bedeuten mehr Wärmeverlust.",
+        "area": "Geben Sie die Wandfläche der beheizten Geschosse an, einschließlich Fensterflächen und Wänden zu Nachbargebäuden. Dachraumwände zählen nur bei beheiztem Dachraum dazu. Eine manuelle Eingabe ersetzt die geschätzte Fläche.",
         "constructionType": "Massivwände (z. B. Ziegel oder Beton) speichern Wärme gut.",
         "hasInsulation": "Durch ungedämmte Außenwände gehen bis zu 40 % der Heizwärme verloren. Eine Dämmung senkt die Heizkosten erheblich.",
         "insulationThickness": "Eine dickere Dämmschicht erhöht die energetische Effizienz des Gebäudes. Je nach Alter der Dämmung sind zwischen 4 cm und 14 cm üblich.",
-        "adjacentWallArea": "Gemeint ist die Wandfläche, die direkt an ein benachbartes Gebäude anschließt, zum Beispiel bei Reihenhäusern oder Doppelhaushälften. Diese Fläche wird anders berechnet, weil dort meist weniger Wärme verloren geht als über frei stehende Außenwände."
+        "adjacentWallArea": "Gemeint ist die Wandfläche, die direkt an ein Nachbargebäude anschließt, einschließlich der Wände eines unbeheizten Dachraums. Diese Angabe verringert derzeit nicht den berechneten Wärmeverlust."
       },
       "errors": {
-        "adjacentAreaExceedsWallArea": "Die angrenzende Wandfläche darf nicht größer als die gesamte Außenwandfläche sein."
+        "adjacentAreaExceedsWallArea": "Die angrenzende Wandfläche darf nicht größer als die gesamte Wandfläche des Gebäudes einschließlich der Dachraumwände sein."
       },
       "info": {
         "title": "Außenwand",
@@ -179,7 +179,7 @@
         "uValue": "Der U-Wert gibt Auskunft darüber, wie gut ein Bauteil dämmt. Niedrigere Werte bedeuten bessere Dämmung. Alte Einfachfenster haben etwa 5,0 W/m²K. Moderne Dreifachfenster liegen bei etwa 0,7 W/m²K. Den U-Wert finden Sie in den Unterlagen Ihrer Fenster oder auf dem Typenschild."
       },
       "errors": {
-        "areaExceedsAvailableWallArea": "Die Fensterfläche darf nicht größer als die Außenwandfläche abzüglich der angrenzenden Wandfläche sein."
+        "areaExceedsAvailableWallArea": "Die Fensterfläche darf nicht größer als die Wandfläche der beheizten Geschosse sein."
       },
       "info": {
         "title": "Fenster",

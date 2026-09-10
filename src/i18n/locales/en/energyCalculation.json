@@ -151,14 +151,14 @@
       "adjacentWallArea": "What is the wall area adjacent to neighbouring buildings?",
       "tooltips": {
         "year": "Enter the year the wall was built or last major facade renovation. Older walls without insulation lose a lot of heat to the outside.",
-        "area": "Enter the total area of all free-standing outer walls, without deducting window areas. Larger wall areas mean more heat loss.",
+        "area": "Enter the wall area enclosing the heated floors, including window areas and walls adjoining neighbouring buildings. Include attic walls only if the attic is heated. A manual entry replaces the estimated area.",
         "constructionType": "Solid walls (e.g. brick or concrete) store heat well.",
         "hasInsulation": "Up to 40% of heating energy is lost through uninsulated outer walls. Insulation significantly reduces heating costs.",
-        "adjacentWallArea": "Wall area that is directly adjacent to neighbouring buildings and therefore does not lose heat to the outside.",
+        "adjacentWallArea": "Wall area directly adjoining neighbouring buildings, including any unheated attic walls. This information currently does not reduce the calculated heat loss.",
         "insulationThickness": "A thicker insulation layer increases the building's energy efficiency. Depending on the age of the insulation, between 4 cm and 14 cm is common."
       },
       "errors": {
-        "adjacentAreaExceedsWallArea": "The adjacent wall area must not be greater than the total outer-wall area."
+        "adjacentAreaExceedsWallArea": "The adjacent wall area must not be greater than the building's total wall area, including attic walls."
       },
       "info": {
         "title": "Exterior wall",
@@ -179,7 +179,7 @@
         "uValue": "The U-value describes the thermal insulation of the window. Lower values mean better insulation. Old single-pane windows have approximately 5.0 W/m²K. Modern triple-glazed windows are around 0.7 W/m²K. You can find the U-value in your window documentation or on the type plate."
       },
       "errors": {
-        "areaExceedsAvailableWallArea": "The window area must not be greater than the outer-wall area minus the adjacent wall area."
+        "areaExceedsAvailableWallArea": "The window area must not be greater than the wall area enclosing the heated floors."
       },
       "info": {
         "title": "Windows",

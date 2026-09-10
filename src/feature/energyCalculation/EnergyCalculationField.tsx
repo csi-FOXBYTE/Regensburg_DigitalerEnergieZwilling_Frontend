@@ -36,9 +36,9 @@ export default function EnergyCalculationField({
   const { t } = useTranslation('energyCalculation');
 
   return (
-    <Field className={className}>
+    <Field className={className} data-energy-field="">
       {labelKey && (
-        <div className="block">
+        <div className="block" data-energy-field-label="">
           {labelFor ? (
             <FieldLabel className="inline" htmlFor={labelFor} id={labelId}>
               {t(labelKey)}
@@ -56,39 +56,41 @@ export default function EnergyCalculationField({
           )}
         </div>
       )}
-      <div className="flex w-full items-center gap-2">
-        {children}
-        {onReset ? (
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button
-                  type="button"
-                  onClick={onReset}
-                  disabled={resetDisabled}
-                  aria-label={t('common.resetTooltip')}
-                  className={
-                    resetDisabled
-                      ? 'cursor-not-allowed text-neutral-200'
-                      : 'text-foreground hover:text-primary cursor-pointer transition-colors'
-                  }
+      <div className="flex flex-col gap-2" data-energy-field-content="">
+        <div className="flex w-full items-center gap-2">
+          {children}
+          {onReset ? (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    onClick={onReset}
+                    disabled={resetDisabled}
+                    aria-label={t('common.resetTooltip')}
+                    className={
+                      resetDisabled
+                        ? 'cursor-not-allowed text-neutral-200'
+                        : 'text-foreground hover:text-primary cursor-pointer transition-colors'
+                    }
+                  >
+                    <RotateCcw className="size-4" aria-hidden="true" />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent
+                  hideArrow
+                  className="bg-background text-foreground border shadow-sm"
                 >
-                  <RotateCcw className="size-4" aria-hidden="true" />
-                </button>
-              </TooltipTrigger>
-              <TooltipContent
-                hideArrow
-                className="bg-background text-foreground border shadow-sm"
-              >
-                {t('common.resetTooltip')}
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        ) : (
-          <div className="size-4 shrink-0" />
-        )}
+                  {t('common.resetTooltip')}
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          ) : (
+            <div className="size-4 shrink-0" />
+          )}
+        </div>
+        {error && <FieldError id={errorId}>{error}</FieldError>}
       </div>
-      {error && <FieldError id={errorId}>{error}</FieldError>}
     </Field>
   );
 }

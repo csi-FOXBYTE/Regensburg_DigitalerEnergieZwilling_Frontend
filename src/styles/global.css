@@ -64,12 +64,12 @@
   --chart-4: oklch(0.488 0.243 264.376);
   --chart-5: oklch(0.424 0.199 265.638);
 
-  /* Radius policy - Regensburg uses sharp corners */
+  /* Radius policy - sharp surfaces and controls, rounded badges and floating controls */
   --control-radius: 0px;
   --surface-radius: 0px;
   --dialog-radius: 0px;
   --toolbar-radius: 0px;
-  --badge-radius: 0px;
+  --badge-radius: 9999px;
   --floating-control-radius: 9999px;
 
   /* Layout Sizes */
@@ -255,6 +255,34 @@
    injected `!important` rule. */
 html body[data-scroll-locked] {
   margin-right: 0 !important;
+}
+
+@layer utilities {
+  /* Opt in on two-column energy forms; single-column fields keep natural sizing. */
+  .energy-field-grid {
+    @variant lg {
+      @supports (grid-template-rows: subgrid) {
+        > [data-energy-field] {
+          display: grid;
+          grid-row: span 2;
+          grid-template-rows: subgrid;
+          row-gap: 0.5rem;
+          min-width: 0;
+        }
+
+        > [data-energy-field] > [data-energy-field-label] {
+          grid-row: 1;
+          align-self: end;
+        }
+
+        > [data-energy-field] > [data-energy-field-content] {
+          grid-row: 2;
+          align-self: start;
+          min-width: 0;
+        }
+      }
+    }
+  }
 }
 
 @layer base {

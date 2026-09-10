@@ -11,11 +11,16 @@ export type DigitalEnergyTwin = {
   groundArea: number | undefined;
   upperFloorArea: number | undefined;
   grossExternalWallArea: number | undefined;
+  grossExternalWallAreaWithoutAttic: number | undefined;
+  grossExternalWallAreaAttic: number | undefined;
   roofArea: number | undefined;
   roofPitchDegrees: number | undefined;
   height: number | undefined;
+  lowestEavesHeight: number | undefined;
   envelopeArea: number | undefined;
   adjacentWallArea: number | undefined;
+  adjacentWallAreaWithoutAttic: number | undefined;
+  adjacentWallAreaAttic: number | undefined;
   constructionYear: number | undefined;
   geothermalEnergyAvailable: boolean | undefined;
 };

@@ -74,10 +74,14 @@ function EnergyClassRow({
               <div className="flex shrink-0 justify-end">
                 {badge && (
                   <span
-                    className={`flex items-center gap-0.5 px-1.5 py-0.5 text-xs font-bold text-white ${badge.bgClass}`}
+                    className={`rounded-badge flex items-center gap-0.5 px-2 py-1 text-xs font-bold text-white ${badge.bgClass}`}
                   >
-                    {badge.arrow === 'up' && <ArrowUp aria-hidden="true" />}
-                    {badge.arrow === 'down' && <ArrowDown aria-hidden="true" />}
+                    {badge.arrow === 'up' && (
+                      <ArrowUp className="size-4" aria-hidden="true" />
+                    )}
+                    {badge.arrow === 'down' && (
+                      <ArrowDown className="size-4" aria-hidden="true" />
+                    )}
                     {badge.label}
                   </span>
                 )}
