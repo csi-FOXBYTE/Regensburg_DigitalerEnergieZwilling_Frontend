@@ -144,7 +144,7 @@
     "outerWall": {
       "outerWall": "Outer Wall",
       "year": "When was your outer wall built or last renovated?",
-      "area": "What is the total area of your outer walls?",
+      "area": "What is the total area of your free-standing outer wall?",
       "constructionType": "What is the construction type of your outer wall?",
       "hasInsulation": "Is your outer wall insulated?",
       "insulationThickness": "How thick is the insulation?",

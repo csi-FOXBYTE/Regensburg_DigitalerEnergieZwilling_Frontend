@@ -144,9 +144,9 @@
     "outerWall": {
       "outerWall": "Außenwand",
       "year": "Wann wurde Ihre Außenwand zuletzt wesentlich neu aufgebaut oder konstruktiv verändert?",
-      "area": "Wie groß ist die Fläche Ihrer Außenwände?",
-      "constructionType": "Welche Bauweise haben Ihre Außenwände?",
-      "hasInsulation": "Sind Ihre Außenwände gedämmt?",
+      "area": "Wie groß ist die Fläche Ihrer freistehenden Außenwand?",
+      "constructionType": "Welche Bauweise hat Ihre Außenwand?",
+      "hasInsulation": "Ist Ihre Außenwand gedämmt?",
       "insulationThickness": "Welche Dicke hat die aktuelle Dämmung?",
       "adjacentWallArea": "Wie groß ist die Wandfläche, die direkt an benachbarte Gebäude grenzt?",
       "tooltips": {
