@@ -29,7 +29,7 @@ RUN mkdir -p /app/dist/licenses && \
 # ==========================================
 # Stage 2: Produktions-Umgebung (Nginx non-root)
 # ==========================================
-FROM nginxinc/nginx-unprivileged:alpine
+FROM nginxinc/nginx-unprivileged:1.30.4-alpine
 
 LABEL org.opencontainers.image.licenses="LGPL-3.0-or-later" \
       org.opencontainers.image.source="https://github.com/csi-FOXBYTE/Regensburg_DigitalerEnergieZwilling_Frontend"
