@@ -1,3 +1,4 @@
+import { sessionStorage } from '@/lib/state/session/storage';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -11,29 +12,18 @@ import { Link, Settings } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
-const BUILDING_KEY_PREFIX = 'det_building_data_';
-const META_KEY = 'det_meta';
-
-function getBuildingIds(): string[] {
-  return Object.keys(localStorage)
-    .filter((k) => k.startsWith(BUILDING_KEY_PREFIX))
-    .map((k) => k.slice(BUILDING_KEY_PREFIX.length));
-}
-
 function clearBuildingData() {
-  const ids = getBuildingIds();
-  ids.forEach((id) => localStorage.removeItem(`${BUILDING_KEY_PREFIX}${id}`));
-  localStorage.removeItem(META_KEY);
-  console.log('[dev] cleared building data for:', ids);
+  for (const id of sessionStorage.getBuildingIds())
+    sessionStorage.clearSession(id);
+  sessionStorage.setMeta({ lastActiveBuildingId: null, step: null });
+  console.log('[dev] cleared saved sessions; active calculation remains open');
 }
 
 function logBuildings() {
-  const ids = getBuildingIds();
-  if (ids.length === 0) {
-    console.log('[dev] no building sessions in localStorage');
-    return;
-  }
-  console.log('[dev] buildings with saved sessions:', ids);
+  console.log(
+    '[dev] buildings with saved sessions (memory and permitted storage):',
+    sessionStorage.getBuildingIds(),
+  );
 }
 
 async function copyExternalBuildingLink(
@@ -75,7 +65,7 @@ export default function DevPanel() {
           </DialogHeader>
           <div className="flex flex-col gap-2">
             <Button variant="secondary" onClick={clearBuildingData}>
-              Clear building data
+              Clear saved sessions (keep active work)
             </Button>
             <Button variant="secondary" onClick={logBuildings}>
               Log buildings with data

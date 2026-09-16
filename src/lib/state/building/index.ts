@@ -73,6 +73,39 @@ export type BuildingState = {
 
 export const $building = atom<BuildingState | null>(null);
 
+// All building transitions run synchronously before observers can save new work.
+let transitionDepth = 0;
+let restoringInputs = false;
+const beforeChange = new Set<() => void>();
+export const isSessionTransition = () => transitionDepth > 0;
+export const isRestoringInputs = () => restoringInputs;
+export function beforeBuildingChange(callback: () => void): void {
+  beforeChange.add(callback);
+}
+export function sessionTransition(action: () => void): void {
+  transitionDepth++;
+  try {
+    action();
+  } finally {
+    transitionDepth--;
+  }
+}
+export function setBuildingState(
+  building: BuildingState | null,
+  hydrate?: () => void,
+): void {
+  for (const callback of beforeChange) callback();
+  sessionTransition(() => {
+    restoringInputs = !!hydrate;
+    try {
+      $building.set(building);
+      hydrate?.();
+    } finally {
+      restoringInputs = false;
+    }
+  });
+}
+
 export function setBuilding(
   feature: BuildingFeatureSource,
   coordinates: BuildingCoordinates,
@@ -94,7 +127,7 @@ export function setBuilding(
         }
       : adapted.properties;
 
-  $building.set({
+  setBuildingState({
     id: adapted.id,
     coordinates,
     properties,
@@ -102,5 +135,5 @@ export function setBuilding(
 }
 
 export function unselectBuilding() {
-  $building.set(null);
+  setBuildingState(null);
 }

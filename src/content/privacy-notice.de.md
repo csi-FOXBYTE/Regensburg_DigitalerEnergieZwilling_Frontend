@@ -78,19 +78,27 @@ Die Protokolldaten werden für [konkrete Frist ergänzen] innerhalb der CIVITAS/
 
 ## 5. Lokale Speicherung im Browser
 
-Das Sanierungstool verwendet im öffentlichen Bereich keine Anmelde-Cookies. Für die Wiederaufnahme Ihrer Bearbeitung werden Informationen im Local Storage Ihres Browsers gespeichert. Diese Informationen verbleiben grundsätzlich auf Ihrem Endgerät.
+Das Sanierungstool verwendet im öffentlichen Bereich keine Anmelde-Cookies. Die Berechnung, der Wechsel zwischen Gebäuden, der PDF-Export und die Wiederherstellung über einen Wiederherstellungslink funktionieren auch ohne optionale Speicherung. Ihr Fortschritt wird zunächst nur im Arbeitsspeicher der geöffneten Seite gehalten. Ohne Ihre Einwilligung zur lokalen Speicherung geht er beim Neuladen oder Schließen der Seite verloren.
 
-Folgende Einträge werden verwendet:
+Erst wenn Sie „Fortschritt & Einstellungen“ ausdrücklich erlauben, speichert die Anwendung zusätzlich Informationen im Local Storage Ihres Browsers. Diese Informationen verbleiben auf Ihrem Endgerät. Die Auswahl gilt unabhängig von einer freiwilligen Bereitstellung Ihrer Daten an die Stadt.
 
-| Schlüssel                        | Inhalt und Zweck                                                                                                                                                                                | Dauer                                                                                           |
-| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `det_meta`                       | Kennung des zuletzt bearbeiteten Gebäudes und letzter Bearbeitungsschritt                                                                                                                       | Bis zum Zurücksetzen der Bearbeitung oder Löschen der Websitedaten                              |
-| `det_building_data_<Gebäude-ID>` | Ausgewähltes Gebäude mit Adresse, Koordinaten und Gebäudemerkmalen; Kameraposition; eingegebene Gebäude-, Heizungs-, Strom- und Kostendaten; ausgewählte Sanierungsmaßnahmen; Bearbeitungsstand | Bis zum Löschen des Gebäudestands oder der Websitedaten. |
-| `map-help-seen`                  | Merkt, ob die Kartenhilfe bereits angezeigt wurde                                                                                                                                               | Bis zum Löschen der Websitedaten.                        |
+| Schlüssel                        | Inhalt und Zweck                                                                                                                            | Dauer                                                                                |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `det_consent`                    | Technisch notwendige Speicherung Ihrer ausdrücklich bestätigten Datenschutzentscheidung (Zustimmung oder Ablehnung), Version und Zeitpunkte | 180 Tage ab Bestätigung; ein bloßer Besuch verlängert die Frist nicht                |
+| `det_meta`                       | Optional: Kennung des zuletzt bearbeiteten Gebäudes und Bearbeitungsschritt                                                                 | Höchstens 90 Tage; ohne gültigen zugehörigen Gebäudestand wird der Verweis verworfen |
+| `det_building_data_<Gebäude-ID>` | Optional: Gebäude mit Adresse, Koordinaten und Merkmalen, Kameraposition, Eingaben, Sanierungsmaßnahmen und Bearbeitungsstand               | 90 Tage ab letzter Fortschrittsspeicherung oder ausdrücklicher Wiederaufnahme        |
+| `map-help-seen`                  | Optional: merkt, ob die Kartenhilfe bereits angezeigt wurde                                                                                 | 90 Tage ab Erfassung                                                                 |
+| `det_methodology_notice_seen_v1` | Optional: merkt, ob der Methodikhinweis bereits angezeigt wurde                                                                             | 90 Tage ab Erfassung                                                                 |
 
-Die Speicherung des Arbeitsstands erfolgt automatisch, nachdem ein Gebäude ausgewählt und die Dateneingabe begonnen wurde. Sie können die gespeicherten Daten über die Einstellungen Ihres Browsers löschen. Werden Browserdaten gemeinsam auf einem Gerät genutzt, können andere Benutzer dieses Geräts den gespeicherten Bearbeitungsstand möglicherweise aufrufen.
+Die optionalen Einträge enthalten Versions- und Ablaufzeitpunkte. Ein bloßes Auslesen oder Öffnen der Webseite verlängert ihre Frist nicht. Abgelaufene Einträge werden nicht wiederhergestellt und bei einem späteren zulässigen Speicherzugriff entfernt. Während die Webseite geschlossen ist, kann sie Daten nicht physisch löschen. Ohne optionale Speicherung merkt sich die geöffnete Seite bereits gesehene Hinweise nur im Arbeitsspeicher.
 
-Die für die ausdrücklich gewünschte Wiederaufnahme der Bearbeitung erforderliche Speicherung und der Zugriff auf diese Informationen erfolgen auf Grundlage von § 25 Abs. 2 Nr. 2 TDDDG. Für nicht unbedingt erforderliche Speicherungen holen wir vorab eine Einwilligung nach § 25 Abs. 1 TDDDG ein.
+Sie können das erste Fenster ohne Entscheidung schließen und weiterrechnen. Dabei wird keine Entscheidung gespeichert; beim nächsten Laden der Berechnungsseite fragen wir erneut. Nach Ablauf einer bestätigten Entscheidung ist die optionale Speicherung wieder ausgeschaltet, bis Sie erneut zustimmen. Datenschutz und Impressum sind ohne automatisches Auswahlfenster erreichbar.
+
+Über „Datenschutzeinstellungen“ im Fußbereich können Sie Ihre Auswahl jederzeit ändern. Nicht bestätigte Änderungen werden beim Schließen verworfen. Bei Zustimmung werden auch bereits auf der geöffneten Seite erarbeitete Stände gespeichert. Bei Ablehnung oder Widerruf wird die optionale Speicherung sofort abgeschaltet und die Anwendung entfernt ihre gespeicherten Gebäudestände und Einstellungen; die bestätigte Datenschutzentscheidung bleibt gespeichert. Ihre Arbeit auf der geöffneten Seite bleibt erhalten. Sperrt der Browser den Speicherzugriff oder die Löschung, weist die Anwendung darauf hin und arbeitet im Arbeitsspeicher weiter. Sie können Websitedaten zusätzlich über die Einstellungen Ihres Browsers löschen.
+
+Werden Browserdaten gemeinsam auf einem Gerät genutzt, können andere Benutzer dieses Geräts gespeicherte Bearbeitungsstände möglicherweise aufrufen.
+
+Die technisch notwendige Speicherung Ihrer ausdrücklich bestätigten Datenschutzentscheidung erfolgt auf Grundlage von § 25 Abs. 2 Nr. 2 TDDDG. Optionale lokale Speicherung und Zugriffe erfolgen nur mit Ihrer vorherigen Einwilligung gemäß § 25 Abs. 1 TDDDG und, soweit personenbezogene Daten betroffen sind, Art. 6 Abs. 1 Buchst. a DSGVO. Ein Widerruf wirkt für die Zukunft.
 
 ## 6. Gebäudeauswahl, Datenquellen, Adresssuche und 3D-Karte
 
@@ -141,7 +149,7 @@ Die energetische Berechnung wird mit dem projektbezogenen Energie-Berechnungsker
 - daraus berechnete Energiebedarfe, Kosten, CO₂-Werte und Effizienzklassen,
 - verwendete Version der Berechnungskonfiguration.
 
-Ohne Ihre freiwillige Einwilligung zur Bereitstellung der Daten werden diese Angaben nicht an das Backend der Stadt übermittelt. Sie verbleiben im Local Storage und im Arbeitsspeicher Ihres Browsers.
+Ohne Ihre freiwillige Einwilligung zur Bereitstellung der Daten werden diese Angaben nicht an das Backend der Stadt übermittelt. Sie verbleiben im Arbeitsspeicher Ihres Browsers und werden nur mit gesonderter Einwilligung zusätzlich im Local Storage gespeichert (Abschnitt 5).
 
 Die Ergebnisse sind eine unverbindliche Orientierung und keine automatisierte Entscheidung mit rechtlicher oder ähnlich erheblicher Wirkung im Sinne des Art. 22 DSGVO.
 
@@ -241,7 +249,7 @@ Dabei werden insbesondere IP-Adresse, Zeitpunkt, Challenge-Daten, Prüfergebnis 
 
 Falls Matomo künftig gesondert aktiviert wird, verwenden wir es zur statistischen Auswertung der Nutzung des Sanierungstools. Die dafür noch bereitzustellende Matomo-Instanz wird unter [interne Matomo-URL ergänzen] in der CIVITAS/CORE-Umgebung der Stadt Regensburg betrieben. Zuständig ist [zuständige Stelle der Stadt Regensburg oder beauftragter Betreiber ergänzen]. Eine Übermittlung der Analysedaten an Matomo Cloud findet nicht statt.
 
-Matomo wird erst nach Ihrer vorherigen Einwilligung aktiviert. Ohne Einwilligung werden keine Matomo-Tracking-Skripte geladen und keine Analyseereignisse übermittelt. Sie können Ihre Entscheidung jederzeit über „Cookie-Einstellungen“ ändern.
+Matomo wird erst nach Ihrer vorherigen Einwilligung aktiviert. Ohne Einwilligung werden keine Matomo-Tracking-Skripte geladen und keine Analyseereignisse übermittelt. Sie können Ihre Entscheidung jederzeit über „Datenschutzeinstellungen“ ändern.
 
 Nach Ihrer Einwilligung werden [eingesetzte Cookies oder andere Speichertechniken mit Namen und Laufzeiten ergänzen] sowie folgende Daten verarbeitet:
 

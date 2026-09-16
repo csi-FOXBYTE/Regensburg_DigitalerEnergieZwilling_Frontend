@@ -20,6 +20,7 @@ export const getStaticPaths = (() => {
 
 <script>
   import '@/lib/state/session/auto-save';
+  import { $calculatorReady } from '@/lib/consent/dialog-state';
   import {
     $step,
     setStep,
@@ -56,6 +57,7 @@ export const getStaticPaths = (() => {
     }
   }
   initializeExternalBuildingTarget(_fragmentParams, _restoredFromLink);
+  $calculatorReady.set(true);
 
   document.addEventListener('click', (e) => {
     if ((e.target as Element).closest('[data-next-step]')) {

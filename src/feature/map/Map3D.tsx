@@ -37,6 +37,7 @@ import InvalidBuildingConfirmDialog from './InvalidBuildingConfirmDialog';
 const baseImageryProvider = new Cesium.UrlTemplateImageryProvider({
   url: mapConfig.baseLayer.urlTemplate,
   credit: mapConfig.baseLayer.credit,
+  maximumLevel: 19,
 });
 
 const baseTilesetStyle = new Cesium.Cesium3DTileStyle({

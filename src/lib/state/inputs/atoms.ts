@@ -11,8 +11,9 @@ import {
   type Renovation,
 } from '@csi-foxbyte/regensburg_digitalerenergiezwilling_energycalculationcore';
 import { atom } from 'nanostores';
-import { $building } from '../building';
-import { getSession } from '../session/storage';
+import { $building, isRestoringInputs } from '../building';
+import { getSession, type SavedSession } from '../session/storage';
+import { $step, setMaxStepReached } from '../ui/progress';
 
 export type InputState = {
   general: Partial<DETGeneralInput>;
@@ -44,18 +45,18 @@ export const $selectedInsulationRenovations = atom<Renovation[]>([]);
 export const $selectedHeatingSurfaceRenovations = atom<Renovation[]>([]);
 export const $selectedHeatingRenovations = atom<Renovation[]>([]);
 
+export function hydrateInputs(session: SavedSession | null): void {
+  const data = session ? structuredClone(session) : null;
+  $inputState.set(data?.inputState ?? emptyInputState());
+  $selectedInsulationRenovations.set(data?.insulationRenovations ?? []);
+  $selectedHeatingSurfaceRenovations.set(data?.heatingSurfaceRenovations ?? []);
+  $selectedHeatingRenovations.set(data?.heatingRenovations ?? []);
+  setMaxStepReached(
+    data ? Math.max(data.step, data.maxStepReached ?? data.step) : $step.get(),
+  );
+}
+
 $building.subscribe((building) => {
-  if (building === null) return;
-  const session = getSession(building.id);
-  if (session) {
-    $inputState.set(session.inputState);
-    $selectedInsulationRenovations.set(session.insulationRenovations);
-    $selectedHeatingSurfaceRenovations.set(session.heatingSurfaceRenovations);
-    $selectedHeatingRenovations.set(session.heatingRenovations);
-  } else {
-    $inputState.set(emptyInputState());
-    $selectedInsulationRenovations.set([]);
-    $selectedHeatingSurfaceRenovations.set([]);
-    $selectedHeatingRenovations.set([]);
-  }
+  if (isRestoringInputs()) return;
+  hydrateInputs(building ? getSession(building.id) : null);
 });

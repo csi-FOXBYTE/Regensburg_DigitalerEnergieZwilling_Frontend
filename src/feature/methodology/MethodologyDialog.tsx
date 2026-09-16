@@ -1,4 +1,10 @@
 import {
+  $automaticDialog,
+  $consentView,
+  $resumePending,
+} from '@/lib/consent/dialog-state';
+import { hasSeenNotice, markNoticeSeen } from '@/lib/state/session/storage';
+import {
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -29,29 +35,12 @@ import { atom } from 'nanostores';
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
-const NOTICE_VERSION = 'v1';
-const NOTICE_STORAGE_KEY = `det_methodology_notice_seen_${NOTICE_VERSION}`;
+const NOTICE_STORAGE_KEY = 'det_methodology_notice_seen_v1';
 const DEMO_AUTOMATIC_AREA = 140;
 
 type DemoInputState = {
   livingArea?: number;
 };
-
-function hasSeenNotice(): boolean {
-  try {
-    return localStorage.getItem(NOTICE_STORAGE_KEY) === 'true';
-  } catch {
-    return false;
-  }
-}
-
-function markNoticeAsSeen(): void {
-  try {
-    localStorage.setItem(NOTICE_STORAGE_KEY, 'true');
-  } catch {
-    // The dialog still works when browser storage is unavailable.
-  }
-}
 
 function OpenPoint({ children }: { children: ReactNode }) {
   const { t } = useTranslation('methodology');
@@ -643,19 +632,51 @@ export default function MethodologyDialog() {
   const step = useStore($step);
   const [open, setOpen] = useState(false);
   const autoOpenHandled = useRef(false);
+  const consentView = useStore($consentView);
+  const resumePending = useStore($resumePending);
+  const automaticDialog = useStore($automaticDialog);
 
   useEffect(() => {
-    if (autoOpenHandled.current || step < Step.GeneralData) return;
+    if (
+      consentView !== 'closed' ||
+      resumePending ||
+      $automaticDialog.get() ||
+      autoOpenHandled.current ||
+      step < Step.GeneralData
+    )
+      return;
 
     autoOpenHandled.current = true;
-    if (hasSeenNotice()) return;
+    if (hasSeenNotice(NOTICE_STORAGE_KEY)) return;
 
-    markNoticeAsSeen();
+    $automaticDialog.set('methodology');
+    markNoticeSeen(NOTICE_STORAGE_KEY);
     setOpen(true);
-  }, [step]);
+  }, [step, consentView, resumePending, automaticDialog]);
+
+  useEffect(
+    () => () => {
+      if ($automaticDialog.get() === 'methodology') $automaticDialog.set(null);
+    },
+    [],
+  );
+
+  const changeOpen = (next: boolean) => {
+    if (
+      next &&
+      $automaticDialog.get() &&
+      $automaticDialog.get() !== 'methodology'
+    )
+      return;
+    setOpen(next);
+    $automaticDialog.set(next ? 'methodology' : null);
+  };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog
+      open={open && consentView === 'closed' && !resumePending}
+      onOpenChange={changeOpen}
+    >
       <DialogTrigger asChild>
         <Button
           type="button"

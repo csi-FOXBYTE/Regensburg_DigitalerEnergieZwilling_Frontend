@@ -85,8 +85,29 @@ test.describe('responsive entry flow', () => {
 
   test.beforeEach(async ({ page }) => {
     await page.addInitScript(() => {
-      localStorage.setItem('map-help-seen', '1');
-      localStorage.setItem('det_methodology_notice_seen_v1', 'true');
+      const now = Date.now();
+      const day = 24 * 60 * 60 * 1000;
+      localStorage.setItem(
+        'det_consent',
+        JSON.stringify({
+          version: 1,
+          purposeVersion: 1,
+          choices: { functional: true },
+          decidedAt: now,
+          expiresAt: now + 180 * day,
+        }),
+      );
+      for (const key of ['map-help-seen', 'det_methodology_notice_seen_v1']) {
+        localStorage.setItem(
+          key,
+          JSON.stringify({
+            version: 1,
+            savedAt: now,
+            expiresAt: now + 90 * day,
+            value: true,
+          }),
+        );
+      }
     });
     await page.goto('/de/');
   });

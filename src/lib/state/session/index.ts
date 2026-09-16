@@ -4,8 +4,15 @@ import {
   getCameraTarget,
   requestCamera,
 } from '../../camera-state';
-import { $building } from '../building';
 import {
+  $building,
+  beforeBuildingChange,
+  sessionTransition,
+  setBuildingState,
+} from '../building';
+import { isSavedSession } from './restore-codec';
+import {
+  hydrateInputs,
   $inputState,
   $selectedHeatingRenovations,
   $selectedHeatingSurfaceRenovations,
@@ -14,14 +21,16 @@ import {
 import {
   $maxStepReached,
   $step,
-  navigateToStep,
   setStep,
+  navigateToStep,
   Step,
 } from '../ui/progress';
 import {
   getMeta,
   getSession,
   saveRawSession,
+  sessionStorage,
+  clearSession,
   setMeta,
   type SavedSession,
 } from './storage';
@@ -112,45 +121,32 @@ export function getCurrentSessionSnapshot(): SavedSession | null {
 }
 
 export function saveSession(): void {
-  const building = $building.get();
-  const step = $step.get();
-
-  if (!building && step === Step.Welcome) return;
-
-  console.log(
-    '[session] saveSession — step:',
-    step,
-    'building:',
-    building?.id ?? null,
-  );
-  setMeta({ lastActiveBuildingId: building?.id ?? null, step });
-
-  if (step < Step.GeneralData || !building) {
-    console.log(
-      '[session] saveSession — meta only (step < GeneralData or no building)',
-    );
-    return;
-  }
-
   const session = getCurrentSessionSnapshot();
-  if (!session) return;
-
-  console.log('[session] saveSession — writing full blob for', building.id);
-  saveRawSession(building.id, session);
+  if (session) saveRawSession(session.building.id, session);
 }
 
+beforeBuildingChange(saveSession);
+
 export function loadSession(buildingId: string): void {
-  console.log('[session] loadSession —', buildingId);
   const session = getSession(buildingId);
-  if (!session) {
-    console.log('[session] loadSession — no session found');
-    return;
-  }
-  loadSessionFromData(session);
+  if (session) loadSessionFromData(session);
+}
+
+export function startOverSession(buildingId: string): void {
+  sessionTransition(() => {
+    clearSession(buildingId);
+    hydrateInputs(null);
+    if (typeof history !== 'undefined') navigateToStep(Step.GeneralData);
+    setStep(Step.GeneralData);
+    $maxStepReached.set(Step.GeneralData);
+  });
+  saveSession();
+  sessionStorage.flush();
 }
 
 export function loadSessionFromData(session: SavedSession): void {
-  console.log('[session] loadSessionFromData — step:', session.step);
+  if (!isSavedSession(session)) throw new Error('Invalid restoration session');
+  session = structuredClone(session);
   const target = resolveSessionCameraTarget(session);
   const migratedSession = {
     ...session,
@@ -166,10 +162,14 @@ export function loadSessionFromData(session: SavedSession): void {
         }
       : {}),
   };
-  saveRawSession(session.building.id, migratedSession);
+  setBuildingState(session.building, () => {
+    hydrateInputs(migratedSession);
+    if (typeof history !== 'undefined') navigateToStep(session.step);
+    setStep(session.step);
+  });
+  saveRawSession(session.building.id, migratedSession, true);
   setMeta({ lastActiveBuildingId: session.building.id, step: session.step });
-  $building.set(session.building);
-  navigateToStep(session.step);
+  sessionStorage.flush();
   if (target) {
     requestCamera({
       type: 'focus',
@@ -181,28 +181,16 @@ export function loadSessionFromData(session: SavedSession): void {
 
 export function getLastActiveSession() {
   const meta = getMeta();
-  console.log('[session] getLastActiveSession — meta:', meta);
   if (
     !meta.lastActiveBuildingId ||
     meta.step === null ||
     meta.step < Step.GeneralData
-  ) {
-    console.log('[session] getLastActiveSession — no resumable session');
+  )
     return null;
-  }
-  const session = getSession(meta.lastActiveBuildingId);
-  if (!session) {
-    console.log(
-      '[session] getLastActiveSession — blob missing, clearing stale meta',
-    );
-    setMeta({ lastActiveBuildingId: null, step: null });
-    return null;
-  }
-  console.log('[session] getLastActiveSession — found');
-  return session;
+  return getSession(meta.lastActiveBuildingId);
 }
 
 export function clearLastActive(): void {
-  console.log('[session] clearLastActive');
   setMeta({ lastActiveBuildingId: null, step: null });
+  sessionStorage.flush();
 }

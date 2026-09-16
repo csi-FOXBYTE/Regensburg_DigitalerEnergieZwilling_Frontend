@@ -18,20 +18,9 @@ import {
   type BuildingState,
   unselectBuilding,
 } from '../../lib/state/building';
-import {
-  $inputState,
-  $selectedHeatingRenovations,
-  $selectedHeatingSurfaceRenovations,
-  $selectedInsulationRenovations,
-  emptyInputState,
-} from '../../lib/state/inputs/atoms';
-import { clearSession, getSession } from '../../lib/state/session/storage';
-import {
-  $step,
-  navigateToStep,
-  setMaxStepReached,
-  Step,
-} from '../../lib/state/ui/progress';
+import { getSession } from '../../lib/state/session/storage';
+import { loadSession, startOverSession } from '../../lib/state/session';
+import { $step, navigateToStep, Step } from '../../lib/state/ui/progress';
 import useIsMobile from '../../lib/useIsMobile';
 import { cn } from '../../lib/utils';
 import CurrentStats from '../energyCalculation/CurrentStats';
@@ -52,13 +41,7 @@ function BuildingWindowContent({
   const showStats = session != null && session.step > Step.GeneralData;
 
   const handleStartOver = () => {
-    clearSession(building.id);
-    $inputState.set(emptyInputState());
-    $selectedInsulationRenovations.set([]);
-    $selectedHeatingSurfaceRenovations.set([]);
-    $selectedHeatingRenovations.set([]);
-    setMaxStepReached(Step.GeneralData);
-    navigateToStep(Step.GeneralData);
+    startOverSession(building.id);
   };
 
   return (
@@ -96,7 +79,7 @@ function BuildingWindowContent({
         {session ? (
           <>
             <Button
-              onClick={() => navigateToStep(session.step)}
+              onClick={() => loadSession(building.id)}
               className="flex w-full items-center gap-2"
             >
               {t('buildingWindow.sessionContinueButton')}

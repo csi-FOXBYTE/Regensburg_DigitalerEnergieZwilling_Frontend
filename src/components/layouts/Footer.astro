@@ -5,6 +5,12 @@ import { getRelativeLocaleUrl } from 'astro:i18n';
 import i18n from 'i18next';
 import { resolveLocale } from '@/i18n/config';
 import FeedbackButton from './FeedbackButton';
+import ConsentDialog from '@/feature/consent/ConsentDialog';
+
+interface Props {
+  autoPromptConsent?: boolean;
+}
+const { autoPromptConsent = false } = Astro.props;
 
 const locale = resolveLocale(Astro.currentLocale);
 const imprintHref = getRelativeLocaleUrl(locale, 'imprint');
@@ -30,12 +36,11 @@ const privacyHref = getRelativeLocaleUrl(locale, 'privacy');
           >
         </li>
         <li>
-          <button
-            type="button"
-            class="hover:text-primary cursor-pointer border-0 bg-transparent p-0 transition-colors"
-          >
-            {i18n.t('common:footer.cookieSettings')}
-          </button>
+          <ConsentDialog
+            client:load
+            autoPrompt={autoPromptConsent}
+            locale={locale}
+          />
         </li>
       </ul>
     </nav>

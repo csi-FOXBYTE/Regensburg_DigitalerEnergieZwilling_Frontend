@@ -1,3 +1,10 @@
+import {
+  $automaticDialog,
+  $consentView,
+  $resumePending,
+} from '@/lib/consent/dialog-state';
+import { hasSeenNotice, markNoticeSeen } from '@/lib/state/session/storage';
+import { $step, Step } from '@/lib/state/ui/progress';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -145,15 +152,44 @@ export function MapHelp() {
   const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const cameraStatus = useStore($cameraStatus);
+  const consentView = useStore($consentView);
+  const resumePending = useStore($resumePending);
+  const automaticDialog = useStore($automaticDialog);
+  const step = useStore($step);
 
   useEffect(() => {
     setMounted(true);
     setIsMobile(window.matchMedia('(pointer: coarse)').matches);
-    if (!localStorage.getItem(STORAGE_KEY)) {
-      localStorage.setItem(STORAGE_KEY, '1');
+  }, []);
+
+  useEffect(() => {
+    if (
+      consentView !== 'closed' ||
+      resumePending ||
+      step !== Step.Building ||
+      $automaticDialog.get()
+    )
+      return;
+    if (!hasSeenNotice(STORAGE_KEY)) {
+      $automaticDialog.set('mapHelp');
+      markNoticeSeen(STORAGE_KEY);
       setOpen(true);
     }
-  }, []);
+  }, [consentView, resumePending, step, automaticDialog]);
+
+  useEffect(
+    () => () => {
+      if ($automaticDialog.get() === 'mapHelp') $automaticDialog.set(null);
+    },
+    [],
+  );
+
+  const changeOpen = (next: boolean) => {
+    if (next && $automaticDialog.get() && $automaticDialog.get() !== 'mapHelp')
+      return;
+    setOpen(next);
+    $automaticDialog.set(next ? 'mapHelp' : null);
+  };
 
   return (
     <>
@@ -162,13 +198,16 @@ export function MapHelp() {
           variant="ghost"
           size="icon"
           className="rounded-floating-control bg-white hover:bg-neutral-100"
-          onClick={() => setOpen(true)}
+          onClick={() => changeOpen(true)}
           aria-label={t('mapHelp.ariaLabelButton')}
         >
           <span className="text-xl leading-none font-bold">?</span>
         </Button>
       )}
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog
+        open={open && consentView === 'closed' && !resumePending}
+        onOpenChange={changeOpen}
+      >
         <DialogContent>
           <DialogHeader>
             <DialogTitle>{t('mapHelp.mapControls')}</DialogTitle>
