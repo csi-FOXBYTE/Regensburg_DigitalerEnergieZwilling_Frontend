@@ -82,10 +82,10 @@
         "area": "Geben Sie die gesamte Fläche Ihres Dachs an, ohne Abzug von Fensterflächen. Je größer die Fläche, desto wichtiger ist eine gute Dämmung.",
         "constructionTypeTitle": "Dachformen",
         "constructionTypeContent": "Ein Flachdach ist nahezu eben oder nur leicht geneigt. Ein Schrägdach besitzt eine deutlich sichtbare Dachneigung, z. B. ein Satteldach oder Walmdach. Die Dachform beeinflusst sowohl die Dachfläche als auch den Wärmeverlust eines Gebäudes: Flachdächer (typisch massive Bauweise) haben bei gleicher Grundfläche eine geringere Fläche als Schrägdächer (typisch Holzbauweise) und damit andere energetische Eigenschaften.",
-        "constructionTypeGabledRoof": "Satteldach",
+        "constructionTypeGabledRoof": "Schrägdach",
         "constructionTypeFlatRoof": "Flachdach",
         "hasAttic": "Geben Sie an, ob Ihr Gebäude einen zugänglichen Dachraum (Dachboden) hat. Ein vorhandener Dachraum beeinflusst die Dämmung der obersten Geschossdecke und damit den Wärmeverlust des Gebäudes nach oben.",
-        "isAtticHeated": "Geben Sie an, ob der Raum direkt unter dem Dach beheizt wird.",
+        "isAtticHeated": "Geben Sie an, ob der Raum direkt unter dem Dach (Dachboden) beheizt wird.",
         "hasInsulation": "Eine vorhandene Dämmung reduziert den Wärmeverlust erheblich. Ohne Dämmung gehen über das Dach bis zu 30 % der Heizwärme verloren.",
         "insulationThickness": "Eine dickere Dämmschicht erhöht die energetische Effizienz des Gebäudes. Je nach Alter der Dämmung sind zwischen 6 cm und 20 cm üblich.",
         "insulationTypeTitle": "Art der Dachdämmung",
@@ -93,7 +93,7 @@
       },
       "info": {
         "title": "Dach",
-        "description": "Platzhaltertext: Das Dach schließt das Gebäude nach oben ab und grenzt an die Außenluft. In der Grafik ist der Bauteil rot hervorgehoben. Hier folgt später eine ausführliche Erklärung.",
+        "description": "Das Dach schließt das Gebäude nach oben ab und grenzt an die Außenluft. In der Grafik ist der Bauteil rot hervorgehoben.",
         "imageAlt": "Schematisches Gebäude mit rot hervorgehobenem Dach"
       }
     },
@@ -107,14 +107,14 @@
         "year": "Gemeint ist zum Beispiel der Austausch gegen besser gedämmte Dachfenster oder eine Verbesserung von Verglasung, Rahmen oder Anschluss. Nicht gemeint sind reine Reparaturen, neue Farbe oder der Austausch einzelner Beschläge.",
         "area": "Geben Sie die gesamte Fläche aller Dachfenster an. Die Gesamtfläche aller Dachfenster beeinflusst den Wärmeverlust.",
         "windowType": "Holz- und Kunststoffrahmen dämmen gut. Aluminium- und Stahlrahmen leiten Kälte stärker und sind weniger energieeffizient.",
-        "uValue": "Der U-Wert gibt Auskunft darüber, wie gut ein Bauteil dämmt. Niedrigere Werte bedeuten bessere Dämmung. Alte Einfachfenster haben etwa 5,0 W/m²K. Moderne Dreifachfenster liegen bei etwa 0,7 W/m²K. Den U-Wert finden Sie in den Unterlagen Ihrer Fenster oder auf dem Typenschild."
+        "uValue": "Der U-Wert gibt Auskunft darüber, wie viel Wärme durch ein Bauteil an die Umgebung verloren gehen kann. Niedrigere Werte bedeuten bessere Dämmung. Alte Einfachfenster haben etwa 5,0 W/m²K. Moderne Dreifachfenster liegen bei etwa 0,7 W/m²K. Den U-Wert finden Sie in den Unterlagen Ihrer Fenster oder auf dem Typenschild."
       },
       "errors": {
         "areaExceedsRoofArea": "Die Dachfensterfläche darf nicht größer als die Dachfläche sein."
       },
       "info": {
         "title": "Dachfenster",
-        "description": "Platzhaltertext: Dachfenster sind die in der Dachfläche eingebauten Fenster. In der Grafik sind die Bauteile rot hervorgehoben. Hier folgt später eine ausführliche Erklärung.",
+        "description": "Dachfenster sind die in der Dachfläche eingebauten Fenster. Nicht damit gemeint sind Fenster in der Außenwand, z. B. im Giebel. In der Grafik sind die Bauteile rot hervorgehoben.",
         "imageAlt": "Schematisches Gebäude mit rot hervorgehobenen Dachfenstern"
       }
     },
@@ -137,32 +137,32 @@
       },
       "info": {
         "title": "Obere Geschossdecke",
-        "description": "Platzhaltertext: Die obere Geschossdecke trennt den beheizten Wohnraum vom unbeheizten Dachraum. In der Grafik ist der Bauteil rot hervorgehoben. Hier folgt später eine ausführliche Erklärung.",
+        "description": "Die obere Geschossdecke trennt den beheizten Wohnraum vom unbeheizten Dachraum. In der Grafik ist der Bauteil rot hervorgehoben.",
         "imageAlt": "Schematisches Gebäude mit rot hervorgehobener oberer Geschossdecke"
       }
     },
     "outerWall": {
       "outerWall": "Außenwand",
       "year": "Wann wurde Ihre Außenwand zuletzt wesentlich neu aufgebaut oder konstruktiv verändert?",
-      "area": "Wie groß ist die Fläche Ihrer freistehenden Außenwand?",
+      "area": "Wie groß ist die Fläche Ihrer beheizten, freistehenden Außenwand?",
       "constructionType": "Welche Bauweise hat Ihre Außenwand?",
       "hasInsulation": "Ist Ihre Außenwand gedämmt?",
       "insulationThickness": "Welche Dicke hat die aktuelle Dämmung?",
       "adjacentWallArea": "Wie groß ist die Wandfläche, die direkt an benachbarte Gebäude grenzt?",
       "tooltips": {
         "year": "Gemeint ist, ob die Wand selbst konstruktiv verändert oder mit anderen Materialien neu aufgebaut wurde, zum Beispiel durch eine neue Wandkonstruktion. Neue Farbe, neuer Putz oder eine nachträgliche Dämmung zählen hier nicht dazu.",
-        "area": "Geben Sie die Wandfläche der beheizten Geschosse an, einschließlich Fensterflächen und Wänden zu Nachbargebäuden. Dachraumwände zählen nur bei beheiztem Dachraum dazu. Eine manuelle Eingabe ersetzt die geschätzte Fläche.",
+        "area": "Geben Sie die freistehenden Wandfläche aller oberirdischen beheizten Geschosse an, einschließlich Fensterflächen. Wänden, die mit Nachbargebäuden geteilt werden gehören nicht dazu. Dachraumwände zählen nur bei beheiztem Dachraum dazu. Eine manuelle Eingabe ersetzt die geschätzte Fläche.",
         "constructionType": "Massivwände (z. B. Ziegel oder Beton) speichern Wärme gut.",
         "hasInsulation": "Durch ungedämmte Außenwände gehen bis zu 40 % der Heizwärme verloren. Eine Dämmung senkt die Heizkosten erheblich.",
         "insulationThickness": "Eine dickere Dämmschicht erhöht die energetische Effizienz des Gebäudes. Je nach Alter der Dämmung sind zwischen 4 cm und 14 cm üblich.",
-        "adjacentWallArea": "Gemeint ist die Wandfläche, die direkt an ein Nachbargebäude anschließt, einschließlich der Wände eines unbeheizten Dachraums. Diese Angabe verringert derzeit nicht den berechneten Wärmeverlust."
+        "adjacentWallArea": "Gemeint ist die Wandfläche, die direkt an benachbarte Gebäude anschließt, einschließlich der Wände eines unbeheizten Dachraums. Bei der automatisch geschätzten Außenwandfläche sind diese Flächen bereits abgezogen. Eine manuelle Änderung dieser Angabe beeinflusst die Berechnung derzeit nicht."
       },
       "errors": {
         "adjacentAreaExceedsWallArea": "Die angrenzende Wandfläche darf nicht größer als die gesamte Wandfläche des Gebäudes einschließlich der Dachraumwände sein."
       },
       "info": {
         "title": "Außenwand",
-        "description": "Platzhaltertext: Die Außenwände umschließen den beheizten Bereich des Gebäudes und grenzen an die Außenluft. In der Grafik sind die Bauteile rot hervorgehoben. Hier folgt später eine ausführliche Erklärung.",
+        "description": "Die Außenwände umschließen den beheizten Bereich des Gebäudes und grenzen an die Außenluft. In der Grafik sind die Bauteile rot hervorgehoben.",
         "imageAlt": "Schematisches Gebäude mit rot hervorgehobenen Außenwänden"
       }
     },
@@ -176,21 +176,21 @@
         "year": "Gemeint ist zum Beispiel der Austausch gegen besser gedämmte Fenster oder eine Verbesserung von Verglasung, Rahmen oder Einbauanschluss. Nicht gemeint sind neue Farbe, neue Griffe, Reparaturen oder der Austausch einzelner Beschläge.",
         "area": "Geben Sie die Gesamtfläche aller Fenster an. Die Gesamtfläche aller Fenster beeinflusst den Wärmeverlust durch die Gebäudehülle.",
         "windowType": "Holz- und Kunststoffrahmen dämmen gut. Aluminium- und Stahlrahmen leiten Kälte stärker und sind weniger energieeffizient.",
-        "uValue": "Der U-Wert gibt Auskunft darüber, wie gut ein Bauteil dämmt. Niedrigere Werte bedeuten bessere Dämmung. Alte Einfachfenster haben etwa 5,0 W/m²K. Moderne Dreifachfenster liegen bei etwa 0,7 W/m²K. Den U-Wert finden Sie in den Unterlagen Ihrer Fenster oder auf dem Typenschild."
+        "uValue": "Der U-Wert gibt Auskunft darüber, wie viel Wärme durch ein Bauteil an die Umgebung verloren gehen kann. Niedrigere Werte bedeuten bessere Dämmung. Alte Einfachfenster haben etwa 5,0 W/m²K. Moderne Dreifachfenster liegen bei etwa 0,7 W/m²K. Den U-Wert finden Sie in den Unterlagen Ihrer Fenster oder auf dem Typenschild."
       },
       "errors": {
         "areaExceedsAvailableWallArea": "Die Fensterfläche darf nicht größer als die Wandfläche der beheizten Geschosse sein."
       },
       "info": {
         "title": "Fenster",
-        "description": "Platzhaltertext: Zu den Fenstern zählen alle verglasten Flächen sowie die Außentüren in den Außenwänden. In der Grafik sind die Bauteile rot hervorgehoben. Hier folgt später eine ausführliche Erklärung.",
+        "description": "Zu den Fenstern zählen alle verglasten Flächen sowie die Außentüren in den Außenwänden. Nicht damit gemeints sind Fenster in der Dachfläche.In der Grafik sind die Bauteile rot hervorgehoben.",
         "imageAlt": "Schematisches Gebäude mit rot hervorgehobenen Fenstern und Außentür"
       }
     },
     "bottomFloor": {
       "bottomFloor": "Unterste Geschossdecke",
       "tooltips": {
-        "hasBasement": "Geben Sie an, ob Ihr Gebäude einen Keller hat. Ein Keller unter den Wohnräumen beeinflusst die Wärmedämmung und damit Ihren Energiebedarf – besonders wenn er unbeheizt ist.",
+        "hasBasement": "Geben Sie an, ob Ihr Gebäude einen Keller hat. Ein Keller unter den Wohnräumen beeinflusst die Wärmedämmung und damit Ihren Energiebedarf, besonders wenn er unbeheizt ist.",
         "isBasementHeated": "Bei einem unbeheizten Keller ist die Dämmung der Kellerdecke besonders sinnvoll, damit keine Kälte in die Wohnräume aufsteigt.",
         "area": {
           "default": "Geben Sie die Fläche der Kellerdecke an. Die Fläche beeinflusst, wie viel Wärme über den unteren Gebäudeabschluss verloren gehen kann.",
@@ -203,9 +203,9 @@
           "noBasement": "Gemeint ist, ob die Decke zum Keller, Erdreich oder zu unbeheizten Bereichen konstruktiv erneuert oder mit anderen Materialien neu aufgebaut wurde. Neue Bodenbeläge oder eine zusätzliche Dämmung werden hier nicht berücksichtigt."
         },
         "constructionType": {
-          "default": "Massive Betondecken lassen sich gut dämmen und speichern Wärme besser. Holzbalkendecken haben andere Dämmeigenschaften.",
-          "heated": "Massive Betonböden lassen sich gut dämmen und speichern Wärme besser. Holzbalkenböden haben andere Dämmeigenschaften.",
-          "noBasement": "Massive Betonböden lassen sich gut dämmen und speichern Wärme besser. Holzbalkenböden haben andere Dämmeigenschaften."
+          "default": "Massive Betondecken lassen sich gut dämmen und speichern Wärme besser. Holzbalkendecken haben schlechtere Dämmeigenschaften.",
+          "heated": "Massive Betonböden lassen sich gut dämmen und speichern Wärme besser. Holzbalkenböden haben schlechtere Dämmeigenschaften.",
+          "noBasement": "Massive Betonböden lassen sich gut dämmen und speichern Wärme besser. Holzbalkenböden haben schlechtere Dämmeigenschaften."
         },
         "hasInsulation": {
           "default": "Eine Dämmung der Kellerdecke hilft, Wärme im Gebäude zu halten. Dadurch bleiben Fußböden wärmer und Heizkosten können reduziert werden.",
@@ -240,9 +240,9 @@
       "info": {
         "title": "Untere Geschossdecke",
         "description": {
-          "default": "Platzhaltertext: Bei einem unbeheizten Keller ist die Kellerdecke der untere Abschluss des beheizten Bereichs. In der Grafik ist der Bauteil rot hervorgehoben. Hier folgt später eine ausführliche Erklärung.",
-          "heated": "Platzhaltertext: Bei einem beheizten Keller ist der Kellerboden der untere Abschluss des beheizten Bereichs und grenzt an das Erdreich. In der Grafik ist der Bauteil rot hervorgehoben. Hier folgt später eine ausführliche Erklärung.",
-          "noBasement": "Platzhaltertext: Ohne Keller ist der Boden des Erdgeschosses der untere Abschluss des beheizten Bereichs und grenzt an das Erdreich. In der Grafik ist der Bauteil rot hervorgehoben. Hier folgt später eine ausführliche Erklärung."
+          "default": "Bei einem unbeheizten Keller ist die Kellerdecke der untere Abschluss des beheizten Bereichs. In der Grafik ist der Bauteil rot hervorgehoben.",
+          "heated": "Bei einem beheizten Keller ist der Kellerboden der untere Abschluss des beheizten Bereichs und grenzt an das Erdreich. In der Grafik ist der Bauteil rot hervorgehoben.",
+          "noBasement": "Bei einem Gebäude ohne Keller ist der Boden des Erdgeschosses der untere Abschluss des beheizten Bereichs und grenzt an das Erdreich. In der Grafik ist der Bauteil rot hervorgehoben."
         },
         "imageAlt": {
           "default": "Schematisches Gebäude mit rot hervorgehobener Kellerdecke über dem unbeheizten Keller",
@@ -271,8 +271,8 @@
       "heatingSurfaceType": "Wie wird die Wärme im Raum verteilt?",
       "tooltips": {
         "constructionYear": "Geben Sie das Jahr an, in dem Ihre aktuelle Heizungsanlage eingebaut wurde. Ältere Anlagen arbeiten oft weniger effizient und verbrauchen mehr Energie.",
-        "primaryEnergyCarrier": "Wählen Sie den Brennstoff Ihrer Heizung – zum Beispiel Erdgas, Heizöl oder Strom für eine Wärmepumpe.",
-        "heatingSystemType": "Gemeint ist das Gerät, das die Wärme erzeugt, zum Beispiel ein Brennwertkessel oder eine Wärmepumpe. Modernere Geräte verbrauchen in der Regel weniger Energie.",
+        "primaryEnergyCarrier": "Wählen Sie den Brennstoff Ihrer Heizung, z. B. zum Beispiel Erdgas, Heizöl oder Strom für eine Wärmepumpe.",
+        "heatingSystemType": "Gemeint ist das Gerät, das die Wärme erzeugt, z. B. ein Brennwertkessel oder eine Wärmepumpe. Modernere Geräte verbrauchen in der Regel weniger Energie.",
         "heatingSurfaceType": "Heizkörper sind die klassischen Radiatoren an der Wand. Eine Flächenheizung verteilt die Wärme über Boden, Wand oder Decke und arbeitet besonders effizient bei niedrigen Temperaturen."
       }
     },
@@ -293,7 +293,7 @@
     }
   },
   "electricity": {
-    "title": "Strom & erneuerbare Energien",
+    "title": "Strom und erneuerbare Energien",
     "electricity": "Strom",
     "type": "Welche Stromart beziehen Sie?",
     "consumption": "Wie hoch ist Ihr jährlicher Stromverbrauch?",
@@ -316,7 +316,7 @@
       "bottomFloor": "Kellerdecke",
       "outerWalls": "Außenwanddämmung",
       "outerWindows": "Fensteraustausch (Außenwand)",
-      "roofWindows": "Dachfensteraustausch"
+      "roofWindows": "Fensteraustausch (Dachfenster)"
     },
     "heating": {
       "title": "Heizung",
@@ -348,16 +348,16 @@
       "envelope_topFloor": "Über die oberste Geschossdecke geht oft viel Heizwärme verloren. Eine Dämmung dieser Fläche zählt zu den einfachsten und wirtschaftlichsten Sanierungsmaßnahmen. Die Berechnung wird nur berücksichtigt, wenn der Dachraum unbeheizt ist.",
       "envelope_bottomFloor": "Eine ungedämmte Kellerdecke kann zu kalten Fußböden und Wärmeverlusten führen. Die Dämmung ist vergleichsweise kostengünstig und meist mit geringem Aufwand umsetzbar.",
       "envelope_outerWalls": "Die Außenwände machen einen großen Teil der Gebäudehülle aus. Eine Dämmung reduziert Wärmeverluste deutlich und verbessert den Wohnkomfort.",
-      "envelope_outerWindows": "Ältere Fenster verursachen häufig hohe Wärmeverluste und Zugluft. Moderne Wärmeschutzfenster mit 3-fach-Verglasung verbessern die Energieeffizienz und den Wohnkomfort deutlich.",
+      "envelope_outerWindows": "Ältere Fenster verursachen häufig hohe Wärmeverluste und Zugluft. Moderne Wärmeschutzfenster mit Mehrfach-Verglasung verbessern die Energieeffizienz und den Wohnkomfort deutlich.",
       "envelope_roofWindows": "Ältere Dachfenster weisen oft hohe Wärmeverluste auf. Moderne Dachfenster mit Wärmeschutzverglasung reduzieren Zugluft und verbessern den Wohnkomfort im Dachgeschoss. Die Berechnung wird nur berücksichtigt, wenn der Dachraum beheizt ist.",
-      "heat_renew": "Die bestehende Heizung wird durch ein moderneres und effizienteres System ersetzt. Dadurch können Energieverbrauch und Heizkosten reduziert werden.",
+      "heat_renew": "Die bestehende Heizung wird durch ein moderneres und effizienteres System des gleichen Typs ersetzt. Dadurch können Energieverbrauch und Heizkosten reduziert werden.",
       "heat_none_air_source_heat_pump_lt_40": "Eine Luftwärmepumpe nutzt die Außenluft zum Heizen. Sie arbeitet besonders effizient in gut gedämmten Gebäuden und reduziert den Bedarf an fossilen Brennstoffen.",
       "heat_none_ground_source_heat_pump_lt_40": "Eine Erdwärmepumpe nutzt die Wärme aus dem Erdreich. Sie arbeitet sehr effizient, benötigt jedoch ausreichend Platz und ist mit höheren Investitionskosten verbunden.",
       "heat_wood_pellets_standard_boiler_70_55": "Holzpellets sind ein erneuerbarer Brennstoff aus gepresstem Holzabfall. Ein Pelletkessel verbrennt die Pellets effizient und bietet eine günstigere Alternative zu fossil beheizten Systemen.",
       "heat_natural_gas_improved_condensing_boiler_55_45": "Ein moderner Gasbrennwertkessel nutzt die im Abgas enthaltene Wärme und erreicht dadurch eine deutlich höhere Effizienz als herkömmliche Gasheizungen.",
       "heat_bio_gas_improved_condensing_boiler_55_45": "Biogas wird aus organischen Materialien gewonnen und ist eine erneuerbare Alternative zu fossilem Erdgas. Ein Biogaskessel reduziert die CO₂-Bilanz der Heizung erheblich.",
-      "heat_district_heating_district_heating_all_temperatures": "Fernwärme versorgt das Gebäude über das bestehende Wärmenetz mit Heizenergie. Eine eigene Heizungsanlage im Gebäude ist dabei meist nicht mehr erforderlich. Sofern ein Anschluss möglich ist, kann das Gebäude über das Fernwärmenetz versorgt werden.",
-      "surface_radiant_surface_heating": "Statt einzelner Heizkörper erwärmt eine Flächenheizung Boden, Wand oder Decke gleichmäßiger. Dadurch kann die Heizung oft mit niedrigeren Temperaturen arbeiten und verbraucht meist weniger Energie.",
+      "heat_district_heating_district_heating_all_temperatures": "Fernwärme versorgt das Gebäude über das bestehende kommunale Wärmenetz mit Heizenergie. Eine eigene Heizungsanlage im Gebäude ist dabei meist nicht mehr erforderlich. Sofern ein Anschluss möglich ist, kann das Gebäude über das Fernwärmenetz versorgt werden.",
+      "surface_radiant_surface_heating": "Statt einzelner Heizkörper erwärmt eine Flächenheizung Boden, Wand oder Decke in Wohnräumen gleichmäßiger. Dadurch kann die Heizung oft mit niedrigeren Temperaturen arbeiten und verbraucht meist weniger Energie.",
       "noMeasureHeating": "Die bestehende Heizungsanlage bleibt unverändert."
     }
   },
