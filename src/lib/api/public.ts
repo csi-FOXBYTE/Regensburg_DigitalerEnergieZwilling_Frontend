@@ -2,6 +2,18 @@ export type SubmissionResult = {
   deletionToken: string;
 };
 
+export type DeletionReceipt = {
+  version: 1;
+  auditEventId: string;
+  deletedAt: string;
+  action: 'SUBMISSION_DELETE' | 'BUILDING_SUBMISSIONS_DELETE';
+  actorType: 'ADMIN' | 'PUBLIC_CAPABILITY';
+  targetType: 'SUBMISSION' | 'BUILDING';
+  targetId: string;
+  deletedCount: number;
+  verificationSecret: string;
+};
+
 export type MapResources = {
   terrainBaseUrl: string;
   tilesBaseUrl: string;
@@ -71,7 +83,32 @@ export async function checkSubmissionAvailability(
   if (result.available !== true) throw new Error('Malformed status response');
 }
 
-export async function deleteSubmission(token: string): Promise<void> {
+function parseDeletionReceipt(value: unknown): DeletionReceipt {
+  if (typeof value !== 'object' || value === null) {
+    throw new Error('Malformed deletion receipt');
+  }
+  const receipt = value as Partial<DeletionReceipt>;
+  if (
+    receipt.version !== 1 ||
+    typeof receipt.auditEventId !== 'string' ||
+    typeof receipt.deletedAt !== 'string' ||
+    receipt.action !== 'SUBMISSION_DELETE' ||
+    receipt.actorType !== 'PUBLIC_CAPABILITY' ||
+    receipt.targetType !== 'SUBMISSION' ||
+    typeof receipt.targetId !== 'string' ||
+    receipt.targetId.length === 0 ||
+    receipt.deletedCount !== 1 ||
+    typeof receipt.verificationSecret !== 'string' ||
+    receipt.verificationSecret.length !== 43
+  ) {
+    throw new Error('Malformed deletion receipt');
+  }
+  return receipt as DeletionReceipt;
+}
+
+export async function deleteSubmission(
+  token: string,
+): Promise<DeletionReceipt> {
   const res = await fetch(submissionUrl(token), {
     method: 'DELETE',
     cache: 'no-store',
@@ -79,8 +116,26 @@ export async function deleteSubmission(token: string): Promise<void> {
   if (res.status === 404) throw new SubmissionUnavailableError();
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-  const result = (await res.json()) as { success?: unknown };
+  const result = (await res.json()) as { success?: unknown; receipt?: unknown };
   if (result.success !== true) throw new Error('Malformed deletion response');
+  return parseDeletionReceipt(result.receipt);
+}
+
+export async function verifyDeletionReceipt(
+  receipt: DeletionReceipt,
+): Promise<boolean> {
+  const res = await fetch('/api/public/submissions/deletion-receipts/verify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(receipt),
+    cache: 'no-store',
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const result = (await res.json()) as { valid?: unknown };
+  if (typeof result.valid !== 'boolean') {
+    throw new Error('Malformed deletion receipt verification response');
+  }
+  return result.valid;
 }
 
 export async function submitEnergyData(params: {

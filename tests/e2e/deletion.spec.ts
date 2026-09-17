@@ -1,5 +1,17 @@
 import { expect, test } from '@playwright/test';
 
+const deletionReceipt = {
+  version: 1,
+  auditEventId: '11111111-1111-4111-8111-111111111111',
+  deletedAt: '2026-09-17T12:00:00.000Z',
+  action: 'SUBMISSION_DELETE',
+  actorType: 'PUBLIC_CAPABILITY',
+  targetType: 'SUBMISSION',
+  targetId: 'submission-1',
+  deletedCount: 1,
+  verificationSecret: 'a'.repeat(43),
+};
+
 test.describe('submission deletion links', () => {
   test('checks availability, cancels persistently, and stays on the page', async ({
     page,
@@ -32,7 +44,9 @@ test.describe('submission deletion links', () => {
     );
     await page.route('**/api/public/submissions/test-token', async (route) => {
       if (route.request().method() === 'DELETE') deleteRequests += 1;
-      await route.fulfill({ json: { success: true } });
+      await route.fulfill({
+        json: { success: true, receipt: deletionReceipt },
+      });
     });
 
     await page.goto('/en/delete/test-token');
@@ -45,6 +59,15 @@ test.describe('submission deletion links', () => {
       ),
     ).toBeVisible();
     expect(deleteRequests).toBe(1);
+    await expect(page.getByText(deletionReceipt.auditEventId)).toBeVisible();
+    const downloadPromise = page.waitForEvent('download');
+    await page
+      .getByRole('button', { name: 'Download deletion receipt' })
+      .click();
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toBe(
+      `deletion-receipt-${deletionReceipt.auditEventId}.json`,
+    );
     await expect(page).toHaveURL(/\/en\/delete\/test-token$/);
   });
 
