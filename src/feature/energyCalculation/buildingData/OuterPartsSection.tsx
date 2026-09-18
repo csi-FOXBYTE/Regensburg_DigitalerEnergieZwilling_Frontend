@@ -21,6 +21,10 @@ import {
 } from './BuildingDataSection';
 import { MISSING_VALUE, useBuildingDataFormat } from './useBuildingDataFormat';
 
+function metersToCentimeters(value: number | null | undefined) {
+  return value == null ? value : value * 100;
+}
+
 function RoofGroup() {
   const { t } = useTranslation('energyCalculation');
   const format = useBuildingDataFormat();
@@ -78,7 +82,11 @@ function RoofGroup() {
         <>
           <BuildingDataValue
             label={t('export.labels.roof.insulationThickness')}
-            value={format.number(roof.insulationThickness, 2, 'm')}
+            value={format.number(
+              metersToCentimeters(roof.insulationThickness),
+              0,
+              'cm',
+            )}
           />
           <BuildingDataValue
             label={t('export.labels.roof.insulationType')}
@@ -124,7 +132,11 @@ function TopFloorGroup() {
       {topFloor.hasInsulation && (
         <BuildingDataValue
           label={t('export.labels.topFloor.insulationThickness')}
-          value={format.number(topFloor.insulationThickness, 2, 'm')}
+          value={format.number(
+            metersToCentimeters(topFloor.insulationThickness),
+            0,
+            'cm',
+          )}
         />
       )}
     </BuildingDataGroup>
@@ -205,7 +217,11 @@ function OuterWallGroup() {
           {outerWall.hasInsulation && (
             <BuildingDataValue
               label={t('export.labels.outerWall.insulationThickness')}
-              value={format.number(outerWall.insulationThickness, 2, 'm')}
+              value={format.number(
+                metersToCentimeters(outerWall.insulationThickness),
+                0,
+                'cm',
+              )}
             />
           )}
         </>
@@ -297,7 +313,11 @@ function BottomFloorGroup() {
       {bottomFloor.hasInsulation && (
         <BuildingDataValue
           label={t('export.labels.bottomFloor.insulationThickness')}
-          value={format.number(bottomFloor.insulationThickness, 2, 'm')}
+          value={format.number(
+            metersToCentimeters(bottomFloor.insulationThickness),
+            0,
+            'cm',
+          )}
         />
       )}
     </BuildingDataGroup>

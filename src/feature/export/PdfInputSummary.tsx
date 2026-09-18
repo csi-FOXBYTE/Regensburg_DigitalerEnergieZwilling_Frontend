@@ -33,6 +33,10 @@ function fmt(
   return unit ? `${n} ${unit}` : n;
 }
 
+function metersToCentimeters(value: number | null | undefined) {
+  return value == null ? value : value * 100;
+}
+
 function fmtRange(key: RangeKey | null | undefined): string {
   if (!key) return '–';
   const r = key as { from?: number; to?: number };
@@ -198,7 +202,11 @@ export function PdfInputSummary() {
                 <>
                   <PdfLabeledValue
                     label={ec('export.labels.roof.insulationThickness')}
-                    value={fmt(roof.insulationThickness, 2, 'm')}
+                    value={fmt(
+                      metersToCentimeters(roof.insulationThickness),
+                      0,
+                      'cm',
+                    )}
                   />
                   <PdfLabeledValue
                     label={ec('export.labels.roof.insulationType')}
@@ -249,7 +257,11 @@ export function PdfInputSummary() {
               {topFloor.hasInsulation && (
                 <PdfLabeledValue
                   label={ec('export.labels.topFloor.insulationThickness')}
-                  value={fmt(topFloor.insulationThickness, 2, 'm')}
+                  value={fmt(
+                    metersToCentimeters(topFloor.insulationThickness),
+                    0,
+                    'cm',
+                  )}
                 />
               )}
             </View>
@@ -322,7 +334,11 @@ export function PdfInputSummary() {
                 {outerWall.hasInsulation && (
                   <PdfLabeledValue
                     label={ec('export.labels.outerWall.insulationThickness')}
-                    value={fmt(outerWall.insulationThickness, 2, 'm')}
+                    value={fmt(
+                      metersToCentimeters(outerWall.insulationThickness),
+                      0,
+                      'cm',
+                    )}
                   />
                 )}
               </>
@@ -397,7 +413,11 @@ export function PdfInputSummary() {
             {bottomFloor.hasInsulation && (
               <PdfLabeledValue
                 label={ec('export.labels.bottomFloor.insulationThickness')}
-                value={fmt(bottomFloor.insulationThickness, 2, 'm')}
+                value={fmt(
+                  metersToCentimeters(bottomFloor.insulationThickness),
+                  0,
+                  'cm',
+                )}
               />
             )}
           </View>
