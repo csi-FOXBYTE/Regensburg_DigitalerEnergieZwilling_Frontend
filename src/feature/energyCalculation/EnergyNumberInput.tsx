@@ -16,6 +16,7 @@ type EnergyNumberInputProps = Omit<
   field: Pick<FieldStore<number | null | undefined>, '$store' | '$placeholder' | 'resettable'> & {
     setValue: (value: number | undefined) => void;
   };
+  displayFactor?: number;
   labelKey?: ParseKeys<'energyCalculation'>;
   info?: ReactNode;
   error?: ReactNode;
@@ -24,6 +25,7 @@ type EnergyNumberInputProps = Omit<
 
 export default function EnergyNumberInput({
   field,
+  displayFactor = 1,
   labelKey,
   info,
   error,
@@ -39,11 +41,13 @@ export default function EnergyNumberInput({
     [providedDescribedBy, error ? errorId : undefined]
       .filter(Boolean)
       .join(' ') || undefined;
-  const value = useStore(field.$store);
-  const placeholder = useStore(field.$placeholder);
+  const storedValue = useStore(field.$store);
+  const storedPlaceholder = useStore(field.$placeholder);
+  const displayValue = storedValue != null ? storedValue * displayFactor : '';
+  const displayPlaceholder = storedPlaceholder != null ? storedPlaceholder * displayFactor : undefined;
   const { decimalScale, suffix } = props;
-  const placeholderStr = placeholder != null
-    ? `${placeholder.toLocaleString('de-DE', {
+  const placeholderStr = displayPlaceholder != null
+    ? `${displayPlaceholder.toLocaleString('de-DE', {
         minimumFractionDigits: decimalScale,
         maximumFractionDigits: decimalScale,
       })}${suffix ?? ''}`
@@ -59,19 +63,19 @@ export default function EnergyNumberInput({
       info={info}
       error={error}
       onReset={field.resettable ? () => field.setValue(undefined) : undefined}
-      resetDisabled={value == null}
+      resetDisabled={storedValue == null}
       className={className}
       labelFor={inputId}
       errorId={errorId}
     >
       <NumberInput
         id={inputId}
-        value={value ?? ''}
-        onValueChange={(values) => field.setValue(values.floatValue)}
+        value={displayValue ?? ''}
+        onValueChange={(values) => field.setValue(values.floatValue == null ? undefined : values.floatValue / displayFactor)}
         placeholder={paddedPlaceholder}
         className={cn(
           'placeholder:italic',
-          value != null && 'border-neutral-450',
+          storedValue != null && 'border-neutral-450',
         )}
         aria-invalid={error ? true : undefined}
         aria-describedby={describedBy}

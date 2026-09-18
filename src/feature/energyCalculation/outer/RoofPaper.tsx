@@ -143,8 +143,9 @@ export default function RoofPaper() {
             <EnergyNumberInput
               field={roofInsulationThicknessField}
               labelKey="outerParts.roof.insulationThickness"
-              suffix=" m"
-              decimalScale={2}
+              displayFactor={100}
+              suffix=" cm"
+              decimalScale={0}
               allowNegative={false}
               className="col-start-1"
               info={

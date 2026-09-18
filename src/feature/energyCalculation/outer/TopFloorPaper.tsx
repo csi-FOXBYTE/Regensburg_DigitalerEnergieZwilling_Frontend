@@ -120,8 +120,9 @@ export default function TopFloorPaper() {
           <EnergyNumberInput
             field={topFloorInsulationThicknessField}
             labelKey="outerParts.topFloor.insulationThickness"
-            suffix=" m"
-            decimalScale={2}
+            displayFactor={100}
+            suffix=" cm"
+            decimalScale={0}
             allowNegative={false}
             className="col-start-1"
             info={

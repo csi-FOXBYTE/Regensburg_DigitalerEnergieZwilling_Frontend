@@ -124,8 +124,9 @@ export default function BottomFloorPaper() {
           <EnergyNumberInput
             field={bottomFloorInsulationThicknessField}
             labelKey="outerParts.bottomFloor.insulationThickness"
-            suffix=" m"
-            decimalScale={2}
+            displayFactor={100}
+            suffix=" cm"
+            decimalScale={0}
             allowNegative={false}
             className="col-start-1"
             info={
