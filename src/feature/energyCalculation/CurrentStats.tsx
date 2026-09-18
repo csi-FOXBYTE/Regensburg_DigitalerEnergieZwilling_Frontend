@@ -67,9 +67,9 @@ function CurrentStatsCard({
       </div>
       <div>
         <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-          <Typography variant={'h3'} className="text-[30px] font-bold">
-            {value}
-            {unit && <span className="ml-1 text-base">{unit}</span>}
+          <Typography variant={'h3'} className="flex min-w-0 max-w-full flex-wrap items-baseline gap-x-1 text-[30px] font-bold">
+            <span>{value}</span>
+            {unit && <span className="max-w-full break-words text-base">{unit}</span>}
           </Typography>
           {details && (
             <button
