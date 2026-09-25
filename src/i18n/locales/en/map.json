@@ -11,6 +11,8 @@
     "unavailableDescription": "This link is no longer valid or the submitted data is no longer available.",
     "deletedTitle": "Data deleted",
     "deletedDescription": "Your submitted data has been permanently deleted from the $t(municipality:dataSubmission.server).",
+    "receiptDescription": "Keep this deletion receipt secure. The complete receipt is required to prove the deletion of this specific submission later.",
+    "downloadReceipt": "Download deletion receipt",
     "cancelledTitle": "Deletion cancelled",
     "cancelledDescription": "Your submitted data has not been deleted.",
     "serviceErrorTitle": "Service temporarily unavailable",

@@ -219,6 +219,8 @@ Die Löschseite wird vom Public-Frontend angezeigt. Sie prüft beim Backend auss
 
 Nach erfolgreicher Prüfung werden der Einreichungsdatensatz und daraus abgeleitete personenbezogene Gebäudedaten aus der Produktivdatenbank gelöscht. Zugehörige Sicherungskopien werden nach Ablauf des regulären Backupzyklus von [Frist ergänzen] überschrieben beziehungsweise gelöscht.
 
+Nach der Löschung stellt die Anwendung einen Löschbeleg zum Download bereit. Der Beleg enthält eine zufällige Ereignis-ID, die Einreichungs-ID und ein zufälliges Prüfgeheimnis. Bewahren Sie ihn geschützt auf; nur mit dem vollständigen Beleg kann später nachgewiesen werden, dass diese konkrete Einreichung gelöscht wurde. Das Backend speichert die Einreichungs-ID und das Prüfgeheimnis nicht im Audit-Protokoll. Dort verbleiben nur Zeitpunkt, Aktionsart, Akteurstyp, Löschanzahl und ein nicht ohne den Beleg zuordenbarer kryptografischer Prüfwert. Die Aufbewahrungsfrist dieser Audit-Ereignisse beträgt [fachlich, rechtlich und betrieblich freizugebende Frist ergänzen].
+
 Bewahren Sie den Löschlink geschützt auf. Der Lösch-Token ist nicht mit einem Benutzerkonto verknüpft und kann bei Verlust nicht ohne Weiteres ersetzt werden.
 
 ## 10. PDF- und JSON-Export sowie Wiederherstellungslinks

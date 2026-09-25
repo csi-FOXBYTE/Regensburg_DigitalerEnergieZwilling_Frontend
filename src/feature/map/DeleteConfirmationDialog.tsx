@@ -4,6 +4,7 @@ import { Typography } from '@/components/ui/typography';
 import {
   checkSubmissionAvailability,
   deleteSubmission,
+  type DeletionReceipt,
   SubmissionUnavailableError,
 } from '@/lib/api/public';
 import {
@@ -49,6 +50,8 @@ export default function DeleteConfirmationDialog() {
   const [state, setState] = useState<State>(token ? 'checking' : 'unavailable');
   const [failedOperation, setFailedOperation] =
     useState<FailedOperation>('status');
+  const [deletionReceipt, setDeletionReceipt] =
+    useState<DeletionReceipt | null>(null);
   const deletionInFlight = useRef(false);
 
   const checkAvailability = useCallback(async () => {
@@ -89,7 +92,8 @@ export default function DeleteConfirmationDialog() {
     deletionInFlight.current = true;
     setState('deleting');
     try {
-      await deleteSubmission(token);
+      const receipt = await deleteSubmission(token);
+      setDeletionReceipt(receipt);
       setState('deleted');
     } catch (error) {
       if (error instanceof SubmissionUnavailableError) {
@@ -108,6 +112,19 @@ export default function DeleteConfirmationDialog() {
       <a href={`/${locale}`}>{t('deleteConfirmationDialog.openApplication')}</a>
     </Button>
   );
+
+  function downloadDeletionReceipt() {
+    if (!deletionReceipt) return;
+    const blob = new Blob([JSON.stringify(deletionReceipt, null, 2)], {
+      type: 'application/json',
+    });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = `deletion-receipt-${deletionReceipt.auditEventId}.json`;
+    anchor.click();
+    URL.revokeObjectURL(url);
+  }
 
   if (state === 'checking') {
     return (
@@ -223,6 +240,19 @@ export default function DeleteConfirmationDialog() {
         >
           {terminalContent.description}
         </Callout>
+        {state === 'deleted' && deletionReceipt && (
+          <div className="flex flex-col gap-3 rounded-lg border p-4 text-left">
+            <Typography variant="muted">
+              {t('deleteConfirmationDialog.receiptDescription')}
+            </Typography>
+            <Typography as="code" variant="small">
+              {deletionReceipt.auditEventId}
+            </Typography>
+            <Button variant="secondary" onClick={downloadDeletionReceipt}>
+              {t('deleteConfirmationDialog.downloadReceipt')}
+            </Button>
+          </div>
+        )}
         <div>{openApplication}</div>
       </div>
     </main>

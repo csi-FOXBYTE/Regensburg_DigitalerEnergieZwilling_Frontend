@@ -11,6 +11,8 @@
     "unavailableDescription": "Dieser Link ist nicht mehr gültig oder die eingereichten Daten sind nicht mehr verfügbar.",
     "deletedTitle": "Daten gelöscht",
     "deletedDescription": "Ihre eingereichten Daten wurden unwiderruflich vom $t(municipality:dataSubmission.server) gelöscht.",
+    "receiptDescription": "Bewahren Sie diesen Löschbeleg geschützt auf. Nur mit dem vollständigen Beleg lässt sich die Löschung dieser konkreten Einreichung später nachweisen.",
+    "downloadReceipt": "Löschbeleg herunterladen",
     "cancelledTitle": "Löschen abgebrochen",
     "cancelledDescription": "Ihre eingereichten Daten wurden nicht gelöscht.",
     "serviceErrorTitle": "Dienst vorübergehend nicht verfügbar",
